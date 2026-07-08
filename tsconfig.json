@@ -1,6 +1,17 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@shared/*": ["src/shared/*"],
+      // The GitHub-installed package ships only src/ (no built dist/ types), so
+      // point TS at its source. Metro already resolves it via the react-native field.
+      "react-native-layer-stack": [
+        "node_modules/react-native-layer-stack/src/index.ts"
+      ]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "declarations.d.ts"]
 }
