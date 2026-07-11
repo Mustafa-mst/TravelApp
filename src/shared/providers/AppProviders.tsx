@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import '@shared/i18n';
 import { QueryProvider } from './QueryProvider';
 
 type AppProvidersProps = {

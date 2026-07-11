@@ -39,6 +39,11 @@ export const typography = {
     fontWeight: '600',
     lineHeight: 26,
   },
+  bodyLargeMedium: {
+    fontSize: 16,
+    fontWeight: '500',
+    lineHeight: 20,
+  },
   bodyLarge: {
     fontSize: 16,
     fontWeight: '400',
@@ -53,6 +58,11 @@ export const typography = {
     fontSize: 14,
     fontWeight: '400',
     lineHeight: 20,
+  },
+  bodySmall: {
+    fontSize: 10,
+    fontWeight: '400',
+    lineHeight: 18,
   },
   caption: {
     fontSize: 12,

@@ -1,8 +1,4 @@
 export {
-  useGetCountryRevealsQuery,
-  countryRevealsKeys,
-} from "./useGetCountryRevealsQuery";
-export {
-  useGetDestinationsQuery,
-  destinationsKeys,
-} from "./useGetDestinations";
+  useGetCategoriesQuery,
+  categoriesKeys,
+} from "./useGetCategoriesQuery";

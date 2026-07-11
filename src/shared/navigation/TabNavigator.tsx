@@ -1,35 +1,43 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useTranslation } from "react-i18next";
 import { AccountScreen } from "@/features/auth";
 import { SearchScreen } from "@/features/search";
 import { HomeScreen } from "@/features/home";
-import { colors } from "@shared/styles";
-import { HomeIcon, ProfileIcon, SearchIcon } from "@shared/assets/icons";
+import { ItinerariesScreen } from "@/features/itinerary";
+import {
+  CalendarMonthIcon,
+  HomeIcon,
+  ProfileIcon,
+  SearchIcon,
+} from "@shared/assets/icons";
+import { BottomTabBar } from "./BottomTabBar";
 import type { TabParamList } from "./types";
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
+const iconMode = (focused: boolean, color: string) =>
+  focused
+    ? { fill: color, stroke: color }
+    : { fill: "none" as const, stroke: color };
+
 export function TabNavigator() {
+  const { t } = useTranslation();
+
   return (
     <Tab.Navigator
+      tabBar={(props) => <BottomTabBar {...props} />}
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.textMuted,
-        tabBarStyle: {
-          borderTopWidth: 0,
-          elevation: 0,
-          paddingTop: 8,
-        },
+        animation: "shift",
       }}
     >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          title: "Ana Sayfa",
-          tabBarIcon: ({ color }) => (
-            <HomeIcon width={40} height={40} fill={color} />
+          title: t("tabs.home"),
+          tabBarIcon: ({ focused, color, size }) => (
+            <HomeIcon width={size} height={size} {...iconMode(focused, color)} />
           ),
         }}
       />
@@ -37,9 +45,29 @@ export function TabNavigator() {
         name="Search"
         component={SearchScreen}
         options={{
-          title: "Ara",
-          tabBarIcon: ({ color }) => (
-            <SearchIcon width={20} height={20} color={color} />
+          title: t("tabs.search"),
+          tabBarIcon: ({ focused, color, size }) => (
+            <SearchIcon
+              width={size}
+              height={size}
+              fill="none"
+              stroke={color}
+              strokeWidth={focused ? 2.2 : 1.6}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Itineraries"
+        component={ItinerariesScreen}
+        options={{
+          title: t("tabs.itineraries"),
+          tabBarIcon: ({ focused, color, size }) => (
+            <CalendarMonthIcon
+              width={size}
+              height={size}
+              {...iconMode(focused, color)}
+            />
           ),
         }}
       />
@@ -47,9 +75,13 @@ export function TabNavigator() {
         name="Account"
         component={AccountScreen}
         options={{
-          title: "Hesap",
-          tabBarIcon: ({ color }) => (
-            <ProfileIcon width={40} height={40} fill={color} />
+          title: t("tabs.account"),
+          tabBarIcon: ({ focused, color, size }) => (
+            <ProfileIcon
+              width={size}
+              height={size}
+              {...iconMode(focused, color)}
+            />
           ),
         }}
       />

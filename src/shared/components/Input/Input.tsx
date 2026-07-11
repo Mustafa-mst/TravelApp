@@ -47,7 +47,7 @@ function InputComponent({
           <IconButton icon={leftIcon} onPress={() => onChangeText?.("")} />
         ) : null}
         <TextInput
-          placeholderTextColor={colors.textMuted}
+          placeholderTextColor={colors.textTertiary}
           style={[styles.input, !!value && styles.inputFilled, style]}
           value={value}
           onChangeText={onChangeText}

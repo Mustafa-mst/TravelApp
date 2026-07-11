@@ -1,53 +1,49 @@
-import { useMemo } from "react";
-import { View } from "react-native";
+import { useState } from "react";
+import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useFrontLayer } from "react-native-layer-stack";
-import { CurvedView } from "@shared/components";
-import type { BackTarget } from "@shared/navigation";
-import { CollectionsCarousel, HomeSignRow } from "../../components";
+import { useTranslation } from "react-i18next";
+import { Input, Text } from "@shared/components";
+import { SearchIcon } from "@shared/assets/icons";
+import { CategorySection, HomeSignRow, ItineraryCard } from "../../components";
 import { styles } from "./HomeScreen.styles";
-import {
-  CategoryList,
-  CountryPreviewList,
-  useGetCountryRevealsQuery,
-  useGetDestinationsQuery,
-} from "@/features/country";
-import { useGetCollectionsQuery } from "../../hooks/query";
+import { useGetCategoriesQuery } from "@/features/country";
 
 export function HomeScreen() {
-  const { open } = useFrontLayer<BackTarget>();
-  const { data: collections } = useGetCollectionsQuery();
-  const { data: countryReveals } = useGetCountryRevealsQuery();
-  const { data: destinations } = useGetDestinationsQuery();
+  const { t } = useTranslation();
+  const { data: categories } = useGetCategoriesQuery();
+  const [query, setQuery] = useState("");
 
-  const categories = useMemo(
-    () =>
-      (destinations ?? []).map(({ id, category, image_url }) => ({
-        id,
-        category,
-        image_url,
-      })),
-    [destinations],
-  );
-
-  const onPressCategory = (categoryId: string) => {
-    const selected = categories.find(({ id }) => String(id) === categoryId);
-    if (!selected) return;
-    open({ target: "categories", params: { category: selected.category } });
-  };
+  const category = categories?.[0];
 
   return (
     <SafeAreaView edges={["top"]} style={styles.safe}>
-      <CurvedView scrollable style={styles.curved}>
+      <ScrollView
+        style={styles.scrollArea}
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
+      >
         <View style={styles.header}>
-          <View style={styles.image}>
-            <CollectionsCarousel collections={collections ?? []} />
-          </View>
-          <HomeSignRow />
-          <CategoryList data={categories} onPressCategory={onPressCategory} />
-          <CountryPreviewList variant="reveal" data={countryReveals ?? []} />
+          <Text color="textPrimary" variant="h1">{t("home.title")}</Text>
         </View>
-      </CurvedView>
+
+        <HomeSignRow />
+
+        <View style={styles.itinerarySection}>
+          <ItineraryCard
+            title="İstanbul Gezisi"
+            location="İstanbul"
+            dateLabel="12–15 Tem"
+            members={[
+              { id: "1", name: "Mustafa" },
+              { id: "2", name: "Ayşe" },
+              { id: "3", name: "Can" },
+            ]}
+          />
+        </View>
+
+        {category && <CategorySection items={category.category_items ?? []} />}
+      </ScrollView>
     </SafeAreaView>
   );
 }

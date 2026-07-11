@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@shared/components';
 import { useAuthStore } from '../../store';
 import { useLogoutMutation } from '../../hooks';
@@ -11,6 +12,7 @@ import { styles } from './AccountScreen.styles';
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
 export function AccountScreen() {
+  const { t } = useTranslation();
   const navigation = useNavigation<Navigation>();
   const session = useAuthStore((state) => state.session);
   const { mutate: logout, isPending } = useLogoutMutation();
@@ -19,12 +21,12 @@ export function AccountScreen() {
     return (
       <SafeAreaView style={styles.safe}>
         <View style={styles.container}>
-          <Text style={styles.title}>Hesap</Text>
+          <Text style={styles.title}>{t('auth.accountTitle')}</Text>
           <Text style={styles.prompt}>
-            Devam etmek için giriş yapmalısın.
+            {t('auth.loginPrompt')}
           </Text>
           <Button
-            label="Giriş Yap"
+            label={t('auth.login')}
             onPress={() => navigation.navigate('Login')}
           />
         </View>
@@ -38,7 +40,7 @@ export function AccountScreen() {
         <Text style={styles.title}>{session.user.name}</Text>
         <Text style={styles.email}>{session.user.email}</Text>
         <Button
-          label="Çıkış Yap"
+          label={t('auth.logout')}
           variant="secondary"
           loading={isPending}
           onPress={() => logout()}

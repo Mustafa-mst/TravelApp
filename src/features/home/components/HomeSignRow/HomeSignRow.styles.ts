@@ -1,32 +1,33 @@
 import { StyleSheet } from "react-native";
-import { colors } from "@shared/styles";
+import { colors, radius, spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   signRow: {
-    paddingTop: 30,
     flexDirection: "row",
+    justifyContent: "space-between",
+    gap: spacing.sm,
+    paddingHorizontal: spacing.md,
   },
-  edge: {
-    width: 4,
-    marginVertical: 16,
-    backgroundColor: colors.textLight,
-  },
-  signList: {
+  tile: {
     flex: 1,
-    flexDirection: "row",
-    borderRadius: 4,
-    overflow: "hidden",
+    alignItems: "center",
+    gap: spacing.xs,
   },
-  signItem: {
-    flex: 1,
-    flexDirection: "row",
+  iconBox: {
+    padding: 24,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.white,
   },
-  signItemContent: {
-    flex: 1,
+  pressed: {
+    backgroundColor: colors.surface,
   },
-  divider: {
-    width: 1,
-    marginVertical: 12,
-    backgroundColor: "#FFCC00",
+  label: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: colors.text,
   },
 });

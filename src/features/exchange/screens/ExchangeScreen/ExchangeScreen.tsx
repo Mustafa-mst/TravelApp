@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { View } from "react-native";
+import { useTranslation } from "react-i18next";
 import { BackPanel, useBackLayer } from "react-native-layer-stack";
 
 import { BottomSheet, DropdownInput, Text } from "@shared/components";
@@ -20,6 +21,7 @@ import {
 type CurrencyField = "from" | "to";
 
 export function ExchangeScreen() {
+  const { t } = useTranslation();
   const { close } = useBackLayer();
   const sheetRef = useRef<BottomSheet>(null);
 
@@ -103,25 +105,25 @@ export function ExchangeScreen() {
     return {
       rateLabel: `1 ${fromCurrency.label} = ${formatExchangeAmount(unitRate)} ${toCurrency.label}`,
       updatedLabel: latestUpdate
-        ? `Last updated: ${formatRateUpdatedAt(latestUpdate)}`
+        ? t("exchange.lastUpdated", { time: formatRateUpdatedAt(latestUpdate) })
         : null,
     };
-  }, [fromCurrency, toCurrency, rates]);
+  }, [fromCurrency, toCurrency, rates, t]);
 
   return (
     <BackPanel>
       <View style={styles.container}>
         <BackLayerTitle
           icon={<CurrencyIcon width={27} height={27} />}
-          title="Exchange"
+          title={t("exchange.title")}
           onPress={close}
         />
 
         <DropdownInput
-          label="From"
+          label={t("exchange.from")}
           selectedItem={fromCurrency}
           dropdownPlaceholder={{
-            label: "Currency",
+            label: t("exchange.currency"),
             icon: <CurrencyIcon width={18} height={18} />,
           }}
           isOpen={isSheetOpen && activeField === "from"}
@@ -133,10 +135,10 @@ export function ExchangeScreen() {
         />
 
         <DropdownInput
-          label="To"
+          label={t("exchange.to")}
           selectedItem={toCurrency}
           dropdownPlaceholder={{
-            label: "Currency",
+            label: t("exchange.currency"),
             icon: <CurrencyIcon width={18} height={18} />,
           }}
           isOpen={isSheetOpen && activeField === "to"}
@@ -163,7 +165,7 @@ export function ExchangeScreen() {
 
       <BottomSheet
         ref={sheetRef}
-        header={<Text variant="h5">Select currency</Text>}
+        header={<Text variant="h5">{t("exchange.selectCurrency")}</Text>}
         onChange={(index) => setIsSheetOpen(index >= 0)}
       >
         <ExchangeSheetList

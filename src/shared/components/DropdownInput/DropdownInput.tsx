@@ -6,6 +6,7 @@ import {
   View,
   type TextInputProps,
 } from "react-native";
+import { useTranslation } from "react-i18next";
 import { ArrowDownMiniIcon, ArrowUpMiniIcon } from "@shared/assets/icons";
 import { colors } from "@shared/styles";
 import type { DropdownItem } from "@shared/types";
@@ -24,7 +25,7 @@ function DropdownInputComponent({
   label,
   error,
   selectedItem,
-  dropdownPlaceholder = { label: "Select" },
+  dropdownPlaceholder,
   onPressDropdown,
   isOpen = false,
   value,
@@ -32,7 +33,9 @@ function DropdownInputComponent({
   style,
   ...rest
 }: DropdownInputProps) {
-  const shown = selectedItem ?? dropdownPlaceholder;
+  const { t } = useTranslation();
+  const placeholder = dropdownPlaceholder ?? { label: t("common.select") };
+  const shown = selectedItem ?? placeholder;
   const isPlaceholder = !selectedItem;
 
   return (

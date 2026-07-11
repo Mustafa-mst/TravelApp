@@ -5,21 +5,21 @@ export const styles = StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: colors.background,
+    gap: 16,
   },
-  curved: {
+  scrollArea: {
     flex: 1,
   },
   scrollContent: {
     gap: spacing.md,
-    paddingBottom: spacing.xl,
+    paddingBottom: spacing.xxl,
   },
   header: {
+    gap: spacing.xs,
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.md,
   },
-  image: {
-    width: "100%",
-    aspectRatio: 390 / 240,
-    borderBottomEndRadius: 36,
-    borderBottomStartRadius: 36,
-    overflow: "hidden",
+  itinerarySection: {
+    paddingHorizontal: spacing.md,
   },
 });

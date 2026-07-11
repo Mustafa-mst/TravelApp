@@ -1,1 +1,0 @@
-export { CategoriesNavigator } from "./CategoriesNavigator";

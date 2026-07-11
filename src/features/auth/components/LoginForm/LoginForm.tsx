@@ -1,9 +1,10 @@
-import { memo } from 'react';
-import { View } from 'react-native';
-import { Controller, type UseFormReturn } from 'react-hook-form';
-import { Button, Input } from '@shared/components';
-import type { LoginFormValues } from '../../schemas';
-import { styles } from './LoginForm.styles';
+import { memo } from "react";
+import { View } from "react-native";
+import { Controller, type UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { Button, Input } from "@shared/components";
+import type { LoginFormValues } from "../../schemas";
+import { styles } from "./LoginForm.styles";
 
 type LoginFormProps = {
   form: UseFormReturn<LoginFormValues>;
@@ -12,6 +13,7 @@ type LoginFormProps = {
 };
 
 function LoginFormComponent({ form, onSubmit, isSubmitting }: LoginFormProps) {
+  const { t } = useTranslation();
   const {
     control,
     formState: { errors },
@@ -24,7 +26,7 @@ function LoginFormComponent({ form, onSubmit, isSubmitting }: LoginFormProps) {
         name="email"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            label="E-posta"
+            label={t("auth.email")}
             keyboardType="email-address"
             autoCapitalize="none"
             value={value}
@@ -40,7 +42,7 @@ function LoginFormComponent({ form, onSubmit, isSubmitting }: LoginFormProps) {
         name="password"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            label="Şifre"
+            label={t("auth.password")}
             secureTextEntry
             value={value}
             onChangeText={onChange}
@@ -50,7 +52,11 @@ function LoginFormComponent({ form, onSubmit, isSubmitting }: LoginFormProps) {
         )}
       />
 
-      <Button label="Giriş Yap" loading={isSubmitting} onPress={onSubmit} />
+      <Button
+        label={t("auth.login")}
+        loading={isSubmitting}
+        onPress={onSubmit}
+      />
     </View>
   );
 }
