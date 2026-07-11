@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
-import { radius, shadows, spacing } from "@shared/styles";
+import { colors, radius, shadows, spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   card: {
+    backgroundColor: colors.white,
     borderRadius: radius.lg,
     overflow: "hidden",
     ...shadows.level2,
@@ -14,37 +15,29 @@ export const styles = StyleSheet.create({
 
   image: {
     width: "100%",
+    aspectRatio: 4 / 3,
   },
-  blur: {
-    flex: 1,
-    padding: spacing.sm,
-    gap: 8,
-  },
-
-  footer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: spacing.sm,
-    overflow: "hidden",
-  },
-  footerTexts: {
-    flexShrink: 1,
-    overflow: "hidden",
-  },
-  title: {
-    flexShrink: 1,
-  },
-  location: {
-    flexShrink: 1,
-  },
-  newItineraryButton: {
+  badge: {
+    position: "absolute",
+    top: spacing.sm,
+    left: spacing.sm,
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    paddingVertical: spacing.xs + 2,
+    backgroundColor: colors.accent,
+    paddingVertical: spacing.xs,
     paddingHorizontal: spacing.sm,
     borderRadius: radius.md,
+  },
+  badgeDot: {
+    width: 6,
+    height: 6,
+    borderRadius: radius.full,
+    backgroundColor: colors.white,
+  },
+
+  body: {
+    padding: spacing.md,
+    gap: spacing.xs,
   },
 });
