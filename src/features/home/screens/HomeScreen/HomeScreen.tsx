@@ -42,7 +42,12 @@ export function HomeScreen() {
           />
         </View>
 
-        {category && <CategorySection items={category.category_items ?? []} />}
+        {category && (
+          <CategorySection
+            items={category.category_items ?? []}
+            categoryLabel={category.category}
+          />
+        )}
       </ScrollView>
     </SafeAreaView>
   );

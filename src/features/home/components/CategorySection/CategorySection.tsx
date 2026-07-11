@@ -9,9 +9,13 @@ import { styles } from "./CategorySection.styles";
 
 export type CategorySectionProps = {
   items: CategoryItem[];
+  categoryLabel?: string;
 };
 
-function CategorySectionComponent({ items }: CategorySectionProps) {
+function CategorySectionComponent({
+  items,
+  categoryLabel,
+}: CategorySectionProps) {
   const { t } = useTranslation();
 
   if (items.length === 0) {
@@ -34,6 +38,7 @@ function CategorySectionComponent({ items }: CategorySectionProps) {
             title={item.title}
             location={item.subtitle}
             image={item.image_url}
+            category={categoryLabel}
           />
         )}
       />
