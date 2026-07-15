@@ -47,7 +47,7 @@ export type CountryPlugDataType = {
   frequency: string;
 };
 export type CountryType = {
-  id: string;
+  id: number;
   name: CountryNameType;
   description: CountryDescriptionType;
   cca2: string;

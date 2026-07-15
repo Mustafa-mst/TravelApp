@@ -2,7 +2,10 @@ import { useCallback, type ReactElement } from "react";
 import { FlatList, View, type ListRenderItem } from "react-native";
 import { useCarousel } from "@shared/hooks";
 import { ProgressSegment } from "./ProgressSegment";
+import { Dots } from "./Dots";
 import { styles } from "./Carousel.styles";
+
+type CarouselIndicator = "progress" | "dots";
 
 type CarouselProps<T> = {
   data: T[];
@@ -10,6 +13,7 @@ type CarouselProps<T> = {
   renderItem: (item: T, index: number) => ReactElement | null;
   keyExtractor?: (item: T, index: number) => string;
   interval?: number;
+  indicator?: CarouselIndicator;
 };
 
 export function Carousel<T>({
@@ -17,6 +21,7 @@ export function Carousel<T>({
   renderItem,
   keyExtractor,
   interval = 3000,
+  indicator = "progress",
 }: CarouselProps<T>) {
   const {
     activeIndex,
@@ -31,6 +36,8 @@ export function Carousel<T>({
     isPaused,
     goToNext,
   } = useCarousel<T>(data.length);
+
+  const autoPlay = indicator === "progress";
 
   const renderSlide: ListRenderItem<T> = useCallback(
     ({ item, index }) => (
@@ -56,23 +63,27 @@ export function Carousel<T>({
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
         getItemLayout={getItemLayout}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-        onTouchCancel={onTouchEnd}
+        onTouchStart={autoPlay ? onTouchStart : undefined}
+        onTouchEnd={autoPlay ? onTouchEnd : undefined}
+        onTouchCancel={autoPlay ? onTouchEnd : undefined}
       />
 
-      <View style={styles.progress}>
-        {data.map((_, index) => (
-          <ProgressSegment
-            key={index}
-            isActive={index === activeIndex}
-            isFilled={index < activeIndex}
-            duration={interval}
-            isPaused={isPaused}
-            onComplete={goToNext}
-          />
-        ))}
-      </View>
+      {autoPlay ? (
+        <View style={styles.progress}>
+          {data.map((_, index) => (
+            <ProgressSegment
+              key={index}
+              isActive={index === activeIndex}
+              isFilled={index < activeIndex}
+              duration={interval}
+              isPaused={isPaused}
+              onComplete={goToNext}
+            />
+          ))}
+        </View>
+      ) : (
+        <Dots count={data.length} activeIndex={activeIndex} />
+      )}
     </View>
   );
 }

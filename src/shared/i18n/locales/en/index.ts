@@ -69,12 +69,42 @@ const en = {
     empty: "You don't have any itineraries yet.",
   },
   exchange: {
-    title: "Exchange",
-    from: "From",
-    to: "To",
-    currency: "Currency",
     lastUpdated: "Last updated: {{time}}",
     selectCurrency: "Select currency",
+    liveRate: "Live exchange rate",
+    amount: "Amount",
+    converted: "Converted",
+    referenceOnly: "Rates are for reference only",
+  },
+  country: {
+    seeMore: "See more",
+    createItinerary: "Create Itinerary",
+    sections: {
+      thingsToDo: {
+        title: "Things to do",
+        subtitle: "Nature, Adventures, Culture, Shopping",
+      },
+      destinations: {
+        title: "Main travel destinations",
+        subtitle: "Main cities & attractions",
+      },
+      bestTime: {
+        title: "Best time to travel",
+        subtitle: "Travel periods",
+      },
+      food: {
+        title: "Food",
+        subtitle: "Must try food items",
+      },
+      exchange: {
+        title: "Exchange",
+        subtitle: "Currency & exchange rates",
+      },
+      transport: {
+        title: "Transport",
+        subtitle: "Getting around the country",
+      },
+    },
   },
 };
 

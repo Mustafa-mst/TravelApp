@@ -1,7 +1,7 @@
-export { RootNavigator } from './RootNavigator';
+export { RootNavigator } from "./RootNavigator";
 export type {
   RootStackParamList,
   TabParamList,
   BackTarget,
   ExchangeStackParamList,
-} from './types';
+} from "./types";

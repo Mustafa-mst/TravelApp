@@ -4,6 +4,11 @@ export const typography = {
     fontWeight: '700',
     lineHeight: 44,
   },
+  displaySemiBold: {
+    fontSize: 40,
+    fontWeight: '600',
+    lineHeight: 44,
+  },
   h1: {
     fontSize: 32,
     fontWeight: '700',
@@ -67,6 +72,11 @@ export const typography = {
   caption: {
     fontSize: 12,
     fontWeight: '400',
+    lineHeight: 18,
+  },
+  captionMedium: {
+    fontSize: 12,
+    fontWeight: '500',
     lineHeight: 18,
   },
 } as const;

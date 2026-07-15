@@ -3,7 +3,6 @@ import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   BottomSheet as ExpoBottomSheet,
-  BottomSheetView,
   type BottomSheetMethods,
 } from "@expo/ui/community/bottom-sheet";
 
@@ -47,15 +46,13 @@ export function BottomSheet({
       onChange={onChange}
       backgroundStyle={styles.background}
     >
-      <BottomSheetView style={styles.sheet}>
-        <View style={styles.header}>
-          <View style={styles.indicator} />
-          {header}
-        </View>
-        <View style={[styles.content, { paddingBottom: insets.bottom }]}>
-          {children}
-        </View>
-      </BottomSheetView>
+      <View style={styles.header}>
+        <View style={styles.indicator} />
+        {header}
+      </View>
+      <View style={[styles.content, { paddingBottom: insets.bottom }]}>
+        {children}
+      </View>
     </ExpoBottomSheet>
   );
 }

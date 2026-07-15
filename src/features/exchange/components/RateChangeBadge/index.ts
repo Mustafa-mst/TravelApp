@@ -1,0 +1,1 @@
+export { RateChangeBadge } from "./RateChangeBadge";

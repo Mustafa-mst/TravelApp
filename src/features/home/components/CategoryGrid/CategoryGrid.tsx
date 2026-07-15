@@ -1,10 +1,12 @@
-import { type ComponentType, memo } from "react";
+import { type ComponentType, memo, useMemo } from "react";
 import { View } from "react-native";
 import { type SvgProps } from "react-native-svg";
 import { useTranslation } from "react-i18next";
 import type { ParseKeys } from "i18next";
+import { useFrontLayer } from "react-native-layer-stack";
 
 import { PressableScale, Text } from "@shared/components";
+import type { BackTarget } from "@shared/navigation";
 import { colors } from "@shared/styles";
 import {
   BookmarkIcon,
@@ -41,9 +43,22 @@ function CategoryGridComponent({
   onMorePress,
 }: CategoryGridProps) {
   const { t } = useTranslation();
+  const { open } = useFrontLayer<BackTarget>();
 
-  const visible = items.slice(0, MAX_VISIBLE);
-  const remaining = items.length - visible.length;
+  // Wire default tiles that open a back layer (e.g. Exchange) unless the caller
+  // provided its own items with explicit handlers.
+  const resolvedItems = useMemo(
+    () =>
+      items.map((item) =>
+        item.id === "exchange" && !item.onPress
+          ? { ...item, onPress: () => open({ target: "exchange" }) }
+          : item,
+      ),
+    [items, open],
+  );
+
+  const visible = resolvedItems.slice(0, MAX_VISIBLE);
+  const remaining = resolvedItems.length - visible.length;
 
   return (
     <View style={styles.card}>

@@ -69,12 +69,42 @@ const tr = {
     empty: "Henüz bir gezi planın yok.",
   },
   exchange: {
-    title: "Döviz",
-    from: "Kimden",
-    to: "Kime",
-    currency: "Para Birimi",
     lastUpdated: "Son güncelleme: {{time}}",
     selectCurrency: "Para birimi seç",
+    liveRate: "Canlı döviz kuru",
+    amount: "Tutar",
+    converted: "Karşılığı",
+    referenceOnly: "Kurlar yalnızca referans amaçlıdır",
+  },
+  country: {
+    seeMore: "Daha fazla",
+    createItinerary: "Gezi Planı Oluştur",
+    sections: {
+      thingsToDo: {
+        title: "Yapılacaklar",
+        subtitle: "Doğa, Maceralar, Kültür, Alışveriş",
+      },
+      destinations: {
+        title: "Başlıca gezi noktaları",
+        subtitle: "Önemli şehirler ve gezilecek yerler",
+      },
+      bestTime: {
+        title: "Gezmek için en iyi zaman",
+        subtitle: "Seyahat dönemleri",
+      },
+      food: {
+        title: "Yemek",
+        subtitle: "Mutlaka denenmesi gereken lezzetler",
+      },
+      exchange: {
+        title: "Döviz",
+        subtitle: "Para birimi ve döviz kurları",
+      },
+      transport: {
+        title: "Ulaşım",
+        subtitle: "Ülke içinde ulaşım",
+      },
+    },
   },
 };
 

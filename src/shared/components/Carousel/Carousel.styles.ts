@@ -5,6 +5,8 @@ export const ACTIVE_SEGMENT_WIDTH = 50;
 export const INACTIVE_SEGMENT_WIDTH = 20;
 export const SEGMENT_HEIGHT = 6;
 export const SEGMENT_RADIUS = 20;
+export const DOT_SIZE = 7;
+export const DOT_GAP = 6;
 
 export const styles = StyleSheet.create({
   container: {
@@ -34,6 +36,33 @@ export const styles = StyleSheet.create({
   fill: {
     height: "100%",
     borderRadius: SEGMENT_RADIUS,
+    backgroundColor: colors.white,
+  },
+  dots: {
+    position: "absolute",
+    bottom: 12,
+    alignSelf: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: DOT_GAP,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: SEGMENT_RADIUS,
+    backgroundColor: colors.overlayScrim,
+  },
+  dot: {
+    width: DOT_SIZE,
+    height: DOT_SIZE,
+    borderRadius: DOT_SIZE / 2,
+    backgroundColor: colors.white,
+    opacity: 0.5,
+  },
+  activeDot: {
+    position: "absolute",
+    left: 10,
+    width: DOT_SIZE,
+    height: DOT_SIZE,
+    borderRadius: DOT_SIZE / 2,
     backgroundColor: colors.white,
   },
 });
