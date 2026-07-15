@@ -69,12 +69,12 @@ const en = {
     empty: "You don't have any itineraries yet.",
   },
   exchange: {
-    title: "Exchange",
-    from: "From",
-    to: "To",
-    currency: "Currency",
     lastUpdated: "Last updated: {{time}}",
     selectCurrency: "Select currency",
+    liveRate: "Live exchange rate",
+    amount: "Amount",
+    converted: "Converted",
+    referenceOnly: "Rates are for reference only",
   },
   country: {
     seeMore: "See more",

@@ -2,9 +2,6 @@ import { StyleSheet } from "react-native";
 import { colors } from "@shared/styles";
 
 export const styles = StyleSheet.create({
-  sheet: {
-    flex: 1,
-  },
   background: {
     backgroundColor: colors.grey200,
   },

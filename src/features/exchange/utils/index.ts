@@ -1,6 +1,5 @@
 export {
   applyExchangeConversion,
-  convertExchangeAmount,
   formatExchangeAmount,
   formatRateUpdatedAt,
   getLatestRateUpdate,

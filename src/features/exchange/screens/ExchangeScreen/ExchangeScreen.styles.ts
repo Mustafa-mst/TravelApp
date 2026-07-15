@@ -1,29 +1,55 @@
 import { StyleSheet } from "react-native";
-import { colors, spacing } from "@shared/styles";
+import { colors, radius, shadows, spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
-  container: {
+  scroll: {
     flex: 1,
-    gap: spacing.md - 4,
   },
-  info: {
-    gap: spacing.xs / 2,
-    paddingHorizontal: spacing.xs,
+  container: {
+    paddingBottom: spacing.xl,
+    gap: 16,
   },
-  options: {
-    gap: spacing.xs,
-  },
-  option: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingVertical: spacing.md - 4,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.borderMuted,
-  },
-  optionText: {
-    flexDirection: "row",
+
+  // Rate hero
+  hero: {
     alignItems: "center",
     gap: spacing.xs,
+  },
+  heroRate: {
+    fontSize: 56,
+    lineHeight: 64,
+    marginTop: spacing.sm,
+  },
+  heroRateRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: spacing.sm,
+  },
+
+  converterWrap: {
+    position: "relative",
+  },
+  converterCard: {
+    backgroundColor: colors.white,
+    padding: spacing.md,
+    gap: 16,
+    ...shadows.level1,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: colors.border,
+  },
+  swapButton: {
+    position: "absolute",
+    top: "50%",
+    alignSelf: "center",
+    marginTop: -20,
+    width: 40,
+    height: 40,
+    borderRadius: radius.full,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.white,
   },
 });
