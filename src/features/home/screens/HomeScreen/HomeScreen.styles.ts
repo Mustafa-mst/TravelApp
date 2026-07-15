@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { colors, spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   safe: {
@@ -31,11 +31,6 @@ export const styles = StyleSheet.create({
   },
   heroSubtitle: {
     color: "rgba(255, 255, 255, 0.9)",
-  },
-  search: {
-    backgroundColor: colors.white,
-    borderColor: colors.white,
-    borderRadius: radius.full,
   },
   block: {
     paddingHorizontal: spacing.md,

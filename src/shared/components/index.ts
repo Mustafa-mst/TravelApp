@@ -18,7 +18,6 @@ export {
   type ActionSheetProps,
   type SheetAction,
 } from "./ActionSheet";
-export { DropdownInput } from "./DropdownInput";
 export {
   PillGroup,
   type PillGroupProps,
