@@ -20,3 +20,6 @@ export { default as CalendarMonthIcon } from "./calendar_month.svg";
 export { default as StarIcon } from "./star.svg";
 export { default as BookmarkIcon } from "./bookmark.svg";
 export { default as MoreVerticalIcon } from "./more_vertical.svg";
+export { default as LocationIcon } from "./location.svg";
+export { default as RestaurantsIcon } from "./restaurants.svg";
+export { default as LeafIcon } from "./leaf.svg";

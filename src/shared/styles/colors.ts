@@ -31,6 +31,7 @@ export const colors = {
   success: "#008635",
   white: "#FFFFFF",
   progressTrack: "#FCFAF666",
+  overlayScrim: "#00000040",
   neutral: "#FCFCFC",
   transparent: "transparent",
 

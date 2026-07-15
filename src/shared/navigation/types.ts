@@ -10,6 +10,9 @@ export type TabParamList = {
 export type RootStackParamList = {
   Tabs: NavigatorScreenParams<TabParamList>;
   Login: undefined;
+  CountryDetail: {
+    countryCode: string;
+  };
 };
 
 export type BackTarget = { target: "exchange"; params?: undefined };

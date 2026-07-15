@@ -69,6 +69,11 @@ export const typography = {
     fontWeight: '400',
     lineHeight: 18,
   },
+  captionMedium: {
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 18,
+  },
 } as const;
 
 export type TypographyVariant = keyof typeof typography;
