@@ -9,7 +9,7 @@ import { colors } from '@shared/styles';
 import { buttonColors, styles } from './Button.styles';
 
 type ButtonType = 'primary' | 'secondary' | 'warning' | 'danger';
-type ButtonState = 'loading' | 'done' | 'disabled';
+type ButtonState = 'loading' | 'disabled';
 
 type ButtonProps = {
   label: string;
@@ -30,7 +30,6 @@ function ButtonComponent({
 }: ButtonProps) {
   const isDisabled = state === 'disabled';
   const isLoading = state === 'loading';
-  const isDone = state === 'done';
 
   const palette = buttonColors[type];
   // Outlined: transparent background, the type color becomes border + content color.
@@ -57,9 +56,6 @@ function ButtonComponent({
     >
       {isLoading ? (
         <ActivityIndicator color={tone} />
-      ) : isDone ? (
-        // done: render only the done icon here
-        <>{/* <DoneIcon color={tone} /> */}</>
       ) : (
         <Text style={[styles.label, { color: tone }]}>{label}</Text>
       )}
