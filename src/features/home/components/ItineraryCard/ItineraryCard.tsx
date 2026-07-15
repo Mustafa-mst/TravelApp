@@ -1,11 +1,25 @@
-import { memo } from "react";
-import { Pressable, View } from "react-native";
+import { memo, useRef } from "react";
+import { View } from "react-native";
+import { Image } from "expo-image";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 
-import { Avatar, Text } from "@shared/components";
+import {
+  ActionSheet,
+  Avatar,
+  BottomSheet,
+  IconButton,
+  type SheetAction,
+  Text,
+} from "@shared/components";
+import { backgroundImage } from "@shared/assets/images";
+import {
+  MoreVerticalIcon,
+  PenIcon,
+  ShareIcon,
+  TrashBin,
+} from "@/shared/assets/icons";
 import { styles } from "./ItineraryCard.styles";
-import { PenIcon, ShareIcon, UserSearchIcon } from "@/shared/assets/icons";
 
 export type ItineraryMember = {
   id: string | number;
@@ -19,16 +33,13 @@ export type ItineraryCardProps = {
   dateLabel: string;
   members?: ItineraryMember[];
   onShare?: () => void;
-  onInvite?: () => void;
   onEdit?: () => void;
+  onDelete?: () => void;
 };
 
 const MAX_VISIBLE_AVATARS = 3;
 
-function buildMembersLabel(
-  members: ItineraryMember[],
-  t: TFunction,
-): string {
+function buildMembersLabel(members: ItineraryMember[], t: TFunction): string {
   if (members.length === 0) {
     return "";
   }
@@ -56,75 +67,109 @@ function ItineraryCardComponent({
   dateLabel,
   members = [],
   onShare,
-  onInvite,
   onEdit,
+  onDelete,
 }: ItineraryCardProps) {
   const { t } = useTranslation();
+  const sheetRef = useRef<BottomSheet>(null);
   const visibleMembers = members.slice(0, MAX_VISIBLE_AVATARS);
 
+  const actions: SheetAction[] = [
+    {
+      id: "edit",
+      label: t("home.edit"),
+      description: t("home.actionSheet.editDesc"),
+      Icon: PenIcon,
+      onPress: onEdit,
+    },
+    {
+      id: "share",
+      label: t("home.shareTrip"),
+      description: t("home.actionSheet.shareDesc"),
+      Icon: ShareIcon,
+      onPress: onShare,
+    },
+    {
+      id: "delete",
+      label: t("home.deleteTrip"),
+      description: t("home.actionSheet.deleteDesc"),
+      Icon: TrashBin,
+      onPress: onDelete,
+      destructive: true,
+    },
+  ];
+
   return (
-    <View style={styles.card}>
-      <Text variant="caption" color="textTertiary" style={styles.meta}>
-        {`${location} · ${dateLabel}`}
-      </Text>
+    <>
+      <View style={styles.card}>
+        <Image
+          source={backgroundImage}
+          style={styles.backgroundImage}
+          contentFit="cover"
+        />
+        <View style={styles.scrim} />
 
-      <Text variant="h3" color="text" numberOfLines={1} style={styles.title}>
-        {title}
-      </Text>
-
-      {members.length > 0 && (
-        <View style={styles.membersRow}>
-          <View style={styles.avatars}>
-            {visibleMembers.map((member, index) => (
-              <View
-                key={member.id}
-                style={[styles.avatarWrap, index > 0 && styles.avatarOverlap]}
-              >
-                <Avatar uri={member.avatar} fallback={member.name} size="sm" />
-              </View>
-            ))}
+        <View style={styles.content}>
+          <View style={styles.topRow}>
+            <Text variant="caption" color="white" style={styles.meta}>
+              {`${location} · ${dateLabel}`}
+            </Text>
+            <IconButton
+              hitSlop={8}
+              style={styles.moreButton}
+              onPress={() => sheetRef.current?.present()}
+              icon={<MoreVerticalIcon width={20} height={20} color="#FFFFFF" />}
+            />
           </View>
-          <Text
-            variant="bodyMedium"
-            color="textTertiary"
-            numberOfLines={1}
-            style={styles.membersLabel}
-          >
-            {buildMembersLabel(members, t)}
-          </Text>
-        </View>
-      )}
 
-      <View style={styles.actions}>
-        <Pressable
-          style={({ pressed }) => [styles.action, pressed && styles.pressed]}
-          onPress={onShare}
-        >
-          <ShareIcon width={14} height={14} />
-          <Text variant="caption" color="text">
-            {t("home.shareTrip")}
+          <Text
+            variant="h3"
+            color="white"
+            numberOfLines={1}
+            style={styles.title}
+          >
+            {title}
           </Text>
-        </Pressable>
-        <Pressable
-          style={({ pressed }) => [styles.action, pressed && styles.pressed]}
-          onPress={onInvite}
-        >
-          <UserSearchIcon width={14} height={14} />
-          <Text variant="caption" color="text">
-            {t("home.inviteFriends")}
-          </Text>
-        </Pressable>
-        <Pressable
-          style={({ pressed }) => [styles.action, pressed && styles.pressed]}
-          onPress={onEdit}
-        >
-          <PenIcon width={12} height={12} />
-          <Text variant="caption" color="text">
-            {t("home.edit")}
-          </Text>
-        </Pressable>
+
+          {members.length > 0 && (
+            <View style={styles.membersRow}>
+              <View style={styles.avatars}>
+                {visibleMembers.map((member, index) => (
+                  <View
+                    key={member.id}
+                    style={[
+                      styles.avatarWrap,
+                      index > 0 && styles.avatarOverlap,
+                    ]}
+                  >
+                    <Avatar
+                      uri={member.avatar}
+                      fallback={member.name}
+                      size="sm"
+                    />
+                  </View>
+                ))}
+              </View>
+              <Text
+                variant="bodyMedium"
+                color="white"
+                numberOfLines={1}
+                style={styles.membersLabel}
+              >
+                {buildMembersLabel(members, t)}
+              </Text>
+            </View>
+          )}
+        </View>
       </View>
-    </View>
+
+      <ActionSheet
+        ref={sheetRef}
+        actions={actions}
+        header={<Text variant="h4">{title}</Text>}
+        onSelect={() => sheetRef.current?.close()}
+      />
+    </>
   );
 }
 

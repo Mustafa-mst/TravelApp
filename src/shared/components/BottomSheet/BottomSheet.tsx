@@ -1,5 +1,6 @@
 import { type ReactNode, type Ref } from "react";
 import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   BottomSheet as ExpoBottomSheet,
   BottomSheetView,
@@ -8,20 +9,21 @@ import {
 
 import { styles } from "./BottomSheet.styles";
 
-// On Android this maps to a Material3 ModalBottomSheet with only two states:
-// partial (~50%) and fully expanded. The library treats a *single* snap point as
-// "skip the partial state" (skipPartiallyExpanded=true), which forces the sheet
-// straight to full screen. Providing two snap points keeps the partial state
-// enabled so the sheet opens at the lower snap point instead of full screen.
-// See node_modules/@expo/ui/src/community/bottom-sheet/BottomSheet.android.tsx.
-const DEFAULT_SNAP_POINTS = ["60%", "90%"];
-
+// Snap-point behavior across platforms (see @expo/ui .../bottom-sheet):
+//   - No snap points at all  → enableDynamicSizing kicks in and the sheet sizes
+//     to its content (fitToContents on Android, medium/large-free detent on iOS).
+//   - A *single* snap point   → Android sets skipPartiallyExpanded=true, forcing
+//     the sheet straight to full screen. Avoid this.
+//   - Two or more snap points → fixed snap states.
+// Default to dynamic sizing (undefined) so the sheet hugs its content; callers
+// pass snapPoints only when they need a fixed height.
 export type BottomSheet = BottomSheetMethods;
 
 export type BottomSheetProps = {
   ref?: Ref<BottomSheetMethods>;
   header?: ReactNode;
   children: ReactNode;
+  /** Omit for content-hugging dynamic sizing. Pass 2+ points for fixed heights. */
   snapPoints?: (string | number)[];
   onChange?: (index: number) => void;
 };
@@ -30,9 +32,11 @@ export function BottomSheet({
   ref,
   header,
   children,
-  snapPoints = DEFAULT_SNAP_POINTS,
+  snapPoints,
   onChange,
 }: BottomSheetProps) {
+  const insets = useSafeAreaInsets();
+
   return (
     <ExpoBottomSheet
       ref={ref}
@@ -48,7 +52,9 @@ export function BottomSheet({
           <View style={styles.indicator} />
           {header}
         </View>
-        <View style={styles.content}>{children}</View>
+        <View style={[styles.content, { paddingBottom: insets.bottom }]}>
+          {children}
+        </View>
       </BottomSheetView>
     </ExpoBottomSheet>
   );

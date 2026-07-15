@@ -7,8 +7,17 @@ export { Modal } from "./Modal";
 export { Avatar } from "./Avatar";
 export { Text } from "./Text";
 export { IconButton } from "./IconButton";
+export {
+  PressableScale,
+  type PressableScaleProps,
+} from "./PressableScale";
 export { CategoryCard } from "./CategoryCard";
 export { BottomSheet, type BottomSheetProps } from "./BottomSheet";
+export {
+  ActionSheet,
+  type ActionSheetProps,
+  type SheetAction,
+} from "./ActionSheet";
 export { DropdownInput } from "./DropdownInput";
 export {
   PillGroup,

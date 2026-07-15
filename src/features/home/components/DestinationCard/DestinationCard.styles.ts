@@ -3,41 +3,41 @@ import { colors, radius, shadows, spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.white,
+    aspectRatio: 1.35,
     borderRadius: radius.lg,
     overflow: "hidden",
+    justifyContent: "center",
     ...shadows.level2,
   },
-  cardPressed: {
-    opacity: 0.9,
-    transform: [{ scale: 0.99 }],
-  },
-
   image: {
+    ...StyleSheet.absoluteFill,
     width: "100%",
-    aspectRatio: 4 / 3,
+    height: "100%",
   },
-  badge: {
+  gradient: {
+    ...StyleSheet.absoluteFill,
+  },
+  favorite: {
     position: "absolute",
     top: spacing.sm,
-    left: spacing.sm,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    backgroundColor: colors.accent,
-    paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.sm,
-    borderRadius: radius.md,
-  },
-  badgeDot: {
-    width: 6,
-    height: 6,
+    right: spacing.sm,
+    width: 36,
+    height: 36,
     borderRadius: radius.full,
     backgroundColor: colors.white,
   },
-
   body: {
     padding: spacing.md,
-    gap: spacing.xs,
+    alignSelf: "flex-end",
+    alignItems: "flex-end",
+    maxWidth: "70%",
+    gap: 2,
+  },
+  title: {
+    textAlign: "right",
+  },
+  subtitle: {
+    opacity: 0.9,
+    textAlign: "right",
   },
 });

@@ -1,18 +1,36 @@
 import { StyleSheet } from "react-native";
-import { colors, radius, shadows, spacing } from "@shared/styles";
+import { radius, shadows, spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   card: {
-    marginHorizontal: spacing.md,
+    borderRadius: radius.lg,
+    overflow: "hidden",
+    ...shadows.level3,
+  },
+  backgroundImage: {
+    ...StyleSheet.absoluteFill,
+  },
+  scrim: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: "rgba(15, 42, 41, 0.35)",
+  },
+  content: {
     padding: spacing.md,
-    borderRadius: radius.md,
-    // backgroundColor: "#1C1C1E",
-    backgroundColor: colors.white,
     gap: spacing.sm,
-    ...shadows.level1,
+  },
+  topRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   meta: {
-    opacity: 0.7,
+    opacity: 0.9,
+  },
+  moreButton: {
+    padding: spacing.xs,
+    marginRight: -spacing.xs,
+    borderRadius: radius.full,
+    backgroundColor: "rgba(0, 0, 0, 0.28)",
   },
   title: {
     flexShrink: 1,
@@ -21,6 +39,11 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
+    alignSelf: "flex-start",
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.sm,
+    borderRadius: radius.full,
+    backgroundColor: "rgba(0, 0, 0, 0.28)",
   },
   avatars: {
     flexDirection: "row",
@@ -28,32 +51,13 @@ export const styles = StyleSheet.create({
   avatarWrap: {
     borderRadius: radius.full,
     borderWidth: 2,
-    borderColor: "#1C1C1E",
+    borderColor: "rgba(255, 255, 255, 0.6)",
   },
   avatarOverlap: {
     marginLeft: -12,
   },
   membersLabel: {
     flexShrink: 1,
-    opacity: 0.9,
-  },
-  actions: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: spacing.sm,
-    marginTop: spacing.xs,
-  },
-  action: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    borderRadius: radius.full,
-    // backgroundColor: "rgba(255, 255, 255, 0.12)",
-    backgroundColor: colors.backgroundTertiary,
-  },
-  pressed: {
-    opacity: 0.7,
+    opacity: 0.95,
   },
 });

@@ -1,6 +1,7 @@
 import { memo } from "react";
-import { Pressable, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 
+import { PressableScale } from "../PressableScale";
 import { Text } from "../Text";
 import { styles } from "./PillGroup.styles";
 
@@ -34,14 +35,13 @@ function PillGroupComponent<T extends string = string>({
       {options.map((option) => {
         const active = option.key === value;
         return (
-          <Pressable
+          <PressableScale
             key={option.key}
             onPress={() => onChange(option.key)}
-            style={({ pressed }) => [
+            style={[
               styles.pill,
               borderless && !active && styles.pillBorderless,
               active && styles.pillActive,
-              pressed && styles.pillPressed,
             ]}
           >
             <Text
@@ -50,7 +50,7 @@ function PillGroupComponent<T extends string = string>({
             >
               {option.label}
             </Text>
-          </Pressable>
+          </PressableScale>
         );
       })}
     </ScrollView>

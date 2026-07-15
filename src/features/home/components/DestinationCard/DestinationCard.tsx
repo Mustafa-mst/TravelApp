@@ -1,27 +1,32 @@
 import { Image, type ImageSource } from "expo-image";
+import { LinearGradient } from "expo-linear-gradient";
 import { memo } from "react";
-import { Pressable, useWindowDimensions, View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 
-import { Text } from "@shared/components";
-import { spacing } from "@shared/styles";
+import { IconButton, PressableScale, Text } from "@shared/components";
+import { colors, spacing } from "@shared/styles";
+import { FavoriteIcon } from "@/shared/assets/icons";
 import { styles } from "./DestinationCard.styles";
 
-const CARDS_PER_SCREEN = 1.1;
+const CARDS_PER_SCREEN = 1.8;
 
 export type DestinationCardProps = {
   title: string;
   location: string;
   image: ImageSource | string;
   category?: string;
+  favorite?: boolean;
   onPress?: () => void;
+  onToggleFavorite?: () => void;
 };
 
 function DestinationCardComponent({
   title,
   location,
   image,
-  category,
+  favorite = false,
   onPress,
+  onToggleFavorite,
 }: DestinationCardProps) {
   const { width } = useWindowDimensions();
   const cardWidth =
@@ -29,34 +34,35 @@ function DestinationCardComponent({
     CARDS_PER_SCREEN;
 
   return (
-    <Pressable
-      style={({ pressed }) => [
-        styles.card,
-        { width: cardWidth },
-        pressed && styles.cardPressed,
-      ]}
+    <PressableScale
+      containerStyle={{ width: cardWidth }}
+      style={styles.card}
       onPress={onPress}
     >
-      <View>
-        <Image source={image} style={styles.image} contentFit="cover" />
-        {category ? (
-          <View style={styles.badge}>
-            <View style={styles.badgeDot} />
-            <Text variant="caption" color="white" numberOfLines={1}>
-              {category}
-            </Text>
-          </View>
-        ) : null}
-      </View>
+      <Image source={image} style={styles.image} contentFit="cover" />
+
+      <LinearGradient
+        colors={["transparent", "rgba(0, 0, 0, 0.75)"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.gradient}
+      />
+
+
       <View style={styles.body}>
-        <Text variant="h6" color="text" numberOfLines={2}>
-          {title}
-        </Text>
-        <Text variant="bodyMedium" color="primary" numberOfLines={1}>
+        <Text variant="h5" color="white" numberOfLines={2} style={styles.title}>
           {location}
         </Text>
+        <Text
+          variant="caption"
+          color="white"
+          numberOfLines={2}
+          style={styles.subtitle}
+        >
+          {title}
+        </Text>
       </View>
-    </Pressable>
+    </PressableScale>
   );
 }
 

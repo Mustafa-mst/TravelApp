@@ -1,5 +1,6 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "@shared/styles";
 import { styles } from "./BottomTabBar.styles";
@@ -14,6 +15,11 @@ export function BottomTabBar({
 
   return (
     <View style={[styles.wrapper, { paddingBottom: insets.bottom }]}>
+      <LinearGradient
+        pointerEvents="none"
+        colors={["transparent", colors.background]}
+        style={styles.fade}
+      />
       <View style={styles.container}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { styles } from "./SearchResultList.styles";
 import { CloseIcon, TrashBin } from "@shared/assets/icons";
 import { IconButton, Text } from "@shared/components";
+import { colors } from "@/shared/styles";
 
 const list = ["Turkey", "Samoa", "Spain", "Turkey", "Samoa", "Spain"];
 const SearchResultListComponent = () => {
@@ -24,7 +25,7 @@ const SearchResultListComponent = () => {
     <View style={styles.container}>
       <View style={styles.title}>
         <Text variant="bodyLarge">{t("search.history")}</Text>
-        <IconButton icon={<TrashBin width={16} height={16} />} />
+        <IconButton icon={<TrashBin width={20} height={20} color={colors.text} />} />
       </View>
       <FlatList
         data={list}

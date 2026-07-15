@@ -165,6 +165,7 @@ export function ExchangeScreen() {
 
       <BottomSheet
         ref={sheetRef}
+        snapPoints={["60%", "90%"]}
         header={<Text variant="h5">{t("exchange.selectCurrency")}</Text>}
         onChange={(index) => setIsSheetOpen(index >= 0)}
       >

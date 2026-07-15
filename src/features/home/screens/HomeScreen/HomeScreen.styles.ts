@@ -1,25 +1,43 @@
 import { StyleSheet } from "react-native";
-import { colors, spacing } from "@shared/styles";
+import { colors, radius, spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: colors.background,
-    gap: 16,
   },
   scrollArea: {
     flex: 1,
   },
   scrollContent: {
-    gap: spacing.md,
-    paddingBottom: spacing.xxl,
+    paddingBottom: 120,
+    gap: spacing.lg,
   },
   header: {
-    gap: spacing.xs,
+    flex: 1,
+    justifyContent: "space-between",
     paddingHorizontal: spacing.md,
-    paddingTop: spacing.md,
+    paddingBottom: spacing.md,
+    gap: spacing.lg,
   },
-  itinerarySection: {
+  heroText: {
+    gap: spacing.xs,
+    maxWidth: "85%",
+  },
+  heroTitle: {
+    textShadowColor: "rgba(0, 0, 0, 0.3)",
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 6,
+  },
+  heroSubtitle: {
+    color: "rgba(255, 255, 255, 0.9)",
+  },
+  search: {
+    backgroundColor: colors.white,
+    borderColor: colors.white,
+    borderRadius: radius.full,
+  },
+  block: {
     paddingHorizontal: spacing.md,
   },
 });

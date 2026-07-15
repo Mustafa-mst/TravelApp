@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   background: {
-    backgroundColor: colors.background,
+    backgroundColor: colors.grey200,
   },
   header: {
     backgroundColor: colors.grey200,
