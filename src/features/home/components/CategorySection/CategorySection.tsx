@@ -1,8 +1,11 @@
 import { memo } from "react";
 import { FlatList, View } from "react-native";
 import { useTranslation } from "react-i18next";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { Text } from "@shared/components";
+import type { RootStackParamList } from "@shared/navigation";
 import type { CategoryItem } from "@/features/country";
 import { DestinationCard } from "../DestinationCard";
 import { styles } from "./CategorySection.styles";
@@ -17,6 +20,8 @@ function CategorySectionComponent({
   categoryLabel,
 }: CategorySectionProps) {
   const { t } = useTranslation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   if (items.length === 0) {
     return null;
@@ -39,6 +44,11 @@ function CategorySectionComponent({
             location={item.subtitle}
             image={item.image_url}
             category={categoryLabel}
+            onPress={() =>
+              navigation.navigate("CountryDetail", {
+                countryCode: item.country_code,
+              })
+            }
           />
         )}
       />

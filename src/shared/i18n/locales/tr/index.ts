@@ -76,6 +76,36 @@ const tr = {
     lastUpdated: "Son güncelleme: {{time}}",
     selectCurrency: "Para birimi seç",
   },
+  country: {
+    seeMore: "Daha fazla",
+    createItinerary: "Gezi Planı Oluştur",
+    sections: {
+      thingsToDo: {
+        title: "Yapılacaklar",
+        subtitle: "Doğa, Maceralar, Kültür, Alışveriş",
+      },
+      destinations: {
+        title: "Başlıca gezi noktaları",
+        subtitle: "Önemli şehirler ve gezilecek yerler",
+      },
+      bestTime: {
+        title: "Gezmek için en iyi zaman",
+        subtitle: "Seyahat dönemleri",
+      },
+      food: {
+        title: "Yemek",
+        subtitle: "Mutlaka denenmesi gereken lezzetler",
+      },
+      exchange: {
+        title: "Döviz",
+        subtitle: "Para birimi ve döviz kurları",
+      },
+      transport: {
+        title: "Ulaşım",
+        subtitle: "Ülke içinde ulaşım",
+      },
+    },
+  },
 };
 
 export default tr;
