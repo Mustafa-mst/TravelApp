@@ -69,12 +69,12 @@ const tr = {
     empty: "Henüz bir gezi planın yok.",
   },
   exchange: {
-    title: "Döviz",
-    from: "Kimden",
-    to: "Kime",
-    currency: "Para Birimi",
     lastUpdated: "Son güncelleme: {{time}}",
     selectCurrency: "Para birimi seç",
+    liveRate: "Canlı döviz kuru",
+    amount: "Tutar",
+    converted: "Karşılığı",
+    referenceOnly: "Kurlar yalnızca referans amaçlıdır",
   },
   country: {
     seeMore: "Daha fazla",

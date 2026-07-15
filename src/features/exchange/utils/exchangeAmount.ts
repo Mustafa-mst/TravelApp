@@ -6,7 +6,7 @@ function getRate(rates: ExchangeRate[], currencyCode: string): number | undefine
   return rates.find((rate) => rate.currency_code === currencyCode)?.rate;
 }
 
-export function convertExchangeAmount(
+function convertExchangeAmount(
   amount: number,
   fromCurrencyCode: string,
   toCurrencyCode: string,

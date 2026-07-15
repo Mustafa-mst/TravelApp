@@ -23,3 +23,6 @@ export { default as MoreVerticalIcon } from "./more_vertical.svg";
 export { default as LocationIcon } from "./location.svg";
 export { default as RestaurantsIcon } from "./restaurants.svg";
 export { default as LeafIcon } from "./leaf.svg";
+export { default as ChevronDownIcon } from "./chevron_down.svg";
+export { default as ArrowDownIcon } from "./arrow_down.svg";
+export { default as CheckboxCheckedIcon } from "./checkbox_checked.svg";

@@ -4,6 +4,11 @@ export const typography = {
     fontWeight: '700',
     lineHeight: 44,
   },
+  displaySemiBold: {
+    fontSize: 40,
+    fontWeight: '600',
+    lineHeight: 44,
+  },
   h1: {
     fontSize: 32,
     fontWeight: '700',
