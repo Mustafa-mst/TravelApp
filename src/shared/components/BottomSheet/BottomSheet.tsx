@@ -1,5 +1,5 @@
 import { type ReactNode, type Ref } from "react";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   BottomSheet as ExpoBottomSheet,
@@ -36,12 +36,14 @@ export function BottomSheet({
 }: BottomSheetProps) {
   const insets = useSafeAreaInsets();
 
+  const resolvedSnapPoints = Platform.OS === "android" ? undefined : snapPoints;
+
   return (
     <ExpoBottomSheet
       ref={ref}
       index={-1}
       handleComponent={null}
-      snapPoints={snapPoints}
+      snapPoints={resolvedSnapPoints}
       enablePanDownToClose
       onChange={onChange}
       backgroundStyle={styles.background}
