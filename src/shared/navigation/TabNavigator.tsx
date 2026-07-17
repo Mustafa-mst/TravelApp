@@ -28,7 +28,6 @@ export function TabNavigator() {
       tabBar={(props) => <BottomTabBar {...props} />}
       screenOptions={{
         headerShown: false,
-        animation: "shift",
       }}
     >
       <Tab.Screen

@@ -31,6 +31,7 @@ export type ItineraryCardProps = {
   title: string;
   location: string;
   dateLabel: string;
+  imageUri?: string;
   members?: ItineraryMember[];
   onShare?: () => void;
   onEdit?: () => void;
@@ -65,6 +66,7 @@ function ItineraryCardComponent({
   title,
   location,
   dateLabel,
+  imageUri,
   members = [],
   onShare,
   onEdit,
@@ -103,7 +105,7 @@ function ItineraryCardComponent({
     <>
       <View style={styles.card}>
         <Image
-          source={backgroundImage}
+          source={imageUri ? { uri: imageUri } : backgroundImage}
           style={styles.backgroundImage}
           contentFit="cover"
         />

@@ -2,7 +2,13 @@ import { ScrollView, View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { BackPanel } from "react-native-layer-stack";
 
-import { BottomSheet, Card, IconButton, Text } from "@shared/components";
+import {
+  BottomSheet,
+  Card,
+  IconButton,
+  SheetSearchHeader,
+  Text,
+} from "@shared/components";
 import { colors } from "@shared/styles";
 import { styles } from "./ExchangeScreen.styles";
 import { ArrowDownIcon } from "@/shared/assets/icons";
@@ -10,7 +16,6 @@ import { useExchange } from "../../hooks";
 import { ExchangeSheetList } from "../../components/ExchangeSheetList";
 import { ConverterRow } from "../../components/ConverterRow";
 import { RateChangeBadge } from "../../components/RateChangeBadge";
-import { SheetSearchHeader } from "../../components/SheetSearchHeader";
 
 export function ExchangeScreen() {
   const { t } = useTranslation();
@@ -127,6 +132,7 @@ export function ExchangeScreen() {
             value={searchQuery}
             onChangeText={onChangeSearchQuery}
             placeholder={t("search.placeholder")}
+            autoCapitalize="characters"
           />
         }
         onChange={onSheetChange}

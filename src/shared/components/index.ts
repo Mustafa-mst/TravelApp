@@ -30,6 +30,10 @@ export {
 } from "./PillGroup";
 export { ListItem, type ListItemProps } from "./ListItem";
 export {
+  SheetSearchHeader,
+  type SheetSearchHeaderProps,
+} from "./SheetSearchHeader";
+export {
   MapView,
   type MapViewProps,
   type MapMarker,

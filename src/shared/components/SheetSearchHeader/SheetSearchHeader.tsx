@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import { Pressable, TextInput, View } from "react-native";
+import { Pressable, TextInput, View, type TextInputProps } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -7,16 +7,17 @@ import Animated, {
 } from "react-native-reanimated";
 import { scheduleOnRN } from "react-native-worklets";
 
-import { Text } from "@shared/components";
 import { colors } from "@shared/styles";
 import { CloseIcon, SearchIcon } from "@/shared/assets/icons";
+import { Text } from "../Text";
 import { COLLAPSED_SIZE, styles } from "./SheetSearchHeader.styles";
 
-type SheetSearchHeaderProps = {
+export type SheetSearchHeaderProps = {
   title: string;
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
+  autoCapitalize?: TextInputProps["autoCapitalize"];
 };
 
 const ANIMATION_DURATION = 250;
@@ -31,6 +32,7 @@ function SheetSearchHeaderComponent({
   value,
   onChangeText,
   placeholder,
+  autoCapitalize = "none",
 }: SheetSearchHeaderProps) {
   const [rowWidth, setRowWidth] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -59,8 +61,6 @@ function SheetSearchHeaderComponent({
 
   const expand = useCallback(() => {
     setIsOpen(true);
-    // Focus once the pill has fully expanded, driven by the animation itself
-    // instead of a parallel timer.
     progress.value = withTiming(
       1,
       { duration: ANIMATION_DURATION },
@@ -81,8 +81,6 @@ function SheetSearchHeaderComponent({
     }
   };
 
-  // The sheet clears the query when it closes; fold the pill back so it
-  // doesn't reopen in the expanded state.
   useEffect(() => {
     const wasCleared = prevValue.current !== "" && value === "";
     prevValue.current = value;
@@ -112,11 +110,9 @@ function SheetSearchHeaderComponent({
             onChangeText={onChangeText}
             placeholder={placeholder}
             placeholderTextColor={colors.textMuted}
-            autoCapitalize="characters"
+            autoCapitalize={autoCapitalize}
             autoCorrect={false}
             onBlur={() => {
-              // Fold back when focus is lost with nothing typed (e.g. the
-              // sheet was dismissed before searching).
               if (!value) {
                 collapse();
               }

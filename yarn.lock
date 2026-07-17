@@ -1331,6 +1331,40 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gorhom/bottom-sheet@npm:^5.2.14":
+  version: 5.2.14
+  resolution: "@gorhom/bottom-sheet@npm:5.2.14"
+  dependencies:
+    "@gorhom/portal": "npm:1.0.14"
+    invariant: "npm:^2.2.4"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-native": "*"
+    react: "*"
+    react-native: "*"
+    react-native-gesture-handler: ">=2.16.1"
+    react-native-reanimated: "*"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-native":
+      optional: true
+  checksum: 10c0/744c718aaa4e66989043378932ea31d8ff510cff289b5561115530ff49218af080d28dbe409191b33ab7d87b1cfab4e7c16cfb0015cf2b6917b26c61f033bc05
+  languageName: node
+  linkType: hard
+
+"@gorhom/portal@npm:1.0.14":
+  version: 1.0.14
+  resolution: "@gorhom/portal@npm:1.0.14"
+  dependencies:
+    nanoid: "npm:^3.3.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/86f33afc2ac2656a86a6f3fd1e41565419839576ede2c38333434a93a0a2fe4fb6fc18ab3360579427f2a1fc3b4564b933cc5ae1793a7e2825c93860a00b215f
+  languageName: node
+  linkType: hard
+
 "@hookform/resolvers@npm:^5.4.0":
   version: 5.4.0
   resolution: "@hookform/resolvers@npm:5.4.0"
@@ -3313,6 +3347,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-image-loader@npm:~56.0.3":
+  version: 56.0.3
+  resolution: "expo-image-loader@npm:56.0.3"
+  peerDependencies:
+    expo: "*"
+  checksum: 10c0/25a1a7317639cb68f5035a8cecd7a1284e99839adf266dc22893f1c705060581871a9ca0c601ea3692f2f170c1c30c12f8b1b5874233ed3d0a5acc22a7e0937a
+  languageName: node
+  linkType: hard
+
+"expo-image-picker@npm:~56.0.21":
+  version: 56.0.21
+  resolution: "expo-image-picker@npm:56.0.21"
+  dependencies:
+    expo-image-loader: "npm:~56.0.3"
+  peerDependencies:
+    expo: "*"
+  checksum: 10c0/de3d184fff00d98b62a52d35b8fda5a1b03b047e2929f6ea696cb3e315742ca6b36d4817c5df266c6eeb11dd1f584a1acd1301ea0c5881061ffbe3274d09cd41
+  languageName: node
+  linkType: hard
+
 "expo-image@npm:~56.0.11":
   version: 56.0.11
   resolution: "expo-image@npm:56.0.11"
@@ -4618,6 +4672,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.25.0"
     "@expo/ui": "npm:~56.0.19"
+    "@gorhom/bottom-sheet": "npm:^5.2.14"
     "@hookform/resolvers": "npm:^5.4.0"
     "@react-native-async-storage/async-storage": "npm:2.2.0"
     "@react-navigation/bottom-tabs": "npm:^7.18.2"
@@ -4628,6 +4683,7 @@ __metadata:
     "@types/react": "npm:~19.2.2"
     expo: "npm:~56.0.12"
     expo-image: "npm:~56.0.11"
+    expo-image-picker: "npm:~56.0.21"
     expo-linear-gradient: "npm:~56.0.4"
     expo-localization: "npm:^57.0.0"
     expo-maps: "npm:~56.0.7"
@@ -4651,6 +4707,15 @@ __metadata:
     zustand: "npm:^5.0.14"
   languageName: unknown
   linkType: soft
+
+"nanoid@npm:^3.3.1":
+  version: 3.3.16
+  resolution: "nanoid@npm:3.3.16"
+  bin:
+    nanoid: bin/nanoid.cjs
+  checksum: 10c0/bbf2dcffe22d2b62d16de2711752070b539c0f644c7916f823ad6521986b2078cbe524f2d6240f58c46e9141ea0c7b87a029e100c0f7f175228cacaf30e41bba
+  languageName: node
+  linkType: hard
 
 "nanoid@npm:^3.3.11, nanoid@npm:^3.3.12":
   version: 3.3.14
