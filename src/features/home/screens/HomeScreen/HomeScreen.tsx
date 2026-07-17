@@ -9,8 +9,8 @@ import {
   CategoryGrid,
   CategorySection,
   HeroBanner,
-  ItineraryCard,
 } from "../../components";
+import { ItineraryCard } from "@/features/itinerary";
 import { styles } from "./HomeScreen.styles";
 import { useGetCategoriesQuery } from "@/features/country";
 

@@ -15,8 +15,16 @@ export type RootStackParamList = {
   };
 };
 
-export type BackTarget = { target: "exchange"; params?: undefined };
+import type { Itinerary } from "@/features/itinerary";
+
+export type BackTarget =
+  | { target: "exchange"; params?: undefined }
+  | { target: "createItinerary"; params?: { itinerary: Itinerary } };
 
 export type ExchangeStackParamList = {
   ExchangeHome: undefined;
+};
+
+export type ItineraryStackParamList = {
+  CreateItinerary: { itinerary?: Itinerary };
 };

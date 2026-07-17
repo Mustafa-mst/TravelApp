@@ -4,4 +4,5 @@ export type {
   TabParamList,
   BackTarget,
   ExchangeStackParamList,
+  ItineraryStackParamList,
 } from "./types";

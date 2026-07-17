@@ -6,6 +6,15 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     padding: spacing.md - 4,
-    gap: spacing.md - 4,
+    gap: spacing.xxl,
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  listContent: {
+    gap: spacing.md,
+    paddingBottom: 120,
   },
 });
