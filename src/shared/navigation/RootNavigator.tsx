@@ -32,7 +32,6 @@ export function RootNavigator() {
     <LayerStack<BackTarget>
       front={<FrontNavigator />}
       renderBack={renderBack}
-      backLayerColor={colors.backgroundSecondary}
     />
   );
 }

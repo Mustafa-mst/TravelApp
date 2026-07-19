@@ -7,8 +7,6 @@ import { type BottomSheet } from "@shared/components";
 import type { ItineraryStackParamList } from "@shared/navigation";
 import {
   CitySearchSheet,
-  CoverPhotoSection,
-  CreateItineraryFooter,
   CreateItineraryHeader,
   TripDetailsSection,
 } from "../../components";
@@ -41,19 +39,14 @@ export function CreateItineraryScreen() {
   } = useCreateItinerary(route.params?.itinerary);
 
   return (
-    <BackPanel
-      contentStyle={styles.panelContent}
-      footer={
-        <CreateItineraryFooter
-          canSubmit={canSubmit}
-          isSubmitting={isSubmitting}
-          isEditing={isEditing}
-          onCancel={cancel}
-          onSubmit={submit}
-        />
-      }
-    >
-      <CreateItineraryHeader isEditing={isEditing} />
+    <BackPanel contentStyle={styles.panelContent}>
+      <CreateItineraryHeader
+        isEditing={isEditing}
+        canSubmit={canSubmit}
+        isSubmitting={isSubmitting}
+        onCancel={cancel}
+        onSubmit={submit}
+      />
       <KeyboardAvoidingView
         style={styles.flex}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -74,13 +67,11 @@ export function CreateItineraryScreen() {
             endDate={endDate}
             onStartDateChange={handleStartDateChange}
             onEndDateChange={handleEndDateChange}
-          />
-          <CoverPhotoSection
             city={city}
-            selectedUri={coverPhoto}
-            uploadedUri={uploadedPhoto}
-            onSelect={selectCoverPhoto}
-            onUploadPress={pickFromGallery}
+            coverPhoto={coverPhoto}
+            uploadedPhoto={uploadedPhoto}
+            onSelectCoverPhoto={selectCoverPhoto}
+            onUploadPhotoPress={pickFromGallery}
           />
         </ScrollView>
       </KeyboardAvoidingView>

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors, spacing, typography } from "@shared/styles";
+import { colors, radius, spacing, typography } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,33 +9,34 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.white,
     padding: 0,
     gap: 0,
+    borderRadius: radius.xxl - 8,
     overflow: "hidden",
   },
   separator: {
     height: StyleSheet.hairlineWidth,
     backgroundColor: colors.border,
-    marginLeft: spacing.md,
+    marginHorizontal: spacing.md,
   },
   nameInput: {
-    ...typography.body,
+    ...typography.bodyExtraLarge,
     color: colors.textPrimary,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm + 4,
+    paddingHorizontal: spacing.lg - 4,
+    paddingVertical: spacing.md + 4,
+    paddingTop: 30,
     includeFontPadding: false,
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    gap: spacing.md,
-    paddingHorizontal: spacing.md,
+    gap: spacing.lg - 4,
+    padding: spacing.lg - 4,
   },
-  valueGroup: {
+  rowLabel: {
     flexDirection: "row",
     alignItems: "center",
-    gap: spacing.xs,
+    gap: spacing.md,
     flexShrink: 1,
-    paddingVertical: spacing.sm + 4,
   },
   valueLabel: {
     flexShrink: 1,

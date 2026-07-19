@@ -3,15 +3,18 @@ import { colors, radius, spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   container: {
-    gap: spacing.md,
+    padding: spacing.lg - 4,
+    gap: spacing.lg,
   },
   headerRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
-  card: {
-    backgroundColor: colors.white,
+  headerTitle: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.md,
   },
   loading: {
     alignSelf: "flex-start",
@@ -28,11 +31,11 @@ export const styles = StyleSheet.create({
     maxWidth: "48.5%",
   },
   tile: {
-    aspectRatio: 1.8,
+    aspectRatio: 1.5,
     borderRadius: radius.lg,
     overflow: "hidden",
-    borderWidth: 2,
-    borderColor: colors.transparent,
+    borderWidth: 6,
+    borderColor: colors.border,
   },
   tileSelected: {
     borderColor: colors.primary,

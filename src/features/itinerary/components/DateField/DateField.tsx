@@ -1,70 +1,113 @@
 import { memo } from "react";
 import { Platform, Pressable, View } from "react-native";
 import { DateTimePicker } from "@expo/ui/community/datetime-picker";
+import { useTranslation } from "react-i18next";
 
 import { Text } from "@shared/components";
 import { colors } from "@shared/styles";
-import { formatDate } from "../../utils";
+import { ArrowLeftIcon, CalendarMonthIcon } from "@/shared/assets/icons";
+import { formatDateWithWeekday } from "../../utils";
 import { styles } from "./DateField.styles";
 
+export type ActiveDatePicker = "start" | "end" | null;
+
 export type DateFieldProps = {
-  label: string;
-  value: Date;
-  minimumDate?: Date;
-  expanded: boolean;
-  onToggle: () => void;
-  onChange: (date: Date) => void;
+  startDate: Date;
+  endDate: Date;
+  activePicker: ActiveDatePicker;
+  onToggleStart: () => void;
+  onToggleEnd: () => void;
+  onStartChange: (date: Date) => void;
+  onEndChange: (date: Date) => void;
 };
 
 const isAndroid = Platform.OS === "android";
 
 function DateFieldComponent({
-  label,
-  value,
-  minimumDate,
-  expanded,
-  onToggle,
-  onChange,
+  startDate,
+  endDate,
+  activePicker,
+  onToggleStart,
+  onToggleEnd,
+  onStartChange,
+  onEndChange,
 }: DateFieldProps) {
+  const { t } = useTranslation();
+  const isStart = activePicker === "start";
+  const isEnd = activePicker === "end";
+
+  const pickerValue = isEnd ? endDate : startDate;
+  const pickerMinimumDate = isEnd ? startDate : undefined;
+  const onPickerChange = isEnd ? onEndChange : onStartChange;
+  const onPickerToggle = isEnd ? onToggleEnd : onToggleStart;
+
   return (
     <View style={styles.container}>
-      <Pressable accessibilityRole="button" style={styles.row} onPress={onToggle}>
-        <Text variant="body" color="textPrimary">
-          {label}
+      <View style={styles.header}>
+        <CalendarMonthIcon width={20} height={20} color={colors.iconPrimary} />
+        <Text variant="bodyExtraLarge" color="textPrimary">
+          {t("itinerary.duration")}
         </Text>
-        <View style={[styles.valueBadge, expanded && styles.valueBadgeActive]}>
-          <Text variant="bodyMedium" color={expanded ? "primary" : "textPrimary"}>
-            {formatDate(value)}
-          </Text>
-        </View>
-      </Pressable>
+      </View>
 
-      {expanded && !isAndroid ? (
+      <View style={styles.rangeRow}>
+        <Pressable
+          accessibilityRole="button"
+          style={styles.dateColumn}
+          onPress={onToggleStart}
+          hitSlop={10}
+        >
+          <Text
+            variant="bodyExtraLarge"
+            color={isStart ? "primary" : "textPrimary"}
+          >
+            {formatDateWithWeekday(startDate)}
+          </Text>
+        </Pressable>
+
+        <View style={styles.arrow}>
+          <ArrowLeftIcon width={20} height={20} color={colors.iconTertiary} />
+        </View>
+
+        <Pressable
+          accessibilityRole="button"
+          style={styles.dateColumn}
+          onPress={onToggleEnd}
+          hitSlop={10}
+        >
+          <Text
+            variant="bodyExtraLarge"
+            color={isEnd ? "primary" : "textPrimary"}
+          >
+            {formatDateWithWeekday(endDate)}
+          </Text>
+        </Pressable>
+      </View>
+
+      {activePicker && !isAndroid ? (
         <DateTimePicker
-          value={value}
+          value={pickerValue}
           mode="date"
           display="inline"
           accentColor={colors.primary}
-          minimumDate={minimumDate}
-          onValueChange={(_event, date) => onChange(date)}
+          minimumDate={pickerMinimumDate}
+          onValueChange={(_event, date) => onPickerChange(date)}
         />
       ) : null}
 
-      {/* Android: dialog presentation opens on mount; both callbacks must
-          collapse (unmount) it, otherwise it can never reopen. */}
-      {expanded && isAndroid ? (
+      {activePicker && isAndroid ? (
         <DateTimePicker
-          value={value}
+          value={pickerValue}
           mode="date"
           presentation="dialog"
           accentColor={colors.primary}
-          minimumDate={minimumDate}
+          minimumDate={pickerMinimumDate}
           style={styles.androidDialogHost}
           onValueChange={(_event, date) => {
-            onChange(date);
-            onToggle();
+            onPickerChange(date);
+            onPickerToggle();
           }}
-          onDismiss={onToggle}
+          onDismiss={onPickerToggle}
         />
       ) : null}
     </View>

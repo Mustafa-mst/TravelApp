@@ -8,6 +8,15 @@ export function formatDate(date: Date): string {
   }).format(date);
 }
 
+// "19 Tem Paz" / "Sun, Jul 19" — compact date used in the duration row.
+export function formatDateWithWeekday(date: Date): string {
+  return new Intl.DateTimeFormat(i18n.language, {
+    day: "numeric",
+    month: "short",
+    weekday: "short",
+  }).format(date);
+}
+
 // Parse/format `YYYY-MM-DD` in local time; toISOString/new Date(iso) would shift the day by the UTC offset.
 export function parseDateOnly(dateOnly: string): Date {
   const [year, month, day] = dateOnly.split("-").map(Number);

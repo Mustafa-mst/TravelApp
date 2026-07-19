@@ -88,6 +88,7 @@ const tr = {
     deleteError: "Gezi planı silinemedi.",
     startDate: "Başlangıç Tarihi",
     endDate: "Bitiş Tarihi",
+    duration: "Süre",
     friends: "Arkadaşlar",
     addPeople: "Kişi Ekle",
     coverPhoto: "Kapak Fotoğrafı",

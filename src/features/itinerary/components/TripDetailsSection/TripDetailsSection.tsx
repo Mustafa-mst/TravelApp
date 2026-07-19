@@ -5,10 +5,11 @@ import { useTranslation } from "react-i18next";
 
 import { Card, Text } from "@shared/components";
 import { colors } from "@shared/styles";
-import { ChevronRightIcon } from "@/shared/assets/icons";
+import { ChevronRightIcon, LocationIcon } from "@/shared/assets/icons";
 import type { CreateItineraryValues } from "../../schemas";
 import type { SelectedCity } from "../../types";
-import { DateField } from "../DateField";
+import { CoverPhotoSection } from "../CoverPhotoSection";
+import { DateField, type ActiveDatePicker } from "../DateField";
 import { styles } from "./TripDetailsSection.styles";
 
 export type TripDetailsSectionProps = {
@@ -20,9 +21,12 @@ export type TripDetailsSectionProps = {
   endDate: Date;
   onStartDateChange: (date: Date) => void;
   onEndDateChange: (date: Date) => void;
+  city: string;
+  coverPhoto: string | null;
+  uploadedPhoto: string | null;
+  onSelectCoverPhoto: (uri: string) => void;
+  onUploadPhotoPress: () => void;
 };
-
-type ActivePicker = "start" | "end" | null;
 
 function TripDetailsSectionComponent({
   control,
@@ -33,11 +37,16 @@ function TripDetailsSectionComponent({
   endDate,
   onStartDateChange,
   onEndDateChange,
+  city,
+  coverPhoto,
+  uploadedPhoto,
+  onSelectCoverPhoto,
+  onUploadPhotoPress,
 }: TripDetailsSectionProps) {
   const { t } = useTranslation();
-  const [activePicker, setActivePicker] = useState<ActivePicker>(null);
+  const [activePicker, setActivePicker] = useState<ActiveDatePicker>(null);
 
-  const togglePicker = (picker: Exclude<ActivePicker, null>) => {
+  const togglePicker = (picker: Exclude<ActiveDatePicker, null>) => {
     setActivePicker((current) => (current === picker ? null : picker));
   };
 
@@ -46,10 +55,6 @@ function TripDetailsSectionComponent({
 
   return (
     <View style={styles.container}>
-      <Text variant="bodyLarge" color="textPrimary">
-        {t("itinerary.tripDetails")}
-      </Text>
-
       <Card style={styles.card}>
         <Controller
           control={control}
@@ -73,47 +78,51 @@ function TripDetailsSectionComponent({
           style={styles.row}
           onPress={onCityPress}
         >
-          <Text variant="body" color="textPrimary">
-            {t("itinerary.city")}
-          </Text>
-          <View style={styles.valueGroup}>
+          <View style={styles.rowLabel}>
+            <LocationIcon width={20} height={20} color={colors.iconPrimary} />
             {selectedCity ? (
               <Text
-                variant="body"
+                variant="bodyLarge"
                 color="textPrimary"
                 numberOfLines={1}
                 style={styles.valueLabel}
               >
                 {`${selectedCity.name}, ${selectedCity.country_code}`}
               </Text>
-            ) : null}
-            <ChevronRightIcon
-              width={18}
-              height={18}
-              color={colors.iconTertiary}
-            />
+            ) : (
+              <Text variant="bodyLarge" color="textTertiary">
+                {t("itinerary.selectCity")}
+              </Text>
+            )}
           </View>
+
+          <ChevronRightIcon
+            width={20}
+            height={20}
+            color={colors.iconTertiary}
+          />
         </Pressable>
 
         <View style={styles.separator} />
 
         <DateField
-          label={t("itinerary.startDate")}
-          value={startDate}
-          expanded={activePicker === "start"}
-          onToggle={() => togglePicker("start")}
-          onChange={onStartDateChange}
+          startDate={startDate}
+          endDate={endDate}
+          activePicker={activePicker}
+          onToggleStart={() => togglePicker("start")}
+          onToggleEnd={() => togglePicker("end")}
+          onStartChange={onStartDateChange}
+          onEndChange={onEndDateChange}
         />
 
         <View style={styles.separator} />
 
-        <DateField
-          label={t("itinerary.endDate")}
-          value={endDate}
-          minimumDate={startDate}
-          expanded={activePicker === "end"}
-          onToggle={() => togglePicker("end")}
-          onChange={onEndDateChange}
+        <CoverPhotoSection
+          city={city}
+          selectedUri={coverPhoto}
+          uploadedUri={uploadedPhoto}
+          onSelect={onSelectCoverPhoto}
+          onUploadPress={onUploadPhotoPress}
         />
       </Card>
 

@@ -1,1 +1,5 @@
-export { DateField, type DateFieldProps } from "./DateField";
+export {
+  DateField,
+  type DateFieldProps,
+  type ActiveDatePicker,
+} from "./DateField";

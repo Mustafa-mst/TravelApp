@@ -22,3 +22,5 @@ export { default as LeafIcon } from "./leaf.svg";
 export { default as ChevronDownIcon } from "./chevron_down.svg";
 export { default as ArrowDownIcon } from "./arrow_down.svg";
 export { default as CheckboxCheckedIcon } from "./checkbox_checked.svg";
+export { default as ImageIcon } from "./image.svg";
+export { default as SelectedIcon } from "./selected.svg";
