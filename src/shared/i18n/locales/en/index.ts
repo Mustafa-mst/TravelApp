@@ -88,6 +88,7 @@ const en = {
     deleteError: "Couldn't delete the itinerary.",
     startDate: "Start Date",
     endDate: "End Date",
+    duration: "Duration",
     friends: "Friends",
     addPeople: "Add People",
     coverPhoto: "Cover Photo",

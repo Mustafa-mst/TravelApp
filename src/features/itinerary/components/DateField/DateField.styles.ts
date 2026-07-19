@@ -1,24 +1,27 @@
 import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    padding: spacing.lg - 4,
+    gap: spacing.lg,
   },
-  row: {
+  header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    gap: spacing.md,
   },
-  valueBadge: {
-    paddingVertical: spacing.xs + 2,
-    paddingHorizontal: spacing.sm + 4,
-    borderRadius: radius.md,
-    backgroundColor: colors.backgroundTertiary,
+  rangeRow: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-  valueBadgeActive: {
-    backgroundColor: colors.backgroundSecondary,
+  dateColumn: {
+    flex: 1,
+    alignItems: "center",
+    paddingVertical: spacing.xs,
+  },
+  arrow: {
+    transform: [{ scaleX: -1 }],
   },
   androidDialogHost: {
     width: 0,

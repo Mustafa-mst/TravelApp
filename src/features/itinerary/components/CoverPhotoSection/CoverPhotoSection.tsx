@@ -3,9 +3,9 @@ import { ActivityIndicator, Pressable, View } from "react-native";
 import { Image } from "expo-image";
 import { useTranslation } from "react-i18next";
 
-import { Card, PressableScale, Text } from "@shared/components";
+import { PressableScale, Text } from "@shared/components";
 import { colors } from "@shared/styles";
-import { CheckboxCheckedIcon } from "@/shared/assets/icons";
+import { CheckboxCheckedIcon, ImageIcon } from "@/shared/assets/icons";
 import { DEFAULT_COVER_PHOTOS } from "../../constants";
 import { useCoverPhotosQuery } from "../../hooks/query";
 import { styles } from "./CoverPhotoSection.styles";
@@ -38,25 +38,27 @@ function CoverPhotoSectionComponent({
   return (
     <View style={styles.container}>
       <View style={styles.headerRow}>
-        <Text variant="bodyLarge" color="textPrimary">
-          {t("itinerary.coverPhoto")}
-        </Text>
+        <View style={styles.headerTitle}>
+          <ImageIcon width={20} height={20} color={colors.iconPrimary} />
+          <Text variant="bodyExtraLarge" color="textPrimary">
+            {t("itinerary.coverPhoto")}
+          </Text>
+        </View>
         <Pressable
           accessibilityRole="button"
           hitSlop={8}
           onPress={onUploadPress}
         >
-          <Text variant="bodyMedium" color="primary">
+          <Text variant="caption" color="primary">
             {t("itinerary.uploadPhoto")}
           </Text>
         </Pressable>
       </View>
 
-      <Card style={styles.card}>
-        {isFetching ? (
-          <ActivityIndicator color={colors.primary} style={styles.loading} />
-        ) : null}
-        <View style={styles.grid}>
+      {isFetching ? (
+        <ActivityIndicator color={colors.primary} style={styles.loading} />
+      ) : null}
+      <View style={styles.grid}>
           {photos.map((uri) => {
             const isSelected = uri === selectedUri;
 
@@ -85,8 +87,7 @@ function CoverPhotoSectionComponent({
               </PressableScale>
             );
           })}
-        </View>
-      </Card>
+      </View>
     </View>
   );
 }

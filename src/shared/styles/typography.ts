@@ -44,6 +44,16 @@ export const typography = {
     fontWeight: '600',
     lineHeight: 26,
   },
+  bodyExtraLargeMedium: {
+    fontSize: 18,
+    fontWeight: '500',
+    lineHeight: 26,
+  },
+  bodyExtraLarge: {
+    fontSize: 18,
+    fontWeight: '400',
+    lineHeight: 20,
+  },
   bodyLargeMedium: {
     fontSize: 16,
     fontWeight: '500',
