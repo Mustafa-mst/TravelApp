@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { colors, spacing } from "@shared/styles";
 
 const HERO_HEIGHT = 280;
 
@@ -24,13 +24,6 @@ export const styles = StyleSheet.create({
   heroImage: {
     width: "100%",
     height: "100%",
-  },
-  backButton: {
-    position: "absolute",
-    left: spacing.md,
-    backgroundColor: colors.white,
-    borderRadius: radius.full,
-    padding: spacing.sm,
   },
   titleBlock: {
     alignItems: "center",

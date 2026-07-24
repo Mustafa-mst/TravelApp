@@ -24,3 +24,6 @@ export { default as ArrowDownIcon } from "./arrow_down.svg";
 export { default as CheckboxCheckedIcon } from "./checkbox_checked.svg";
 export { default as ImageIcon } from "./image.svg";
 export { default as SelectedIcon } from "./selected.svg";
+export { default as EyesIcon } from "./eyes.svg";
+export { default as MinusIcon } from "./minus.svg";
+export { default as MapIcon } from "./map.svg";

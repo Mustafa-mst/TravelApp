@@ -9,6 +9,7 @@ import {
   Avatar,
   BottomSheet,
   IconButton,
+  PressableScale,
   type SheetAction,
   Text,
 } from "@shared/components";
@@ -33,6 +34,7 @@ export type ItineraryCardProps = {
   dateLabel: string;
   imageUri?: string;
   members?: ItineraryMember[];
+  onPress?: () => void;
   onShare?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
@@ -68,6 +70,7 @@ function ItineraryCardComponent({
   dateLabel,
   imageUri,
   members = [],
+  onPress,
   onShare,
   onEdit,
   onDelete,
@@ -103,7 +106,11 @@ function ItineraryCardComponent({
 
   return (
     <>
-      <View style={styles.card}>
+      <PressableScale
+        style={styles.card}
+        onPress={onPress}
+        disabled={!onPress}
+      >
         <Image
           source={imageUri ? { uri: imageUri } : backgroundImage}
           style={styles.backgroundImage}
@@ -163,7 +170,7 @@ function ItineraryCardComponent({
             </View>
           )}
         </View>
-      </View>
+      </PressableScale>
 
       <ActionSheet
         ref={sheetRef}
