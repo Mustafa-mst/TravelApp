@@ -17,6 +17,15 @@ export function formatDateWithWeekday(date: Date): string {
   }).format(date);
 }
 
+// "11 Mart Cumartesi" / "Saturday, March 11" — full weekday + month, used in the day detail header.
+export function formatFullDate(date: Date): string {
+  return new Intl.DateTimeFormat(i18n.language, {
+    day: "numeric",
+    month: "long",
+    weekday: "long",
+  }).format(date);
+}
+
 // Parse/format `YYYY-MM-DD` in local time; toISOString/new Date(iso) would shift the day by the UTC offset.
 export function parseDateOnly(dateOnly: string): Date {
   const [year, month, day] = dateOnly.split("-").map(Number);
@@ -31,23 +40,33 @@ export function toDateOnly(date: Date): string {
 }
 
 export function formatDateRange(startIso: string, endIso: string): string {
-  const start = new Date(startIso);
-  const end = new Date(endIso);
+  const start = parseDateOnly(startIso);
+  const end = parseDateOnly(endIso);
   const locale = i18n.language;
+
+  const sameDay =
+    start.getFullYear() === end.getFullYear() &&
+    start.getMonth() === end.getMonth() &&
+    start.getDate() === end.getDate();
+
+  const dayFormat = new Intl.DateTimeFormat(locale, { day: "numeric" });
+  const monthDayFormat = new Intl.DateTimeFormat(locale, {
+    month: "short",
+    day: "numeric",
+  });
+
+  // Single-day trip: no range, just the one date.
+  if (sameDay) {
+    return `${monthDayFormat.format(end)}, ${end.getFullYear()}`;
+  }
 
   const sameMonth =
     start.getFullYear() === end.getFullYear() &&
     start.getMonth() === end.getMonth();
 
-  const dayFormat = new Intl.DateTimeFormat(locale, { day: "numeric" });
-  const dayMonthFormat = new Intl.DateTimeFormat(locale, {
-    day: "numeric",
-    month: "short",
-  });
-
   if (sameMonth) {
-    return `${dayFormat.format(start)}–${dayMonthFormat.format(end)}, ${end.getFullYear()}`;
+    return `${monthDayFormat.format(start)}–${dayFormat.format(end)}, ${end.getFullYear()}`;
   }
 
-  return `${dayMonthFormat.format(start)} – ${dayMonthFormat.format(end)}, ${end.getFullYear()}`;
+  return `${monthDayFormat.format(start)} – ${monthDayFormat.format(end)}, ${end.getFullYear()}`;
 }

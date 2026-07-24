@@ -1,7 +1,15 @@
 export type {
   City,
+  FullItinerary,
   Itinerary,
   ItineraryCity,
+  ItineraryDay,
+  ItineraryDayWithItems,
+  ItineraryItem,
+  ItineraryItemType,
   NewItineraryInput,
+  NewItineraryItemInput,
   SelectedCity,
+  TransportationMode,
+  UpdateItineraryItemInput,
 } from "./itinerary.types";

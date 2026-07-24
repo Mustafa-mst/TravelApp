@@ -13,6 +13,13 @@ export type RootStackParamList = {
   CountryDetail: {
     countryCode: string;
   };
+  ItineraryDetail: {
+    itinerary: Itinerary;
+  };
+  DayDetail: {
+    itineraryId: string;
+    dayId: string;
+  };
 };
 
 import type { Itinerary } from "@/features/itinerary";
