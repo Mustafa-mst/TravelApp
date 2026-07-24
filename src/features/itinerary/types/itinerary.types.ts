@@ -1,5 +1,10 @@
 import { PlaceTypes } from "@/features/places/constants/places.constants";
+import type { Tables } from "@shared/services";
 
+/**
+ * Result row of the `search_cities` RPC (not the `cities` table itself, whose
+ * columns are `geoname_id`, `name`, `ascii_name`, …). Used by city search.
+ */
 export type City = {
   geoname_id: number;
   city: string;
@@ -20,17 +25,11 @@ export type SelectedCity = ItineraryCity & {
   geoname_id: number;
 };
 
-/** Row shape of the `itineraries` table, with the joined city relation. */
-export type Itinerary = {
-  id: string;
-  user_id: string;
-  title: string;
-  city_geoname_id: number;
-  start_date: string;
-  end_date: string;
-  cover_photo: string | null;
-  created_at: string;
-  updated_at: string;
+/**
+ * Row of the `itineraries` table (DB-generated), plus the joined city relation
+ * pulled in by `select("*, cities(...)")`.
+ */
+export type Itinerary = Tables<"itineraries"> & {
   cities?: ItineraryCity | null;
 };
 
@@ -42,37 +41,20 @@ export type NewItineraryInput = {
   cover_photo?: string | null;
 };
 
-/** Allowed `type` values on the `itinerary_items` table. */
+/** Allowed `type` values on the create form (client-only, not a DB column). */
 export type ItineraryItemType = "place" | "activity" | "note";
 
-/** Row shape of the `itinerary_days` table. */
-export type ItineraryDay = {
-  id: string;
-  itinerary_id: string;
-  day_number: number;
-  date: string; // "YYYY-MM-DD"
-  created_at: string;
-  updated_at: string;
-};
+/** Row of the `itinerary_days` table (DB-generated). */
+export type ItineraryDay = Tables<"itinerary_days">;
 
-export type ItineraryItem = {
-  id: string;
-  day_id: string;
-  order_index: number;
-  type: ItineraryItemType;
-  name: string;
-  description: string | null;
-  starts_at: string | null; // "HH:MM:SS"
-  ends_at: string | null;
-  google_place_id: string | null;
-  latitude: number | null;
-  longitude: number | null;
-  address: string | null;
-  image_url: string | null;
-  notes: string | null;
-  created_at: string;
-  updated_at: string;
+/**
+ * Row of the `itinerary_items` table (DB-generated), with `place_type` narrowed
+ * to the app enum, plus the client-only `type` field. `type` is used by the
+ * form/schema and validation but is dropped before insert (never a DB column).
+ */
+export type ItineraryItem = Omit<Tables<"itinerary_items">, "place_type"> & {
   place_type: PlaceTypes;
+  type: ItineraryItemType;
 };
 
 /**

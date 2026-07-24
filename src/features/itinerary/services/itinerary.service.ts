@@ -13,7 +13,11 @@ import { buildDays, toDateOnly } from "../utils";
 /**
  * Dedicated Supabase access layer for the itinerary feature. All queries live
  * here (never inside components); React Query hooks call these functions.
- * The client is untyped, so results are cast to the row types in `../types`.
+ *
+ * The client is typed from `database.types.ts`, so plain-column selects return
+ * the correct row types directly. Casts remain only where the app type diverges
+ * from the raw DB row: joined relations (`cities`), the narrowed `place_type`
+ * enum, and the client-only `type` field on items.
  */
 
 export async function getItinerary(id: string): Promise<Itinerary> {
