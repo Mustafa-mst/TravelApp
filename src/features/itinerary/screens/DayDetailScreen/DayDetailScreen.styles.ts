@@ -19,8 +19,17 @@ export const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     gap: spacing.lg - 4,
   },
+  content: {
+    paddingTop: spacing.md,
+    gap: spacing.md + 2,
+  },
   titleBlock: {
     gap: spacing.sm,
+  },
+  dateRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.xs - 2,
   },
   metaContainer: {
     flexDirection: "row",

@@ -64,13 +64,17 @@ function DayDetailScreenComponent() {
         title: formatDistance(route?.totalDistanceMeters),
         subtitle: t("itinerary.detail.totalDistance"),
       },
-
       {
         title: String(day?.items?.length ?? 0),
         subtitle: t("itinerary.detail.plannedStops"),
       },
     ],
-    [route, day?.items?.length],
+    [
+      t,
+      route?.totalDurationSeconds,
+      route?.totalDistanceMeters,
+      day?.items?.length,
+    ],
   );
 
   const renderMetaItem = useCallback(
@@ -120,15 +124,9 @@ function DayDetailScreenComponent() {
             errorLabel={t("itinerary.detail.loadError")}
           >
             {day ? (
-              <View style={{ paddingTop: 16, gap: 18 }}>
+              <View style={styles.content}>
                 <View style={styles.titleBlock}>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 2,
-                    }}
-                  >
+                  <View style={styles.dateRow}>
                     <CalendarMonthIcon width={16} height={16} />
                     <Text variant="captionMedium" color="textSecondary">
                       {formatFullDate(parseDateOnly(day.date))}
