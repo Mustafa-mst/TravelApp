@@ -1,20 +1,16 @@
-import { useMemo, useRef, useState } from "react";
-import { Alert } from "react-native";
-import { useTranslation } from "react-i18next";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import {
   type BottomSheet,
   type MapCoordinates,
   type MapMarker,
-  type SheetAction,
 } from "@shared/components";
-import { PenIcon, TrashBin } from "@shared/assets/icons";
-import type { Itinerary, ItineraryItem } from "../types";
+import type { RootStackParamList } from "@shared/navigation";
+import type { Itinerary } from "../types";
 import { resolveActiveDayNumber } from "../utils";
-import { useDeleteItineraryItem } from "./mutation";
 import { useFullItinerary } from "./query";
-
-export type ItineraryTab = "overview" | "days";
 
 // Fallback center (Istanbul) used until an itinerary has located activities.
 const DEFAULT_MAP_CENTER: MapCoordinates = {
@@ -28,19 +24,15 @@ const DEFAULT_MAP_CENTER: MapCoordinates = {
  * orchestration. The screen consumes the returned values and handlers.
  */
 export function useItineraryDetail(itinerary: Itinerary) {
-  const { t } = useTranslation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const [tab, setTab] = useState<ItineraryTab>("overview");
-  // The day a new item targets, and the item being edited (null = create).
+  // The day a newly added item targets.
   const [activeDayId, setActiveDayId] = useState<string | null>(null);
-  const [editingItem, setEditingItem] = useState<ItineraryItem | null>(null);
-  const [actionItem, setActionItem] = useState<ItineraryItem | null>(null);
 
   const itemSheetRef = useRef<BottomSheet>(null);
-  const actionSheetRef = useRef<BottomSheet>(null);
 
   const { data, isLoading, isError, refetch } = useFullItinerary(itinerary.id);
-  const { mutateAsync: deleteItem } = useDeleteItineraryItem();
 
   const days = data?.days ?? [];
   const totalActivities = days.reduce((sum, day) => sum + day.items.length, 0);
@@ -75,11 +67,26 @@ export function useItineraryDetail(itinerary: Itinerary) {
     return { mapCenter: center, mapMarkers: markers };
   }, [days, itinerary.cities]);
 
-  const openAddItem = (dayId: string) => {
-    setEditingItem(null);
+  const openAddItem = useCallback((dayId: string) => {
     setActiveDayId(dayId);
     itemSheetRef.current?.present();
-  };
+  }, []);
+
+  const openDay = useCallback(
+    (dayId: string) => {
+      navigation.navigate("DayDetail", { itineraryId: itinerary.id, dayId });
+    },
+    [navigation, itinerary.id],
+  );
+
+  const goToActiveDay = useCallback(() => {
+    if (activeDayId) {
+      navigation.navigate("DayDetail", {
+        itineraryId: itinerary.id,
+        dayId: activeDayId,
+      });
+    }
+  }, [navigation, itinerary.id, activeDayId]);
 
   const activeDayPlaceIds = useMemo(() => {
     if (!activeDayId) {
@@ -90,66 +97,6 @@ export function useItineraryDetail(itinerary: Itinerary) {
       .map((item) => item.google_place_id)
       .filter((id): id is string => id != null);
   }, [activeDayId, days]);
-
-  const openEditItem = (item: ItineraryItem) => {
-    setEditingItem(item);
-    setActiveDayId(item.day_id);
-    itemSheetRef.current?.present();
-  };
-
-  const openItemActions = (item: ItineraryItem) => {
-    setActionItem(item);
-    actionSheetRef.current?.present();
-  };
-
-  const confirmDelete = (item: ItineraryItem) => {
-    Alert.alert(
-      t("itinerary.deleteItemConfirmTitle"),
-      t("itinerary.deleteItemConfirmMessage", { title: item.name }),
-      [
-        { text: t("itinerary.cancel"), style: "cancel" },
-        {
-          text: t("itinerary.delete"),
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await deleteItem({
-                id: item.id,
-                itineraryId: itinerary.id,
-                dayId: item.day_id,
-              });
-            } catch {
-              Alert.alert(t("itinerary.deleteItemError"));
-            }
-          },
-        },
-      ],
-    );
-  };
-
-  const itemActions: SheetAction[] = [
-    {
-      id: "edit",
-      label: t("itinerary.editActivity"),
-      Icon: PenIcon,
-      onPress: () => {
-        if (actionItem) {
-          openEditItem(actionItem);
-        }
-      },
-    },
-    {
-      id: "delete",
-      label: t("itinerary.delete"),
-      Icon: TrashBin,
-      destructive: true,
-      onPress: () => {
-        if (actionItem) {
-          confirmDelete(actionItem);
-        }
-      },
-    },
-  ];
 
   return {
     // query state
@@ -162,20 +109,13 @@ export function useItineraryDetail(itinerary: Itinerary) {
     activeDayNumber,
     mapCenter,
     mapMarkers,
-    // tab state
-    tab,
-    setTab,
-    // sheet state + refs
+    // add-item sheet
     activeDayId,
     activeDayPlaceIds,
-    editingItem,
-    actionItem,
     itemSheetRef,
-    actionSheetRef,
-    itemActions,
     // handlers
     openAddItem,
-    openEditItem,
-    openItemActions,
+    openDay,
+    goToActiveDay,
   };
 }

@@ -2,12 +2,7 @@ import { memo } from "react";
 import { ScrollView, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useTranslation } from "react-i18next";
-import {
-  useNavigation,
-  useRoute,
-  type RouteProp,
-} from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useRoute, type RouteProp } from "@react-navigation/native";
 
 import {
   BackButton,
@@ -32,8 +27,6 @@ type ItineraryDetailRoute = RouteProp<RootStackParamList, "ItineraryDetail">;
 
 function ItineraryDetailScreenComponent() {
   const { t } = useTranslation();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { params } = useRoute<ItineraryDetailRoute>();
   const { itinerary } = params;
 
@@ -50,6 +43,8 @@ function ItineraryDetailScreenComponent() {
     activeDayId,
     activeDayPlaceIds,
     openAddItem,
+    openDay,
+    goToActiveDay,
   } = useItineraryDetail(itinerary);
 
   const location = itinerary.cities?.name ?? "";
@@ -78,7 +73,7 @@ function ItineraryDetailScreenComponent() {
           <View style={styles.titleBlock}>
             <Text variant="h2">{itinerary.title}</Text>
             <View style={styles.metaContainer}>
-              <MetaInfo Icon={LocationIcon} label={location ?? ""} />
+              <MetaInfo Icon={LocationIcon} label={location} />
               <Divider orientation="vertical" margin={12} />
               <MetaInfo
                 Icon={MapIcon}
@@ -106,12 +101,7 @@ function ItineraryDetailScreenComponent() {
             isError={isError}
             onRetry={refetch}
             onAddItem={openAddItem}
-            onOpenDay={(dayId) =>
-              navigation.navigate("DayDetail", {
-                itineraryId: itinerary.id,
-                dayId,
-              })
-            }
+            onOpenDay={openDay}
           />
         </View>
       </ScrollView>
@@ -123,13 +113,7 @@ function ItineraryDetailScreenComponent() {
         initialSelectedPlaceIds={activeDayPlaceIds}
         latitude={itinerary.cities?.latitude}
         longitude={itinerary.cities?.longitude}
-        onAdded={() =>
-          activeDayId &&
-          navigation.navigate("DayDetail", {
-            itineraryId: itinerary.id,
-            dayId: activeDayId,
-          })
-        }
+        onAdded={goToActiveDay}
       />
     </View>
   );

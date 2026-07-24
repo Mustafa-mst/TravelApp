@@ -9,7 +9,7 @@ export {
   useFullItinerary,
   itineraryKeys,
 } from "./query";
-export { useItineraryDetail, type ItineraryTab } from "./useItineraryDetail";
+export { useItineraryDetail } from "./useItineraryDetail";
 export { useDayDetail } from "./useDayDetail";
 export {
   useCreateItineraryMutation,
