@@ -26,10 +26,8 @@ export function CreateItineraryScreen() {
     city,
     selectedCity,
     selectCity,
-    startDate,
-    endDate,
-    handleStartDateChange,
-    handleEndDateChange,
+    daysCount,
+    handleDaysCountChange,
     coverPhoto,
     uploadedPhoto,
     selectCoverPhoto,
@@ -63,10 +61,8 @@ export function CreateItineraryScreen() {
             errors={errors}
             selectedCity={selectedCity}
             onCityPress={() => citySheetRef.current?.present()}
-            startDate={startDate}
-            endDate={endDate}
-            onStartDateChange={handleStartDateChange}
-            onEndDateChange={handleEndDateChange}
+            daysCount={daysCount}
+            onDaysCountChange={handleDaysCountChange}
             city={city}
             coverPhoto={coverPhoto}
             uploadedPhoto={uploadedPhoto}

@@ -10,6 +10,9 @@ export type City = {
   city: string;
   country: string;
   country_code: string;
+  latitude: number;
+  longitude: number;
+  population: number;
 };
 
 /** Joined columns from the `cities` table (its city name column is `name`). */
@@ -26,33 +29,37 @@ export type SelectedCity = ItineraryCity & {
 };
 
 /**
- * Row of the `itineraries` table (DB-generated), plus the joined city relation
- * pulled in by `select("*, cities(...)")`.
+ * Row of the `itinerary_templates` table (DB-generated), plus the joined city
+ * relation pulled in by `select("*, cities(...)")`. Templates carry no dates —
+ * `days_count` is the source of truth for how many days the itinerary spans.
  */
-export type Itinerary = Tables<"itineraries"> & {
+export type Itinerary = Tables<"itinerary_templates"> & {
   cities?: ItineraryCity | null;
 };
 
 export type NewItineraryInput = {
   title: string;
   city_geoname_id: number;
-  start_date: string;
-  end_date: string;
+  days_count: number;
   cover_photo?: string | null;
 };
 
 /** Allowed `type` values on the create form (client-only, not a DB column). */
 export type ItineraryItemType = "place" | "activity" | "note";
 
-/** Row of the `itinerary_days` table (DB-generated). */
-export type ItineraryDay = Tables<"itinerary_days">;
+/** Row of the `itinerary_template_days` table (DB-generated). No `date` column. */
+export type ItineraryDay = Tables<"itinerary_template_days">;
 
 /**
- * Row of the `itinerary_items` table (DB-generated), with `place_type` narrowed
- * to the app enum, plus the client-only `type` field. `type` is used by the
- * form/schema and validation but is dropped before insert (never a DB column).
+ * Row of the `itinerary_template_items` table (DB-generated), with `place_type`
+ * narrowed to the app enum, plus the client-only `type` field. `type` is used
+ * by the form/schema and validation but is dropped before insert (never a DB
+ * column). The DB day foreign key is `template_day_id`.
  */
-export type ItineraryItem = Omit<Tables<"itinerary_items">, "place_type"> & {
+export type ItineraryItem = Omit<
+  Tables<"itinerary_template_items">,
+  "place_type"
+> & {
   place_type: PlaceTypes;
   type: ItineraryItemType;
 };
@@ -68,7 +75,7 @@ export type NewItineraryItemInput = Omit<
 
 /** Partial patch for updating an item; the day and server columns are fixed. */
 export type UpdateItineraryItemInput = Partial<
-  Omit<ItineraryItem, "id" | "day_id" | "created_at" | "updated_at">
+  Omit<ItineraryItem, "id" | "template_day_id" | "created_at" | "updated_at">
 >;
 
 /** A day joined with its ordered items — the shape the detail screen renders. */

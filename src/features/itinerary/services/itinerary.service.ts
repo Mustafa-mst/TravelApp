@@ -8,7 +8,7 @@ import type {
   NewItineraryItemInput,
   UpdateItineraryItemInput,
 } from "../types";
-import { buildDays, toDateOnly } from "../utils";
+import { buildDayNumbers } from "../utils";
 
 /**
  * Dedicated Supabase access layer for the itinerary feature. All queries live
@@ -22,7 +22,7 @@ import { buildDays, toDateOnly } from "../utils";
 
 export async function getItinerary(id: string): Promise<Itinerary> {
   const { data, error } = await supabase
-    .from("itineraries")
+    .from("itinerary_templates")
     .select("*, cities(name, country_code, latitude, longitude)")
     .eq("id", id)
     .single();
@@ -38,9 +38,9 @@ export async function getItineraryDays(
   itineraryId: string,
 ): Promise<ItineraryDay[]> {
   const { data, error } = await supabase
-    .from("itinerary_days")
+    .from("itinerary_template_days")
     .select("*")
-    .eq("itinerary_id", itineraryId)
+    .eq("template_id", itineraryId)
     .order("day_number", { ascending: true });
 
   if (error) {
@@ -54,9 +54,9 @@ export async function getItineraryItems(
   dayId: string,
 ): Promise<ItineraryItem[]> {
   const { data, error } = await supabase
-    .from("itinerary_items")
+    .from("itinerary_template_items")
     .select("*")
-    .eq("day_id", dayId)
+    .eq("template_day_id", dayId)
     .order("order_index", { ascending: true });
 
   if (error) {
@@ -67,12 +67,13 @@ export async function getItineraryItems(
 }
 
 /**
- * Ensures `itinerary_days` exist for an itinerary, exactly once.
+ * Ensures `itinerary_template_days` exist for a template, exactly once.
  *
  * Idempotent: if days already exist they are returned untouched. Only when
- * none exist does it create one row per calendar day (day_number from 1, date
- * matching the calendar date). The DB's unique (itinerary_id, day_number)
- * constraint is the backstop against duplicates. Reusable across the app.
+ * none exist does it create one row per day (day_number 1..days_count).
+ * Templates carry no dates, so rows hold only `template_id` + `day_number`.
+ * The DB's unique (template_id, day_number) constraint is the backstop against
+ * duplicates. Reusable across the app.
  */
 export async function initializeItineraryDays(
   itineraryId: string,
@@ -83,16 +84,15 @@ export async function initializeItineraryDays(
   }
 
   const itinerary = await getItinerary(itineraryId);
-  const days = buildDays(itinerary.start_date, itinerary.end_date);
+  const dayNumbers = buildDayNumbers(itinerary.days_count);
 
-  const rows = days.map((day, index) => ({
-    itinerary_id: itineraryId,
-    day_number: index + 1,
-    date: toDateOnly(day),
+  const rows = dayNumbers.map((day_number) => ({
+    template_id: itineraryId,
+    day_number,
   }));
 
   const { data, error } = await supabase
-    .from("itinerary_days")
+    .from("itinerary_template_days")
     .insert(rows)
     .select();
 
@@ -120,9 +120,9 @@ export async function getFullItinerary(
   let items: ItineraryItem[] = [];
   if (dayIds.length > 0) {
     const { data, error } = await supabase
-      .from("itinerary_items")
+      .from("itinerary_template_items")
       .select("*")
-      .in("day_id", dayIds)
+      .in("template_day_id", dayIds)
       .order("order_index", { ascending: true });
 
     if (error) {
@@ -134,11 +134,11 @@ export async function getFullItinerary(
 
   const itemsByDay = new Map<string, ItineraryItem[]>();
   for (const item of items) {
-    const bucket = itemsByDay.get(item.day_id);
+    const bucket = itemsByDay.get(item.template_day_id);
     if (bucket) {
       bucket.push(item);
     } else {
-      itemsByDay.set(item.day_id, [item]);
+      itemsByDay.set(item.template_day_id, [item]);
     }
   }
 
@@ -155,9 +155,9 @@ export async function getFullItinerary(
  */
 async function nextOrderIndex(dayId: string): Promise<number> {
   const { data, error } = await supabase
-    .from("itinerary_items")
+    .from("itinerary_template_items")
     .select("order_index")
-    .eq("day_id", dayId)
+    .eq("template_day_id", dayId)
     .order("order_index", { ascending: false })
     .limit(1)
     .maybeSingle();
@@ -174,13 +174,13 @@ export async function createItineraryItem(
   input: NewItineraryItemInput,
 ): Promise<ItineraryItem> {
   const order_index =
-    input.order_index ?? (await nextOrderIndex(input.day_id));
+    input.order_index ?? (await nextOrderIndex(input.template_day_id));
 
-  // `type` is not a column on itinerary_items; drop it before inserting.
+  // `type` is not a column on itinerary_template_items; drop it before insert.
   const { type: _type, ...columns } = input;
 
   const { data, error } = await supabase
-    .from("itinerary_items")
+    .from("itinerary_template_items")
     .insert({ ...columns, order_index })
     .select()
     .single();
@@ -196,11 +196,11 @@ export async function updateItineraryItem(
   id: string,
   patch: UpdateItineraryItemInput,
 ): Promise<ItineraryItem> {
-  // `type` is not a column on itinerary_items; never send it in a patch.
+  // `type` is not a column on itinerary_template_items; never send it in a patch.
   const { type: _type, ...columns } = patch;
 
   const { data, error } = await supabase
-    .from("itinerary_items")
+    .from("itinerary_template_items")
     .update(columns)
     .eq("id", id)
     .select()
@@ -215,7 +215,7 @@ export async function updateItineraryItem(
 
 export async function deleteItineraryItem(id: string): Promise<void> {
   const { error } = await supabase
-    .from("itinerary_items")
+    .from("itinerary_template_items")
     .delete()
     .eq("id", id);
 

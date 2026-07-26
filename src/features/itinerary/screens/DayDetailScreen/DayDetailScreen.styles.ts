@@ -26,11 +26,6 @@ export const styles = StyleSheet.create({
   titleBlock: {
     gap: spacing.sm,
   },
-  dateRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: spacing.xs - 2,
-  },
   metaContainer: {
     flexDirection: "row",
     alignItems: "center",

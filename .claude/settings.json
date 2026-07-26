@@ -1,4 +1,15 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(awk '/  Tables: \\\\{/,/  Views: \\\\{/' /Users/mustafa.gulay/Desktop/projects/myApp/src/shared/services/supabase/database.types.ts)",
+      "Bash(sed 's/[ :{]//g')",
+      "Bash(awk '/  Functions: \\\\{/,/  Enums: \\\\{/' /Users/mustafa.gulay/Desktop/projects/myApp/src/shared/services/supabase/database.types.ts)",
+      "Bash(mkdir -p /Users/mustafa.gulay/.claude/plans)"
+    ],
+    "additionalDirectories": [
+      "/Users/mustafa.gulay/.claude/plans"
+    ]
+  },
   "enabledPlugins": {
     "expo@claude-plugins-official": true
   }

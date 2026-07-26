@@ -7,19 +7,18 @@ import * as ImagePicker from "expo-image-picker";
 import { useTranslation } from "react-i18next";
 
 import { useAuthStore } from "@/features/auth";
-import { createItinerarySchema, type CreateItineraryValues } from "../schemas";
+import {
+  createItinerarySchema,
+  MAX_TEMPLATE_DAYS,
+  MIN_TEMPLATE_DAYS,
+  type CreateItineraryValues,
+} from "../schemas";
 import {
   useCreateItineraryMutation,
   useUpdateItineraryMutation,
 } from "./mutation";
-import { parseDateOnly, toDateOnly, uploadCoverPhoto } from "../utils";
+import { uploadCoverPhoto } from "../utils";
 import type { Itinerary, SelectedCity } from "../types";
-
-function startOfToday(): Date {
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
-  return now;
-}
 
 function toSelectedCity(itinerary: Itinerary): SelectedCity | null {
   if (!itinerary.cities) {
@@ -50,16 +49,16 @@ export function useCreateItinerary(initial?: Itinerary) {
     defaultValues: {
       name: initial?.title ?? "",
       city: initial?.cities?.name ?? "",
-      startDate: initial ? parseDateOnly(initial.start_date) : startOfToday(),
-      endDate: initial ? parseDateOnly(initial.end_date) : startOfToday(),
+      // Templates default days_count to 0; a template always spans >= 1 day.
+      daysCount: initial?.days_count || 1,
     },
   });
 
-  const { control, setValue, getValues, handleSubmit, formState } = form;
+  const { control, setValue, handleSubmit, formState } = form;
 
   const city = useWatch({ control, name: "city" });
-  const startDate = useWatch({ control, name: "startDate" });
-  const endDate = useWatch({ control, name: "endDate" });
+  const daysCount =
+    useWatch({ control, name: "daysCount" }) || initial?.days_count || 1;
 
   const [coverPhoto, setCoverPhoto] = useState<string | null>(
     initial?.cover_photo ?? null,
@@ -82,19 +81,14 @@ export function useCreateItinerary(initial?: Itinerary) {
     [setValue],
   );
 
-  const handleStartDateChange = useCallback(
-    (date: Date) => {
-      setValue("startDate", date, { shouldValidate: true });
-      if (getValues("endDate") < date) {
-        setValue("endDate", date, { shouldValidate: true });
-      }
-    },
-    [setValue, getValues],
-  );
-
-  const handleEndDateChange = useCallback(
-    (date: Date) => {
-      setValue("endDate", date, { shouldValidate: true });
+  const handleDaysCountChange = useCallback(
+    (next: number) => {
+      const safe = Number.isFinite(next) ? next : MIN_TEMPLATE_DAYS;
+      const clamped = Math.min(
+        Math.max(safe, MIN_TEMPLATE_DAYS),
+        MAX_TEMPLATE_DAYS,
+      );
+      setValue("daysCount", clamped, { shouldValidate: true });
     },
     [setValue],
   );
@@ -143,8 +137,7 @@ export function useCreateItinerary(initial?: Itinerary) {
       const payload = {
         title: values.name,
         city_geoname_id: selectedCity.geoname_id,
-        start_date: toDateOnly(values.startDate),
-        end_date: toDateOnly(values.endDate),
+        days_count: values.daysCount,
         cover_photo: coverUrl ?? null,
       };
 
@@ -177,10 +170,8 @@ export function useCreateItinerary(initial?: Itinerary) {
     city,
     selectedCity,
     selectCity,
-    startDate,
-    endDate,
-    handleStartDateChange,
-    handleEndDateChange,
+    daysCount,
+    handleDaysCountChange,
     coverPhoto,
     uploadedPhoto,
     selectCoverPhoto,

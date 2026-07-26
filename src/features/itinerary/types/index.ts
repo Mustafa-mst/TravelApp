@@ -10,6 +10,5 @@ export type {
   NewItineraryInput,
   NewItineraryItemInput,
   SelectedCity,
-  TransportationMode,
   UpdateItineraryItemInput,
 } from "./itinerary.types";

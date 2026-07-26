@@ -36,11 +36,7 @@ export function useItineraryDetail(itinerary: Itinerary) {
 
   const days = data?.days ?? [];
   const totalActivities = days.reduce((sum, day) => sum + day.items.length, 0);
-  const activeDayNumber = resolveActiveDayNumber(
-    itinerary.start_date,
-    itinerary.end_date,
-    days.length,
-  );
+  const activeDayNumber = resolveActiveDayNumber(days.length);
 
   // Center the map on the itinerary's selected city; fall back to any located
   // activity, then to a default center. Markers are dropped on located items.

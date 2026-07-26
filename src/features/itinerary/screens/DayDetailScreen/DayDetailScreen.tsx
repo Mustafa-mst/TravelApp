@@ -14,12 +14,11 @@ import {
   Text,
   ZoomableMap,
 } from "@shared/components";
-import { CalendarMonthIcon, PlusIcon } from "@shared/assets/icons";
+import { PlusIcon } from "@shared/assets/icons";
 import type { RootStackParamList } from "@shared/navigation";
 import { formatDistance, formatDuration } from "@/features/routes/utils";
 import { AddItemSheet, DayTimelineCard } from "../../components";
 import { useDayDetail } from "../../hooks";
-import { formatFullDate, parseDateOnly } from "../../utils";
 import { styles } from "./DayDetailScreen.styles";
 
 type DayDetailRoute = RouteProp<RootStackParamList, "DayDetail">;
@@ -126,13 +125,6 @@ function DayDetailScreenComponent() {
             {day ? (
               <View style={styles.content}>
                 <View style={styles.titleBlock}>
-                  <View style={styles.dateRow}>
-                    <CalendarMonthIcon width={16} height={16} />
-                    <Text variant="captionMedium" color="textSecondary">
-                      {formatFullDate(parseDateOnly(day.date))}
-                    </Text>
-                  </View>
-
                   <Text variant="h2">
                     {t("itinerary.detail.dayLabel", { day: day.day_number })}
                   </Text>

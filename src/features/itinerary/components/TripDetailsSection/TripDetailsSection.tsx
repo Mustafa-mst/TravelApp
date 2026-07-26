@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import { Pressable, TextInput, View } from "react-native";
 import { Controller, type Control, type FieldErrors } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -6,10 +6,14 @@ import { useTranslation } from "react-i18next";
 import { Card, Text } from "@shared/components";
 import { colors } from "@shared/styles";
 import { ChevronRightIcon, LocationIcon } from "@/shared/assets/icons";
-import type { CreateItineraryValues } from "../../schemas";
+import {
+  MAX_TEMPLATE_DAYS,
+  MIN_TEMPLATE_DAYS,
+  type CreateItineraryValues,
+} from "../../schemas";
 import type { SelectedCity } from "../../types";
 import { CoverPhotoSection } from "../CoverPhotoSection";
-import { DateField, type ActiveDatePicker } from "../DateField";
+import { DayCountStepper } from "../DayCountStepper";
 import { styles } from "./TripDetailsSection.styles";
 
 export type TripDetailsSectionProps = {
@@ -17,10 +21,8 @@ export type TripDetailsSectionProps = {
   errors: FieldErrors<CreateItineraryValues>;
   selectedCity: SelectedCity | null;
   onCityPress: () => void;
-  startDate: Date;
-  endDate: Date;
-  onStartDateChange: (date: Date) => void;
-  onEndDateChange: (date: Date) => void;
+  daysCount: number;
+  onDaysCountChange: (next: number) => void;
   city: string;
   coverPhoto: string | null;
   uploadedPhoto: string | null;
@@ -33,10 +35,8 @@ function TripDetailsSectionComponent({
   errors,
   selectedCity,
   onCityPress,
-  startDate,
-  endDate,
-  onStartDateChange,
-  onEndDateChange,
+  daysCount,
+  onDaysCountChange,
   city,
   coverPhoto,
   uploadedPhoto,
@@ -44,14 +44,9 @@ function TripDetailsSectionComponent({
   onUploadPhotoPress,
 }: TripDetailsSectionProps) {
   const { t } = useTranslation();
-  const [activePicker, setActivePicker] = useState<ActiveDatePicker>(null);
-
-  const togglePicker = (picker: Exclude<ActiveDatePicker, null>) => {
-    setActivePicker((current) => (current === picker ? null : picker));
-  };
 
   const errorMessage =
-    errors.name?.message ?? errors.city?.message ?? errors.endDate?.message;
+    errors.name?.message ?? errors.city?.message ?? errors.daysCount?.message;
 
   return (
     <View style={styles.container}>
@@ -105,14 +100,11 @@ function TripDetailsSectionComponent({
 
         <View style={styles.separator} />
 
-        <DateField
-          startDate={startDate}
-          endDate={endDate}
-          activePicker={activePicker}
-          onToggleStart={() => togglePicker("start")}
-          onToggleEnd={() => togglePicker("end")}
-          onStartChange={onStartDateChange}
-          onEndChange={onEndDateChange}
+        <DayCountStepper
+          value={daysCount}
+          min={MIN_TEMPLATE_DAYS}
+          max={MAX_TEMPLATE_DAYS}
+          onChange={onDaysCountChange}
         />
 
         <View style={styles.separator} />

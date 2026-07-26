@@ -129,6 +129,8 @@ const en = {
       daysLabel: "Days",
       activitiesLabel: "Activities",
       dayActivityCount: "{{count}} Activities",
+      dayCount_one: "{{count}} day",
+      dayCount_other: "{{count}} days",
     },
     addActivity: "Add Activity",
     editActivity: "Edit Activity",

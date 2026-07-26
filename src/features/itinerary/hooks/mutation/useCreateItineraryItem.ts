@@ -20,7 +20,7 @@ export function useCreateItineraryItem() {
       createItineraryItem(input),
     onSuccess: (_data, { itineraryId, input }) => {
       queryClient.invalidateQueries({ queryKey: itineraryKeys.full(itineraryId) });
-      queryClient.invalidateQueries({ queryKey: itineraryKeys.items(input.day_id) });
+      queryClient.invalidateQueries({ queryKey: itineraryKeys.items(input.template_day_id) });
     },
   });
 }

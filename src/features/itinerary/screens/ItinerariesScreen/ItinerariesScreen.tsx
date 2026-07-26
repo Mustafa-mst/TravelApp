@@ -14,7 +14,6 @@ import {
   useDeleteItineraryMutation,
   useGetItinerariesQuery,
 } from "../../hooks";
-import { formatDateRange } from "../../utils";
 import type { Itinerary } from "../../types";
 import { styles } from "./ItinerariesScreen.styles";
 
@@ -54,7 +53,7 @@ export function ItinerariesScreen() {
     <ItineraryCard
       title={item.title}
       location={item.cities?.name ?? ""}
-      dateLabel={formatDateRange(item.start_date, item.end_date)}
+      dateLabel={t("itinerary.overview.dayCount", { count: item.days_count })}
       imageUri={item.cover_photo ?? undefined}
       onPress={() =>
         navigation.navigate("ItineraryDetail", { itinerary: item })

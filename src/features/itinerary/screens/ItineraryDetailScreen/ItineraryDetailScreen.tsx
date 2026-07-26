@@ -20,7 +20,6 @@ import { backgroundImage } from "@shared/assets/images";
 import type { RootStackParamList } from "@shared/navigation";
 import { AddItemSheet, ItineraryOverview, MetaInfo } from "../../components";
 import { useItineraryDetail } from "../../hooks";
-import { formatDateRange } from "../../utils";
 import { styles } from "./ItineraryDetailScreen.styles";
 
 type ItineraryDetailRoute = RouteProp<RootStackParamList, "ItineraryDetail">;
@@ -48,7 +47,9 @@ function ItineraryDetailScreenComponent() {
   } = useItineraryDetail(itinerary);
 
   const location = itinerary.cities?.name ?? "";
-  const dateLabel = formatDateRange(itinerary.start_date, itinerary.end_date);
+  const dateLabel = t("itinerary.overview.dayCount", {
+    count: itinerary.days_count,
+  });
 
   return (
     <View style={styles.safe}>

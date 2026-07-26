@@ -105,7 +105,7 @@ export function AddItemSheet({
     try {
       for (const { place, placeType } of pendingPlaces.values()) {
         const input: NewItineraryItemInput = {
-          day_id: dayId,
+          template_day_id: dayId,
           type: "place",
           name: place.name,
           description: null,

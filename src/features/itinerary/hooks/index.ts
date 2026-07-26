@@ -3,9 +3,6 @@ export {
   useCoverPhotosQuery,
   useSearchCitiesQuery,
   useGetItinerariesQuery,
-  useItinerary,
-  useItineraryDays,
-  useItineraryItems,
   useFullItinerary,
   itineraryKeys,
 } from "./query";
@@ -15,8 +12,5 @@ export {
   useCreateItineraryMutation,
   useDeleteItineraryMutation,
   useUpdateItineraryMutation,
-  useInitializeItineraryDays,
   useCreateItineraryItem,
-  useUpdateItineraryItem,
-  useDeleteItineraryItem,
 } from "./mutation";

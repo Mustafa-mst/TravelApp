@@ -129,6 +129,8 @@ const tr = {
       daysLabel: "Gün",
       activitiesLabel: "Etkinlik",
       dayActivityCount: "{{count}} etkinlik",
+      dayCount_one: "{{count}} gün",
+      dayCount_other: "{{count}} gün",
     },
     addActivity: "Etkinlik Ekle",
     editActivity: "Etkinliği Düzenle",

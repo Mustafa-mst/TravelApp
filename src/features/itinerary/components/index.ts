@@ -1,6 +1,9 @@
 export { ItineraryCard, type ItineraryCardProps } from "./ItineraryCard";
 export { CreateItineraryHeader } from "./CreateItineraryHeader";
-export { DateField, type DateFieldProps } from "./DateField";
+export {
+  DayCountStepper,
+  type DayCountStepperProps,
+} from "./DayCountStepper";
 export {
   CitySearchSheet,
   type CitySearchSheetProps,
