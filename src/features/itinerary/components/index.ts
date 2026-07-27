@@ -1,4 +1,5 @@
 export { ItineraryCard, type ItineraryCardProps } from "./ItineraryCard";
+export { TemplateCard, type TemplateCardProps } from "./TemplateCard";
 export { CreateItineraryHeader } from "./CreateItineraryHeader";
 export {
   DayCountStepper,

@@ -12,3 +12,4 @@ export type {
   SelectedCity,
   UpdateItineraryItemInput,
 } from "./itinerary.types";
+export type { TemplateCard } from "./template.types";

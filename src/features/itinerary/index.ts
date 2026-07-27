@@ -4,5 +4,11 @@ export {
   DayDetailScreen,
 } from "./screens";
 export { ItineraryNavigator } from "./navigation";
-export { ItineraryCard } from "./components";
-export type { City, Itinerary } from "./types";
+export { ItineraryCard, TemplateCard } from "./components";
+export {
+  useFeaturedTemplatesQuery,
+  usePopularTemplatesQuery,
+  useRecentTemplatesQuery,
+  useMyTemplatesQuery,
+} from "./hooks";
+export type { City, Itinerary, TemplateCard as TemplateCardType } from "./types";

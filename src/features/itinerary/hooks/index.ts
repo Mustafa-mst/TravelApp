@@ -5,6 +5,11 @@ export {
   useGetItinerariesQuery,
   useFullItinerary,
   itineraryKeys,
+  useFeaturedTemplatesQuery,
+  usePopularTemplatesQuery,
+  useRecentTemplatesQuery,
+  useMyTemplatesQuery,
+  templateKeys,
 } from "./query";
 export { useItineraryDetail } from "./useItineraryDetail";
 export { useDayDetail } from "./useDayDetail";

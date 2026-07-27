@@ -1,6 +1,7 @@
 const en = {
   common: {
     select: "Select",
+    retry: "Try again",
   },
   tabs: {
     home: "Home",
@@ -39,6 +40,18 @@ const en = {
     },
     membersLabel: "{{first}}, {{second}} and {{count}} others",
     subtitle: "Are you ready to explore the world?",
+    explore: {
+      featured: "Featured Itineraries",
+      popular: "Popular Itineraries",
+      recent: "Recently Added",
+      empty: "No itineraries yet",
+      error: "Couldn't load itineraries",
+      tabs: {
+        myTemplates: "My Templates",
+        explorer: "Explorer",
+      },
+      myTemplatesEmpty: "You haven't created any templates yet",
+    },
     hero: {
       title: "Discover your next luxury escape",
       subtitle: "Find recommendations and exciting experiences.",
@@ -131,6 +144,10 @@ const en = {
       dayActivityCount: "{{count}} Activities",
       dayCount_one: "{{count}} day",
       dayCount_other: "{{count}} days",
+    },
+    template: {
+      placesCount_one: "{{count}} place",
+      placesCount_other: "{{count}} places",
     },
     addActivity: "Add Activity",
     editActivity: "Edit Activity",

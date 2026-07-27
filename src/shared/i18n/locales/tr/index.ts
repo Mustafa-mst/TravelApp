@@ -1,6 +1,7 @@
 const tr = {
   common: {
     select: "Seç",
+    retry: "Tekrar dene",
   },
   tabs: {
     home: "Ana Sayfa",
@@ -39,6 +40,18 @@ const tr = {
     },
     membersLabel: "{{first}}, {{second}} ve {{count}} kişi daha",
     subtitle: "Dünyayı keşfetmeye hazır mısın?",
+    explore: {
+      featured: "Öne Çıkan Rotalar",
+      popular: "Popüler Rotalar",
+      recent: "Yeni Eklenenler",
+      empty: "Henüz rota yok",
+      error: "Rotalar yüklenemedi",
+      tabs: {
+        myTemplates: "Şablonlarım",
+        explorer: "Keşfet",
+      },
+      myTemplatesEmpty: "Henüz şablon oluşturmadın",
+    },
     hero: {
       title: "Bir sonraki lüks kaçamağını keşfet",
       subtitle: "Önerileri ve heyecan verici deneyimleri keşfet.",
@@ -131,6 +144,10 @@ const tr = {
       dayActivityCount: "{{count}} etkinlik",
       dayCount_one: "{{count}} gün",
       dayCount_other: "{{count}} gün",
+    },
+    template: {
+      placesCount_one: "{{count}} yer",
+      placesCount_other: "{{count}} yer",
     },
     addActivity: "Etkinlik Ekle",
     editActivity: "Etkinliği Düzenle",

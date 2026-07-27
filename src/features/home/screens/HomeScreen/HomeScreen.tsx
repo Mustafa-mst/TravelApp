@@ -8,9 +8,9 @@ import { backgroundImage } from "@shared/assets/images";
 import {
   CategoryGrid,
   CategorySection,
+  ExploreTemplates,
   HeroBanner,
 } from "../../components";
-import { ItineraryCard } from "@/features/itinerary";
 import { styles } from "./HomeScreen.styles";
 import { useGetCategoriesQuery } from "@/features/country";
 
@@ -53,18 +53,9 @@ export function HomeScreen() {
             categoryLabel={category.category}
           />
         )}
-        <View style={styles.block}>
-          <ItineraryCard
-            title="İstanbul Gezisi"
-            location="İstanbul"
-            dateLabel="12–15 Tem"
-            members={[
-              { id: "1", name: "Mustafa" },
-              { id: "2", name: "Ayşe" },
-              { id: "3", name: "Can" },
-            ]}
-          />
-        </View>
+
+        {/* TODO(Faz B): onSelect → navigate("TemplateDetail", { templateId }) */}
+        <ExploreTemplates style={styles.exploreList} />
       </ScrollView>
     </View>
   );

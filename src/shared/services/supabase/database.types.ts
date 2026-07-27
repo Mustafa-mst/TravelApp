@@ -330,6 +330,13 @@ export type Database = {
             referencedRelation: "itinerary_templates"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "itinerary_template_days_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "v_template_cards"
+            referencedColumns: ["id"]
+          },
         ]
       }
       itinerary_template_items: {
@@ -472,6 +479,13 @@ export type Database = {
             columns: ["template_id"]
             isOneToOne: false
             referencedRelation: "itinerary_templates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "saved_templates_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "v_template_cards"
             referencedColumns: ["id"]
           },
         ]
@@ -665,11 +679,42 @@ export type Database = {
             referencedRelation: "itinerary_templates"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "trips_itinerary_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "v_template_cards"
+            referencedColumns: ["id"]
+          },
         ]
       }
     }
     Views: {
-      [_ in never]: never
+      v_template_cards: {
+        Row: {
+          author_id: string | null
+          city_geoname_id: number | null
+          cover_photo: string | null
+          created_at: string | null
+          days_count: number | null
+          id: string | null
+          place_types: Database["public"]["Enums"]["place_category"][] | null
+          places_count: number | null
+          saves_count: number | null
+          source: string | null
+          title: string | null
+          visibility: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "itineraries_city_geoname_id_fkey"
+            columns: ["city_geoname_id"]
+            isOneToOne: false
+            referencedRelation: "cities"
+            referencedColumns: ["geoname_id"]
+          },
+        ]
+      }
     }
     Functions: {
       create_trip_from_template: {
@@ -684,87 +729,7 @@ export type Database = {
           name: Json
         }[]
       }
-      get_featured_templates: {
-        Args: never
-        Returns: {
-          author_id: string
-          city_geoname_id: number
-          cover_photo: string
-          created_at: string
-          days_count: number
-          id: string
-          places_count: number
-          saves_count: number
-          source: string
-          title: string
-          visibility: string
-        }[]
-      }
-      get_popular_templates: {
-        Args: never
-        Returns: {
-          author_id: string
-          city_geoname_id: number
-          cover_photo: string
-          created_at: string
-          days_count: number
-          id: string
-          places_count: number
-          saves_count: number
-          source: string
-          title: string
-          visibility: string
-        }[]
-      }
       get_random_country: { Args: never; Returns: Json }
-      get_recent_templates: {
-        Args: never
-        Returns: {
-          author_id: string
-          city_geoname_id: number
-          cover_photo: string
-          created_at: string
-          days_count: number
-          id: string
-          places_count: number
-          saves_count: number
-          source: string
-          title: string
-          visibility: string
-        }[]
-      }
-      get_saved_templates: {
-        Args: never
-        Returns: {
-          author_id: string
-          city_geoname_id: number
-          cover_photo: string
-          created_at: string
-          days_count: number
-          id: string
-          places_count: number
-          saves_count: number
-          source: string
-          title: string
-          visibility: string
-        }[]
-      }
-      get_template_cards: {
-        Args: never
-        Returns: {
-          author_id: string
-          city_geoname_id: number
-          cover_photo: string
-          created_at: string
-          days_count: number
-          id: string
-          places_count: number
-          saves_count: number
-          source: string
-          title: string
-          visibility: string
-        }[]
-      }
       get_template_detail: { Args: { p_template_id: string }; Returns: Json }
       get_trip_detail: { Args: { p_trip_id: string }; Returns: Json }
       search_cities: {
