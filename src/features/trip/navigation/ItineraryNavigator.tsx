@@ -3,13 +3,13 @@ import { backScreenOptions } from "react-native-layer-stack";
 
 import type { ItineraryStackParamList } from "@shared/navigation";
 import { CreateItineraryScreen } from "../screens";
-import type { Itinerary } from "../types";
+import type { TripTemplate } from "../types";
 
 const Stack = createNativeStackNavigator<ItineraryStackParamList>();
 
 export type ItineraryNavigatorProps = {
   /** When set, the create screen opens in edit mode with these initial values. */
-  itinerary?: Itinerary;
+  itinerary?: TripTemplate;
 };
 
 /**

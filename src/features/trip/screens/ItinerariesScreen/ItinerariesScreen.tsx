@@ -14,7 +14,7 @@ import {
   useDeleteItineraryMutation,
   useGetItinerariesQuery,
 } from "../../hooks";
-import type { Itinerary } from "../../types";
+import type { TripTemplate } from "../../types";
 import { styles } from "./ItinerariesScreen.styles";
 
 export function ItinerariesScreen() {
@@ -25,7 +25,7 @@ export function ItinerariesScreen() {
   const { data: itineraries, isLoading, error } = useGetItinerariesQuery();
   const { mutateAsync: deleteItinerary } = useDeleteItineraryMutation();
 
-  const confirmDelete = (item: Itinerary) => {
+  const confirmDelete = (item: TripTemplate) => {
     Alert.alert(
       t("itinerary.deleteConfirmTitle"),
       t("itinerary.deleteConfirmMessage", { title: item.title }),
@@ -49,7 +49,7 @@ export function ItinerariesScreen() {
     );
   };
 
-  const renderItem = ({ item }: { item: Itinerary }) => (
+  const renderItem = ({ item }: { item: TripTemplate }) => (
     <ItineraryCard
       title={item.title}
       location={item.cities?.name ?? ""}

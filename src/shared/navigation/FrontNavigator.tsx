@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LoginScreen } from "@/features/auth";
 import { CountryDetailScreen } from "@/features/country";
-import { DayDetailScreen, ItineraryDetailScreen } from "@/features/itinerary";
+import { DayDetailScreen, ItineraryDetailScreen } from "@/features/trip";
 import { TabNavigator } from "./TabNavigator";
 import type { RootStackParamList } from "./types";
 

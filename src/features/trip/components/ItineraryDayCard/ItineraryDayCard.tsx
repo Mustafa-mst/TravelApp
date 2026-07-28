@@ -6,11 +6,11 @@ import { useTranslation } from "react-i18next";
 import { PressableScale, Text } from "@shared/components";
 import { BLUR_HASH } from "@shared/constants";
 import { PLACE_TYPE_META } from "@/features/places/constants";
-import type { ItineraryDayWithItems } from "../../types";
+import type { TripTemplateDayWithItems } from "../../types";
 import { styles } from "./ItineraryDayCard.styles";
 
 export type ItineraryDayCardProps = {
-  day: ItineraryDayWithItems;
+  day: TripTemplateDayWithItems;
   isActive: boolean;
   onPress?: () => void;
 };

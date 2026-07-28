@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next";
 
 import { StateView, Text, TimelineRail } from "@shared/components";
 import { colors } from "@shared/styles";
-import type { ItineraryDayWithItems } from "../../types";
+import type { TripTemplateDayWithItems } from "../../types";
 import { ItineraryDayCard } from "../ItineraryDayCard";
 import { styles } from "./ItineraryOverview.styles";
 
 export type ItineraryOverviewProps = {
-  days: ItineraryDayWithItems[];
+  days: TripTemplateDayWithItems[];
   activeDayNumber: number;
   isLoading: boolean;
   isError: boolean;

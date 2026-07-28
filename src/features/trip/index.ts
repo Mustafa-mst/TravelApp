@@ -11,4 +11,4 @@ export {
   useRecentTemplatesQuery,
   useMyTemplatesQuery,
 } from "./hooks";
-export type { City, Itinerary, TemplateCard as TemplateCardType } from "./types";
+export type { City, TripTemplate, TemplateCard as TemplateCardType } from "./types";

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createItineraryItem } from "../../services";
-import type { NewItineraryItemInput } from "../../types";
+import type { NewTripTemplateItemInput } from "../../types";
 import { itineraryKeys } from "../query/useGetItinerariesQuery";
 
 /**
@@ -9,7 +9,7 @@ import { itineraryKeys } from "../query/useGetItinerariesQuery";
  */
 export type CreateItineraryItemVariables = {
   itineraryId: string;
-  input: NewItineraryItemInput;
+  input: NewTripTemplateItemInput;
 };
 
 export function useCreateItineraryItem() {

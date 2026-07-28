@@ -14,7 +14,7 @@ export type RootStackParamList = {
     countryCode: string;
   };
   ItineraryDetail: {
-    itinerary: Itinerary;
+    itinerary: TripTemplate;
   };
   DayDetail: {
     itineraryId: string;
@@ -22,16 +22,16 @@ export type RootStackParamList = {
   };
 };
 
-import type { Itinerary } from "@/features/itinerary";
+import type { TripTemplate } from "@/features/trip";
 
 export type BackTarget =
   | { target: "exchange"; params?: undefined }
-  | { target: "createItinerary"; params?: { itinerary: Itinerary } };
+  | { target: "createItinerary"; params?: { itinerary: TripTemplate } };
 
 export type ExchangeStackParamList = {
   ExchangeHome: undefined;
 };
 
 export type ItineraryStackParamList = {
-  CreateItinerary: { itinerary?: Itinerary };
+  CreateItinerary: { itinerary?: TripTemplate };
 };

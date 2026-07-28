@@ -1,18 +1,18 @@
 import { supabase } from "@shared/services";
 import type {
-  FullItinerary,
-  Itinerary,
-  ItineraryDay,
-  ItineraryDayWithItems,
-  ItineraryItem,
-  NewItineraryItemInput,
-  UpdateItineraryItemInput,
+  FullTripTemplate,
+  TripTemplate,
+  TripTemplateDay,
+  TripTemplateDayWithItems,
+  TripTemplateItem,
+  NewTripTemplateItemInput,
+  UpdateTripTemplateItemInput,
 } from "../types";
 import { buildDayNumbers } from "../utils";
 
 /**
- * Dedicated Supabase access layer for the itinerary feature. All queries live
- * here (never inside components); React Query hooks call these functions.
+ * Dedicated Supabase access layer for trip templates. All queries live here
+ * (never inside components); React Query hooks call these functions.
  *
  * The client is typed from `database.types.ts`, so plain-column selects return
  * the correct row types directly. Casts remain only where the app type diverges
@@ -20,7 +20,7 @@ import { buildDayNumbers } from "../utils";
  * enum, and the client-only `type` field on items.
  */
 
-export async function getItinerary(id: string): Promise<Itinerary> {
+export async function getItinerary(id: string): Promise<TripTemplate> {
   const { data, error } = await supabase
     .from("trip_templates")
     .select("*, cities(name, country_code, latitude, longitude)")
@@ -31,12 +31,12 @@ export async function getItinerary(id: string): Promise<Itinerary> {
     throw error;
   }
 
-  return data as Itinerary;
+  return data as TripTemplate;
 }
 
 export async function getItineraryDays(
   itineraryId: string,
-): Promise<ItineraryDay[]> {
+): Promise<TripTemplateDay[]> {
   const { data, error } = await supabase
     .from("trip_template_days")
     .select("*")
@@ -47,12 +47,12 @@ export async function getItineraryDays(
     throw error;
   }
 
-  return (data ?? []) as ItineraryDay[];
+  return (data ?? []) as TripTemplateDay[];
 }
 
 export async function getItineraryItems(
   dayId: string,
-): Promise<ItineraryItem[]> {
+): Promise<TripTemplateItem[]> {
   const { data, error } = await supabase
     .from("trip_template_items")
     .select("*")
@@ -63,7 +63,7 @@ export async function getItineraryItems(
     throw error;
   }
 
-  return (data ?? []) as ItineraryItem[];
+  return (data ?? []) as TripTemplateItem[];
 }
 
 /**
@@ -77,7 +77,7 @@ export async function getItineraryItems(
  */
 export async function initializeItineraryDays(
   itineraryId: string,
-): Promise<ItineraryDay[]> {
+): Promise<TripTemplateDay[]> {
   const existing = await getItineraryDays(itineraryId);
   if (existing.length > 0) {
     return existing;
@@ -100,7 +100,7 @@ export async function initializeItineraryDays(
     throw error;
   }
 
-  return ((data ?? []) as ItineraryDay[]).sort(
+  return ((data ?? []) as TripTemplateDay[]).sort(
     (a, b) => a.day_number - b.day_number,
   );
 }
@@ -111,13 +111,13 @@ export async function initializeItineraryDays(
  */
 export async function getFullItinerary(
   itineraryId: string,
-): Promise<FullItinerary> {
+): Promise<FullTripTemplate> {
   const itinerary = await getItinerary(itineraryId);
   const days = await initializeItineraryDays(itineraryId);
 
   const dayIds = days.map((day) => day.id);
 
-  let items: ItineraryItem[] = [];
+  let items: TripTemplateItem[] = [];
   if (dayIds.length > 0) {
     const { data, error } = await supabase
       .from("trip_template_items")
@@ -129,10 +129,10 @@ export async function getFullItinerary(
       throw error;
     }
 
-    items = (data ?? []) as ItineraryItem[];
+    items = (data ?? []) as TripTemplateItem[];
   }
 
-  const itemsByDay = new Map<string, ItineraryItem[]>();
+  const itemsByDay = new Map<string, TripTemplateItem[]>();
   for (const item of items) {
     const bucket = itemsByDay.get(item.template_day_id);
     if (bucket) {
@@ -142,7 +142,7 @@ export async function getFullItinerary(
     }
   }
 
-  const daysWithItems: ItineraryDayWithItems[] = days.map((day) => ({
+  const daysWithItems: TripTemplateDayWithItems[] = days.map((day) => ({
     ...day,
     items: itemsByDay.get(day.id) ?? [],
   }));
@@ -171,8 +171,8 @@ async function nextOrderIndex(dayId: string): Promise<number> {
 }
 
 export async function createItineraryItem(
-  input: NewItineraryItemInput,
-): Promise<ItineraryItem> {
+  input: NewTripTemplateItemInput,
+): Promise<TripTemplateItem> {
   const order_index =
     input.order_index ?? (await nextOrderIndex(input.template_day_id));
 
@@ -189,13 +189,13 @@ export async function createItineraryItem(
     throw error;
   }
 
-  return data as ItineraryItem;
+  return data as TripTemplateItem;
 }
 
 export async function updateItineraryItem(
   id: string,
-  patch: UpdateItineraryItemInput,
-): Promise<ItineraryItem> {
+  patch: UpdateTripTemplateItemInput,
+): Promise<TripTemplateItem> {
   // `type` is not a column on trip_template_items; never send it in a patch.
   const { type: _type, ...columns } = patch;
 
@@ -210,7 +210,7 @@ export async function updateItineraryItem(
     throw error;
   }
 
-  return data as ItineraryItem;
+  return data as TripTemplateItem;
 }
 
 export async function deleteItineraryItem(id: string): Promise<void> {

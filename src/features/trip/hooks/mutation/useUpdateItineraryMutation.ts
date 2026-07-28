@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@shared/services";
-import type { Itinerary, NewItineraryInput } from "../../types";
+import type { TripTemplate, NewTripTemplateInput } from "../../types";
 import { itineraryKeys } from "../query/useGetItinerariesQuery";
 
-export type UpdateItineraryInput = NewItineraryInput & {
+export type UpdateItineraryInput = NewTripTemplateInput & {
   id: string;
 };
 
@@ -23,7 +23,7 @@ export function useUpdateItineraryMutation() {
         throw error;
       }
 
-      return data as Itinerary;
+      return data as TripTemplate;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: itineraryKeys.all });

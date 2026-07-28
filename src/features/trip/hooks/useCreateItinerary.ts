@@ -18,9 +18,9 @@ import {
   useUpdateItineraryMutation,
 } from "./mutation";
 import { uploadCoverPhoto } from "../utils";
-import type { Itinerary, SelectedCity } from "../types";
+import type { TripTemplate, SelectedCity } from "../types";
 
-function toSelectedCity(itinerary: Itinerary): SelectedCity | null {
+function toSelectedCity(itinerary: TripTemplate): SelectedCity | null {
   if (!itinerary.cities) {
     return null;
   }
@@ -34,7 +34,7 @@ function toSelectedCity(itinerary: Itinerary): SelectedCity | null {
   };
 }
 
-export function useCreateItinerary(initial?: Itinerary) {
+export function useCreateItinerary(initial?: TripTemplate) {
   const { t } = useTranslation();
   const { close } = useBackLayer();
   const session = useAuthStore((state) => state.session);

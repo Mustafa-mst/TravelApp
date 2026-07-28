@@ -1,7 +1,7 @@
 import { memo, useCallback } from "react";
 
 import { StaticList } from "@shared/components";
-import { TemplateCard, type TemplateCardType } from "@/features/itinerary";
+import { TemplateCard, type TemplateCardType } from "@/features/trip";
 import { styles } from "./TemplateSection.styles";
 
 export type TemplateSectionProps = {

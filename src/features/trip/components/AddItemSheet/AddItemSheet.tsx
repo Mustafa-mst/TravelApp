@@ -15,7 +15,7 @@ import { PLACE_CATEGORIES, PlaceTypes } from "@/features/places/constants";
 import { useNearbyPlaces } from "@/features/places/hooks";
 import type { PlaceType } from "@/features/places/types";
 import { useCreateItineraryItem } from "../../hooks";
-import type { NewItineraryItemInput } from "../../types";
+import type { NewTripTemplateItemInput } from "../../types";
 import { styles } from "./AddItemSheet.styles";
 
 export type AddItemSheetProps = {
@@ -104,7 +104,7 @@ export function AddItemSheet({
     }
     try {
       for (const { place, placeType } of pendingPlaces.values()) {
-        const input: NewItineraryItemInput = {
+        const input: NewTripTemplateItemInput = {
           template_day_id: dayId,
           type: "place",
           name: place.name,

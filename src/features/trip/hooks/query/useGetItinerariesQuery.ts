@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@shared/services";
 import { useAuthStore } from "@/features/auth";
-import type { Itinerary } from "../../types";
+import type { TripTemplate } from "../../types";
 
 export const itineraryKeys = {
   all: ["itineraries"] as const,
@@ -32,7 +32,7 @@ export function useGetItinerariesQuery() {
         throw error;
       }
 
-      return (data ?? []) as Itinerary[];
+      return (data ?? []) as TripTemplate[];
     },
   });
 }

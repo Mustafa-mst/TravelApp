@@ -11,11 +11,11 @@ import {
 import { MoreVerticalIcon } from "@shared/assets/icons";
 import { colors } from "@shared/styles";
 import { PLACE_TYPE_META } from "@/features/places/constants";
-import type { ItineraryItem } from "../../types";
+import type { TripTemplateItem } from "../../types";
 import { styles } from "./DayTimelineCard.styles";
 
 export type DayTimelineCardProps = {
-  item: ItineraryItem;
+  item: TripTemplateItem;
   /** First row in the day: draws the small cap above the badge. */
   isFirst?: boolean;
   /** Last row in the day: stops the connector line at this badge. */

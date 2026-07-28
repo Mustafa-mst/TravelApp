@@ -7,7 +7,7 @@ export {
   getItineraryItems,
   initializeItineraryDays,
   updateItineraryItem,
-} from "./itinerary.service";
+} from "./trip-template.service";
 export {
   getFeaturedTemplates,
   getMyTemplates,

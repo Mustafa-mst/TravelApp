@@ -7,7 +7,7 @@ import {
   useFeaturedTemplatesQuery,
   useMyTemplatesQuery,
   type TemplateCardType,
-} from "@/features/itinerary";
+} from "@/features/trip";
 import { TemplateSection } from "../TemplateSection";
 import { styles } from "./ExploreTemplates.styles";
 

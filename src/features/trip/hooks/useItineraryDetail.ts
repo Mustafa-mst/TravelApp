@@ -8,7 +8,7 @@ import {
   type MapMarker,
 } from "@shared/components";
 import type { RootStackParamList } from "@shared/navigation";
-import type { Itinerary } from "../types";
+import type { TripTemplate } from "../types";
 import { resolveActiveDayNumber } from "../utils";
 import { useFullItinerary } from "./query";
 
@@ -23,7 +23,7 @@ const DEFAULT_MAP_CENTER: MapCoordinates = {
  * itinerary query, the derived map/stat data, and the create/edit/delete sheet
  * orchestration. The screen consumes the returned values and handlers.
  */
-export function useItineraryDetail(itinerary: Itinerary) {
+export function useItineraryDetail(itinerary: TripTemplate) {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 

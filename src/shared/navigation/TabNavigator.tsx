@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { AccountScreen } from "@/features/auth";
 import { SearchScreen } from "@/features/search";
 import { HomeScreen } from "@/features/home";
-import { ItinerariesScreen } from "@/features/itinerary";
+import { ItinerariesScreen } from "@/features/trip";
 import {
   CalendarMonthIcon,
   HomeIcon,
