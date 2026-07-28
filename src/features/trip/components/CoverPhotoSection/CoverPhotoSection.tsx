@@ -41,7 +41,7 @@ function CoverPhotoSectionComponent({
         <View style={styles.headerTitle}>
           <ImageIcon width={20} height={20} color={colors.iconPrimary} />
           <Text variant="bodyExtraLarge" color="textPrimary">
-            {t("itinerary.coverPhoto")}
+            {t("template.coverPhoto")}
           </Text>
         </View>
         <Pressable
@@ -50,7 +50,7 @@ function CoverPhotoSectionComponent({
           onPress={onUploadPress}
         >
           <Text variant="caption" color="primary">
-            {t("itinerary.uploadPhoto")}
+            {t("template.uploadPhoto")}
           </Text>
         </Pressable>
       </View>

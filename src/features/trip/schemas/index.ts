@@ -1,10 +1,10 @@
 export {
-  createItinerarySchema,
+  createTemplateSchema,
   MIN_TEMPLATE_DAYS,
   MAX_TEMPLATE_DAYS,
-  type CreateItineraryValues,
-} from "./itinerary.schema";
+  type TemplateFormValues,
+} from "./template.schema";
 export {
-  itineraryItemSchema,
-  type ItineraryItemValues,
-} from "./itineraryItem.schema";
+  templateItemSchema,
+  type TemplateItemValues,
+} from "./templateItem.schema";

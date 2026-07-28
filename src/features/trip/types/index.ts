@@ -1,17 +1,15 @@
 export type {
   City,
-  FullTripTemplate,
   TripTemplate,
   TripCity,
   TripTemplateDay,
-  TripTemplateDayWithItems,
   TripTemplateItem,
   TripTemplateItemType,
   NewTripTemplateInput,
   NewTripTemplateItemInput,
   SelectedCity,
   UpdateTripTemplateItemInput,
-} from "./trip-template.types";
+} from "./tripTemplate.types";
 export type { TemplateCard } from "./template.types";
 export type {
   TemplateDetail,
@@ -21,4 +19,4 @@ export type {
   TripDetailMode,
   TripDetailView,
   TripStatus,
-} from "./trip-detail.types";
+} from "./tripDetail.types";

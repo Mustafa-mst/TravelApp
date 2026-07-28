@@ -6,7 +6,7 @@ const tr = {
   tabs: {
     home: "Ana Sayfa",
     search: "Ara",
-    itineraries: "Gezi Planları",
+    templates: "Gezi Planları",
     account: "Hesap",
   },
   auth: {
@@ -24,10 +24,10 @@ const tr = {
   },
   home: {
     title: "Ana Sayfa",
-    itineraries: "Gezi Planları",
+    templates: "Gezi Planları",
     explorePlaces: "Yerleri Keşfet",
     exploreMap: "Haritada Keşfet",
-    newItinerary: "Yeni Plan",
+    newTemplate: "Yeni Plan",
     shareTrip: "Geziyi Paylaş",
     inviteFriends: "Arkadaş Davet Et",
     edit: "Düzenle",
@@ -77,7 +77,7 @@ const tr = {
     placeholder: "Ara",
     history: "Arama Geçmişi",
   },
-  itinerary: {
+  template: {
     title: "Gezi Planları",
     empty: "Henüz bir gezi planın yok.",
     new: "Yeni Gezi Planı",
@@ -155,7 +155,7 @@ const tr = {
       dayCount_one: "{{count}} gün",
       dayCount_other: "{{count}} gün",
     },
-    template: {
+    place: {
       placesCount_one: "{{count}} yer",
       placesCount_other: "{{count}} yer",
     },
@@ -192,7 +192,7 @@ const tr = {
   },
   country: {
     seeMore: "Daha fazla",
-    createItinerary: "Gezi Planı Oluştur",
+    createTemplate: "Gezi Planı Oluştur",
     sections: {
       thingsToDo: {
         title: "Yapılacaklar",

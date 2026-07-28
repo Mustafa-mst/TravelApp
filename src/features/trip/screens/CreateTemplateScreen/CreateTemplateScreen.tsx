@@ -4,18 +4,18 @@ import { BackPanel } from "react-native-layer-stack";
 import { useRoute, type RouteProp } from "@react-navigation/native";
 
 import { type BottomSheet } from "@shared/components";
-import type { ItineraryStackParamList } from "@shared/navigation";
+import type { TemplateStackParamList } from "@shared/navigation";
 import {
   CitySearchSheet,
-  CreateItineraryHeader,
+  CreateTemplateHeader,
   TripDetailsSection,
 } from "../../components";
-import { useCreateItinerary } from "../../hooks";
-import { styles } from "./CreateItineraryScreen.styles";
+import { useTemplateForm } from "../../hooks";
+import { styles } from "./CreateTemplateScreen.styles";
 
-export function CreateItineraryScreen() {
+export function CreateTemplateScreen() {
   const route =
-    useRoute<RouteProp<ItineraryStackParamList, "CreateItinerary">>();
+    useRoute<RouteProp<TemplateStackParamList, "CreateTemplate">>();
   const citySheetRef = useRef<BottomSheet>(null);
   const {
     control,
@@ -34,11 +34,11 @@ export function CreateItineraryScreen() {
     pickFromGallery,
     submit,
     cancel,
-  } = useCreateItinerary(route.params?.itinerary);
+  } = useTemplateForm(route.params?.template);
 
   return (
     <BackPanel contentStyle={styles.panelContent}>
-      <CreateItineraryHeader
+      <CreateTemplateHeader
         isEditing={isEditing}
         canSubmit={canSubmit}
         isSubmitting={isSubmitting}

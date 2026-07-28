@@ -1,1 +1,1 @@
-export { ItineraryNavigator } from "./ItineraryNavigator";
+export { TemplateNavigator } from "./TemplateNavigator";

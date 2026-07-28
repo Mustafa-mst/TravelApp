@@ -31,7 +31,7 @@ function TripActionsComponent({
       <View style={styles.row}>
         <Button
           style={styles.primary}
-          label={t("itinerary.detail.startTrip")}
+          label={t("template.detail.startTrip")}
           onPress={onStartTrip}
           state={onStartTrip ? undefined : "disabled"}
         />
@@ -40,8 +40,8 @@ function TripActionsComponent({
           type="secondary"
           label={
             detail.is_saved
-              ? t("itinerary.detail.savedTemplate")
-              : t("itinerary.detail.saveTemplate")
+              ? t("template.detail.savedTemplate")
+              : t("template.detail.saveTemplate")
           }
           onPress={onToggleSave}
           state={onToggleSave ? undefined : "disabled"}
@@ -54,14 +54,14 @@ function TripActionsComponent({
     <View style={styles.row}>
       <View style={styles.statusBadge}>
         <Text variant="captionMedium" color="textSecondary">
-          {t(`itinerary.detail.status.${detail.status}`)}
+          {t(`template.detail.status.${detail.status}`)}
         </Text>
       </View>
       {detail.can_edit ? (
         <Button
           outlined
           type="secondary"
-          label={t("itinerary.detail.edit")}
+          label={t("template.detail.edit")}
           onPress={onEdit}
           state={onEdit ? undefined : "disabled"}
         />

@@ -1,6 +1,6 @@
-export { ItineraryCard, type ItineraryCardProps } from "./ItineraryCard";
+export { TemplateListCard, type TemplateListCardProps } from "./TemplateListCard";
 export { TemplateCard, type TemplateCardProps } from "./TemplateCard";
-export { CreateItineraryHeader } from "./CreateItineraryHeader";
+export { CreateTemplateHeader } from "./CreateTemplateHeader";
 export {
   DayCountStepper,
   type DayCountStepperProps,
@@ -21,7 +21,7 @@ export {
   DayTimelineCard,
   type DayTimelineCardProps,
 } from "./DayTimelineCard";
-export { AddItemSheet, type AddItemSheetProps } from "./AddItemSheet";
+export { AddPlacesSheet, type AddPlacesSheetProps } from "./AddPlacesSheet";
 export { MetaInfo, type MetaInfoProps } from "./MetaInfo";
 export {
   TripDetailOverview,

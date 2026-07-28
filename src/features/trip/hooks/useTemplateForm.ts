@@ -8,45 +8,45 @@ import { useTranslation } from "react-i18next";
 
 import { useAuthStore } from "@/features/auth";
 import {
-  createItinerarySchema,
+  createTemplateSchema,
   MAX_TEMPLATE_DAYS,
   MIN_TEMPLATE_DAYS,
-  type CreateItineraryValues,
+  type TemplateFormValues,
 } from "../schemas";
 import {
-  useCreateItineraryMutation,
-  useUpdateItineraryMutation,
+  useCreateTemplateMutation,
+  useUpdateTemplateMutation,
 } from "./mutation";
 import { uploadCoverPhoto } from "../utils";
 import type { TripTemplate, SelectedCity } from "../types";
 
-function toSelectedCity(itinerary: TripTemplate): SelectedCity | null {
-  if (!itinerary.cities) {
+function toSelectedCity(template: TripTemplate): SelectedCity | null {
+  if (!template.cities) {
     return null;
   }
 
   return {
-    geoname_id: itinerary.city_geoname_id,
-    name: itinerary.cities.name,
-    country_code: itinerary.cities.country_code,
-    latitude: itinerary.cities.latitude,
-    longitude: itinerary.cities.longitude,
+    geoname_id: template.city_geoname_id,
+    name: template.cities.name,
+    country_code: template.cities.country_code,
+    latitude: template.cities.latitude,
+    longitude: template.cities.longitude,
   };
 }
 
-export function useCreateItinerary(initial?: TripTemplate) {
+export function useTemplateForm(initial?: TripTemplate) {
   const { t } = useTranslation();
   const { close } = useBackLayer();
   const session = useAuthStore((state) => state.session);
   const isEditing = Boolean(initial);
 
-  const { mutateAsync: createItinerary, isPending: isCreating } =
-    useCreateItineraryMutation();
-  const { mutateAsync: updateItinerary, isPending: isUpdating } =
-    useUpdateItineraryMutation();
+  const { mutateAsync: createTemplate, isPending: isCreating } =
+    useCreateTemplateMutation();
+  const { mutateAsync: updateTemplate, isPending: isUpdating } =
+    useUpdateTemplateMutation();
 
-  const form = useForm<CreateItineraryValues>({
-    resolver: zodResolver(createItinerarySchema),
+  const form = useForm<TemplateFormValues>({
+    resolver: zodResolver(createTemplateSchema),
     mode: "onChange",
     defaultValues: {
       name: initial?.title ?? "",
@@ -122,7 +122,7 @@ export function useCreateItinerary(initial?: TripTemplate) {
     }
 
     if (!session) {
-      Alert.alert(t("itinerary.loginRequired"));
+      Alert.alert(t("template.loginRequired"));
       return;
     }
 
@@ -144,14 +144,14 @@ export function useCreateItinerary(initial?: TripTemplate) {
       };
 
       if (initial) {
-        await updateItinerary({ id: initial.id, ...payload });
+        await updateTemplate({ id: initial.id, ...payload });
       } else {
-        await createItinerary(payload);
+        await createTemplate(payload);
       }
       close();
     } catch (error) {
       Alert.alert(
-        t("itinerary.saveError"),
+        t("template.saveError"),
         error instanceof Error ? error.message : undefined,
       );
     } finally {

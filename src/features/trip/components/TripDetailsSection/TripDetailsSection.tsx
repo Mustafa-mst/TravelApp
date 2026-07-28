@@ -9,7 +9,7 @@ import { ChevronRightIcon, LocationIcon } from "@/shared/assets/icons";
 import {
   MAX_TEMPLATE_DAYS,
   MIN_TEMPLATE_DAYS,
-  type CreateItineraryValues,
+  type TemplateFormValues,
 } from "../../schemas";
 import type { SelectedCity } from "../../types";
 import { CoverPhotoSection } from "../CoverPhotoSection";
@@ -17,8 +17,8 @@ import { DayCountStepper } from "../DayCountStepper";
 import { styles } from "./TripDetailsSection.styles";
 
 export type TripDetailsSectionProps = {
-  control: Control<CreateItineraryValues>;
-  errors: FieldErrors<CreateItineraryValues>;
+  control: Control<TemplateFormValues>;
+  errors: FieldErrors<TemplateFormValues>;
   selectedCity: SelectedCity | null;
   onCityPress: () => void;
   daysCount: number;
@@ -57,7 +57,7 @@ function TripDetailsSectionComponent({
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               style={styles.nameInput}
-              placeholder={t("itinerary.namePlaceholder")}
+              placeholder={t("template.namePlaceholder")}
               placeholderTextColor={colors.textTertiary}
               value={value}
               onChangeText={onChange}
@@ -86,7 +86,7 @@ function TripDetailsSectionComponent({
               </Text>
             ) : (
               <Text variant="bodyLarge" color="textTertiary">
-                {t("itinerary.selectCity")}
+                {t("template.selectCity")}
               </Text>
             )}
           </View>

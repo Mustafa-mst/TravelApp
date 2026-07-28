@@ -30,7 +30,7 @@ function DayCountStepperComponent({
       <View style={styles.header}>
         <CalendarMonthIcon width={20} height={20} color={colors.iconPrimary} />
         <Text variant="bodyExtraLarge" color="textPrimary">
-          {t("itinerary.duration")}
+          {t("template.duration")}
         </Text>
       </View>
 
@@ -48,7 +48,7 @@ function DayCountStepperComponent({
         </Pressable>
 
         <Text variant="bodyExtraLarge" color="textPrimary" style={styles.value}>
-          {t("itinerary.overview.dayCount", { count: safeValue })}
+          {t("template.overview.dayCount", { count: safeValue })}
         </Text>
 
         <Pressable

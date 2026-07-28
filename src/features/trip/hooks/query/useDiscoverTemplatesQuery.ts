@@ -10,12 +10,21 @@ import {
 
 const FIVE_MINUTES_IN_MS = 1000 * 60 * 5;
 
+/**
+ * Query keys for trip templates — the discovery lists, the author's own
+ * template list, and the detail view. One namespace per table: everything here
+ * reads `trip_templates` (directly or through `v_template_cards`), so a write
+ * to a template can invalidate `all` and be sure it swept every stale view.
+ * Real trips live under `tripKeys`.
+ */
 export const templateKeys = {
   all: ["templates"] as const,
   featured: () => [...templateKeys.all, "featured"] as const,
   popular: () => [...templateKeys.all, "popular"] as const,
   recent: () => [...templateKeys.all, "recent"] as const,
   mine: (userId: string) => [...templateKeys.all, "mine", userId] as const,
+  /** The author's own templates, joined with their city (not the card view). */
+  list: (userId: string) => [...templateKeys.all, "list", userId] as const,
   detail: (templateId: string) =>
     [...templateKeys.all, "detail", templateId] as const,
 };

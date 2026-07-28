@@ -8,15 +8,6 @@ import { useTripMapData } from "./useTripMapData";
 
 const FIVE_MINUTES_IN_MS = 1000 * 60 * 5;
 
-/**
- * Loads a detail view from either source behind one interface, so the screen
- * never branches on where the data came from.
- *
- * One query, whose key and fetcher are chosen by `mode` — the caller always
- * knows the mode from its route params, which is more trustworthy than the
- * `mode` the RPC echoes back. The two modes deliberately use separate key
- * namespaces; see `tripKeys`.
- */
 export function useTripDetail(id: string, mode: TripDetailMode) {
   const session = useAuthStore((state) => state.session);
   const viewerId = session?.user.id ?? null;
@@ -33,6 +24,7 @@ export function useTripDetail(id: string, mode: TripDetailMode) {
 
   const { data } = query;
   const { mapCenter, mapMarkers } = useTripMapData(data?.days, data?.city);
+  const canEdit = (data?.can_edit ?? false) && mode === "template";
 
   return {
     detail: data,
@@ -41,6 +33,7 @@ export function useTripDetail(id: string, mode: TripDetailMode) {
     refetch: query.refetch,
     days: data?.days,
     totalActivities: data?.places_count ?? 0,
+    canEdit,
     mapCenter,
     mapMarkers,
   };

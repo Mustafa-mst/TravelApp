@@ -26,8 +26,12 @@ const DEFAULT_MAP_CENTER: MapCoordinates = {
  * parent is a template or a trip, and so both screens share one cache entry.
  */
 export function useDayDetail(id: string, mode: TripDetailMode, dayId: string) {
-  const { detail, days, isLoading, isError } = useTripDetail(id, mode);
-  const day = days?.find((d) => d.id === dayId) ?? null;
+  const { detail, days, isLoading, isError, canEdit } = useTripDetail(id, mode);
+
+  const day = useMemo(
+    () => days?.find((d) => d.id === dayId) ?? null,
+    [days, dayId],
+  );
 
   const { mapCenter, mapMarkers, coordinates } = useMemo(() => {
     const markers: MapMarker[] = [];
@@ -53,14 +57,16 @@ export function useDayDetail(id: string, mode: TripDetailMode, dayId: string) {
 
   const { mutate: fetchDirections, data: route, reset } = useDirections();
 
-  const coordsKey = JSON.stringify(coordinates);
+  // A route needs at least two stops; below that there is nothing to draw, so
+  // clear any previously fetched one. `coordinates` is memoized above, so this
+  // refires only when the day's places actually change.
   useEffect(() => {
     if (coordinates.length < 2) {
       reset();
       return;
     }
     fetchDirections(coordinates);
-  }, [coordsKey, fetchDirections, reset]);
+  }, [coordinates, fetchDirections, reset]);
 
   const mapPolylines: MapPolyline[] = useMemo(() => {
     if (!route?.polyline) {
@@ -82,6 +88,7 @@ export function useDayDetail(id: string, mode: TripDetailMode, dayId: string) {
     route,
     isLoading,
     isError,
+    canEdit,
     mapCenter,
     mapMarkers,
     mapPolylines,

@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@shared/services";
 import type { TripTemplate, NewTripTemplateInput } from "../../types";
-import { itineraryKeys } from "../query/useGetItinerariesQuery";
+import { templateKeys } from "../query/useDiscoverTemplatesQuery";
 
-export function useCreateItineraryMutation() {
+export function useCreateTemplateMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -21,7 +21,7 @@ export function useCreateItineraryMutation() {
       return data as TripTemplate;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: itineraryKeys.all });
+      queryClient.invalidateQueries({ queryKey: templateKeys.all });
     },
   });
 }

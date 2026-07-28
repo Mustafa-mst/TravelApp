@@ -4,13 +4,13 @@ import {
   useDebouncedValue,
   SEARCH_DEBOUNCE_MS,
   MIN_QUERY_LENGTH,
-} from "../useDebouncedValue";
+} from "@shared/hooks";
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24;
 const IMAGE_COUNT = 6;
 
 export const coverPhotoKeys = {
-  all: ["itineraryCoverPhoto"] as const,
+  all: ["templateCoverPhoto"] as const,
   byCity: (city: string) => [...coverPhotoKeys.all, city] as const,
 };
 

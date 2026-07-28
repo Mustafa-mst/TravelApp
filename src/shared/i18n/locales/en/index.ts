@@ -6,7 +6,7 @@ const en = {
   tabs: {
     home: "Home",
     search: "Search",
-    itineraries: "Itineraries",
+    templates: "Itineraries",
     account: "Account",
   },
   auth: {
@@ -24,10 +24,10 @@ const en = {
   },
   home: {
     title: "Home",
-    itineraries: "Itineraries",
+    templates: "Itineraries",
     explorePlaces: "Explore Places",
     exploreMap: "Explore on Map",
-    newItinerary: "New Itinerary",
+    newTemplate: "New Itinerary",
     shareTrip: "Share Trip",
     inviteFriends: "Invite Friends",
     edit: "Edit",
@@ -77,7 +77,7 @@ const en = {
     placeholder: "Search",
     history: "Search History",
   },
-  itinerary: {
+  template: {
     title: "Itineraries",
     empty: "You don't have any itineraries yet.",
     new: "New Itinerary",
@@ -155,7 +155,7 @@ const en = {
       dayCount_one: "{{count}} day",
       dayCount_other: "{{count}} days",
     },
-    template: {
+    place: {
       placesCount_one: "{{count}} place",
       placesCount_other: "{{count}} places",
     },
@@ -192,7 +192,7 @@ const en = {
   },
   country: {
     seeMore: "See more",
-    createItinerary: "Create Itinerary",
+    createTemplate: "Create Itinerary",
     sections: {
       thingsToDo: {
         title: "Things to do",

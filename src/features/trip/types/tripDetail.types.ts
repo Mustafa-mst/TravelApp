@@ -1,5 +1,5 @@
 import { PlaceTypes } from "@/features/places/constants";
-import type { SelectedCity } from "./trip-template.types";
+import type { SelectedCity } from "./tripTemplate.types";
 
 /**
  * Which source a detail view was loaded from. A template is a reusable plan

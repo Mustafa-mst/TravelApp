@@ -1,10 +1,10 @@
-export { useCreateItineraryMutation } from "./useCreateItineraryMutation";
-export { useDeleteItineraryMutation } from "./useDeleteItineraryMutation";
+export { useCreateTemplateMutation } from "./useCreateTemplateMutation";
+export { useDeleteTemplateMutation } from "./useDeleteTemplateMutation";
 export {
-  useUpdateItineraryMutation,
-  type UpdateItineraryInput,
-} from "./useUpdateItineraryMutation";
+  useUpdateTemplateMutation,
+  type UpdateTemplateInput,
+} from "./useUpdateTemplateMutation";
 export {
-  useCreateItineraryItem,
-  type CreateItineraryItemVariables,
-} from "./useCreateItineraryItem";
+  useCreateTemplateItem,
+  type CreateTemplateItemVariables,
+} from "./useCreateTemplateItem";

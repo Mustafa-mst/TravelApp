@@ -5,7 +5,7 @@ import {
   useDebouncedValue,
   SEARCH_DEBOUNCE_MS,
   MIN_QUERY_LENGTH,
-} from "../useDebouncedValue";
+} from "@shared/hooks";
 
 const FIVE_MINUTES_IN_MS = 1000 * 60 * 5;
 
@@ -22,7 +22,6 @@ export function useSearchCitiesQuery(query: string) {
     enabled: debouncedQuery.length >= MIN_QUERY_LENGTH,
     staleTime: FIVE_MINUTES_IN_MS,
     retry: 1,
-    // Keep the previous list on screen while the next query loads (no flicker).
     placeholderData: (previous) => previous,
     queryFn: async () => {
       const { data, error } = await supabase.rpc("search_cities", {

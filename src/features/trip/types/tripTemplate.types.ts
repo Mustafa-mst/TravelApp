@@ -77,14 +77,3 @@ export type NewTripTemplateItemInput = Omit<
 export type UpdateTripTemplateItemInput = Partial<
   Omit<TripTemplateItem, "id" | "template_day_id" | "created_at" | "updated_at">
 >;
-
-/** A day joined with its ordered items — the shape the detail screen renders. */
-export type TripTemplateDayWithItems = TripTemplateDay & {
-  items: TripTemplateItem[];
-};
-
-/** The full template payload consumed by the detail screen. */
-export type FullTripTemplate = {
-  itinerary: TripTemplate;
-  days: TripTemplateDayWithItems[];
-};

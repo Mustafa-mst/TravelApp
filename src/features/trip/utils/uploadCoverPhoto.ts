@@ -1,5 +1,7 @@
 import { supabase } from "@shared/services";
 
+// Named before templates were called templates. Renaming this would orphan
+// every cover already uploaded, so it stays as-is.
 const BUCKET = "itinerary-covers";
 
 function resolveContentType(extension: string): string {
@@ -8,7 +10,7 @@ function resolveContentType(extension: string): string {
 
 /**
  * Uploads a local (file://) gallery image to Supabase Storage and returns its
- * public URL, so the itinerary's cover_photo works across devices.
+ * public URL, so the template's cover_photo works across devices.
  */
 export async function uploadCoverPhoto(
   userId: string,

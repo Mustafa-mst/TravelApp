@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@shared/services";
 import type { TripTemplate, NewTripTemplateInput } from "../../types";
-import { itineraryKeys } from "../query/useGetItinerariesQuery";
+import { templateKeys } from "../query/useDiscoverTemplatesQuery";
 
-export type UpdateItineraryInput = NewTripTemplateInput & {
+export type UpdateTemplateInput = NewTripTemplateInput & {
   id: string;
 };
 
-export function useUpdateItineraryMutation() {
+export function useUpdateTemplateMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, ...input }: UpdateItineraryInput) => {
+    mutationFn: async ({ id, ...input }: UpdateTemplateInput) => {
       const { data, error } = await supabase
         .from("trip_templates")
         .update(input)
@@ -26,7 +26,9 @@ export function useUpdateItineraryMutation() {
       return data as TripTemplate;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: itineraryKeys.all });
+      // Sweeps the lists and the detail view: editing the title, cover or day
+      // count changes what the detail screen renders, not just the list rows.
+      queryClient.invalidateQueries({ queryKey: templateKeys.all });
     },
   });
 }

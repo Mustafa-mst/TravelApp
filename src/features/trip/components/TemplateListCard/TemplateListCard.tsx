@@ -20,20 +20,20 @@ import {
   ShareIcon,
   TrashBin,
 } from "@/shared/assets/icons";
-import { styles } from "./ItineraryCard.styles";
+import { styles } from "./TemplateListCard.styles";
 
-export type ItineraryMember = {
+export type TemplateListCardMember = {
   id: string | number;
   name: string;
   avatar?: string;
 };
 
-export type ItineraryCardProps = {
+export type TemplateListCardProps = {
   title: string;
   location: string;
   dateLabel: string;
   imageUri?: string;
-  members?: ItineraryMember[];
+  members?: TemplateListCardMember[];
   onPress?: () => void;
   onShare?: () => void;
   onEdit?: () => void;
@@ -42,7 +42,7 @@ export type ItineraryCardProps = {
 
 const MAX_VISIBLE_AVATARS = 3;
 
-function buildMembersLabel(members: ItineraryMember[], t: TFunction): string {
+function buildMembersLabel(members: TemplateListCardMember[], t: TFunction): string {
   if (members.length === 0) {
     return "";
   }
@@ -64,7 +64,7 @@ function buildMembersLabel(members: ItineraryMember[], t: TFunction): string {
   });
 }
 
-function ItineraryCardComponent({
+function TemplateListCardComponent({
   title,
   location,
   dateLabel,
@@ -74,7 +74,7 @@ function ItineraryCardComponent({
   onShare,
   onEdit,
   onDelete,
-}: ItineraryCardProps) {
+}: TemplateListCardProps) {
   const { t } = useTranslation();
   const sheetRef = useRef<BottomSheet>(null);
   const visibleMembers = members.slice(0, MAX_VISIBLE_AVATARS);
@@ -182,4 +182,4 @@ function ItineraryCardComponent({
   );
 }
 
-export const ItineraryCard = memo(ItineraryCardComponent);
+export const TemplateListCard = memo(TemplateListCardComponent);

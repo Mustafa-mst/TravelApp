@@ -30,7 +30,6 @@ export function HomeScreen() {
 
   const openTemplate = useCallback(
     (template: TemplateCardType) => {
-      // `v_template_cards` is an all-nullable view, so guard the identity.
       if (!template.id) {
         return;
       }
@@ -79,10 +78,7 @@ export function HomeScreen() {
           />
         )}
 
-        <ExploreTemplates
-          style={styles.exploreList}
-          onSelect={openTemplate}
-        />
+        <ExploreTemplates style={styles.exploreList} onSelect={openTemplate} />
       </ScrollView>
     </View>
   );

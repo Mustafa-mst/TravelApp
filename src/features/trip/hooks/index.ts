@@ -1,10 +1,8 @@
-export { useCreateItinerary } from "./useCreateItinerary";
+export { useTemplateForm } from "./useTemplateForm";
 export {
   useCoverPhotosQuery,
   useSearchCitiesQuery,
-  useGetItinerariesQuery,
-  useFullItinerary,
-  itineraryKeys,
+  useMyTemplateListQuery,
   useFeaturedTemplatesQuery,
   usePopularTemplatesQuery,
   useRecentTemplatesQuery,
@@ -17,8 +15,8 @@ export { useTripDetailActions } from "./useTripDetailActions";
 export { useTripMapData } from "./useTripMapData";
 export { useDayDetail } from "./useDayDetail";
 export {
-  useCreateItineraryMutation,
-  useDeleteItineraryMutation,
-  useUpdateItineraryMutation,
-  useCreateItineraryItem,
+  useCreateTemplateMutation,
+  useDeleteTemplateMutation,
+  useUpdateTemplateMutation,
+  useCreateTemplateItem,
 } from "./mutation";

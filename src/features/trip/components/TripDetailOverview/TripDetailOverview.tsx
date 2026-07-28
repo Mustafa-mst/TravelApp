@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 
@@ -13,8 +13,8 @@ export type TripDetailOverviewProps = {
   activeDayNumber: number;
   isLoading: boolean;
   isError: boolean;
+  canEdit: boolean;
   onRetry: () => void;
-  /** Omitted in read-only views, where days cannot be edited. */
   onAddItem?: (dayId: string) => void;
   onOpenDay?: (dayId: string) => void;
 };
@@ -24,19 +24,25 @@ function TripDetailOverviewComponent({
   activeDayNumber,
   isLoading,
   isError,
+  canEdit,
   onRetry,
   onAddItem,
   onOpenDay,
 }: TripDetailOverviewProps) {
   const { t } = useTranslation();
 
+  const visibleDays = useMemo(
+    () => (canEdit ? days : days.filter((day) => day.items.length > 0)),
+    [canEdit, days],
+  );
+
   if (isLoading || isError) {
     return (
       <StateView
         isLoading={isLoading}
         isError={isError}
-        errorLabel={t("itinerary.detail.loadError")}
-        retryLabel={t("itinerary.save")}
+        errorLabel={t("template.detail.loadError")}
+        retryLabel={t("template.save")}
         onRetry={onRetry}
       />
     );
@@ -44,10 +50,10 @@ function TripDetailOverviewComponent({
 
   return (
     <View style={styles.content}>
-      <Text variant="bodyLargeSemiBold">{t("itinerary.detail.planTitle")}</Text>
-      {days.map((day, index) => {
+      <Text variant="bodyLargeSemiBold">{t("template.detail.planTitle")}</Text>
+      {visibleDays.map((day, index) => {
         const isActive = day.day_number === activeDayNumber;
-        const isLast = index === days.length - 1;
+        const isLast = index === visibleDays.length - 1;
         const handler = day.items.length === 0 ? onAddItem : onOpenDay;
 
         return (

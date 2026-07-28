@@ -47,12 +47,12 @@ function TemplateCardComponent({
         <View style={styles.metaRow}>
           <MetaInfo
             Icon={MapIcon}
-            label={t("itinerary.template.placesCount", { count: placesCount })}
+            label={t("template.place.placesCount", { count: placesCount })}
           />
           <Divider orientation="vertical" margin={12} />
           <MetaInfo
             Icon={CalendarMonthIcon}
-            label={t("itinerary.overview.dayCount", { count: daysCount })}
+            label={t("template.overview.dayCount", { count: daysCount })}
           />
         </View>
 

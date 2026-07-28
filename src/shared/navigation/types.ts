@@ -5,7 +5,7 @@ import type { TripDetailMode, TripTemplate } from "@/features/trip";
 export type TabParamList = {
   Home: undefined;
   Search: undefined;
-  Itineraries: undefined;
+  Templates: undefined;
   Account: undefined;
 };
 
@@ -37,12 +37,12 @@ export type RootStackParamList = {
 
 export type BackTarget =
   | { target: "exchange"; params?: undefined }
-  | { target: "createItinerary"; params?: { itinerary: TripTemplate } };
+  | { target: "createTemplate"; params?: { template: TripTemplate } };
 
 export type ExchangeStackParamList = {
   ExchangeHome: undefined;
 };
 
-export type ItineraryStackParamList = {
-  CreateItinerary: { itinerary?: TripTemplate };
+export type TemplateStackParamList = {
+  CreateTemplate: { template?: TripTemplate };
 };

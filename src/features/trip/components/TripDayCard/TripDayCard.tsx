@@ -26,7 +26,7 @@ function DayBadge({
   return (
     <View style={[styles.badge, isActive && styles.badgeActive]}>
       <Text variant="captionMedium" color="textSecondary">
-        {t("itinerary.detail.dayLabel", { day: dayNumber })}
+        {t("template.detail.dayLabel", { day: dayNumber })}
       </Text>
     </View>
   );
@@ -53,10 +53,10 @@ function TripDayCardComponent({
           <Text style={styles.emptyIcon}>🗺️</Text>
           <View style={styles.emptyText}>
             <Text variant="bodyMedium">
-              {t("itinerary.detail.dayEmptyTitle")}
+              {t("template.detail.dayEmptyTitle")}
             </Text>
             <Text variant="caption" color="textMuted">
-              {t("itinerary.detail.dayEmptyAction")}
+              {t("template.detail.dayEmptyAction")}
             </Text>
           </View>
         </View>

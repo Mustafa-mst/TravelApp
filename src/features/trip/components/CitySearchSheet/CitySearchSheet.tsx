@@ -11,7 +11,7 @@ import {
 import { colors } from "@shared/styles";
 import { CheckboxCheckedIcon, LocationIcon } from "@/shared/assets/icons";
 import { useSearchCitiesQuery } from "../../hooks";
-import { MIN_QUERY_LENGTH } from "../../hooks/useDebouncedValue";
+import { MIN_QUERY_LENGTH } from "@shared/hooks";
 import type { City, SelectedCity } from "../../types";
 import { styles } from "./CitySearchSheet.styles";
 
@@ -85,7 +85,7 @@ export function CitySearchSheet({
 
   const renderEmptyState = () => {
     if (searchQuery.trim().length < MIN_QUERY_LENGTH) {
-      return renderEmptyText(t("itinerary.cityMinChars"));
+      return renderEmptyText(t("template.cityMinChars"));
     }
 
     if (isLoading) {
@@ -95,7 +95,7 @@ export function CitySearchSheet({
     }
 
     return renderEmptyText(
-      isError ? t("itinerary.searchError") : t("itinerary.noResults"),
+      isError ? t("template.searchError") : t("template.noResults"),
     );
   };
 
@@ -106,7 +106,7 @@ export function CitySearchSheet({
       onChange={handleSheetChange}
       header={
         <SheetSearchHeader
-          title={t("itinerary.selectCity")}
+          title={t("template.selectCity")}
           value={searchQuery}
           onChangeText={setSearchQuery}
           placeholder={t("search.placeholder")}

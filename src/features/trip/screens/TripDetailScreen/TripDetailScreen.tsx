@@ -11,15 +11,11 @@ import {
   Text,
   ZoomableMap,
 } from "@shared/components";
-import {
-  CalendarMonthIcon,
-  LocationIcon,
-  MapIcon,
-} from "@shared/assets/icons";
+import { CalendarMonthIcon, LocationIcon, MapIcon } from "@shared/assets/icons";
 import { backgroundImage } from "@shared/assets/images";
 import type { RootStackParamList } from "@shared/navigation";
 import {
-  AddItemSheet,
+  AddPlacesSheet,
   MetaInfo,
   TripActions,
   TripDetailOverview,
@@ -30,11 +26,6 @@ import { styles } from "./TripDetailScreen.styles";
 
 type TripDetailRoute = RouteProp<RootStackParamList, "TripDetail">;
 
-/**
- * Renders a template or a real trip from the same model. The only thing that
- * branches on the source is `TripActions`; everything here reads the shared
- * fields, and editing is gated on ownership rather than on the mode.
- */
 function TripDetailScreenComponent() {
   const { t } = useTranslation();
   const { params } = useRoute<TripDetailRoute>();
@@ -47,6 +38,7 @@ function TripDetailScreenComponent() {
     refetch,
     days,
     totalActivities,
+    canEdit,
     mapCenter,
     mapMarkers,
   } = useTripDetail(id, mode);
@@ -60,16 +52,12 @@ function TripDetailScreenComponent() {
     goToActiveDay,
   } = useTripDetailActions({ id, mode, days });
 
-  // Only the owner may edit, and only templates are writable for now — trip
-  // items are read-only until the trip write path lands.
-  const canEdit = (detail?.can_edit ?? false) && mode === "template";
-
   // Fall back to the list row the user just tapped, so the hero paints
   // immediately instead of waiting on the RPC.
   const title = detail?.title ?? preview?.title ?? "";
   const coverPhoto = detail?.cover_photo ?? preview?.cover_photo ?? null;
   const location = detail?.city?.name ?? "";
-  const dateLabel = t("itinerary.overview.dayCount", {
+  const dateLabel = t("template.overview.dayCount", {
     count: detail?.days_count ?? 0,
   });
 
@@ -104,7 +92,7 @@ function TripDetailScreenComponent() {
               ) : null}
               <MetaInfo
                 Icon={MapIcon}
-                label={t("itinerary.overview.dayActivityCount", {
+                label={t("template.overview.dayActivityCount", {
                   count: totalActivities,
                 })}
               />
@@ -123,23 +111,23 @@ function TripDetailScreenComponent() {
           <Divider>
             <View style={styles.dot} />
           </Divider>
-          {/* Edit handlers are withheld from viewers who cannot edit. */}
           <TripDetailOverview
             days={days ?? []}
             activeDayNumber={activeDayNumber}
             isLoading={isLoading}
             isError={isError}
+            canEdit={canEdit}
             onRetry={refetch}
             onAddItem={canEdit ? openAddItem : undefined}
-            onOpenDay={canEdit ? openDay : undefined}
+            onOpenDay={openDay}
           />
         </View>
       </ScrollView>
 
       {canEdit && detail ? (
-        <AddItemSheet
+        <AddPlacesSheet
           bottomSheetRef={itemSheetRef}
-          itineraryId={detail.id}
+          templateId={detail.id}
           dayId={activeDayId}
           initialSelectedPlaceIds={activeDayPlaceIds}
           latitude={detail.city?.latitude}

@@ -17,7 +17,7 @@ import {
 import { PlusIcon } from "@shared/assets/icons";
 import type { RootStackParamList } from "@shared/navigation";
 import { formatDistance, formatDuration } from "@/features/routes/utils";
-import { AddItemSheet, DayTimelineCard } from "../../components";
+import { AddPlacesSheet, DayTimelineCard } from "../../components";
 import { useDayDetail } from "../../hooks";
 import { styles } from "./DayDetailScreen.styles";
 
@@ -34,13 +34,11 @@ function DayDetailScreenComponent() {
     route,
     isLoading,
     isError,
+    canEdit,
     mapCenter,
     mapMarkers,
     mapPolylines,
   } = useDayDetail(id, mode, dayId);
-
-  // Trip items are read-only until the trip write path lands.
-  const canEdit = (detail?.can_edit ?? false) && mode === "template";
 
   const itemSheetRef = useRef<BottomSheet>(null);
 
@@ -60,15 +58,15 @@ function DayDetailScreenComponent() {
     () => [
       {
         title: formatDuration(route?.totalDurationSeconds),
-        subtitle: t("itinerary.detail.avgTravelTime"),
+        subtitle: t("template.detail.avgTravelTime"),
       },
       {
         title: formatDistance(route?.totalDistanceMeters),
-        subtitle: t("itinerary.detail.totalDistance"),
+        subtitle: t("template.detail.totalDistance"),
       },
       {
         title: String(day?.items?.length ?? 0),
-        subtitle: t("itinerary.detail.plannedStops"),
+        subtitle: t("template.detail.plannedStops"),
       },
     ],
     [
@@ -123,13 +121,13 @@ function DayDetailScreenComponent() {
           <StateView
             isLoading={isLoading}
             isError={isError || !day}
-            errorLabel={t("itinerary.detail.loadError")}
+            errorLabel={t("template.detail.loadError")}
           >
             {day ? (
               <View style={styles.content}>
                 <View style={styles.titleBlock}>
                   <Text variant="h2">
-                    {t("itinerary.detail.dayLabel", { day: day.day_number })}
+                    {t("template.detail.dayLabel", { day: day.day_number })}
                   </Text>
                 </View>
                 <StaticList
@@ -144,7 +142,7 @@ function DayDetailScreenComponent() {
                 </Divider>
                 <View style={styles.sectionHeader}>
                   <Text variant="bodySemiBold" style={styles.sectionTitle}>
-                    {t("itinerary.detail.stopsTitle")}
+                    {t("template.detail.stopsTitle")}
                   </Text>
                   {canEdit ? (
                     <PressableScale
@@ -152,7 +150,7 @@ function DayDetailScreenComponent() {
                       onPress={openAddStop}
                     >
                       <PlusIcon width={14} height={14} />
-                      <Text>{t("itinerary.detail.addStop")}</Text>
+                      <Text>{t("template.detail.addStop")}</Text>
                     </PressableScale>
                   ) : null}
                 </View>
@@ -173,9 +171,9 @@ function DayDetailScreenComponent() {
       </ScrollView>
 
       {canEdit ? (
-        <AddItemSheet
+        <AddPlacesSheet
           bottomSheetRef={itemSheetRef}
-          itineraryId={id}
+          templateId={id}
           dayId={dayId}
           initialSelectedPlaceIds={dayPlaceIds}
           latitude={detail?.city?.latitude}

@@ -144,7 +144,7 @@ function CountryDetailScreenComponent() {
             color={colors.iconPrimary}
           />
           <View style={styles.sectionInfo}>
-            <Text variant="bodyMedium">{t("country.createItinerary")}</Text>
+            <Text variant="bodyMedium">{t("country.createTemplate")}</Text>
           </View>
           <ChevronRightIcon
             width={18}

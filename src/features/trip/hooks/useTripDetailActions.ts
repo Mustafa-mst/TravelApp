@@ -17,7 +17,7 @@ type UseTripDetailActionsOptions = {
 /**
  * The write half of the detail screen: add-item sheet state and day
  * navigation. Split from `useTripDetail` so the read path stays pure and
- * shareable — the old `useItineraryDetail` owned both, which is why it could
+ * shareable — the old detail hook owned both, which is why it could
  * not serve a read-only view.
  *
  * Always call this; gate the handlers on `detail.can_edit` at the render site

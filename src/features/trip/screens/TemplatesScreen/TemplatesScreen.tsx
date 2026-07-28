@@ -9,37 +9,37 @@ import { IconButton, Text } from "@shared/components";
 import { colors } from "@shared/styles";
 import { PlusIcon } from "@/shared/assets/icons";
 import type { BackTarget, RootStackParamList } from "@shared/navigation";
-import { ItineraryCard } from "../../components";
+import { TemplateListCard } from "../../components";
 import {
-  useDeleteItineraryMutation,
-  useGetItinerariesQuery,
+  useDeleteTemplateMutation,
+  useMyTemplateListQuery,
 } from "../../hooks";
 import type { TripTemplate } from "../../types";
-import { styles } from "./ItinerariesScreen.styles";
+import { styles } from "./TemplatesScreen.styles";
 
-export function ItinerariesScreen() {
+export function TemplatesScreen() {
   const { t } = useTranslation();
   const { open } = useFrontLayer<BackTarget>();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { data: itineraries, isLoading, error } = useGetItinerariesQuery();
-  const { mutateAsync: deleteItinerary } = useDeleteItineraryMutation();
+  const { data: templates, isLoading, error } = useMyTemplateListQuery();
+  const { mutateAsync: deleteTemplate } = useDeleteTemplateMutation();
 
   const confirmDelete = (item: TripTemplate) => {
     Alert.alert(
-      t("itinerary.deleteConfirmTitle"),
-      t("itinerary.deleteConfirmMessage", { title: item.title }),
+      t("template.deleteConfirmTitle"),
+      t("template.deleteConfirmMessage", { title: item.title }),
       [
-        { text: t("itinerary.cancel"), style: "cancel" },
+        { text: t("template.cancel"), style: "cancel" },
         {
-          text: t("itinerary.delete"),
+          text: t("template.delete"),
           style: "destructive",
           onPress: async () => {
             try {
-              await deleteItinerary(item.id);
+              await deleteTemplate(item.id);
             } catch (deleteError) {
               Alert.alert(
-                t("itinerary.deleteError"),
+                t("template.deleteError"),
                 deleteError instanceof Error ? deleteError.message : undefined,
               );
             }
@@ -50,10 +50,10 @@ export function ItinerariesScreen() {
   };
 
   const renderItem = ({ item }: { item: TripTemplate }) => (
-    <ItineraryCard
+    <TemplateListCard
       title={item.title}
       location={item.cities?.name ?? ""}
-      dateLabel={t("itinerary.overview.dayCount", { count: item.days_count })}
+      dateLabel={t("template.overview.dayCount", { count: item.days_count })}
       imageUri={item.cover_photo ?? undefined}
       onPress={() =>
         // These are templates the signed-in user authored, not trips.
@@ -64,7 +64,7 @@ export function ItinerariesScreen() {
         })
       }
       onEdit={() =>
-        open({ target: "createItinerary", params: { itinerary: item } })
+        open({ target: "createTemplate", params: { template: item } })
       }
       onDelete={() => confirmDelete(item)}
     />
@@ -74,12 +74,12 @@ export function ItinerariesScreen() {
     <SafeAreaView edges={["top"]} style={styles.safe}>
       <View style={styles.headerRow}>
         <Text color="textPrimary" variant="h4SemiBold">
-          {t("itinerary.title")}
+          {t("template.title")}
         </Text>
         <IconButton
           variant="filled"
           hitSlop={15}
-          onPress={() => open({ target: "createItinerary" })}
+          onPress={() => open({ target: "createTemplate" })}
           style={{
             padding: 8,
             borderRadius: 999,
@@ -91,7 +91,7 @@ export function ItinerariesScreen() {
         />
       </View>
       <FlatList
-        data={itineraries ?? []}
+        data={templates ?? []}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         contentContainerStyle={styles.listContent}
@@ -105,7 +105,7 @@ export function ItinerariesScreen() {
             </Text>
           ) : (
             <Text color="textSecondary" variant="body">
-              {t("itinerary.empty")}
+              {t("template.empty")}
             </Text>
           )
         }

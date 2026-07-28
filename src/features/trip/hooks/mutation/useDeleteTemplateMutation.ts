@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@shared/services";
-import { itineraryKeys } from "../query/useGetItinerariesQuery";
+import { templateKeys } from "../query/useDiscoverTemplatesQuery";
 
-export function useDeleteItineraryMutation() {
+export function useDeleteTemplateMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -17,7 +17,7 @@ export function useDeleteItineraryMutation() {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: itineraryKeys.all });
+      queryClient.invalidateQueries({ queryKey: templateKeys.all });
     },
   });
 }

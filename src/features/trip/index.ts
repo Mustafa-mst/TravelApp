@@ -1,10 +1,10 @@
 export {
-  ItinerariesScreen,
+  TemplatesScreen,
   TripDetailScreen,
   DayDetailScreen,
 } from "./screens";
-export { ItineraryNavigator } from "./navigation";
-export { ItineraryCard, TemplateCard } from "./components";
+export { TemplateNavigator } from "./navigation";
+export { TemplateListCard, TemplateCard } from "./components";
 export {
   useFeaturedTemplatesQuery,
   usePopularTemplatesQuery,
