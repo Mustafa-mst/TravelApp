@@ -1,6 +1,7 @@
 import { supabase } from "@shared/services";
 import type { TemplateCard, TemplateDetail } from "../types";
 import { mapTemplateDetail } from "./trip-detail.mapper";
+import { initializeItineraryDays } from "./trip-template.service";
 
 export async function getFeaturedTemplates(): Promise<TemplateCard[]> {
   const { data, error } = await supabase
@@ -67,11 +68,15 @@ export async function getMyTemplates(userId: string): Promise<TemplateCard[]> {
  * `viewerId` decides `can_edit` — a template you authored is editable, so this
  * cannot be inferred from the fact that it is a template. Pass the signed-in
  * user's id, or null when anonymous.
+ *
+ * A template records how long it runs in `days_count`, but its day rows are
+ * created lazily, so one saved before those rows existed returns no days and
+ * would render an empty plan. When the RPC comes back with none but the
+ * template claims some, the rows are seeded and the RPC is re-read. Seeding
+ * requires ownership, so a viewer looking at someone else's template just gets
+ * the empty result.
  */
-export async function getTemplateDetail(
-  templateId: string,
-  viewerId: string | null,
-): Promise<TemplateDetail> {
+async function fetchTemplateDetail(templateId: string) {
   const { data, error } = await supabase.rpc("get_template_detail", {
     p_template_id: templateId,
   });
@@ -84,5 +89,20 @@ export async function getTemplateDetail(
     throw new Error(`Template not found: ${templateId}`);
   }
 
-  return mapTemplateDetail(data, viewerId);
+  return data;
+}
+
+export async function getTemplateDetail(
+  templateId: string,
+  viewerId: string | null,
+): Promise<TemplateDetail> {
+  const raw = await fetchTemplateDetail(templateId);
+  const detail = mapTemplateDetail(raw, viewerId);
+
+  if (detail.days.length > 0 || detail.days_count <= 0 || !detail.can_edit) {
+    return detail;
+  }
+
+  await initializeItineraryDays(templateId);
+  return mapTemplateDetail(await fetchTemplateDetail(templateId), viewerId);
 }
