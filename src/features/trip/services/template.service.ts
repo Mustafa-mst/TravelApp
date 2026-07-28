@@ -1,5 +1,6 @@
 import { supabase } from "@shared/services";
-import type { TemplateCard } from "../types";
+import type { TemplateCard, TemplateDetail } from "../types";
+import { mapTemplateDetail } from "./trip-detail.mapper";
 
 export async function getFeaturedTemplates(): Promise<TemplateCard[]> {
   const { data, error } = await supabase
@@ -58,4 +59,30 @@ export async function getMyTemplates(userId: string): Promise<TemplateCard[]> {
   }
 
   return data ?? [];
+}
+
+/**
+ * Loads a template with its days and items via the `get_template_detail` RPC.
+ *
+ * `viewerId` decides `can_edit` — a template you authored is editable, so this
+ * cannot be inferred from the fact that it is a template. Pass the signed-in
+ * user's id, or null when anonymous.
+ */
+export async function getTemplateDetail(
+  templateId: string,
+  viewerId: string | null,
+): Promise<TemplateDetail> {
+  const { data, error } = await supabase.rpc("get_template_detail", {
+    p_template_id: templateId,
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  if (!data) {
+    throw new Error(`Template not found: ${templateId}`);
+  }
+
+  return mapTemplateDetail(data, viewerId);
 }
