@@ -13,7 +13,7 @@ export function useUpdateItineraryMutation() {
   return useMutation({
     mutationFn: async ({ id, ...input }: UpdateItineraryInput) => {
       const { data, error } = await supabase
-        .from("itinerary_templates")
+        .from("trip_templates")
         .update(input)
         .eq("id", id)
         .select()

@@ -29,11 +29,11 @@ export type SelectedCity = ItineraryCity & {
 };
 
 /**
- * Row of the `itinerary_templates` table (DB-generated), plus the joined city
+ * Row of the `trip_templates` table (DB-generated), plus the joined city
  * relation pulled in by `select("*, cities(...)")`. Templates carry no dates —
  * `days_count` is the source of truth for how many days the itinerary spans.
  */
-export type Itinerary = Tables<"itinerary_templates"> & {
+export type Itinerary = Tables<"trip_templates"> & {
   cities?: ItineraryCity | null;
 };
 
@@ -47,17 +47,17 @@ export type NewItineraryInput = {
 /** Allowed `type` values on the create form (client-only, not a DB column). */
 export type ItineraryItemType = "place" | "activity" | "note";
 
-/** Row of the `itinerary_template_days` table (DB-generated). No `date` column. */
-export type ItineraryDay = Tables<"itinerary_template_days">;
+/** Row of the `trip_template_days` table (DB-generated). No `date` column. */
+export type ItineraryDay = Tables<"trip_template_days">;
 
 /**
- * Row of the `itinerary_template_items` table (DB-generated), with `place_type`
+ * Row of the `trip_template_items` table (DB-generated), with `place_type`
  * narrowed to the app enum, plus the client-only `type` field. `type` is used
  * by the form/schema and validation but is dropped before insert (never a DB
  * column). The DB day foreign key is `template_day_id`.
  */
 export type ItineraryItem = Omit<
-  Tables<"itinerary_template_items">,
+  Tables<"trip_template_items">,
   "place_type"
 > & {
   place_type: PlaceTypes;

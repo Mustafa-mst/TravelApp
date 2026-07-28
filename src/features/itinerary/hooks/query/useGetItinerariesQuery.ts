@@ -23,7 +23,7 @@ export function useGetItinerariesQuery() {
     enabled: Boolean(userId),
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("itinerary_templates")
+        .from("trip_templates")
         .select("*, cities(name, country_code, latitude, longitude)")
         .eq("author_id", userId)
         .order("created_at", { ascending: false });

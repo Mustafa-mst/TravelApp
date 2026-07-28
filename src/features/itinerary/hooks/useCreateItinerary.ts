@@ -29,6 +29,8 @@ function toSelectedCity(itinerary: Itinerary): SelectedCity | null {
     geoname_id: itinerary.city_geoname_id,
     name: itinerary.cities.name,
     country_code: itinerary.cities.country_code,
+    latitude: itinerary.cities.latitude,
+    longitude: itinerary.cities.longitude,
   };
 }
 

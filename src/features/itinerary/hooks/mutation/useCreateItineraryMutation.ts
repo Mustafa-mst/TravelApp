@@ -9,7 +9,7 @@ export function useCreateItineraryMutation() {
   return useMutation({
     mutationFn: async (input: NewItineraryInput) => {
       const { data, error } = await supabase
-        .from("itinerary_templates")
+        .from("trip_templates")
         .insert(input)
         .select()
         .single();

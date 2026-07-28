@@ -44,6 +44,8 @@ export function CitySearchSheet({
         geoname_id: city.geoname_id,
         name: city.city,
         country_code: city.country_code,
+        latitude: city.latitude,
+        longitude: city.longitude,
       });
       Keyboard.dismiss();
       bottomSheetRef.current?.dismiss();

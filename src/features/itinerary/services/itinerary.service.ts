@@ -22,7 +22,7 @@ import { buildDayNumbers } from "../utils";
 
 export async function getItinerary(id: string): Promise<Itinerary> {
   const { data, error } = await supabase
-    .from("itinerary_templates")
+    .from("trip_templates")
     .select("*, cities(name, country_code, latitude, longitude)")
     .eq("id", id)
     .single();
@@ -38,7 +38,7 @@ export async function getItineraryDays(
   itineraryId: string,
 ): Promise<ItineraryDay[]> {
   const { data, error } = await supabase
-    .from("itinerary_template_days")
+    .from("trip_template_days")
     .select("*")
     .eq("template_id", itineraryId)
     .order("day_number", { ascending: true });
@@ -54,7 +54,7 @@ export async function getItineraryItems(
   dayId: string,
 ): Promise<ItineraryItem[]> {
   const { data, error } = await supabase
-    .from("itinerary_template_items")
+    .from("trip_template_items")
     .select("*")
     .eq("template_day_id", dayId)
     .order("order_index", { ascending: true });
@@ -67,7 +67,7 @@ export async function getItineraryItems(
 }
 
 /**
- * Ensures `itinerary_template_days` exist for a template, exactly once.
+ * Ensures `trip_template_days` exist for a template, exactly once.
  *
  * Idempotent: if days already exist they are returned untouched. Only when
  * none exist does it create one row per day (day_number 1..days_count).
@@ -92,7 +92,7 @@ export async function initializeItineraryDays(
   }));
 
   const { data, error } = await supabase
-    .from("itinerary_template_days")
+    .from("trip_template_days")
     .insert(rows)
     .select();
 
@@ -120,7 +120,7 @@ export async function getFullItinerary(
   let items: ItineraryItem[] = [];
   if (dayIds.length > 0) {
     const { data, error } = await supabase
-      .from("itinerary_template_items")
+      .from("trip_template_items")
       .select("*")
       .in("template_day_id", dayIds)
       .order("order_index", { ascending: true });
@@ -155,7 +155,7 @@ export async function getFullItinerary(
  */
 async function nextOrderIndex(dayId: string): Promise<number> {
   const { data, error } = await supabase
-    .from("itinerary_template_items")
+    .from("trip_template_items")
     .select("order_index")
     .eq("template_day_id", dayId)
     .order("order_index", { ascending: false })
@@ -176,11 +176,11 @@ export async function createItineraryItem(
   const order_index =
     input.order_index ?? (await nextOrderIndex(input.template_day_id));
 
-  // `type` is not a column on itinerary_template_items; drop it before insert.
+  // `type` is not a column on trip_template_items; drop it before insert.
   const { type: _type, ...columns } = input;
 
   const { data, error } = await supabase
-    .from("itinerary_template_items")
+    .from("trip_template_items")
     .insert({ ...columns, order_index })
     .select()
     .single();
@@ -196,11 +196,11 @@ export async function updateItineraryItem(
   id: string,
   patch: UpdateItineraryItemInput,
 ): Promise<ItineraryItem> {
-  // `type` is not a column on itinerary_template_items; never send it in a patch.
+  // `type` is not a column on trip_template_items; never send it in a patch.
   const { type: _type, ...columns } = patch;
 
   const { data, error } = await supabase
-    .from("itinerary_template_items")
+    .from("trip_template_items")
     .update(columns)
     .eq("id", id)
     .select()
@@ -215,7 +215,7 @@ export async function updateItineraryItem(
 
 export async function deleteItineraryItem(id: string): Promise<void> {
   const { error } = await supabase
-    .from("itinerary_template_items")
+    .from("trip_template_items")
     .delete()
     .eq("id", id);
 

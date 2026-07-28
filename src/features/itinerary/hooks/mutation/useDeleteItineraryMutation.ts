@@ -8,7 +8,7 @@ export function useDeleteItineraryMutation() {
   return useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase
-        .from("itinerary_templates")
+        .from("trip_templates")
         .delete()
         .eq("id", id);
 
