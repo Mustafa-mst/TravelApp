@@ -4,21 +4,22 @@ import { useTranslation } from "react-i18next";
 
 import { StateView, Text, TimelineRail } from "@shared/components";
 import { colors } from "@shared/styles";
-import type { TripTemplateDayWithItems } from "../../types";
-import { ItineraryDayCard } from "../ItineraryDayCard";
-import { styles } from "./ItineraryOverview.styles";
+import type { TripDetailDay } from "../../types";
+import { TripDayCard } from "../TripDayCard";
+import { styles } from "./TripDetailOverview.styles";
 
-export type ItineraryOverviewProps = {
-  days: TripTemplateDayWithItems[];
+export type TripDetailOverviewProps = {
+  days: TripDetailDay[];
   activeDayNumber: number;
   isLoading: boolean;
   isError: boolean;
   onRetry: () => void;
-  onAddItem: (dayId: string) => void;
-  onOpenDay: (dayId: string) => void;
+  /** Omitted in read-only views, where days cannot be edited. */
+  onAddItem?: (dayId: string) => void;
+  onOpenDay?: (dayId: string) => void;
 };
 
-function ItineraryOverviewComponent({
+function TripDetailOverviewComponent({
   days,
   activeDayNumber,
   isLoading,
@@ -26,7 +27,7 @@ function ItineraryOverviewComponent({
   onRetry,
   onAddItem,
   onOpenDay,
-}: ItineraryOverviewProps) {
+}: TripDetailOverviewProps) {
   const { t } = useTranslation();
 
   if (isLoading || isError) {
@@ -43,10 +44,11 @@ function ItineraryOverviewComponent({
 
   return (
     <View style={styles.content}>
-      <Text variant="bodyLargeSemiBold">Itinerary</Text>
+      <Text variant="bodyLargeSemiBold">{t("itinerary.detail.planTitle")}</Text>
       {days.map((day, index) => {
         const isActive = day.day_number === activeDayNumber;
         const isLast = index === days.length - 1;
+        const handler = day.items.length === 0 ? onAddItem : onOpenDay;
 
         return (
           <View key={day.id} style={styles.row}>
@@ -63,12 +65,10 @@ function ItineraryOverviewComponent({
               </Text>
             </TimelineRail>
 
-            <ItineraryDayCard
+            <TripDayCard
               day={day}
               isActive={isActive}
-              onPress={() =>
-                day.items.length === 0 ? onAddItem(day.id) : onOpenDay(day.id)
-              }
+              onPress={handler ? () => handler(day.id) : undefined}
             />
           </View>
         );
@@ -77,4 +77,4 @@ function ItineraryOverviewComponent({
   );
 }
 
-export const ItineraryOverview = memo(ItineraryOverviewComponent);
+export const TripDetailOverview = memo(TripDetailOverviewComponent);

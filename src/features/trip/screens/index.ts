@@ -1,4 +1,4 @@
 export { ItinerariesScreen } from "./ItinerariesScreen";
 export { CreateItineraryScreen } from "./CreateItineraryScreen";
-export { ItineraryDetailScreen } from "./ItineraryDetailScreen";
+export { TripDetailScreen } from "./TripDetailScreen";
 export { DayDetailScreen } from "./DayDetailScreen";

@@ -24,10 +24,11 @@ export {
 export { AddItemSheet, type AddItemSheetProps } from "./AddItemSheet";
 export { MetaInfo, type MetaInfoProps } from "./MetaInfo";
 export {
-  ItineraryOverview,
-  type ItineraryOverviewProps,
-} from "./ItineraryOverview";
+  TripDetailOverview,
+  type TripDetailOverviewProps,
+} from "./TripDetailOverview";
 export {
-  ItineraryDayCard,
-  type ItineraryDayCardProps,
-} from "./ItineraryDayCard";
+  TripDayCard,
+  type TripDayCardProps,
+} from "./TripDayCard";
+export { TripActions, type TripActionsProps } from "./TripActions";

@@ -6,11 +6,11 @@ import { useTranslation } from "react-i18next";
 import { PressableScale, Text } from "@shared/components";
 import { BLUR_HASH } from "@shared/constants";
 import { PLACE_TYPE_META } from "@/features/places/constants";
-import type { TripTemplateDayWithItems } from "../../types";
-import { styles } from "./ItineraryDayCard.styles";
+import type { TripDetailDay } from "../../types";
+import { styles } from "./TripDayCard.styles";
 
-export type ItineraryDayCardProps = {
-  day: TripTemplateDayWithItems;
+export type TripDayCardProps = {
+  day: TripDetailDay;
   isActive: boolean;
   onPress?: () => void;
 };
@@ -32,11 +32,11 @@ function DayBadge({
   );
 }
 
-function ItineraryDayCardComponent({
+function TripDayCardComponent({
   day,
   isActive,
   onPress,
-}: ItineraryDayCardProps) {
+}: TripDayCardProps) {
   const { t } = useTranslation();
 
   const firstItem = day.items[0];
@@ -115,4 +115,4 @@ function ItineraryDayCardComponent({
   );
 }
 
-export const ItineraryDayCard = memo(ItineraryDayCardComponent);
+export const TripDayCard = memo(TripDayCardComponent);

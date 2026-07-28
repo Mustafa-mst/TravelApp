@@ -9,7 +9,8 @@ import { colors } from "@shared/styles";
 import { useDirections } from "@/features/routes/hooks/mutation/useDirections";
 import { decodePolyline } from "@/features/routes/utils";
 import type { DirectionsCoordinates } from "@/features/routes/types/routes.types";
-import { useFullItinerary } from "./index";
+import type { TripDetailMode } from "../types";
+import { useTripDetail } from "./useTripDetail";
 
 const DEFAULT_MAP_CENTER: MapCoordinates = {
   latitude: 41.0082,
@@ -17,13 +18,16 @@ const DEFAULT_MAP_CENTER: MapCoordinates = {
 };
 
 /**
- * Owns the DayDetail screen data: loads the itinerary, derives map markers /
- * center from the day's items, and fetches + decodes the driving route between
- * them. The screen only renders what this returns.
+ * Owns the DayDetail screen data: loads the parent detail view, picks out the
+ * day, derives map markers / center from its items, and fetches + decodes the
+ * driving route between them. The screen only renders what this returns.
+ *
+ * Reads through `useTripDetail` so a day renders the same way whether its
+ * parent is a template or a trip, and so both screens share one cache entry.
  */
-export function useDayDetail(itineraryId: string, dayId: string) {
-  const { data, isLoading, isError } = useFullItinerary(itineraryId);
-  const day = data?.days.find((d) => d.id === dayId) ?? null;
+export function useDayDetail(id: string, mode: TripDetailMode, dayId: string) {
+  const { detail, days, isLoading, isError } = useTripDetail(id, mode);
+  const day = days?.find((d) => d.id === dayId) ?? null;
 
   const { mapCenter, mapMarkers, coordinates } = useMemo(() => {
     const markers: MapMarker[] = [];
@@ -38,14 +42,14 @@ export function useDayDetail(itineraryId: string, dayId: string) {
         coords.push([item.longitude, item.latitude]);
       }
     }
-    const city = data?.itinerary.cities;
+    const city = detail?.city;
     const cityCenter: MapCoordinates | null =
       city?.latitude != null && city?.longitude != null
         ? { latitude: city.latitude, longitude: city.longitude }
         : null;
     const center = markers[0]?.coordinates ?? cityCenter ?? DEFAULT_MAP_CENTER;
     return { mapCenter: center, mapMarkers: markers, coordinates: coords };
-  }, [day, data?.itinerary.cities]);
+  }, [day, detail?.city]);
 
   const { mutate: fetchDirections, data: route, reset } = useDirections();
 
@@ -74,7 +78,7 @@ export function useDayDetail(itineraryId: string, dayId: string) {
 
   return {
     day,
-    itinerary: data?.itinerary ?? null,
+    detail: detail ?? null,
     route,
     isLoading,
     isError,

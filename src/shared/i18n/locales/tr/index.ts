@@ -124,6 +124,16 @@ const tr = {
       plannedStops: "Planlanan Duraklar",
       stopsTitle: "Duraklar ve Aktiviteler",
       addStop: "Durak Ekle",
+      startTrip: "Geziyi Başlat",
+      saveTemplate: "Kaydet",
+      savedTemplate: "Kaydedildi",
+      edit: "Düzenle",
+      status: {
+        planned: "Planlandı",
+        active: "Devam ediyor",
+        completed: "Tamamlandı",
+        cancelled: "İptal edildi",
+      },
     },
     nearby: {
       title: "Mekan ekle",

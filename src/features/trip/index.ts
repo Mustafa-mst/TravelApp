@@ -1,6 +1,6 @@
 export {
   ItinerariesScreen,
-  ItineraryDetailScreen,
+  TripDetailScreen,
   DayDetailScreen,
 } from "./screens";
 export { ItineraryNavigator } from "./navigation";
@@ -11,4 +11,9 @@ export {
   useRecentTemplatesQuery,
   useMyTemplatesQuery,
 } from "./hooks";
-export type { City, TripTemplate, TemplateCard as TemplateCardType } from "./types";
+export type {
+  City,
+  TripDetailMode,
+  TripTemplate,
+  TemplateCard as TemplateCardType,
+} from "./types";

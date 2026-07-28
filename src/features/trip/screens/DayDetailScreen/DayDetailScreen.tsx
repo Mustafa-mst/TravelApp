@@ -26,18 +26,21 @@ type DayDetailRoute = RouteProp<RootStackParamList, "DayDetail">;
 function DayDetailScreenComponent() {
   const { t } = useTranslation();
   const { params } = useRoute<DayDetailRoute>();
-  const { itineraryId, dayId } = params;
+  const { id, mode, dayId } = params;
 
   const {
     day,
-    itinerary,
+    detail,
     route,
     isLoading,
     isError,
     mapCenter,
     mapMarkers,
     mapPolylines,
-  } = useDayDetail(itineraryId, dayId);
+  } = useDayDetail(id, mode, dayId);
+
+  // Trip items are read-only until the trip write path lands.
+  const canEdit = (detail?.can_edit ?? false) && mode === "template";
 
   const itemSheetRef = useRef<BottomSheet>(null);
 
@@ -143,13 +146,15 @@ function DayDetailScreenComponent() {
                   <Text variant="bodySemiBold" style={styles.sectionTitle}>
                     {t("itinerary.detail.stopsTitle")}
                   </Text>
-                  <PressableScale
-                    style={styles.addButton}
-                    onPress={openAddStop}
-                  >
-                    <PlusIcon width={14} height={14} />
-                    <Text>{t("itinerary.detail.addStop")}</Text>
-                  </PressableScale>
+                  {canEdit ? (
+                    <PressableScale
+                      style={styles.addButton}
+                      onPress={openAddStop}
+                    >
+                      <PlusIcon width={14} height={14} />
+                      <Text>{t("itinerary.detail.addStop")}</Text>
+                    </PressableScale>
+                  ) : null}
                 </View>
                 <View style={styles.items}>
                   {day.items.map((item, index) => (
@@ -167,14 +172,16 @@ function DayDetailScreenComponent() {
         </View>
       </ScrollView>
 
-      <AddItemSheet
-        bottomSheetRef={itemSheetRef}
-        itineraryId={itineraryId}
-        dayId={dayId}
-        initialSelectedPlaceIds={dayPlaceIds}
-        latitude={itinerary?.cities?.latitude}
-        longitude={itinerary?.cities?.longitude}
-      />
+      {canEdit ? (
+        <AddItemSheet
+          bottomSheetRef={itemSheetRef}
+          itineraryId={id}
+          dayId={dayId}
+          initialSelectedPlaceIds={dayPlaceIds}
+          latitude={detail?.city?.latitude}
+          longitude={detail?.city?.longitude}
+        />
+      ) : null}
     </View>
   );
 }

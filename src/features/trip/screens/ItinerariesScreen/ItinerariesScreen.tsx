@@ -56,7 +56,12 @@ export function ItinerariesScreen() {
       dateLabel={t("itinerary.overview.dayCount", { count: item.days_count })}
       imageUri={item.cover_photo ?? undefined}
       onPress={() =>
-        navigation.navigate("ItineraryDetail", { itinerary: item })
+        // These are templates the signed-in user authored, not trips.
+        navigation.navigate("TripDetail", {
+          id: item.id,
+          mode: "template",
+          preview: { title: item.title, cover_photo: item.cover_photo },
+        })
       }
       onEdit={() =>
         open({ target: "createItinerary", params: { itinerary: item } })

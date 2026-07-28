@@ -1,1 +1,0 @@
-export { ItineraryDetailScreen } from "./ItineraryDetailScreen";

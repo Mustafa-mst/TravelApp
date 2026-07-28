@@ -9,3 +9,4 @@ export {
   useMyTemplatesQuery,
   templateKeys,
 } from "./useDiscoverTemplatesQuery";
+export { tripKeys } from "./tripKeys";

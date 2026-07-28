@@ -16,6 +16,8 @@ export const templateKeys = {
   popular: () => [...templateKeys.all, "popular"] as const,
   recent: () => [...templateKeys.all, "recent"] as const,
   mine: (userId: string) => [...templateKeys.all, "mine", userId] as const,
+  detail: (templateId: string) =>
+    [...templateKeys.all, "detail", templateId] as const,
 };
 
 export function useFeaturedTemplatesQuery() {

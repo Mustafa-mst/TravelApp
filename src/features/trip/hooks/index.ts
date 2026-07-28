@@ -10,8 +10,11 @@ export {
   useRecentTemplatesQuery,
   useMyTemplatesQuery,
   templateKeys,
+  tripKeys,
 } from "./query";
-export { useItineraryDetail } from "./useItineraryDetail";
+export { useTripDetail } from "./useTripDetail";
+export { useTripDetailActions } from "./useTripDetailActions";
+export { useTripMapData } from "./useTripMapData";
 export { useDayDetail } from "./useDayDetail";
 export {
   useCreateItineraryMutation,

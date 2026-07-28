@@ -124,6 +124,16 @@ const en = {
       plannedStops: "Planned Stops",
       stopsTitle: "Stops & Activities",
       addStop: "Add Stop",
+      startTrip: "Start Trip",
+      saveTemplate: "Save",
+      savedTemplate: "Saved",
+      edit: "Edit",
+      status: {
+        planned: "Planned",
+        active: "Active",
+        completed: "Completed",
+        cancelled: "Cancelled",
+      },
     },
     nearby: {
       title: "Add a place",
