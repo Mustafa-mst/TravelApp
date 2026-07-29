@@ -125,6 +125,8 @@ const en = {
       stopsTitle: "Stops & Activities",
       addStop: "Add Stop",
       startTrip: "Start Trip",
+      startRouteMap: "Start Route Map",
+      startMyTrip: "Start My Trip",
       saveTemplate: "Save",
       savedTemplate: "Saved",
       edit: "Edit",

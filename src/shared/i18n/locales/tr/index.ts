@@ -125,6 +125,8 @@ const tr = {
       stopsTitle: "Duraklar ve Aktiviteler",
       addStop: "Durak Ekle",
       startTrip: "Geziyi Başlat",
+      startRouteMap: "Rota Haritasını Başlat",
+      startMyTrip: "Gezimi Başlat",
       saveTemplate: "Kaydet",
       savedTemplate: "Kaydedildi",
       edit: "Düzenle",

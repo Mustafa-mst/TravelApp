@@ -1,71 +1,89 @@
 import { memo } from "react";
 import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 
-import { Button, Text } from "@shared/components";
+import { IconButton, Text } from "@shared/components";
+import { colors, spacing } from "@shared/styles";
+import { BookmarkIcon, EditIcon } from "@/shared/assets/icons";
 import type { TripDetailView } from "../../types";
-import { styles } from "./TripActions.styles";
+import { StartActionButton } from "./StartActionButton";
+import { ACTION_ICON_SIZE, styles } from "./TripActions.styles";
 
 export type TripActionsProps = {
   detail: TripDetailView;
+  canEditAction: boolean;
   onStartTrip?: () => void;
   onToggleSave?: () => void;
   onEdit?: () => void;
 };
 
-/**
- * The one part of the detail screen that differs by mode: a template offers to
- * become a trip and to be saved, while a trip shows when it runs and how far
- * along it is. Everything else renders from the shared model.
- */
 function TripActionsComponent({
   detail,
+  canEditAction,
   onStartTrip,
   onToggleSave,
   onEdit,
 }: TripActionsProps) {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
+  const paddingBottom = Math.max(insets.bottom, spacing.md);
+  const isSaved = detail.mode === "template" && detail.is_saved;
 
-  if (detail.mode === "template") {
-    return (
-      <View style={styles.row}>
-        <Button
-          style={styles.primary}
-          label={t("template.detail.startTrip")}
-          onPress={onStartTrip}
-          state={onStartTrip ? undefined : "disabled"}
+  const actionIcon = canEditAction ? (
+    <IconButton
+      style={styles.actionButton}
+      accessibilityLabel={t("template.detail.edit")}
+      onPress={onEdit}
+      icon={
+        <EditIcon
+          width={ACTION_ICON_SIZE}
+          height={ACTION_ICON_SIZE}
+          color={colors.iconPrimary}
         />
-        <Button
-          outlined
-          type="secondary"
-          label={
-            detail.is_saved
-              ? t("template.detail.savedTemplate")
-              : t("template.detail.saveTemplate")
-          }
-          onPress={onToggleSave}
-          state={onToggleSave ? undefined : "disabled"}
+      }
+    />
+  ) : (
+    <IconButton
+      style={styles.actionButton}
+      accessibilityLabel={t(
+        isSaved
+          ? "template.detail.savedTemplate"
+          : "template.detail.saveTemplate",
+      )}
+      onPress={onToggleSave}
+      icon={
+        <BookmarkIcon
+          width={ACTION_ICON_SIZE}
+          height={ACTION_ICON_SIZE}
+          color={isSaved ? colors.primary : colors.iconPrimary}
         />
-      </View>
-    );
-  }
+      }
+    />
+  );
 
   return (
-    <View style={styles.row}>
-      <View style={styles.statusBadge}>
-        <Text variant="captionMedium" color="textSecondary">
-          {t(`template.detail.status.${detail.status}`)}
-        </Text>
+    <View style={[styles.container, { paddingBottom }]}>
+      <View style={styles.row}>
+        {detail.mode === "template" ? (
+          <>
+            {actionIcon}
+            <StartActionButton
+              label={t("template.detail.startRouteMap")}
+              onPress={onStartTrip}
+            />
+          </>
+        ) : (
+          <>
+            <View style={styles.statusBadge}>
+              <Text variant="captionMedium" color="textSecondary">
+                {t(`template.detail.status.${detail.status}`)}
+              </Text>
+            </View>
+            {actionIcon}
+          </>
+        )}
       </View>
-      {detail.can_edit ? (
-        <Button
-          outlined
-          type="secondary"
-          label={t("template.detail.edit")}
-          onPress={onEdit}
-          state={onEdit ? undefined : "disabled"}
-        />
-      ) : null}
     </View>
   );
 }

@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.backgroundTertiary,
   },
   scrollContent: {
-    paddingBottom: spacing.xxl,
+    // Room for the pinned TripActions bar that overlays the scroll view.
+    paddingBottom: spacing.xxl * 2,
   },
   hero: {
     width: "100%",

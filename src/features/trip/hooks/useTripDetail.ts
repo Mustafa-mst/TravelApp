@@ -24,7 +24,17 @@ export function useTripDetail(id: string, mode: TripDetailMode) {
 
   const { data } = query;
   const { mapCenter, mapMarkers } = useTripMapData(data?.days, data?.city);
-  const canEdit = (data?.can_edit ?? false) && mode === "template";
+  const isOwner = data?.can_edit ?? false;
+
+  // Structural editing (adding days/places) is a template-only capability, so
+  // it stays gated on mode. A trip is an instance of a template and has no
+  // writable tree of its own yet.
+  const canEdit = isOwner && mode === "template";
+
+  // The primary action is edit whenever the plan is the viewer's to change —
+  // their own template, or any trip they opened. Otherwise the template belongs
+  // to someone else and the slot becomes a bookmark instead.
+  const canEditAction = isOwner || mode === "trip";
 
   return {
     detail: data,
@@ -34,6 +44,7 @@ export function useTripDetail(id: string, mode: TripDetailMode) {
     days: data?.days,
     totalActivities: data?.places_count ?? 0,
     canEdit,
+    canEditAction,
     mapCenter,
     mapMarkers,
   };

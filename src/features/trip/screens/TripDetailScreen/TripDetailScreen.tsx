@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { ScrollView, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useTranslation } from "react-i18next";
@@ -20,7 +20,11 @@ import {
   TripActions,
   TripDetailOverview,
 } from "../../components";
-import { useTripDetail, useTripDetailActions } from "../../hooks";
+import {
+  useToggleSavedTemplate,
+  useTripDetail,
+  useTripDetailActions,
+} from "../../hooks";
 import { resolveActiveDayNumber } from "../../utils";
 import { styles } from "./TripDetailScreen.styles";
 
@@ -39,9 +43,16 @@ function TripDetailScreenComponent() {
     days,
     totalActivities,
     canEdit,
+    canEditAction,
     mapCenter,
     mapMarkers,
   } = useTripDetail(id, mode);
+
+  const { mutate: toggleSaved } = useToggleSavedTemplate();
+
+  const onToggleSave = useCallback(() => {
+    toggleSaved(id);
+  }, [toggleSaved, id]);
 
   const {
     itemSheetRef,
@@ -101,8 +112,6 @@ function TripDetailScreenComponent() {
             </View>
           </View>
 
-          {detail ? <TripActions detail={detail} /> : null}
-
           <ZoomableMap
             style={styles.mapCard}
             center={mapCenter}
@@ -123,6 +132,14 @@ function TripDetailScreenComponent() {
           />
         </View>
       </ScrollView>
+
+      {detail ? (
+        <TripActions
+          detail={detail}
+          canEditAction={canEditAction}
+          onToggleSave={onToggleSave}
+        />
+      ) : null}
 
       {canEdit && detail ? (
         <AddPlacesSheet

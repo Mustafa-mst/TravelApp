@@ -106,6 +106,25 @@ async function nextOrderIndex(dayId: string): Promise<number> {
   return last === undefined || last === null ? 0 : last + 1;
 }
 
+export async function toggleSavedTemplate(
+  templateId: string,
+): Promise<{ is_saved: boolean; saves_count: number }> {
+  const { data, error } = await supabase.rpc("toggle_saved_template", {
+    p_template_id: templateId,
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  const result = data?.[0];
+  if (!result) {
+    throw new Error(`Toggle save returned no row: ${templateId}`);
+  }
+
+  return result;
+}
+
 export async function createTemplateItem(
   input: NewTripTemplateItemInput,
 ): Promise<TripTemplateItem> {

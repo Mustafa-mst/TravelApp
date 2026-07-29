@@ -8,4 +8,5 @@ export {
 export {
   createTemplateItem,
   initializeTemplateDays,
+  toggleSavedTemplate,
 } from "./templateWrite.service";
