@@ -1,19 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { TripDetailMode } from "../../constants";
 import { toggleSavedTemplate } from "../../services";
 import type { TripDetailView } from "../../types";
-import { templateKeys } from "../query/useDiscoverTemplatesQuery";
+import { templateKeys } from "../query";
 
 /**
- * Bookmarks / unbookmarks a template.
- *
- * Applied optimistically: the icon is the only feedback the user gets, so
- * waiting a round trip to fill it reads as a dropped tap. The detail cache is
- * patched immediately and rolled back if the RPC fails.
- *
- * On settle the whole template namespace is swept, not just the detail entry —
- * a save changes `saves_count` on the discovery lists and adds/removes the row
- * from the saved list, so the cards are stale too.
+ * Bookmarks a template, optimistically — the icon is the only feedback, so a
+ * round trip before filling it reads as a dropped tap.
  */
 export function useToggleSavedTemplate() {
   const queryClient = useQueryClient();
@@ -28,7 +22,7 @@ export function useToggleSavedTemplate() {
       const previous = queryClient.getQueryData<TripDetailView>(key);
 
       queryClient.setQueryData<TripDetailView>(key, (current) => {
-        if (!current || current.mode !== "template") {
+        if (!current || current.mode !== TripDetailMode.Template) {
           return current;
         }
         return { ...current, is_saved: !current.is_saved };
@@ -46,14 +40,12 @@ export function useToggleSavedTemplate() {
       }
     },
 
-    // The RPC returns the authoritative new state, so write it rather than
-    // refetching the detail — the optimistic guess is confirmed (or corrected)
-    // without a second round trip.
+    // The RPC returns the authoritative state, so write it instead of refetching.
     onSuccess: (result, templateId) => {
       queryClient.setQueryData<TripDetailView>(
         templateKeys.detail(templateId),
         (current) => {
-          if (!current || current.mode !== "template") {
+          if (!current || current.mode !== TripDetailMode.Template) {
             return current;
           }
           return {
@@ -64,9 +56,8 @@ export function useToggleSavedTemplate() {
         },
       );
 
-      // The lists carry `saves_count` and the saved set, so they are stale even
-      // though the detail is now correct. Scoped to the card/list queries so the
-      // detail entry just written is not immediately refetched.
+      // Lists carry `saves_count`, so they are stale. Excluding "detail" keeps
+      // the entry just written from being refetched.
       queryClient.invalidateQueries({
         queryKey: templateKeys.all,
         predicate: (query) => query.queryKey[1] !== "detail",

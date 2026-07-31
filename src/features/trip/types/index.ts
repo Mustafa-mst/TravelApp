@@ -16,7 +16,5 @@ export type {
   TripDetail,
   TripDetailDay,
   TripDetailItem,
-  TripDetailMode,
   TripDetailView,
-  TripStatus,
 } from "./tripDetail.types";

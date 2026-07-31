@@ -4,9 +4,9 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import type { BottomSheet } from "@shared/components";
 import type { RootStackParamList } from "@shared/navigation";
-import type { TripDetailDay, TripDetailMode } from "../types";
-
-const EMPTY_DAYS: TripDetailDay[] = [];
+import type { TripDetailMode } from "../constants";
+import type { TripDetailDay } from "../types";
+import { collectPlaceIds } from "../utils";
 
 type UseTripDetailActionsOptions = {
   id: string;
@@ -15,13 +15,8 @@ type UseTripDetailActionsOptions = {
 };
 
 /**
- * The write half of the detail screen: add-item sheet state and day
- * navigation. Split from `useTripDetail` so the read path stays pure and
- * shareable — the old detail hook owned both, which is why it could
- * not serve a read-only view.
- *
- * Always call this; gate the handlers on `detail.can_edit` at the render site
- * rather than conditionally calling the hook.
+ * The write half of the detail screen: add-item sheet state and day navigation.
+ * Always call this and gate the handlers on `can_edit` at the render site.
  */
 export function useTripDetailActions({
   id,
@@ -35,8 +30,6 @@ export function useTripDetailActions({
   const [activeDayId, setActiveDayId] = useState<string | null>(null);
 
   const itemSheetRef = useRef<BottomSheet>(null);
-
-  const source = days ?? EMPTY_DAYS;
 
   const openAddItem = useCallback((dayId: string) => {
     setActiveDayId(dayId);
@@ -57,14 +50,9 @@ export function useTripDetailActions({
   }, [navigation, id, mode, activeDayId]);
 
   const activeDayPlaceIds = useMemo(() => {
-    if (!activeDayId) {
-      return [];
-    }
-    const day = source.find((d) => d.id === activeDayId);
-    return (day?.items ?? [])
-      .map((item) => item.google_place_id)
-      .filter((placeId): placeId is string => placeId != null);
-  }, [activeDayId, source]);
+    const day = days?.find(({ id: dayId }) => dayId === activeDayId);
+    return collectPlaceIds(day?.items);
+  }, [activeDayId, days]);
 
   return {
     activeDayId,

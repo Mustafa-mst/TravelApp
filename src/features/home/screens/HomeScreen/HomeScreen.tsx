@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Text } from "@shared/components";
 import type { RootStackParamList } from "@shared/navigation";
+import { TripDetailMode } from "@/features/trip";
 import type { TemplateCardType } from "@/features/trip";
 import { spacing } from "@shared/styles";
 import { backgroundImage } from "@shared/assets/images";
@@ -35,7 +36,7 @@ export function HomeScreen() {
       }
       navigation.navigate("TripDetail", {
         id: template.id,
-        mode: "template",
+        mode: TripDetailMode.Template,
         preview: {
           title: template.title ?? "",
           cover_photo: template.cover_photo,

@@ -7,15 +7,13 @@ import {
   getPopularTemplates,
   getRecentTemplates,
 } from "../../services";
+import type { TemplateCard } from "../../types";
 
 const FIVE_MINUTES_IN_MS = 1000 * 60 * 5;
 
 /**
- * Query keys for trip templates — the discovery lists, the author's own
- * template list, and the detail view. One namespace per table: everything here
- * reads `trip_templates` (directly or through `v_template_cards`), so a write
- * to a template can invalidate `all` and be sure it swept every stale view.
- * Real trips live under `tripKeys`.
+ * Everything here reads `trip_templates`, directly or through
+ * `v_template_cards`, so a write can invalidate `all` and sweep every view.
  */
 export const templateKeys = {
   all: ["templates"] as const,
@@ -29,47 +27,40 @@ export const templateKeys = {
     [...templateKeys.all, "detail", templateId] as const,
 };
 
-export function useFeaturedTemplatesQuery() {
+/** The public discovery lists: signed in is the only requirement. */
+function useTemplateListQuery(
+  queryKey: readonly unknown[],
+  queryFn: () => Promise<TemplateCard[]>,
+) {
   const session = useAuthStore((state) => state.session);
 
   return useQuery({
-    queryKey: templateKeys.featured(),
+    queryKey,
+    queryFn,
     enabled: Boolean(session),
     staleTime: FIVE_MINUTES_IN_MS,
-    queryFn: getFeaturedTemplates,
   });
+}
+
+export function useFeaturedTemplatesQuery() {
+  return useTemplateListQuery(templateKeys.featured(), getFeaturedTemplates);
 }
 
 export function usePopularTemplatesQuery() {
-  const session = useAuthStore((state) => state.session);
-
-  return useQuery({
-    queryKey: templateKeys.popular(),
-    enabled: Boolean(session),
-    staleTime: FIVE_MINUTES_IN_MS,
-    queryFn: getPopularTemplates,
-  });
+  return useTemplateListQuery(templateKeys.popular(), getPopularTemplates);
 }
 
 export function useRecentTemplatesQuery() {
-  const session = useAuthStore((state) => state.session);
-
-  return useQuery({
-    queryKey: templateKeys.recent(),
-    enabled: Boolean(session),
-    staleTime: FIVE_MINUTES_IN_MS,
-    queryFn: getRecentTemplates,
-  });
+  return useTemplateListQuery(templateKeys.recent(), getRecentTemplates);
 }
 
 export function useMyTemplatesQuery() {
-  const session = useAuthStore((state) => state.session);
-  const userId = session?.user.id;
+  const userId = useAuthStore((state) => state.session)?.user.id;
 
   return useQuery({
     queryKey: templateKeys.mine(userId ?? ""),
+    queryFn: () => getMyTemplates(userId ?? ""),
     enabled: Boolean(userId),
     staleTime: FIVE_MINUTES_IN_MS,
-    queryFn: () => getMyTemplates(userId!),
   });
 }

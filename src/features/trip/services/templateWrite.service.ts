@@ -7,18 +7,9 @@ import type {
 import { buildDayNumbers } from "../utils";
 
 /**
- * Write path for templates: seeding day rows and adding items. Only templates
- * are writable — trips are read-only until the trip write path lands — so there
- * is no trip equivalent of this file.
- *
- * Reads go through `tripDetail.service` (the detail RPC) or
- * `templateDiscovery.service` (the browse lists). The one exception is the
- * table reads below, which back the seeding check and are deliberately private:
- * the detail RPC is the only supported way to read a template's tree.
- *
- * The client is typed from `database.types.ts`, so plain-column selects return
- * the correct row types. Casts remain only where the app type diverges from the
- * raw row: the narrowed `place_type` enum and the client-only `type` field.
+ * Template writes. Trips are read-only until the trip write path lands, so
+ * there is no trip equivalent. The table reads below stay private — the detail
+ * RPC is the only supported way to read a template's tree.
  */
 
 async function getTemplateDaysCount(templateId: string): Promise<number> {
@@ -50,13 +41,8 @@ async function getTemplateDays(templateId: string): Promise<TripTemplateDay[]> {
 }
 
 /**
- * Ensures `trip_template_days` exist for a template, exactly once.
- *
- * Idempotent: if days already exist they are returned untouched. Only when
- * none exist does it create one row per day (day_number 1..days_count).
- * Templates carry no dates, so rows hold only `template_id` + `day_number`.
- * The DB's unique (template_id, day_number) constraint is the backstop against
- * duplicates.
+ * Creates one `trip_template_days` row per day, or returns the existing rows
+ * untouched. The unique (template_id, day_number) constraint guards duplicates.
  */
 export async function initializeTemplateDays(
   templateId: string,
@@ -81,14 +67,10 @@ export async function initializeTemplateDays(
     throw error;
   }
 
-  return ((data ?? []) as TripTemplateDay[]).sort(
-    (a, b) => a.day_number - b.day_number,
-  );
+  return (data ?? []) as TripTemplateDay[];
 }
 
-/**
- * Returns the next order_index for a day (last index + 1, or 0 when empty).
- */
+/** Last index + 1, or 0 when the day is empty. */
 async function nextOrderIndex(dayId: string): Promise<number> {
   const { data, error } = await supabase
     .from("trip_template_items")
@@ -102,8 +84,7 @@ async function nextOrderIndex(dayId: string): Promise<number> {
     throw error;
   }
 
-  const last = (data as { order_index: number } | null)?.order_index;
-  return last === undefined || last === null ? 0 : last + 1;
+  return data == null ? 0 : data.order_index + 1;
 }
 
 export async function toggleSavedTemplate(

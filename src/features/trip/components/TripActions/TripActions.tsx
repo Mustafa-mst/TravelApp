@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { IconButton, Text } from "@shared/components";
 import { colors, spacing } from "@shared/styles";
 import { BookmarkIcon, EditIcon } from "@/shared/assets/icons";
+import { TripDetailMode } from "../../constants";
 import type { TripDetailView } from "../../types";
 import { StartActionButton } from "./StartActionButton";
 import { ACTION_ICON_SIZE, styles } from "./TripActions.styles";
@@ -28,7 +29,7 @@ function TripActionsComponent({
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const paddingBottom = Math.max(insets.bottom, spacing.md);
-  const isSaved = detail.mode === "template" && detail.is_saved;
+  const isSaved = detail.mode === TripDetailMode.Template && detail.is_saved;
 
   const actionIcon = canEditAction ? (
     <IconButton
@@ -65,7 +66,7 @@ function TripActionsComponent({
   return (
     <View style={[styles.container, { paddingBottom }]}>
       <View style={styles.row}>
-        {detail.mode === "template" ? (
+        {detail.mode === TripDetailMode.Template ? (
           <>
             {actionIcon}
             <StartActionButton

@@ -1,29 +1,21 @@
 import { useEffect, useMemo } from "react";
 
-import type {
-  MapCoordinates,
-  MapMarker,
-  MapPolyline,
-} from "@shared/components";
+import type { MapPolyline } from "@shared/components";
 import { colors } from "@shared/styles";
+import {
+  DEFAULT_MAP_CENTER,
+  buildMarkers,
+  toCoordinates,
+} from "@shared/utils/map";
 import { useDirections } from "@/features/routes/hooks/mutation/useDirections";
 import { decodePolyline } from "@/features/routes/utils";
 import type { DirectionsCoordinates } from "@/features/routes/types/routes.types";
-import type { TripDetailMode } from "../types";
+import type { TripDetailMode } from "../constants";
 import { useTripDetail } from "./useTripDetail";
 
-const DEFAULT_MAP_CENTER: MapCoordinates = {
-  latitude: 41.0082,
-  longitude: 28.9784,
-};
-
 /**
- * Owns the DayDetail screen data: loads the parent detail view, picks out the
- * day, derives map markers / center from its items, and fetches + decodes the
- * driving route between them. The screen only renders what this returns.
- *
- * Reads through `useTripDetail` so a day renders the same way whether its
- * parent is a template or a trip, and so both screens share one cache entry.
+ * DayDetail screen data: the day, its map markers and the driving route between
+ * its stops. Reads through `useTripDetail` so both screens share one cache entry.
  */
 export function useDayDetail(id: string, mode: TripDetailMode, dayId: string) {
   const { detail, days, isLoading, isError, canEdit } = useTripDetail(id, mode);
@@ -34,32 +26,26 @@ export function useDayDetail(id: string, mode: TripDetailMode, dayId: string) {
   );
 
   const { mapCenter, mapMarkers, coordinates } = useMemo(() => {
-    const markers: MapMarker[] = [];
-    const coords: DirectionsCoordinates = [];
-    for (const item of day?.items ?? []) {
-      if (item.latitude != null && item.longitude != null) {
-        markers.push({
-          id: item.id,
-          coordinates: { latitude: item.latitude, longitude: item.longitude },
-          title: item.name,
-        });
-        coords.push([item.longitude, item.latitude]);
-      }
-    }
-    const city = detail?.city;
-    const cityCenter: MapCoordinates | null =
-      city?.latitude != null && city?.longitude != null
-        ? { latitude: city.latitude, longitude: city.longitude }
-        : null;
-    const center = markers[0]?.coordinates ?? cityCenter ?? DEFAULT_MAP_CENTER;
-    return { mapCenter: center, mapMarkers: markers, coordinates: coords };
+    const markers = buildMarkers(day?.items ?? []);
+    const coords: DirectionsCoordinates = markers.map(({ coordinates }) => [
+      coordinates.longitude,
+      coordinates.latitude,
+    ]);
+
+    return {
+      // Unlike the overview, a day centers on its first stop.
+      mapCenter:
+        markers[0]?.coordinates ??
+        toCoordinates(detail?.city) ??
+        DEFAULT_MAP_CENTER,
+      mapMarkers: markers,
+      coordinates: coords,
+    };
   }, [day, detail?.city]);
 
   const { mutate: fetchDirections, data: route, reset } = useDirections();
 
-  // A route needs at least two stops; below that there is nothing to draw, so
-  // clear any previously fetched one. `coordinates` is memoized above, so this
-  // refires only when the day's places actually change.
+  // A route needs at least two stops; below that, clear any previous one.
   useEffect(() => {
     if (coordinates.length < 2) {
       reset();

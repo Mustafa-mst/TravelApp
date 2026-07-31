@@ -19,6 +19,7 @@ import type { RootStackParamList } from "@shared/navigation";
 import { formatDistance, formatDuration } from "@/features/routes/utils";
 import { AddPlacesSheet, DayTimelineCard } from "../../components";
 import { useDayDetail } from "../../hooks";
+import { collectPlaceIds } from "../../utils";
 import { styles } from "./DayDetailScreen.styles";
 
 type DayDetailRoute = RouteProp<RootStackParamList, "DayDetail">;
@@ -42,13 +43,7 @@ function DayDetailScreenComponent() {
 
   const itemSheetRef = useRef<BottomSheet>(null);
 
-  const dayPlaceIds = useMemo(
-    () =>
-      (day?.items ?? [])
-        .map((item) => item.google_place_id)
-        .filter((id): id is string => id != null),
-    [day?.items],
-  );
+  const dayPlaceIds = useMemo(() => collectPlaceIds(day?.items), [day?.items]);
 
   const openAddStop = useCallback(() => {
     itemSheetRef.current?.present();

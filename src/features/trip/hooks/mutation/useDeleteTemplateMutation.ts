@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@shared/services";
-import { templateKeys } from "../query/useDiscoverTemplatesQuery";
+import { templateKeys } from "../query";
 
 export function useDeleteTemplateMutation() {
   const queryClient = useQueryClient();

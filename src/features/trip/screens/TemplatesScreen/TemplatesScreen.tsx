@@ -10,10 +10,8 @@ import { colors } from "@shared/styles";
 import { PlusIcon } from "@/shared/assets/icons";
 import type { BackTarget, RootStackParamList } from "@shared/navigation";
 import { TemplateListCard } from "../../components";
-import {
-  useDeleteTemplateMutation,
-  useMyTemplateListQuery,
-} from "../../hooks";
+import { TripDetailMode } from "../../constants";
+import { useDeleteTemplateMutation, useMyTemplateListQuery } from "../../hooks";
 import type { TripTemplate } from "../../types";
 import { styles } from "./TemplatesScreen.styles";
 
@@ -59,7 +57,7 @@ export function TemplatesScreen() {
         // These are templates the signed-in user authored, not trips.
         navigation.navigate("TripDetail", {
           id: item.id,
-          mode: "template",
+          mode: TripDetailMode.Template,
           preview: { title: item.title, cover_photo: item.cover_photo },
         })
       }
@@ -80,13 +78,7 @@ export function TemplatesScreen() {
           variant="filled"
           hitSlop={15}
           onPress={() => open({ target: "createTemplate" })}
-          style={{
-            padding: 8,
-            borderRadius: 999,
-            borderColor: colors.border,
-            backgroundColor: colors.white,
-            borderWidth: 1,
-          }}
+          style={styles.addButton}
           icon={<PlusIcon width={24} height={24} color={colors.textPrimary} />}
         />
       </View>

@@ -144,6 +144,16 @@ export function useAddPlacesSheet({
     templateId,
   ]);
 
+  const isAlreadyAdded = useCallback(
+    (placeId: string) => alreadyAddedIds.has(placeId),
+    [alreadyAddedIds],
+  );
+
+  const isPending = useCallback(
+    (placeId: string) => pendingPlaces.has(placeId),
+    [pendingPlaces],
+  );
+
   const selectedCount = pendingPlaces.size;
 
   return {
@@ -152,14 +162,8 @@ export function useAddPlacesSheet({
     isEmpty: !isLoading && (isError || places.length === 0),
     selectedType,
     setSelectedType,
-    isAlreadyAdded: useCallback(
-      (placeId: string) => alreadyAddedIds.has(placeId),
-      [alreadyAddedIds],
-    ),
-    isPending: useCallback(
-      (placeId: string) => pendingPlaces.has(placeId),
-      [pendingPlaces],
-    ),
+    isAlreadyAdded,
+    isPending,
     togglePlace,
     selectedCount,
     isCreating,
