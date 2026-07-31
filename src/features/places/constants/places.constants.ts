@@ -9,7 +9,6 @@ export enum PlaceTypes {
   Restaurant = "restaurant",
   Cafe = "cafe",
   Park = "park",
-  ShoppingMall = "shopping_mall",
   TouristAttraction = "tourist_attraction",
 }
 
@@ -20,7 +19,6 @@ export const PLACE_CATEGORIES = [
   { title: "Cafes", value: PlaceTypes.Cafe },
   { title: "Museums", value: PlaceTypes.Museum },
   { title: "Parks", value: PlaceTypes.Park },
-  { title: "Shopping", value: PlaceTypes.ShoppingMall },
 ] as const;
 
 export const PLACE_TYPE_META: Record<
@@ -50,12 +48,6 @@ export const PLACE_TYPE_META: Record<
     icon: "🌳",
     materialIcon: "park",
     color: colors.success,
-  },
-  shopping_mall: {
-    label: "Shopping",
-    icon: "🛍️",
-    materialIcon: "shopping-bag",
-    color: colors.danger,
   },
   tourist_attraction: {
     label: "Attraction",

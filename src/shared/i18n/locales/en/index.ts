@@ -1,11 +1,12 @@
 const en = {
   common: {
     select: "Select",
+    retry: "Try again",
   },
   tabs: {
     home: "Home",
     search: "Search",
-    itineraries: "Itineraries",
+    templates: "Itineraries",
     account: "Account",
   },
   auth: {
@@ -23,10 +24,10 @@ const en = {
   },
   home: {
     title: "Home",
-    itineraries: "Itineraries",
+    templates: "Itineraries",
     explorePlaces: "Explore Places",
     exploreMap: "Explore on Map",
-    newItinerary: "New Itinerary",
+    newTemplate: "New Itinerary",
     shareTrip: "Share Trip",
     inviteFriends: "Invite Friends",
     edit: "Edit",
@@ -39,6 +40,18 @@ const en = {
     },
     membersLabel: "{{first}}, {{second}} and {{count}} others",
     subtitle: "Are you ready to explore the world?",
+    explore: {
+      featured: "Featured Itineraries",
+      popular: "Popular Itineraries",
+      recent: "Recently Added",
+      empty: "No itineraries yet",
+      error: "Couldn't load itineraries",
+      tabs: {
+        myTemplates: "My Templates",
+        explorer: "Explorer",
+      },
+      myTemplatesEmpty: "You haven't created any templates yet",
+    },
     hero: {
       title: "Discover your next luxury escape",
       subtitle: "Find recommendations and exciting experiences.",
@@ -64,7 +77,7 @@ const en = {
     placeholder: "Search",
     history: "Search History",
   },
-  itinerary: {
+  template: {
     title: "Itineraries",
     empty: "You don't have any itineraries yet.",
     new: "New Itinerary",
@@ -111,6 +124,18 @@ const en = {
       plannedStops: "Planned Stops",
       stopsTitle: "Stops & Activities",
       addStop: "Add Stop",
+      startTrip: "Start Trip",
+      startRouteMap: "Start Route Map",
+      startMyTrip: "Start My Trip",
+      saveTemplate: "Save",
+      savedTemplate: "Saved",
+      edit: "Edit",
+      status: {
+        planned: "Planned",
+        active: "Active",
+        completed: "Completed",
+        cancelled: "Cancelled",
+      },
     },
     nearby: {
       title: "Add a place",
@@ -129,6 +154,12 @@ const en = {
       daysLabel: "Days",
       activitiesLabel: "Activities",
       dayActivityCount: "{{count}} Activities",
+      dayCount_one: "{{count}} day",
+      dayCount_other: "{{count}} days",
+    },
+    place: {
+      placesCount_one: "{{count}} place",
+      placesCount_other: "{{count}} places",
     },
     addActivity: "Add Activity",
     editActivity: "Edit Activity",
@@ -163,7 +194,7 @@ const en = {
   },
   country: {
     seeMore: "See more",
-    createItinerary: "Create Itinerary",
+    createTemplate: "Create Itinerary",
     sections: {
       thingsToDo: {
         title: "Things to do",

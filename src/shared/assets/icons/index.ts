@@ -27,3 +27,5 @@ export { default as SelectedIcon } from "./selected.svg";
 export { default as EyesIcon } from "./eyes.svg";
 export { default as MinusIcon } from "./minus.svg";
 export { default as MapIcon } from "./map.svg";
+export { default as DirectionRightIcon } from "./direction_right.svg";
+export { default as EditIcon } from "./edit.svg";

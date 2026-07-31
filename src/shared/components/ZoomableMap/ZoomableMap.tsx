@@ -6,7 +6,7 @@ import { MapZoomControl } from "../MapZoomControl";
 import { useMapZoom, type UseMapZoomOptions } from "../MapZoomControl/useMapZoom";
 import { styles } from "./ZoomableMap.styles";
 
-type ZoomableMapProps = Omit<MapViewProps, "zoom" | "style"> & {
+export type ZoomableMapProps = Omit<MapViewProps, "zoom" | "style"> & {
   style?: StyleProp<ViewStyle>;
   controlStyle?: StyleProp<ViewStyle>;
   zoomOptions?: UseMapZoomOptions;

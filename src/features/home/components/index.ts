@@ -8,3 +8,8 @@ export {
   type CategoryGridProps,
   type CategoryGridItem,
 } from "./CategoryGrid";
+export { TemplateSection, type TemplateSectionProps } from "./TemplateSection";
+export {
+  ExploreTemplates,
+  type ExploreTemplatesProps,
+} from "./ExploreTemplates";

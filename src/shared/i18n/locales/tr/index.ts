@@ -1,11 +1,12 @@
 const tr = {
   common: {
     select: "Seç",
+    retry: "Tekrar dene",
   },
   tabs: {
     home: "Ana Sayfa",
     search: "Ara",
-    itineraries: "Gezi Planları",
+    templates: "Gezi Planları",
     account: "Hesap",
   },
   auth: {
@@ -23,10 +24,10 @@ const tr = {
   },
   home: {
     title: "Ana Sayfa",
-    itineraries: "Gezi Planları",
+    templates: "Gezi Planları",
     explorePlaces: "Yerleri Keşfet",
     exploreMap: "Haritada Keşfet",
-    newItinerary: "Yeni Plan",
+    newTemplate: "Yeni Plan",
     shareTrip: "Geziyi Paylaş",
     inviteFriends: "Arkadaş Davet Et",
     edit: "Düzenle",
@@ -39,6 +40,18 @@ const tr = {
     },
     membersLabel: "{{first}}, {{second}} ve {{count}} kişi daha",
     subtitle: "Dünyayı keşfetmeye hazır mısın?",
+    explore: {
+      featured: "Öne Çıkan Rotalar",
+      popular: "Popüler Rotalar",
+      recent: "Yeni Eklenenler",
+      empty: "Henüz rota yok",
+      error: "Rotalar yüklenemedi",
+      tabs: {
+        myTemplates: "Şablonlarım",
+        explorer: "Keşfet",
+      },
+      myTemplatesEmpty: "Henüz şablon oluşturmadın",
+    },
     hero: {
       title: "Bir sonraki lüks kaçamağını keşfet",
       subtitle: "Önerileri ve heyecan verici deneyimleri keşfet.",
@@ -64,7 +77,7 @@ const tr = {
     placeholder: "Ara",
     history: "Arama Geçmişi",
   },
-  itinerary: {
+  template: {
     title: "Gezi Planları",
     empty: "Henüz bir gezi planın yok.",
     new: "Yeni Gezi Planı",
@@ -111,6 +124,18 @@ const tr = {
       plannedStops: "Planlanan Duraklar",
       stopsTitle: "Duraklar ve Aktiviteler",
       addStop: "Durak Ekle",
+      startTrip: "Geziyi Başlat",
+      startRouteMap: "Rota Haritasını Başlat",
+      startMyTrip: "Gezimi Başlat",
+      saveTemplate: "Kaydet",
+      savedTemplate: "Kaydedildi",
+      edit: "Düzenle",
+      status: {
+        planned: "Planlandı",
+        active: "Devam ediyor",
+        completed: "Tamamlandı",
+        cancelled: "İptal edildi",
+      },
     },
     nearby: {
       title: "Mekan ekle",
@@ -129,6 +154,12 @@ const tr = {
       daysLabel: "Gün",
       activitiesLabel: "Etkinlik",
       dayActivityCount: "{{count}} etkinlik",
+      dayCount_one: "{{count}} gün",
+      dayCount_other: "{{count}} gün",
+    },
+    place: {
+      placesCount_one: "{{count}} yer",
+      placesCount_other: "{{count}} yer",
     },
     addActivity: "Etkinlik Ekle",
     editActivity: "Etkinliği Düzenle",
@@ -163,7 +194,7 @@ const tr = {
   },
   country: {
     seeMore: "Daha fazla",
-    createItinerary: "Gezi Planı Oluştur",
+    createTemplate: "Gezi Planı Oluştur",
     sections: {
       thingsToDo: {
         title: "Yapılacaklar",

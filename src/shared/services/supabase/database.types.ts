@@ -300,146 +300,38 @@ export type Database = {
           },
         ]
       }
-      itineraries: {
+      saved_trip_templates: {
         Row: {
-          city_geoname_id: number
-          cover_photo: string | null
           created_at: string
-          end_date: string
           id: string
-          start_date: string
-          title: string
-          updated_at: string
+          template_id: string
           user_id: string
         }
         Insert: {
-          city_geoname_id: number
-          cover_photo?: string | null
           created_at?: string
-          end_date: string
           id?: string
-          start_date: string
-          title: string
-          updated_at?: string
-          user_id?: string
+          template_id: string
+          user_id: string
         }
         Update: {
-          city_geoname_id?: number
-          cover_photo?: string | null
           created_at?: string
-          end_date?: string
           id?: string
-          start_date?: string
-          title?: string
-          updated_at?: string
+          template_id?: string
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "itineraries_city_geoname_id_fkey"
-            columns: ["city_geoname_id"]
+            foreignKeyName: "saved_trip_templates_template_id_fkey"
+            columns: ["template_id"]
             isOneToOne: false
-            referencedRelation: "cities"
-            referencedColumns: ["geoname_id"]
-          },
-        ]
-      }
-      itinerary_days: {
-        Row: {
-          created_at: string
-          date: string
-          day_number: number
-          id: string
-          itinerary_id: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          date: string
-          day_number: number
-          id?: string
-          itinerary_id: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          date?: string
-          day_number?: number
-          id?: string
-          itinerary_id?: string
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "itinerary_days_itinerary_id_fkey"
-            columns: ["itinerary_id"]
-            isOneToOne: false
-            referencedRelation: "itineraries"
+            referencedRelation: "trip_templates"
             referencedColumns: ["id"]
           },
-        ]
-      }
-      itinerary_items: {
-        Row: {
-          address: string | null
-          created_at: string
-          day_id: string
-          description: string | null
-          ends_at: string | null
-          google_place_id: string | null
-          id: string
-          image_url: string | null
-          latitude: number | null
-          longitude: number | null
-          name: string
-          notes: string | null
-          order_index: number
-          place_type: string
-          starts_at: string | null
-          updated_at: string
-        }
-        Insert: {
-          address?: string | null
-          created_at?: string
-          day_id: string
-          description?: string | null
-          ends_at?: string | null
-          google_place_id?: string | null
-          id?: string
-          image_url?: string | null
-          latitude?: number | null
-          longitude?: number | null
-          name: string
-          notes?: string | null
-          order_index?: number
-          place_type: string
-          starts_at?: string | null
-          updated_at?: string
-        }
-        Update: {
-          address?: string | null
-          created_at?: string
-          day_id?: string
-          description?: string | null
-          ends_at?: string | null
-          google_place_id?: string | null
-          id?: string
-          image_url?: string | null
-          latitude?: number | null
-          longitude?: number | null
-          name?: string
-          notes?: string | null
-          order_index?: number
-          place_type?: string
-          starts_at?: string | null
-          updated_at?: string
-        }
-        Relationships: [
           {
-            foreignKeyName: "itinerary_items_day_id_fkey"
-            columns: ["day_id"]
+            foreignKeyName: "saved_trip_templates_template_id_fkey"
+            columns: ["template_id"]
             isOneToOne: false
-            referencedRelation: "itinerary_days"
+            referencedRelation: "v_template_cards"
             referencedColumns: ["id"]
           },
         ]
@@ -497,11 +389,341 @@ export type Database = {
         }
         Relationships: []
       }
+      trip_days: {
+        Row: {
+          created_at: string
+          date: string
+          day_number: number
+          id: string
+          trip_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          day_number: number
+          id?: string
+          trip_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          day_number?: number
+          id?: string
+          trip_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_days_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trip_items: {
+        Row: {
+          address: string | null
+          created_at: string
+          description: string | null
+          ends_at: string | null
+          google_place_id: string | null
+          id: string
+          image_url: string | null
+          latitude: number | null
+          longitude: number | null
+          name: string
+          notes: string | null
+          order_index: number
+          place_type: Database["public"]["Enums"]["place_category"]
+          starts_at: string | null
+          trip_day_id: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          description?: string | null
+          ends_at?: string | null
+          google_place_id?: string | null
+          id?: string
+          image_url?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+          notes?: string | null
+          order_index?: number
+          place_type: Database["public"]["Enums"]["place_category"]
+          starts_at?: string | null
+          trip_day_id: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          description?: string | null
+          ends_at?: string | null
+          google_place_id?: string | null
+          id?: string
+          image_url?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
+          notes?: string | null
+          order_index?: number
+          place_type?: Database["public"]["Enums"]["place_category"]
+          starts_at?: string | null
+          trip_day_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_items_trip_day_id_fkey"
+            columns: ["trip_day_id"]
+            isOneToOne: false
+            referencedRelation: "trip_days"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trip_template_days: {
+        Row: {
+          created_at: string
+          day_number: number
+          id: string
+          template_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          day_number: number
+          id?: string
+          template_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          day_number?: number
+          id?: string
+          template_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_template_days_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "trip_templates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trip_template_days_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "v_template_cards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trip_template_items: {
+        Row: {
+          address: string | null
+          created_at: string
+          description: string | null
+          ends_at: string | null
+          google_place_id: string | null
+          id: string
+          image_url: string | null
+          latitude: number | null
+          longitude: number | null
+          name: string
+          notes: string | null
+          order_index: number
+          place_type: Database["public"]["Enums"]["place_category"]
+          starts_at: string | null
+          template_day_id: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          description?: string | null
+          ends_at?: string | null
+          google_place_id?: string | null
+          id?: string
+          image_url?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+          notes?: string | null
+          order_index?: number
+          place_type: Database["public"]["Enums"]["place_category"]
+          starts_at?: string | null
+          template_day_id: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          description?: string | null
+          ends_at?: string | null
+          google_place_id?: string | null
+          id?: string
+          image_url?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
+          notes?: string | null
+          order_index?: number
+          place_type?: Database["public"]["Enums"]["place_category"]
+          starts_at?: string | null
+          template_day_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_template_items_day_id_fkey"
+            columns: ["template_day_id"]
+            isOneToOne: false
+            referencedRelation: "trip_template_days"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trip_templates: {
+        Row: {
+          author_id: string
+          city_geoname_id: number
+          cover_photo: string | null
+          created_at: string
+          days_count: number
+          id: string
+          saves_count: number
+          source: string
+          title: string
+          updated_at: string
+          visibility: string
+        }
+        Insert: {
+          author_id?: string
+          city_geoname_id: number
+          cover_photo?: string | null
+          created_at?: string
+          days_count?: number
+          id?: string
+          saves_count?: number
+          source?: string
+          title: string
+          updated_at?: string
+          visibility?: string
+        }
+        Update: {
+          author_id?: string
+          city_geoname_id?: number
+          cover_photo?: string | null
+          created_at?: string
+          days_count?: number
+          id?: string
+          saves_count?: number
+          source?: string
+          title?: string
+          updated_at?: string
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_templates_city_geoname_id_fkey"
+            columns: ["city_geoname_id"]
+            isOneToOne: false
+            referencedRelation: "cities"
+            referencedColumns: ["geoname_id"]
+          },
+        ]
+      }
+      trips: {
+        Row: {
+          created_at: string
+          id: string
+          start_date: string
+          status: string
+          template_author_id: string
+          template_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          start_date: string
+          status?: string
+          template_author_id: string
+          template_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          start_date?: string
+          status?: string
+          template_author_id?: string
+          template_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trips_itinerary_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "trip_templates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trips_itinerary_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "v_template_cards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
-      [_ in never]: never
+      v_template_cards: {
+        Row: {
+          author_id: string | null
+          city_geoname_id: number | null
+          cover_photo: string | null
+          created_at: string | null
+          days_count: number | null
+          id: string | null
+          place_types: Database["public"]["Enums"]["place_category"][] | null
+          places_count: number | null
+          saves_count: number | null
+          source: string | null
+          title: string | null
+          visibility: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_templates_city_geoname_id_fkey"
+            columns: ["city_geoname_id"]
+            isOneToOne: false
+            referencedRelation: "cities"
+            referencedColumns: ["geoname_id"]
+          },
+        ]
+      }
     }
     Functions: {
+      create_trip_from_template: {
+        Args: { p_start_date: string; p_template_id: string }
+        Returns: string
+      }
       get_countries_small_size: {
         Args: never
         Returns: {
@@ -511,6 +733,8 @@ export type Database = {
         }[]
       }
       get_random_country: { Args: never; Returns: Json }
+      get_template_detail: { Args: { p_template_id: string }; Returns: Json }
+      get_trip_detail: { Args: { p_trip_id: string }; Returns: Json }
       search_cities: {
         Args: { q: string }
         Returns: {
@@ -525,9 +749,21 @@ export type Database = {
       }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
+      toggle_saved_template: {
+        Args: { p_template_id: string }
+        Returns: {
+          is_saved: boolean
+          saves_count: number
+        }[]
+      }
     }
     Enums: {
-      [_ in never]: never
+      place_category:
+        | "tourist_attraction"
+        | "museum"
+        | "restaurant"
+        | "cafe"
+        | "park"
     }
     CompositeTypes: {
       checklist_item: {
@@ -657,6 +893,14 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      place_category: [
+        "tourist_attraction",
+        "museum",
+        "restaurant",
+        "cafe",
+        "park",
+      ],
+    },
   },
 } as const

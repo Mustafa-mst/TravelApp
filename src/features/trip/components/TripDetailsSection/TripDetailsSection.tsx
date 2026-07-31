@@ -1,0 +1,130 @@
+import { memo } from "react";
+import { Pressable, TextInput, View } from "react-native";
+import { Controller, type Control, type FieldErrors } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+
+import { Card, Text } from "@shared/components";
+import { colors } from "@shared/styles";
+import { ChevronRightIcon, LocationIcon } from "@/shared/assets/icons";
+import {
+  MAX_TEMPLATE_DAYS,
+  MIN_TEMPLATE_DAYS,
+  type TemplateFormValues,
+} from "../../schemas";
+import type { SelectedCity } from "../../types";
+import { CoverPhotoSection } from "../CoverPhotoSection";
+import { DayCountStepper } from "../DayCountStepper";
+import { styles } from "./TripDetailsSection.styles";
+
+export type TripDetailsSectionProps = {
+  control: Control<TemplateFormValues>;
+  errors: FieldErrors<TemplateFormValues>;
+  selectedCity: SelectedCity | null;
+  onCityPress: () => void;
+  daysCount: number;
+  onDaysCountChange: (next: number) => void;
+  city: string;
+  coverPhoto: string | null;
+  uploadedPhoto: string | null;
+  onSelectCoverPhoto: (uri: string) => void;
+  onUploadPhotoPress: () => void;
+};
+
+function TripDetailsSectionComponent({
+  control,
+  errors,
+  selectedCity,
+  onCityPress,
+  daysCount,
+  onDaysCountChange,
+  city,
+  coverPhoto,
+  uploadedPhoto,
+  onSelectCoverPhoto,
+  onUploadPhotoPress,
+}: TripDetailsSectionProps) {
+  const { t } = useTranslation();
+
+  const errorMessage =
+    errors.name?.message ?? errors.city?.message ?? errors.daysCount?.message;
+
+  return (
+    <View style={styles.container}>
+      <Card style={styles.card}>
+        <Controller
+          control={control}
+          name="name"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.nameInput}
+              placeholder={t("template.namePlaceholder")}
+              placeholderTextColor={colors.textTertiary}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+            />
+          )}
+        />
+
+        <View style={styles.separator} />
+
+        <Pressable
+          accessibilityRole="button"
+          style={styles.row}
+          onPress={onCityPress}
+        >
+          <View style={styles.rowLabel}>
+            <LocationIcon width={20} height={20} color={colors.iconPrimary} />
+            {selectedCity ? (
+              <Text
+                variant="bodyLarge"
+                color="textPrimary"
+                numberOfLines={1}
+                style={styles.valueLabel}
+              >
+                {`${selectedCity.name}, ${selectedCity.country_code}`}
+              </Text>
+            ) : (
+              <Text variant="bodyLarge" color="textTertiary">
+                {t("template.selectCity")}
+              </Text>
+            )}
+          </View>
+
+          <ChevronRightIcon
+            width={20}
+            height={20}
+            color={colors.iconTertiary}
+          />
+        </Pressable>
+
+        <View style={styles.separator} />
+
+        <DayCountStepper
+          value={daysCount}
+          min={MIN_TEMPLATE_DAYS}
+          max={MAX_TEMPLATE_DAYS}
+          onChange={onDaysCountChange}
+        />
+
+        <View style={styles.separator} />
+
+        <CoverPhotoSection
+          city={city}
+          selectedUri={coverPhoto}
+          uploadedUri={uploadedPhoto}
+          onSelect={onSelectCoverPhoto}
+          onUploadPress={onUploadPhotoPress}
+        />
+      </Card>
+
+      {errorMessage ? (
+        <Text variant="caption" color="danger">
+          {errorMessage}
+        </Text>
+      ) : null}
+    </View>
+  );
+}
+
+export const TripDetailsSection = memo(TripDetailsSectionComponent);

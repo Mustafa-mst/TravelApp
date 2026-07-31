@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LoginScreen } from "@/features/auth";
 import { CountryDetailScreen } from "@/features/country";
-import { DayDetailScreen, ItineraryDetailScreen } from "@/features/itinerary";
+import { DayDetailScreen, TripDetailScreen } from "@/features/trip";
 import { TabNavigator } from "./TabNavigator";
 import type { RootStackParamList } from "./types";
 
@@ -26,8 +26,8 @@ export function FrontNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="ItineraryDetail"
-        component={ItineraryDetailScreen}
+        name="TripDetail"
+        component={TripDetailScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

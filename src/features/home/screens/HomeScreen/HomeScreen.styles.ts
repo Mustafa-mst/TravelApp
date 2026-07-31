@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   heroSubtitle: {
     color: "rgba(255, 255, 255, 0.9)",
   },
-  block: {
+  exploreList: {
     paddingHorizontal: spacing.md,
   },
 });
