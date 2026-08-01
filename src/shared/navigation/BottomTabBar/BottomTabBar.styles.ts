@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors, radius, shadows, spacing, typography } from "@shared/styles";
+import { colors, radius, shadows, spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   wrapper: {
@@ -21,12 +21,12 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     padding: 6,
     borderRadius: radius.full,
-    backgroundColor: colors.background,
+    backgroundColor: colors.tabBarBackground,
     marginBottom: spacing.sm,
     ...shadows.level3,
   },
   item: {
-    width: 78,
+    width: 50,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
@@ -36,17 +36,9 @@ export const styles = StyleSheet.create({
     borderRadius: radius.full,
   },
   itemActive: {
-    backgroundColor: colors.tabBarBackground,
+    backgroundColor: colors.tabBarItemActive,
   },
   pressed: {
     transform: [{ scale: 0.98 }],
-  },
-  label: {
-    ...typography.bodySmall,
-    textAlign: "center",
-    color: colors.iconSecondary,
-  },
-  labelActive: {
-    color: colors.primary,
   },
 });

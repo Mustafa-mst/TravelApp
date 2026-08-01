@@ -5,9 +5,12 @@ const tr = {
   },
   tabs: {
     home: "Ana Sayfa",
-    search: "Ara",
+    dashboard: "Panelim",
     templates: "Gezi Planları",
     account: "Hesap",
+  },
+  dashboard: {
+    title: "Panelim",
   },
   auth: {
     accountTitle: "Hesap",

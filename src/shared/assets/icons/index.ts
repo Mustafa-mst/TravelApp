@@ -29,3 +29,6 @@ export { default as MinusIcon } from "./minus.svg";
 export { default as MapIcon } from "./map.svg";
 export { default as DirectionRightIcon } from "./direction_right.svg";
 export { default as EditIcon } from "./edit.svg";
+export { default as NoteIcon } from "./edit.svg";
+export { default as CalendarIcon } from "./calendar.svg";
+export { default as DashboardIcon } from "./dashboard.svg";

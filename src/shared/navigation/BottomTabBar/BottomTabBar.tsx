@@ -17,7 +17,10 @@ export function BottomTabBar({
     <View style={[styles.wrapper, { paddingBottom: insets.bottom }]}>
       <LinearGradient
         pointerEvents="none"
-        colors={["transparent", colors.background]}
+        colors={["rgba(243, 243, 243, 1)", "rgba(243, 243, 243, 0)"]}
+        locations={[0.27, 1]}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 0, y: 0 }}
         style={styles.fade}
       />
       <View style={styles.container}>
@@ -27,8 +30,8 @@ export function BottomTabBar({
           const label =
             typeof options.title === "string" ? options.title : route.name;
           const color = isFocused
-            ? colors.primary
-            : colors.iconSecondary;
+            ? colors.tabBarIconActive
+            : colors.tabBarIconInactive;
 
           const onPress = () => {
             const event = navigation.emit({
