@@ -16,22 +16,42 @@ export const styles = StyleSheet.create({
     borderColor: colors.borderMuted,
     borderRadius: radius.lg - 2,
     paddingHorizontal: spacing.md,
-    gap: spacing.sm,
   },
   inputWrapperError: {
     borderColor: colors.danger,
   },
+  dropdown: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+    paddingVertical: spacing.md - 2,
+    paddingRight: spacing.sm,
+  },
+  dropdownLabel: {
+    ...typography.bodyMedium,
+    color: colors.text,
+  },
+  placeholder: {
+    color: colors.textMuted,
+  },
+  divider: {
+    width: 1,
+    alignSelf: "stretch",
+    backgroundColor: colors.text,
+    marginVertical: spacing.md,
+  },
   input: {
-    fontSize: 16,
-    fontWeight: "400",
+    fontSize: typography.body.fontSize,
+    fontWeight: typography.body.fontWeight,
     color: colors.text,
     flex: 1,
     paddingVertical: spacing.md - 2,
+    paddingLeft: spacing.md,
     textAlignVertical: "center",
     includeFontPadding: false,
   },
   inputFilled: {
-    ...typography.bodyMedium,
+    fontWeight: typography.bodyMedium.fontWeight,
   },
   error: {
     ...typography.caption,

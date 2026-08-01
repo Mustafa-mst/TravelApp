@@ -1,16 +1,12 @@
 import { StyleSheet } from "react-native";
-import { colors, radius } from "@shared/styles";
+import { colors } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   background: {
     backgroundColor: colors.grey200,
-    borderTopLeftRadius: radius.xl,
-    borderTopRightRadius: radius.xl,
   },
   header: {
     backgroundColor: colors.grey200,
-    borderTopLeftRadius: radius.xl,
-    borderTopRightRadius: radius.xl,
     padding: 24,
     paddingBottom: 12,
   },
@@ -24,9 +20,6 @@ export const styles = StyleSheet.create({
     top: 10,
   },
   content: {
-    flexShrink: 1,
-  },
-  contentFill: {
     flex: 1,
   },
 });

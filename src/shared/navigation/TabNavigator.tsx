@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { AccountScreen } from "@/features/auth";
 import { SearchScreen } from "@/features/search";
 import { HomeScreen } from "@/features/home";
-import { TemplatesScreen } from "@/features/trip";
+import { ItinerariesScreen } from "@/features/itinerary";
 import {
   CalendarMonthIcon,
   HomeIcon,
@@ -28,6 +28,7 @@ export function TabNavigator() {
       tabBar={(props) => <BottomTabBar {...props} />}
       screenOptions={{
         headerShown: false,
+        animation: "shift",
       }}
     >
       <Tab.Screen
@@ -57,10 +58,10 @@ export function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Templates"
-        component={TemplatesScreen}
+        name="Itineraries"
+        component={ItinerariesScreen}
         options={{
-          title: t("tabs.templates"),
+          title: t("tabs.itineraries"),
           tabBarIcon: ({ focused, color, size }) => (
             <CalendarMonthIcon
               width={size}

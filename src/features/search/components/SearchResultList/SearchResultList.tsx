@@ -6,12 +6,10 @@ import { CloseIcon, TrashBin } from "@shared/assets/icons";
 import { IconButton, Text } from "@shared/components";
 import { colors } from "@/shared/styles";
 
-const list = ["Turkey", "Samoa", "Spain"];
-
-const ItemSeparator = () => <View style={styles.border} />;
-
+const list = ["Turkey", "Samoa", "Spain", "Turkey", "Samoa", "Spain"];
 const SearchResultListComponent = () => {
   const { t } = useTranslation();
+  const ItemSeperator = () => <View style={styles.border} />;
 
   const renderItem = useCallback(
     ({ item }: { item: string }) => (
@@ -32,9 +30,8 @@ const SearchResultListComponent = () => {
       <FlatList
         data={list}
         renderItem={renderItem}
-        keyExtractor={(item) => item}
         contentContainerStyle={styles.contentContainer}
-        ItemSeparatorComponent={ItemSeparator}
+        ItemSeparatorComponent={ItemSeperator}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
       />

@@ -10,13 +10,6 @@ const config: ExpoConfig = {
   plugins: [
     'expo-image',
     [
-      'expo-image-picker',
-      {
-        photosPermission:
-          'Allow $(PRODUCT_NAME) to access your photos to pick a trip cover photo',
-      },
-    ],
-    [
       'expo-maps',
       {
         requestLocationPermission: true,

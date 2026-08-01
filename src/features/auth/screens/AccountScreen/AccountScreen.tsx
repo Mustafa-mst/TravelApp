@@ -41,8 +41,8 @@ export function AccountScreen() {
         <Text style={styles.email}>{session.user.email}</Text>
         <Button
           label={t('auth.logout')}
-          type="secondary"
-          state={isPending ? 'loading' : undefined}
+          variant="secondary"
+          loading={isPending}
           onPress={() => logout()}
         />
       </View>

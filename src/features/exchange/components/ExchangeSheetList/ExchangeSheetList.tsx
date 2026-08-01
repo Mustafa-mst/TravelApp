@@ -1,7 +1,8 @@
 import { View } from "react-native";
+import { BottomSheetFlatList } from "@expo/ui/community/bottom-sheet";
 import { Image } from "expo-image";
 import { memo, useCallback } from "react";
-import { BottomSheetList, PressableScale, Text } from "@/shared/components";
+import { PressableScale, Text } from "@/shared/components";
 import { DropdownItem } from "@/shared/types";
 import { styles } from "./ExchangeSheetList.styles";
 import { ExchangeRate } from "../../types";
@@ -19,6 +20,8 @@ function ExchangeSheetListComponent({
   onSelectItem,
   selectedItem,
 }: ExchangeListProps) {
+  // Rows render straight from the rate records; building React elements inside
+  // the data (icons as "data") would defeat FlatList recycling.
   const renderRow = useCallback(
     ({ item, index }: { item: ExchangeRate; index: number }) => (
       <PressableScale
@@ -40,11 +43,18 @@ function ExchangeSheetListComponent({
   );
 
   return (
-    <BottomSheetList
-      data={data}
-      keyExtractor={(item) => item.currency_code}
-      renderItem={renderRow}
-    />
+    <View style={styles.card}>
+      <BottomSheetFlatList
+        data={data}
+        style={styles.list}
+        keyExtractor={(item) => item.currency_code}
+        contentContainerStyle={styles.options}
+        renderItem={renderRow}
+        initialNumToRender={12}
+        windowSize={7}
+        removeClippedSubviews
+      />
+    </View>
   );
 }
 

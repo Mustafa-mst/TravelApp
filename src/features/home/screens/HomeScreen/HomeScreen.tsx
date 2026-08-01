@@ -1,21 +1,15 @@
-import { useCallback } from "react";
 import { ScrollView, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Text } from "@shared/components";
-import type { RootStackParamList } from "@shared/navigation";
-import { TripDetailMode } from "@/features/trip";
-import type { TemplateCardType } from "@/features/trip";
 import { spacing } from "@shared/styles";
 import { backgroundImage } from "@shared/assets/images";
 import {
   CategoryGrid,
   CategorySection,
-  ExploreTemplates,
   HeroBanner,
+  ItineraryCard,
 } from "../../components";
 import { styles } from "./HomeScreen.styles";
 import { useGetCategoriesQuery } from "@/features/country";
@@ -24,27 +18,8 @@ export function HomeScreen() {
   const { t } = useTranslation();
   const { data: categories } = useGetCategoriesQuery();
   const insets = useSafeAreaInsets();
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const category = categories?.[0];
-
-  const openTemplate = useCallback(
-    (template: TemplateCardType) => {
-      if (!template.id) {
-        return;
-      }
-      navigation.navigate("TripDetail", {
-        id: template.id,
-        mode: TripDetailMode.Template,
-        preview: {
-          title: template.title ?? "",
-          cover_photo: template.cover_photo,
-        },
-      });
-    },
-    [navigation],
-  );
 
   return (
     <View style={styles.safe}>
@@ -78,8 +53,18 @@ export function HomeScreen() {
             categoryLabel={category.category}
           />
         )}
-
-        <ExploreTemplates style={styles.exploreList} onSelect={openTemplate} />
+        <View style={styles.block}>
+          <ItineraryCard
+            title="İstanbul Gezisi"
+            location="İstanbul"
+            dateLabel="12–15 Tem"
+            members={[
+              { id: "1", name: "Mustafa" },
+              { id: "2", name: "Ayşe" },
+              { id: "3", name: "Can" },
+            ]}
+          />
+        </View>
       </ScrollView>
     </View>
   );

@@ -1,11 +1,5 @@
 import { memo } from "react";
-import {
-  Platform,
-  StyleSheet,
-  View,
-  type ViewStyle,
-  type StyleProp,
-} from "react-native";
+import { Platform, StyleSheet, View, type ViewStyle, type StyleProp } from "react-native";
 import { AppleMaps, GoogleMaps } from "expo-maps";
 
 export type MapCoordinates = {
@@ -19,28 +13,21 @@ export type MapMarker = {
   title?: string;
 };
 
-export type MapPolyline = {
-  id?: string;
-  coordinates: MapCoordinates[];
-  color?: string;
-  width?: number;
-};
-
 export type MapViewProps = {
+  /** Where the camera is centered initially. */
   center: MapCoordinates;
+  /** Google/Apple zoom level. Higher = closer. */
   zoom?: number;
   markers?: MapMarker[];
-  polylines?: MapPolyline[];
   style?: StyleProp<ViewStyle>;
 };
 
-function MapViewComponent({
-  center,
-  zoom = 12,
-  markers,
-  polylines,
-  style,
-}: MapViewProps) {
+/**
+ * Thin cross-platform wrapper over expo-maps. Renders Google Maps on Android
+ * and Apple Maps on iOS (the platform-native map each SDK ships). The Google
+ * Maps API key is supplied via the expo-maps config plugin in app.config.ts.
+ */
+function MapViewComponent({ center, zoom = 12, markers, style }: MapViewProps) {
   const cameraPosition = { coordinates: center, zoom };
 
   if (Platform.OS === "ios") {
@@ -49,7 +36,6 @@ function MapViewComponent({
         style={[styles.map, style]}
         cameraPosition={cameraPosition}
         markers={markers}
-        polylines={polylines}
       />
     );
   }
@@ -59,13 +45,12 @@ function MapViewComponent({
       <GoogleMaps.View
         style={[styles.map, style]}
         cameraPosition={cameraPosition}
-        uiSettings={{ zoomControlsEnabled: false }}
         markers={markers}
-        polylines={polylines}
       />
     );
   }
 
+  // expo-maps has no web implementation; render an empty placeholder there.
   return <View style={[styles.map, style]} />;
 }
 

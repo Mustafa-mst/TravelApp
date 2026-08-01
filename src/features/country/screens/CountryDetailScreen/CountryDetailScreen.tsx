@@ -5,22 +5,22 @@ import {
   useCallback,
   useMemo,
 } from "react";
-import { ScrollView, View } from "react-native";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 import { type SvgProps } from "react-native-svg";
+import { Image } from "expo-image";
 import { StatusBar } from "expo-status-bar";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 import type { ParseKeys } from "i18next";
-import { useRoute, type RouteProp } from "@react-navigation/native";
+import {
+  useNavigation,
+  useRoute,
+  type RouteProp,
+} from "@react-navigation/native";
 
+import { Carousel, IconButton, PressableScale, Text } from "@shared/components";
 import {
-  BackButton,
-  Carousel,
-  PressableScale,
-  RemoteImage,
-  StateView,
-  Text,
-} from "@shared/components";
-import {
+  ArrowLeftIcon,
   CalendarMonthIcon,
   ChevronRightIcon,
   CurrencyIcon,
@@ -29,6 +29,7 @@ import {
   RestaurantsIcon,
 } from "@shared/assets/icons";
 import { colors } from "@shared/styles";
+import { BLUR_HASH } from "@shared/constants";
 import type { RootStackParamList } from "@shared/navigation";
 import {
   useCountryImageQuery,
@@ -74,6 +75,8 @@ const SECTIONS: CountrySection[] = [
 
 function CountryDetailScreenComponent() {
   const { t, i18n } = useTranslation();
+  const insets = useSafeAreaInsets();
+  const navigation = useNavigation();
   const { params } = useRoute<CountryDetailRoute>();
 
   const { data: country, isLoading } = useGetCountryDetailQuery(
@@ -87,7 +90,13 @@ function CountryDetailScreenComponent() {
 
   const renderHeroImage = useCallback(
     (uri: string) => (
-      <RemoteImage source={uri} style={styles.heroImage} />
+      <Image
+        source={uri}
+        placeholder={{ blurhash: BLUR_HASH }}
+        transition={300}
+        style={styles.heroImage}
+        contentFit="cover"
+      />
     ),
     [],
   );
@@ -105,7 +114,11 @@ function CountryDetailScreenComponent() {
   );
 
   if (isLoading) {
-    return <StateView isLoading style={styles.loader} />;
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator color={colors.primary} />
+      </View>
+    );
   }
 
   return (
@@ -123,7 +136,14 @@ function CountryDetailScreenComponent() {
             renderItem={renderHeroImage}
           />
         </View>
-        <BackButton size={20} />
+        <IconButton
+          variant="filled"
+          onPress={() => navigation.goBack()}
+          style={[styles.backButton, { top: insets.top + 8 }]}
+          icon={
+            <ArrowLeftIcon width={20} height={20} color={colors.text} />
+          }
+        />
 
         <View style={styles.titleBlock}>
           <Text variant="h2" textAlign="center">
@@ -144,7 +164,7 @@ function CountryDetailScreenComponent() {
             color={colors.iconPrimary}
           />
           <View style={styles.sectionInfo}>
-            <Text variant="bodyMedium">{t("country.createTemplate")}</Text>
+            <Text variant="bodyMedium">{t("country.createItinerary")}</Text>
           </View>
           <ChevronRightIcon
             width={18}

@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LoginScreen } from "@/features/auth";
 import { CountryDetailScreen } from "@/features/country";
-import { DayDetailScreen, TripDetailScreen } from "@/features/trip";
 import { TabNavigator } from "./TabNavigator";
 import type { RootStackParamList } from "./types";
 
@@ -23,16 +22,6 @@ export function FrontNavigator() {
       <Stack.Screen
         name="CountryDetail"
         component={CountryDetailScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="TripDetail"
-        component={TripDetailScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="DayDetail"
-        component={DayDetailScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
