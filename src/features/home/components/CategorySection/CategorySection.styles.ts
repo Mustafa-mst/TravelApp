@@ -10,6 +10,5 @@ export const styles = StyleSheet.create({
   },
   list: {
     gap: spacing.md,
-    paddingHorizontal: spacing.md,
   },
 });

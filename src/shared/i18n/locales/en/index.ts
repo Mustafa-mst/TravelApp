@@ -56,6 +56,10 @@ const en = {
       title: "Discover your next luxury escape",
       subtitle: "Find recommendations and exciting experiences.",
     },
+    header: {
+      title: "Let’s plan your next adventures !",
+      searchPlaceholder: "Search countries",
+    },
     grid: {
       hotels: "Hotels",
       flights: "Flights",

@@ -45,10 +45,4 @@ export const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: colors.white,
   },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: colors.border,
-  },
 });

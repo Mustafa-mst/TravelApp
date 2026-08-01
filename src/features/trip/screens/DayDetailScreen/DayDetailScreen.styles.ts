@@ -56,10 +56,4 @@ export const styles = StyleSheet.create({
     paddingTop: spacing.xs,
     gap: spacing.md,
   },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: colors.border,
-  },
 });

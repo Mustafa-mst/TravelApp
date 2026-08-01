@@ -56,6 +56,10 @@ const tr = {
       title: "Bir sonraki lüks kaçamağını keşfet",
       subtitle: "Önerileri ve heyecan verici deneyimleri keşfet.",
     },
+    header: {
+      title: "Bir sonraki maceranı planlayalım !",
+      searchPlaceholder: "Ülke ara",
+    },
     grid: {
       hotels: "Oteller",
       flights: "Uçuşlar",

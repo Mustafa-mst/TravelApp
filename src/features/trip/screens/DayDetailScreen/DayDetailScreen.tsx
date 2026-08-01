@@ -132,9 +132,7 @@ function DayDetailScreenComponent() {
                   horizontal
                   style={styles.metaContainer}
                 />
-                <Divider margin={0}>
-                  <View style={styles.dot} />
-                </Divider>
+                <Divider variant="dot" margin={0} />
                 <View style={styles.sectionHeader}>
                   <Text variant="bodySemiBold" style={styles.sectionTitle}>
                     {t("template.detail.stopsTitle")}
