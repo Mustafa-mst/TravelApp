@@ -3,7 +3,7 @@ export const colors = {
   primaryLight: "#16A085",
   accent: "#FF3830",
 
-  background: "#FAFAFA",
+  background: "#F3F3F3",
   backgroundTertiary: "#F3F3F3",
   backgroundSecondary: "#E8E8E8",
 
@@ -35,9 +35,10 @@ export const colors = {
   neutral: "#FCFCFC",
   transparent: "transparent",
 
-  tabBarBackground: "#E3E3E3",
-  tabBarActive: "#FFFFFF",
-  tabBarActiveContent: "#1A1A1A",
+  tabBarBackground: "#171A22",
+  tabBarItemActive: "#FFFFFF14",
+  tabBarIconActive: "#FFFFFF",
+  tabBarIconInactive: "#FFFFFF99",
 } as const;
 
 export type Color = keyof typeof colors;

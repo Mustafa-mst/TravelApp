@@ -1,6 +1,8 @@
 import { Divider, Text } from "@/shared/components";
 import { memo } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   Image,
   Pressable,
@@ -8,6 +10,7 @@ import {
   type StyleProp,
   type ViewStyle,
 } from "react-native";
+import type { RootStackParamList } from "@shared/navigation";
 import { styles } from "./HomeHeader.styles";
 import { SearchIcon } from "@/shared/assets/icons";
 import {
@@ -32,6 +35,8 @@ export type HomeHeaderProps = {
 
 function HomeHeaderComponent({ style }: HomeHeaderProps) {
   const { t } = useTranslation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <View style={style}>
@@ -52,7 +57,10 @@ function HomeHeaderComponent({ style }: HomeHeaderProps) {
           ))}
         </View>
 
-        <Pressable style={styles.searchBar}>
+        <Pressable
+          style={styles.searchBar}
+          onPress={() => navigation.navigate("Search")}
+        >
           <SearchIcon />
           <Divider orientation="vertical" margin={12} />
           <Text color="textSecondary">

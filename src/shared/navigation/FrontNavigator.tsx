@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LoginScreen } from "@/features/auth";
 import { CountryDetailScreen } from "@/features/country";
+import { SearchScreen } from "@/features/search";
 import { DayDetailScreen, TripDetailScreen } from "@/features/trip";
 import { TabNavigator } from "./TabNavigator";
 import type { RootStackParamList } from "./types";
@@ -19,6 +20,11 @@ export function FrontNavigator() {
         name="Login"
         component={LoginScreen}
         options={{ presentation: "modal", headerShown: false }}
+      />
+      <Stack.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="CountryDetail"

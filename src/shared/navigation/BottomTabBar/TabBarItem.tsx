@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { Text } from "react-native";
 import { PressableScale } from "@shared/components";
 import { styles } from "./BottomTabBar.styles";
 
@@ -24,15 +23,12 @@ export function TabBarItem({
       activeOpacity={1}
       onPress={onPress}
       onLongPress={onLongPress}
+      accessibilityRole="tab"
+      accessibilityLabel={label}
+      accessibilityState={{ selected: isFocused }}
       style={[styles.item, isFocused && styles.itemActive]}
     >
       {icon}
-      <Text
-        numberOfLines={1}
-        style={[styles.label, isFocused && styles.labelActive]}
-      >
-        {label}
-      </Text>
     </PressableScale>
   );
 }

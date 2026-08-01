@@ -1,24 +1,19 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTranslation } from "react-i18next";
 import { AccountScreen } from "@/features/auth";
-import { SearchScreen } from "@/features/search";
+import { DashboardScreen } from "@/features/dashboard";
 import { HomeScreen } from "@/features/home";
 import { TemplatesScreen } from "@/features/trip";
 import {
-  CalendarMonthIcon,
+  CalendarIcon,
+  DashboardIcon,
   HomeIcon,
   ProfileIcon,
-  SearchIcon,
 } from "@shared/assets/icons";
 import { BottomTabBar } from "./BottomTabBar";
 import type { TabParamList } from "./types";
 
 const Tab = createBottomTabNavigator<TabParamList>();
-
-const iconMode = (focused: boolean, color: string) =>
-  focused
-    ? { fill: color, stroke: color }
-    : { fill: "none" as const, stroke: color };
 
 export function TabNavigator() {
   const { t } = useTranslation();
@@ -35,24 +30,18 @@ export function TabNavigator() {
         component={HomeScreen}
         options={{
           title: t("tabs.home"),
-          tabBarIcon: ({ focused, color, size }) => (
-            <HomeIcon width={size} height={size} {...iconMode(focused, color)} />
+          tabBarIcon: ({ color, size }) => (
+            <HomeIcon width={size} height={size} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name="Search"
-        component={SearchScreen}
+        name="Dashboard"
+        component={DashboardScreen}
         options={{
-          title: t("tabs.search"),
-          tabBarIcon: ({ focused, color, size }) => (
-            <SearchIcon
-              width={size}
-              height={size}
-              fill="none"
-              stroke={color}
-              strokeWidth={focused ? 2.2 : 1.6}
-            />
+          title: t("tabs.dashboard"),
+          tabBarIcon: ({ color, size }) => (
+            <DashboardIcon width={size} height={size} color={color} />
           ),
         }}
       />
@@ -61,12 +50,8 @@ export function TabNavigator() {
         component={TemplatesScreen}
         options={{
           title: t("tabs.templates"),
-          tabBarIcon: ({ focused, color, size }) => (
-            <CalendarMonthIcon
-              width={size}
-              height={size}
-              {...iconMode(focused, color)}
-            />
+          tabBarIcon: ({ color, size }) => (
+            <CalendarIcon width={size} height={size} color={color} />
           ),
         }}
       />
@@ -75,12 +60,8 @@ export function TabNavigator() {
         component={AccountScreen}
         options={{
           title: t("tabs.account"),
-          tabBarIcon: ({ focused, color, size }) => (
-            <ProfileIcon
-              width={size}
-              height={size}
-              {...iconMode(focused, color)}
-            />
+          tabBarIcon: ({ color, size }) => (
+            <ProfileIcon width={size} height={size} color={color} />
           ),
         }}
       />

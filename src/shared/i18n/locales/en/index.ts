@@ -5,9 +5,12 @@ const en = {
   },
   tabs: {
     home: "Home",
-    search: "Search",
+    dashboard: "Dashboard",
     templates: "Itineraries",
     account: "Account",
+  },
+  dashboard: {
+    title: "Dashboard",
   },
   auth: {
     accountTitle: "Account",
