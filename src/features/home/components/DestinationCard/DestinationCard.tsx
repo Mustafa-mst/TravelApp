@@ -13,7 +13,6 @@ export type DestinationCardProps = {
   title: string;
   location: string;
   image: ImageSource | string;
-  category?: string;
   onPress?: () => void;
 };
 
@@ -30,7 +29,7 @@ function DestinationCardComponent({
 
   return (
     <PressableScale
-      containerStyle={{ width: cardWidth }}
+      containerStyle={[styles.shadow, { width: cardWidth }]}
       style={styles.card}
       onPress={onPress}
     >
@@ -42,7 +41,6 @@ function DestinationCardComponent({
         end={{ x: 1, y: 0 }}
         style={styles.gradient}
       />
-
 
       <View style={styles.body}>
         <Text variant="h5" color="white" numberOfLines={2} style={styles.title}>

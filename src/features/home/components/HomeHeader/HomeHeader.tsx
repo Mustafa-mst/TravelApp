@@ -1,7 +1,13 @@
 import { Divider, Text } from "@/shared/components";
 import { memo } from "react";
 import { useTranslation } from "react-i18next";
-import { Image, Pressable, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
 import { styles } from "./HomeHeader.styles";
 import { SearchIcon } from "@/shared/assets/icons";
 import {
@@ -20,11 +26,15 @@ const HERO_IMAGES = [
   SquareAmasyaImage,
 ];
 
-function HomeHeaderComponent() {
+export type HomeHeaderProps = {
+  style?: StyleProp<ViewStyle>;
+};
+
+function HomeHeaderComponent({ style }: HomeHeaderProps) {
   const { t } = useTranslation();
 
   return (
-    <View>
+    <View style={style}>
       <Text variant="h4SemiBold">{t("home.header.title")}</Text>
       <View style={styles.body}>
         <View style={styles.tombRow}>

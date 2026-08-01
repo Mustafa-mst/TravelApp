@@ -25,7 +25,7 @@ const en = {
   home: {
     title: "Home",
     templates: "Itineraries",
-    explorePlaces: "Explore Places",
+    exploreCountries: "Explore Countries",
     exploreMap: "Explore on Map",
     newTemplate: "New Itinerary",
     shareTrip: "Share Trip",

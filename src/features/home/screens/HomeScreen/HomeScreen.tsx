@@ -48,16 +48,15 @@ export function HomeScreen() {
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
       >
-        <HomeHeader />
-        <Divider margin={0} variant="dot" />
-        {category && (
-          <CategorySection
-            items={category.category_items ?? []}
-            categoryLabel={category.category}
-          />
-        )}
+        <HomeHeader style={styles.sectionPadding} />
+        <Divider margin={0} variant="dot" style={styles.sectionPadding} />
 
-        <ExploreTemplates onSelect={openTemplate} />
+        {category && <CategorySection items={category.category_items} />}
+
+        <ExploreTemplates
+          onSelect={openTemplate}
+          style={styles.sectionPadding}
+        />
       </ScrollView>
     </SafeAreaView>
   );
