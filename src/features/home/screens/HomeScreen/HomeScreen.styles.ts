@@ -10,9 +10,12 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    padding: spacing.lg,
+    paddingTop: spacing.lg,
     paddingBottom: 120,
     gap: spacing.lg,
+  },
+  sectionPadding: {
+    paddingHorizontal: spacing.lg,
   },
   header: {
     flex: 1,

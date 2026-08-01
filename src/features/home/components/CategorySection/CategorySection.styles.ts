@@ -6,9 +6,11 @@ export const styles = StyleSheet.create({
     gap: spacing.md,
   },
   title: {
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.lg,
   },
   list: {
     gap: spacing.md,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.sm,
   },
 });

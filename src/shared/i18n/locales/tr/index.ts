@@ -25,7 +25,7 @@ const tr = {
   home: {
     title: "Ana Sayfa",
     templates: "Gezi Planları",
-    explorePlaces: "Yerleri Keşfet",
+    exploreCountries: "Ülkeleri Keşfet",
     exploreMap: "Haritada Keşfet",
     newTemplate: "Yeni Plan",
     shareTrip: "Geziyi Paylaş",

@@ -12,13 +12,9 @@ import { styles } from "./CategorySection.styles";
 
 export type CategorySectionProps = {
   items: CategoryItem[];
-  categoryLabel?: string;
 };
 
-function CategorySectionComponent({
-  items,
-  categoryLabel,
-}: CategorySectionProps) {
+function CategorySectionComponent({ items }: CategorySectionProps) {
   const { t } = useTranslation();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -30,7 +26,7 @@ function CategorySectionComponent({
   return (
     <View style={styles.section}>
       <Text variant="bodyLargeMedium" style={styles.title}>
-        {t("home.explorePlaces")}
+        {t("home.exploreCountries")}
       </Text>
       <FlatList
         horizontal
@@ -43,7 +39,6 @@ function CategorySectionComponent({
             title={item.title}
             location={item.subtitle}
             image={item.image_url}
-            category={categoryLabel}
             onPress={() =>
               navigation.navigate("CountryDetail", {
                 countryCode: item.country_code,
