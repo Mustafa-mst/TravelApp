@@ -2,8 +2,9 @@ import { useRef } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { BackPanel } from "react-native-layer-stack";
 import { useRoute, type RouteProp } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
-import { type BottomSheet } from "@shared/components";
+import { Button, type BottomSheet } from "@shared/components";
 import type { TemplateStackParamList } from "@shared/navigation";
 import {
   CitySearchSheet,
@@ -14,8 +15,8 @@ import { useTemplateForm } from "../../hooks";
 import { styles } from "./CreateTemplateScreen.styles";
 
 export function CreateTemplateScreen() {
-  const route =
-    useRoute<RouteProp<TemplateStackParamList, "CreateTemplate">>();
+  const { t } = useTranslation();
+  const route = useRoute<RouteProp<TemplateStackParamList, "CreateTemplate">>();
   const citySheetRef = useRef<BottomSheet>(null);
   const {
     control,
@@ -37,13 +38,21 @@ export function CreateTemplateScreen() {
   } = useTemplateForm(route.params?.template);
 
   return (
-    <BackPanel contentStyle={styles.panelContent}>
+    <BackPanel
+      contentStyle={styles.panelContent}
+      footer={
+        <Button
+          fullWidth
+          label={t(isEditing ? "template.save" : "template.add")}
+          state={isSubmitting ? "loading" : !canSubmit ? "disabled" : undefined}
+          onPress={submit}
+        />
+      }
+    >
       <CreateTemplateHeader
         isEditing={isEditing}
-        canSubmit={canSubmit}
         isSubmitting={isSubmitting}
         onCancel={cancel}
-        onSubmit={submit}
       />
       <KeyboardAvoidingView
         style={styles.flex}
@@ -51,7 +60,6 @@ export function CreateTemplateScreen() {
       >
         <ScrollView
           style={styles.flex}
-          contentContainerStyle={styles.content}
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
           showsVerticalScrollIndicator={false}

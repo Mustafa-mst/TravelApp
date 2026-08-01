@@ -7,18 +7,14 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.lg,
   },
   iconButton: {
     borderRadius: radius.full,
     padding: 8,
-    borderWidth: 1,
-    borderColor: colors.border,
-    backgroundColor: colors.white,
+
+    backgroundColor: colors.backgroundTertiary,
     justifyContent: "center",
     alignItems: "center",
-  },
-  iconButtonDisabled: {
-    opacity: 0.4,
   },
 });

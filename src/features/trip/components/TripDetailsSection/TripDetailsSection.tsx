@@ -1,11 +1,15 @@
 import { memo } from "react";
-import { Pressable, TextInput, View } from "react-native";
+import { View } from "react-native";
 import { Controller, type Control, type FieldErrors } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { Card, Text } from "@shared/components";
-import { colors } from "@shared/styles";
-import { ChevronRightIcon, LocationIcon } from "@/shared/assets/icons";
+import {
+  Divider,
+  Input,
+  QuantityInput,
+  SelectField,
+  Text,
+} from "@shared/components";
 import {
   MAX_TEMPLATE_DAYS,
   MIN_TEMPLATE_DAYS,
@@ -13,7 +17,6 @@ import {
 } from "../../schemas";
 import type { SelectedCity } from "../../types";
 import { CoverPhotoSection } from "../CoverPhotoSection";
-import { DayCountStepper } from "../DayCountStepper";
 import { styles } from "./TripDetailsSection.styles";
 
 export type TripDetailsSectionProps = {
@@ -45,82 +48,53 @@ function TripDetailsSectionComponent({
 }: TripDetailsSectionProps) {
   const { t } = useTranslation();
 
-  const errorMessage =
-    errors.name?.message ?? errors.city?.message ?? errors.daysCount?.message;
-
   return (
     <View style={styles.container}>
-      <Card style={styles.card}>
-        <Controller
-          control={control}
-          name="name"
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.nameInput}
-              placeholder={t("template.namePlaceholder")}
-              placeholderTextColor={colors.textTertiary}
-              value={value}
-              onChangeText={onChange}
-              onBlur={onBlur}
-            />
-          )}
-        />
+      <CoverPhotoSection
+        city={city}
+        selectedUri={coverPhoto}
+        uploadedUri={uploadedPhoto}
+        onSelect={onSelectCoverPhoto}
+        onUploadPress={onUploadPhotoPress}
+      />
 
-        <View style={styles.separator} />
-
-        <Pressable
-          accessibilityRole="button"
-          style={styles.row}
-          onPress={onCityPress}
-        >
-          <View style={styles.rowLabel}>
-            <LocationIcon width={20} height={20} color={colors.iconPrimary} />
-            {selectedCity ? (
-              <Text
-                variant="bodyLarge"
-                color="textPrimary"
-                numberOfLines={1}
-                style={styles.valueLabel}
-              >
-                {`${selectedCity.name}, ${selectedCity.country_code}`}
-              </Text>
-            ) : (
-              <Text variant="bodyLarge" color="textTertiary">
-                {t("template.selectCity")}
-              </Text>
-            )}
-          </View>
-
-          <ChevronRightIcon
-            width={20}
-            height={20}
-            color={colors.iconTertiary}
+      <Divider />
+      <Controller
+        control={control}
+        name="name"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            placeholder={t("template.namePlaceholder")}
+            value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            error={errors.name?.message}
           />
-        </Pressable>
+        )}
+      />
 
-        <View style={styles.separator} />
+      <SelectField
+        placeholder={t("template.selectCity")}
+        value={
+          selectedCity
+            ? `${selectedCity.name}, ${selectedCity.country_code}`
+            : null
+        }
+        error={errors.city?.message}
+        onPress={onCityPress}
+      />
 
-        <DayCountStepper
-          value={daysCount}
-          min={MIN_TEMPLATE_DAYS}
-          max={MAX_TEMPLATE_DAYS}
-          onChange={onDaysCountChange}
-        />
+      <QuantityInput
+        label={t("template.duration")}
+        value={daysCount}
+        min={MIN_TEMPLATE_DAYS}
+        max={MAX_TEMPLATE_DAYS}
+        onChange={onDaysCountChange}
+      />
 
-        <View style={styles.separator} />
-
-        <CoverPhotoSection
-          city={city}
-          selectedUri={coverPhoto}
-          uploadedUri={uploadedPhoto}
-          onSelect={onSelectCoverPhoto}
-          onUploadPress={onUploadPhotoPress}
-        />
-      </Card>
-
-      {errorMessage ? (
+      {errors.daysCount?.message ? (
         <Text variant="caption" color="danger">
-          {errorMessage}
+          {errors.daysCount.message}
         </Text>
       ) : null}
     </View>

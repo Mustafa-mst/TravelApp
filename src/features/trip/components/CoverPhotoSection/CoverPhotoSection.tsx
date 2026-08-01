@@ -1,11 +1,10 @@
-import { memo, useMemo } from "react";
-import { ActivityIndicator, Pressable, View } from "react-native";
+import { memo, useEffect, useMemo } from "react";
+import { ActivityIndicator, Pressable, ScrollView, View } from "react-native";
 import { Image } from "expo-image";
 import { useTranslation } from "react-i18next";
 
 import { PressableScale, Text } from "@shared/components";
 import { colors } from "@shared/styles";
-import { CheckboxCheckedIcon, ImageIcon } from "@/shared/assets/icons";
 import { DEFAULT_COVER_PHOTOS } from "../../constants";
 import { useCoverPhotosQuery } from "../../hooks/query";
 import { styles } from "./CoverPhotoSection.styles";
@@ -35,15 +34,19 @@ function CoverPhotoSectionComponent({
       : suggested;
   }, [suggestions, uploadedUri]);
 
+  // Nothing picked yet — fall back to the first photo so a cover is always set.
+  useEffect(() => {
+    if (!selectedUri && photos[0]) {
+      onSelect(photos[0]);
+    }
+  }, [selectedUri, photos, onSelect]);
+
   return (
     <View style={styles.container}>
       <View style={styles.headerRow}>
-        <View style={styles.headerTitle}>
-          <ImageIcon width={20} height={20} color={colors.iconPrimary} />
-          <Text variant="bodyExtraLarge" color="textPrimary">
-            {t("template.coverPhoto")}
-          </Text>
-        </View>
+        <Text variant="bodyLargeMedium" color="textPrimary">
+          {t("template.coverPhoto")}
+        </Text>
         <Pressable
           accessibilityRole="button"
           hitSlop={8}
@@ -58,36 +61,33 @@ function CoverPhotoSectionComponent({
       {isFetching ? (
         <ActivityIndicator color={colors.primary} style={styles.loading} />
       ) : null}
-      <View style={styles.grid}>
-          {photos.map((uri) => {
-            const isSelected = uri === selectedUri;
 
-            return (
-              <PressableScale
-                key={uri}
-                containerStyle={styles.tileWrap}
-                onPress={() => onSelect(uri)}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.list}
+      >
+        {photos.map((uri) => {
+          const isSelected = uri === selectedUri;
+
+          return (
+            <PressableScale key={uri} onPress={() => onSelect(uri)}>
+              <View
+                style={[
+                  styles.tile,
+                  isSelected ? styles.tileSelected : styles.tileUnselected,
+                ]}
               >
-                <View style={[styles.tile, isSelected && styles.tileSelected]}>
-                  <Image
-                    source={{ uri }}
-                    style={styles.tileImage}
-                    contentFit="cover"
-                  />
-                  {isSelected ? (
-                    <View style={styles.checkBadge}>
-                      <CheckboxCheckedIcon
-                        width={18}
-                        height={18}
-                        color={colors.white}
-                      />
-                    </View>
-                  ) : null}
-                </View>
-              </PressableScale>
-            );
-          })}
-      </View>
+                <Image
+                  source={{ uri }}
+                  style={styles.tileImage}
+                  contentFit="cover"
+                />
+              </View>
+            </PressableScale>
+          );
+        })}
+      </ScrollView>
     </View>
   );
 }

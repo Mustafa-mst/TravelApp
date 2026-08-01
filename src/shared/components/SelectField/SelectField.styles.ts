@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     ...typography.caption,
     color: colors.textMuted,
   },
-  inputWrapper: {
+  fieldWrapper: {
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
@@ -18,20 +18,20 @@ export const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
     gap: spacing.sm,
   },
-  inputWrapperError: {
+  fieldWrapperError: {
     borderColor: colors.danger,
   },
-  input: {
+  value: {
     fontSize: 16,
     fontWeight: "400",
-    color: colors.text,
+    color: colors.textTertiary,
     flex: 1,
     paddingVertical: spacing.md - 2,
-    textAlignVertical: "center",
     includeFontPadding: false,
   },
-  inputFilled: {
+  valueFilled: {
     fontWeight: "500",
+    color: colors.text,
   },
   error: {
     ...typography.caption,

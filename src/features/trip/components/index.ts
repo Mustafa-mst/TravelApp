@@ -2,10 +2,6 @@ export { TemplateListCard, type TemplateListCardProps } from "./TemplateListCard
 export { TemplateCard, type TemplateCardProps } from "./TemplateCard";
 export { CreateTemplateHeader } from "./CreateTemplateHeader";
 export {
-  DayCountStepper,
-  type DayCountStepperProps,
-} from "./DayCountStepper";
-export {
   CitySearchSheet,
   type CitySearchSheetProps,
 } from "./CitySearchSheet";

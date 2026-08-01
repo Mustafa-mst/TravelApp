@@ -80,7 +80,7 @@ const en = {
   template: {
     title: "Itineraries",
     empty: "You don't have any itineraries yet.",
-    new: "New Itinerary",
+    new: "Create a new template",
     editTitle: "Edit Itinerary",
     cancel: "Cancel",
     add: "Add",
@@ -104,7 +104,7 @@ const en = {
     duration: "Duration",
     friends: "Friends",
     addPeople: "Add People",
-    coverPhoto: "Cover Photo",
+    coverPhoto: "Choose a cover",
     uploadPhoto: "Upload Photo",
     errors: {
       nameRequired: "Please enter a trip name",

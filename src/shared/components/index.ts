@@ -1,5 +1,7 @@
 export { Button } from "./Button";
 export { Input } from "./Input";
+export { SelectField } from "./SelectField";
+export { QuantityInput } from "./QuantityInput";
 export { Card } from "./Card";
 export { CurvedView } from "./CurvedView";
 export { Carousel } from "./Carousel";

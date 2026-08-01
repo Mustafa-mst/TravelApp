@@ -3,52 +3,36 @@ import { colors, radius, spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   container: {
-    padding: spacing.lg - 4,
-    gap: spacing.lg,
+    gap: spacing.md - 4,
   },
   headerRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
-  headerTitle: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: spacing.md,
-  },
   loading: {
     alignSelf: "flex-start",
     padding: spacing.sm,
   },
-  grid: {
+  list: {
     flexDirection: "row",
-    flexWrap: "wrap",
-    gap: spacing.sm,
-  },
-  tileWrap: {
-    flexBasis: "48%",
-    flexGrow: 1,
-    maxWidth: "48.5%",
+    gap: spacing.md - 4,
   },
   tile: {
+    width: 140,
     aspectRatio: 1.5,
-    borderRadius: radius.lg,
+    borderRadius: radius.md,
     overflow: "hidden",
-    borderWidth: 6,
-    borderColor: colors.border,
+    borderWidth: 1,
   },
   tileSelected: {
     borderColor: colors.primary,
   },
+  tileUnselected: {
+    borderColor: colors.transparent,
+    opacity: 0.6,
+  },
   tileImage: {
     flex: 1,
-  },
-  checkBadge: {
-    position: "absolute",
-    top: spacing.xs,
-    right: spacing.xs,
-    borderRadius: radius.full,
-    backgroundColor: colors.primary,
-    padding: 2,
   },
 });

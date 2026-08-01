@@ -4,17 +4,11 @@ import { colors, spacing } from "@shared/styles";
 export const styles = StyleSheet.create({
   panelContent: {
     paddingHorizontal: 0,
-    backgroundColor: colors.background,
+    backgroundColor: colors.white,
     overflow: "hidden",
     paddingBottom: 0,
   },
   flex: {
     flex: 1,
-  },
-  content: {
-    gap: spacing.xl,
-    paddingTop: spacing.lg,
-    paddingBottom: spacing.xl,
-    paddingHorizontal: spacing.sm - 2,
   },
 });

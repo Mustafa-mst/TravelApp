@@ -104,7 +104,7 @@ const tr = {
     duration: "Süre",
     friends: "Arkadaşlar",
     addPeople: "Kişi Ekle",
-    coverPhoto: "Kapak Fotoğrafı",
+    coverPhoto: "Kapak seçin",
     uploadPhoto: "Fotoğraf Yükle",
     errors: {
       nameRequired: "Lütfen bir gezi adı girin",
