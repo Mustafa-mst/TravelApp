@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     includeFontPadding: false,
   },
   inputFilled: {
-    ...typography.bodyMedium,
+    fontWeight: "500",
   },
   error: {
     ...typography.caption,

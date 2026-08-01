@@ -3,9 +3,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { memo } from "react";
 import { useWindowDimensions, View } from "react-native";
 
-import { IconButton, PressableScale, Text } from "@shared/components";
-import { colors, spacing } from "@shared/styles";
-import { FavoriteIcon } from "@/shared/assets/icons";
+import { PressableScale, Text } from "@shared/components";
+import { spacing } from "@shared/styles";
 import { styles } from "./DestinationCard.styles";
 
 const CARDS_PER_SCREEN = 1.8;
@@ -15,18 +14,14 @@ export type DestinationCardProps = {
   location: string;
   image: ImageSource | string;
   category?: string;
-  favorite?: boolean;
   onPress?: () => void;
-  onToggleFavorite?: () => void;
 };
 
 function DestinationCardComponent({
   title,
   location,
   image,
-  favorite = false,
   onPress,
-  onToggleFavorite,
 }: DestinationCardProps) {
   const { width } = useWindowDimensions();
   const cardWidth =

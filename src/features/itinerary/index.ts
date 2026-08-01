@@ -1,1 +1,0 @@
-export { ItinerariesScreen } from "./screens";

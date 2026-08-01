@@ -1,9 +1,11 @@
 import type { NavigatorScreenParams } from "@react-navigation/native";
 
+import type { TripDetailMode, TripTemplate } from "@/features/trip";
+
 export type TabParamList = {
   Home: undefined;
   Search: undefined;
-  Itineraries: undefined;
+  Templates: undefined;
   Account: undefined;
 };
 
@@ -13,10 +15,34 @@ export type RootStackParamList = {
   CountryDetail: {
     countryCode: string;
   };
+  /**
+   * A template or a real trip, identified by id — the screen loads it and does
+   * not care which source it came from. `preview` carries just enough of the
+   * list row to render the hero immediately instead of after the RPC resolves.
+   */
+  TripDetail: {
+    id: string;
+    mode: TripDetailMode;
+    preview?: {
+      title: string;
+      cover_photo: string | null;
+    };
+  };
+  DayDetail: {
+    id: string;
+    mode: TripDetailMode;
+    dayId: string;
+  };
 };
 
-export type BackTarget = { target: "exchange"; params?: undefined };
+export type BackTarget =
+  | { target: "exchange"; params?: undefined }
+  | { target: "createTemplate"; params?: { template: TripTemplate } };
 
 export type ExchangeStackParamList = {
   ExchangeHome: undefined;
+};
+
+export type TemplateStackParamList = {
+  CreateTemplate: { template?: TripTemplate };
 };
