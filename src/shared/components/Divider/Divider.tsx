@@ -5,9 +5,11 @@ import { colors, type Color } from "@shared/styles";
 import { styles } from "./Divider.styles";
 
 type DividerOrientation = "horizontal" | "vertical";
+type DividerVariant = "plain" | "dot";
 
 export type DividerProps = {
   orientation?: DividerOrientation;
+  variant?: DividerVariant;
   thickness?: number;
   color?: Color;
   margin?: number;
@@ -17,6 +19,7 @@ export type DividerProps = {
 
 function DividerComponent({
   orientation = "horizontal",
+  variant = "plain",
   thickness = 1,
   color = "border",
   margin = 16,
@@ -41,7 +44,13 @@ function DividerComponent({
         backgroundColor: tint,
       };
 
-  if (!children) {
+  const content =
+    children ??
+    (variant === "dot" ? (
+      <View style={[styles.dot, { backgroundColor: tint }]} />
+    ) : null);
+
+  if (!content) {
     return (
       <View
         style={[
@@ -68,7 +77,7 @@ function DividerComponent({
       <View
         style={[horizontal ? styles.horizontalContent : styles.verticalContent]}
       >
-        {children}
+        {content}
       </View>
 
       <View style={[styles.segment, lineStyle]} />

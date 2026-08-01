@@ -117,9 +117,7 @@ function TripDetailScreenComponent() {
             center={mapCenter}
             markers={mapMarkers}
           />
-          <Divider>
-            <View style={styles.dot} />
-          </Divider>
+          <Divider variant="dot" />
           <TripDetailOverview
             days={days ?? []}
             activeDayNumber={activeDayNumber}

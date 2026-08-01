@@ -4,12 +4,13 @@ import { colors, spacing } from "@shared/styles";
 export const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: '#F3F3F3',
   },
   scrollArea: {
     flex: 1,
   },
   scrollContent: {
+    padding: spacing.lg,
     paddingBottom: 120,
     gap: spacing.lg,
   },
@@ -31,8 +32,5 @@ export const styles = StyleSheet.create({
   },
   heroSubtitle: {
     color: "rgba(255, 255, 255, 0.9)",
-  },
-  exploreList: {
-    paddingHorizontal: spacing.md,
   },
 });
