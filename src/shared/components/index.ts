@@ -42,16 +42,10 @@ export {
 } from "./SheetSearchHeader";
 export {
   MapView,
+  MAP_DEFAULT_CENTER,
   type MapViewProps,
   type MapMarker,
+  type MapMarkerBadge,
   type MapPolyline,
   type MapCoordinates,
 } from "./MapView";
-export {
-  MapZoomControl,
-  type MapZoomControlProps,
-  useMapZoom,
-  type UseMapZoomOptions,
-  type UseMapZoomResult,
-} from "./MapZoomControl";
-export { ZoomableMap, type ZoomableMapProps } from "./ZoomableMap";

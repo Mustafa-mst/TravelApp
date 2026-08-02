@@ -12,7 +12,7 @@ import {
   StateView,
   StaticList,
   Text,
-  ZoomableMap,
+  MapView,
 } from "@shared/components";
 import { PlusIcon } from "@shared/assets/icons";
 import type { RootStackParamList } from "@shared/navigation";
@@ -104,7 +104,7 @@ function DayDetailScreenComponent() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <ZoomableMap
+        <MapView
           style={styles.hero}
           center={mapCenter}
           markers={mapMarkers}

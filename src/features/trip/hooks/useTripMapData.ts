@@ -1,11 +1,9 @@
 import { useMemo } from "react";
 
-import {
-  DEFAULT_MAP_CENTER,
-  buildMarkers,
-  toCoordinates,
-} from "@shared/utils/map";
+import { MAP_DEFAULT_CENTER } from "@shared/components";
+import { buildMarkers, toCoordinates } from "@shared/utils/map";
 import type { SelectedCity, TripDetailDay } from "../types";
+import { placeBadge } from "../utils/placeBadge";
 
 /**
  * Map center and markers for the whole detail view. The center prefers the
@@ -18,11 +16,12 @@ export function useTripMapData(
   return useMemo(() => {
     const markers = buildMarkers(
       (days ?? []).flatMap((day: TripDetailDay) => day.items),
+      { badge: placeBadge },
     );
 
     return {
       mapCenter:
-        toCoordinates(city) ?? markers[0]?.coordinates ?? DEFAULT_MAP_CENTER,
+        toCoordinates(city) ?? markers[0]?.coordinates ?? MAP_DEFAULT_CENTER,
       mapMarkers: markers,
     };
   }, [days, city]);
