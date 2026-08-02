@@ -1,6 +1,5 @@
 import { memo, useRef } from "react";
 import { View } from "react-native";
-import { Image } from "expo-image";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 
@@ -10,10 +9,10 @@ import {
   BottomSheet,
   IconButton,
   PressableScale,
+  RemoteImage,
   type SheetAction,
   Text,
 } from "@shared/components";
-import { backgroundImage } from "@shared/assets/images";
 import {
   MoreVerticalIcon,
   PenIcon,
@@ -111,10 +110,9 @@ function TemplateListCardComponent({
         onPress={onPress}
         disabled={!onPress}
       >
-        <Image
-          source={imageUri ? { uri: imageUri } : backgroundImage}
+        <RemoteImage
+          source={{ uri: imageUri }}
           style={styles.backgroundImage}
-          contentFit="cover"
         />
         <View style={styles.scrim} />
 

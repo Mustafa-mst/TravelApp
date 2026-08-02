@@ -3,6 +3,9 @@ import { colors, radius, shadows } from "@shared/styles";
 
 export const styles = StyleSheet.create({
   container: {
+    position: "absolute",
+    left: 16,
+    bottom: 16,
     borderWidth: 1,
     borderRadius: radius.full,
     justifyContent: "center",

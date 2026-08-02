@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 
 import { Divider, PressableScale, RemoteImage, Text } from "@shared/components";
 import { CalendarMonthIcon, MapIcon } from "@shared/assets/icons";
-import { backgroundImage } from "@shared/assets/images";
 import { PLACE_TYPE_META } from "@/features/places/constants";
 import type { TemplateCard as TemplateCardType } from "../../types";
 import { MetaInfo } from "../MetaInfo";
@@ -70,7 +69,7 @@ function TemplateCardComponent({
       </View>
 
       <RemoteImage
-        source={coverPhoto ? { uri: coverPhoto } : backgroundImage}
+        source={{ uri: coverPhoto ?? undefined }}
         style={styles.image}
       />
     </PressableScale>

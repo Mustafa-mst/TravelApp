@@ -9,10 +9,9 @@ import {
   Divider,
   RemoteImage,
   Text,
-  ZoomableMap,
+  MapView,
 } from "@shared/components";
 import { CalendarMonthIcon, LocationIcon, MapIcon } from "@shared/assets/icons";
-import { backgroundImage } from "@shared/assets/images";
 import type { RootStackParamList } from "@shared/navigation";
 import {
   AddPlacesSheet,
@@ -85,7 +84,7 @@ function TripDetailScreenComponent() {
       >
         <View style={styles.hero}>
           <RemoteImage
-            source={coverPhoto ? { uri: coverPhoto } : backgroundImage}
+            source={{ uri: coverPhoto ?? undefined }}
             style={styles.heroImage}
           />
           <View style={styles.heroScrim} />
@@ -112,7 +111,7 @@ function TripDetailScreenComponent() {
             </View>
           </View>
 
-          <ZoomableMap
+          <MapView
             style={styles.mapCard}
             center={mapCenter}
             markers={mapMarkers}

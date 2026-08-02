@@ -3,6 +3,7 @@ export type Locatable = {
   name: string;
   latitude: number | null;
   longitude: number | null;
+  image_url?: string | null;
 };
 
 export type Coordinates = {

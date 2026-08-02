@@ -16,20 +16,11 @@ const config: ExpoConfig = {
           'Allow $(PRODUCT_NAME) to access your photos to pick a trip cover photo',
       },
     ],
-    [
-      'expo-maps',
-      {
-        requestLocationPermission: true,
-        locationPermission: 'Allow $(PRODUCT_NAME) to use your location',
-      },
-    ],
+    '@maplibre/maplibre-react-native',
   ],
   ios: {
     supportsTablet: true,
     bundleIdentifier: 'com.anonymous.myApp',
-    config: {
-      googleMapsApiKey: process.env.EXPO_PUBLIC_GOOGLE_API_KEY,
-    },
   },
   android: {
     package: 'com.anonymous.myApp',
@@ -40,11 +31,6 @@ const config: ExpoConfig = {
       monochromeImage: './assets/android-icon-monochrome.png',
     },
     predictiveBackGestureEnabled: false,
-    config: {
-      googleMaps: {
-        apiKey: process.env.EXPO_PUBLIC_GOOGLE_API_KEY,
-      },
-    },
   },
   extra: {
     supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_URL,

@@ -1,16 +1,13 @@
 import { useEffect, useMemo } from "react";
 
-import type { MapPolyline } from "@shared/components";
+import { MAP_DEFAULT_CENTER, type MapPolyline } from "@shared/components";
 import { colors } from "@shared/styles";
-import {
-  DEFAULT_MAP_CENTER,
-  buildMarkers,
-  toCoordinates,
-} from "@shared/utils/map";
+import { buildMarkers, toCoordinates } from "@shared/utils/map";
 import { useDirections } from "@/features/routes/hooks/mutation/useDirections";
 import { decodePolyline } from "@/features/routes/utils";
 import type { DirectionsCoordinates } from "@/features/routes/types/routes.types";
 import type { TripDetailMode } from "../constants";
+import { placeBadge } from "../utils/placeBadge";
 import { useTripDetail } from "./useTripDetail";
 
 /**
@@ -26,7 +23,7 @@ export function useDayDetail(id: string, mode: TripDetailMode, dayId: string) {
   );
 
   const { mapCenter, mapMarkers, coordinates } = useMemo(() => {
-    const markers = buildMarkers(day?.items ?? []);
+    const markers = buildMarkers(day?.items ?? [], { badge: placeBadge });
     const coords: DirectionsCoordinates = markers.map(({ coordinates }) => [
       coordinates.longitude,
       coordinates.latitude,
@@ -37,7 +34,7 @@ export function useDayDetail(id: string, mode: TripDetailMode, dayId: string) {
       mapCenter:
         markers[0]?.coordinates ??
         toCoordinates(detail?.city) ??
-        DEFAULT_MAP_CENTER,
+        MAP_DEFAULT_CENTER,
       mapMarkers: markers,
       coordinates: coords,
     };
