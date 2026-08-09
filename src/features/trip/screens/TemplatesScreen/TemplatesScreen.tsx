@@ -1,4 +1,10 @@
-import { ActivityIndicator, Alert, FlatList, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 import { useFrontLayer } from "react-native-layer-stack";
@@ -6,10 +12,10 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { IconButton, Text } from "@shared/components";
-import { colors } from "@shared/styles";
+import { colors, spacing } from "@shared/styles";
 import { PlusIcon } from "@/shared/assets/icons";
 import type { BackTarget, RootStackParamList } from "@shared/navigation";
-import { TemplateListCard } from "../../components";
+import { TemplateFolderCard } from "../../components";
 import { TripDetailMode } from "../../constants";
 import { useDeleteTemplateMutation, useMyTemplateListQuery } from "../../hooks";
 import type { TripTemplate } from "../../types";
@@ -22,6 +28,10 @@ export function TemplatesScreen() {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { data: templates, isLoading, error } = useMyTemplateListQuery();
   const { mutateAsync: deleteTemplate } = useDeleteTemplateMutation();
+  const { width: screenWidth } = useWindowDimensions();
+
+  // Screen padding (12 each side) + the gap between the two columns.
+  const folderWidth = (screenWidth - (spacing.md - 4) * 2 - spacing.md) / 2;
 
   const confirmDelete = (item: TripTemplate) => {
     Alert.alert(
@@ -48,11 +58,13 @@ export function TemplatesScreen() {
   };
 
   const renderItem = ({ item }: { item: TripTemplate }) => (
-    <TemplateListCard
+    <TemplateFolderCard
+      width={folderWidth}
       title={item.title}
-      location={item.cities?.name ?? ""}
-      dateLabel={t("template.overview.dayCount", { count: item.days_count })}
-      imageUri={item.cover_photo ?? undefined}
+      subtitle={t("template.overview.dayCount", { count: item.days_count })}
+      countryCode={item.cities?.country_code}
+      coverPhoto={item.cover_photo}
+      seed={item.id}
       onPress={() =>
         // These are templates the signed-in user authored, not trips.
         navigation.navigate("TripDetail", {
@@ -61,10 +73,7 @@ export function TemplatesScreen() {
           preview: { title: item.title, cover_photo: item.cover_photo },
         })
       }
-      onEdit={() =>
-        open({ target: "createTemplate", params: { template: item } })
-      }
-      onDelete={() => confirmDelete(item)}
+      onLongPress={() => confirmDelete(item)}
     />
   );
 
@@ -86,6 +95,8 @@ export function TemplatesScreen() {
         data={templates ?? []}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
+        numColumns={2}
+        columnWrapperStyle={styles.columnWrapper}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={

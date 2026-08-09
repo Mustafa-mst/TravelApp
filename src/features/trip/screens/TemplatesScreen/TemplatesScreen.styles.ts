@@ -14,8 +14,11 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   listContent: {
-    gap: spacing.md,
+    gap: spacing.xl,
     paddingBottom: 120,
+  },
+  columnWrapper: {
+    gap: spacing.md,
   },
   addButton: {
     padding: 8,
