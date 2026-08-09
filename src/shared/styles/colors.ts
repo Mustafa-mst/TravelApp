@@ -35,6 +35,9 @@ export const colors = {
   neutral: "#FCFCFC",
   transparent: "transparent",
 
+  folderBack: "rgba(255, 255, 255, 0.8)",
+  folderFront: "#FBFBFB",
+
   tabBarBackground: "#171A22",
   tabBarItemActive: "#FFFFFF14",
   tabBarIconActive: "#FFFFFF",

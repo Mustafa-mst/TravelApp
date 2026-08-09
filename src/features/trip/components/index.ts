@@ -1,4 +1,8 @@
 export { TemplateListCard, type TemplateListCardProps } from "./TemplateListCard";
+export {
+  TemplateFolderCard,
+  type TemplateFolderCardProps,
+} from "./TemplateFolderCard";
 export { TemplateCard, type TemplateCardProps } from "./TemplateCard";
 export { CreateTemplateHeader } from "./CreateTemplateHeader";
 export {

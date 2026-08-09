@@ -114,7 +114,15 @@ export type Database = {
           population?: number | null
           timezone?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "cities_country_code_fkey"
+            columns: ["country_code"]
+            isOneToOne: false
+            referencedRelation: "countries"
+            referencedColumns: ["cca2"]
+          },
+        ]
       }
       collections: {
         Row: {
