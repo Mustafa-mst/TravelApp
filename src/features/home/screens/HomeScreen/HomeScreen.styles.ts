@@ -4,7 +4,7 @@ import { colors, spacing } from "@shared/styles";
 export const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: '#F3F3F3',
+    backgroundColor: colors.background,
   },
   scrollArea: {
     flex: 1,
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     gap: spacing.lg,
   },
   sectionPadding: {
-    paddingHorizontal: spacing.lg,
+    paddingHorizontal: spacing.md,
   },
   header: {
     flex: 1,

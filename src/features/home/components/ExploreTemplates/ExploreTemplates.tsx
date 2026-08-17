@@ -51,10 +51,8 @@ function ExploreTemplatesComponent({ onSelect, style }: ExploreTemplatesProps) {
         isLoading={isLoading}
         isError={isError}
         isEmpty={templates.length === 0}
-        errorLabel={t("home.explore.error")}
-        emptyLabel={t(EMPTY_LABEL_KEY[activeTab])}
-        retryLabel={t("common.retry")}
-        onRetry={refetch}
+        error={{ label: t("home.explore.error"), onRetry: refetch }}
+        empty={{ label: t(EMPTY_LABEL_KEY[activeTab]) }}
         style={styles.center}
       >
         <TemplateSection templates={templates} onSelect={onSelect} />

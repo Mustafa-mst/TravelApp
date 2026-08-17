@@ -6,20 +6,18 @@ import {
   type ViewStyle,
 } from "react-native";
 
-import { colors, type Color } from "@shared/styles";
-import { Button } from "../Button";
-import { Text } from "../Text";
+import { AlertIcon } from "@shared/assets/icons";
+import { colors } from "@shared/styles";
+import type { StateViewContent } from "@shared/types";
+import { StateViewBlock } from "./StateViewBlock";
 import { styles } from "./StateView.styles";
 
 type StateViewProps = {
   isLoading?: boolean;
   isError?: boolean;
   isEmpty?: boolean;
-  errorLabel?: string;
-  emptyLabel?: string;
-  emptyColor?: Color;
-  retryLabel?: string;
-  onRetry?: () => void;
+  error?: StateViewContent;
+  empty?: StateViewContent;
   style?: StyleProp<ViewStyle>;
   children?: ReactNode;
 };
@@ -28,11 +26,8 @@ function StateViewComponent({
   isLoading,
   isError,
   isEmpty,
-  errorLabel,
-  emptyLabel,
-  emptyColor = "textMuted",
-  retryLabel,
-  onRetry,
+  error,
+  empty,
   style,
   children,
 }: StateViewProps) {
@@ -46,24 +41,24 @@ function StateViewComponent({
 
   if (isError) {
     return (
-      <View style={[styles.block, style]}>
-        <Text variant="body" color="danger">
-          {errorLabel}
-        </Text>
-        {onRetry && retryLabel ? (
-          <Button label={retryLabel} outlined onPress={onRetry} />
-        ) : null}
-      </View>
+      <StateViewBlock
+        {...error}
+        Icon={error?.Icon ?? AlertIcon}
+        iconColor={colors.iconInverted}
+        badgeColor={colors.danger}
+        style={style}
+      />
     );
   }
 
   if (isEmpty) {
     return (
-      <View style={[styles.block, style]}>
-        <Text variant="body" color={emptyColor}>
-          {emptyLabel}
-        </Text>
-      </View>
+      <StateViewBlock
+        {...empty}
+        iconColor={colors.iconPrimary}
+        badgeColor={colors.surface}
+        style={style}
+      />
     );
   }
 

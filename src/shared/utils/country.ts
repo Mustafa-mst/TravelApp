@@ -1,5 +1,15 @@
+import type { CountryNameType } from "@shared/types";
+
 /** Offset from an ASCII capital letter to its regional indicator symbol. */
 const REGIONAL_INDICATOR_OFFSET = 0x1f1e6 - 0x41;
+
+export function resolveCountryName(
+  name: CountryNameType | null | undefined,
+  language: string,
+  cca2: string,
+): string {
+  return name?.[language]?.common ?? name?.en?.common ?? cca2;
+}
 
 /**
  * Turns an ISO 3166-1 alpha-2 code into its flag emoji ("TR" → 🇹🇷). The emoji

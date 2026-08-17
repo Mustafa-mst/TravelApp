@@ -41,9 +41,7 @@ function TripDetailOverviewComponent({
       <StateView
         isLoading={isLoading}
         isError={isError}
-        errorLabel={t("template.detail.loadError")}
-        retryLabel={t("template.save")}
-        onRetry={onRetry}
+        error={{ label: t("template.detail.loadError"), onRetry }}
       />
     );
   }

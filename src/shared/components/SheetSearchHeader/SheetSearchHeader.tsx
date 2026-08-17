@@ -123,13 +123,7 @@ function SheetSearchHeaderComponent({
           {isOpen ? (
             <CloseIcon width={18} height={18} color={colors.iconSecondary} />
           ) : (
-            <SearchIcon
-              width={18}
-              height={18}
-              fill="none"
-              stroke={colors.iconPrimary}
-              strokeWidth={1.8}
-            />
+            <SearchIcon width={18} height={18} color={colors.iconPrimary} />
           )}
         </Pressable>
       </Animated.View>
