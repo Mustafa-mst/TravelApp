@@ -49,3 +49,8 @@ export {
   type MapPolyline,
   type MapCoordinates,
 } from "./MapView";
+export {
+  Accordion,
+  type AccordionProps,
+  type AccordionItem,
+} from "./Accordion";

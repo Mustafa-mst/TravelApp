@@ -1,18 +1,56 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { styles } from "./SearchInput.styles";
-import { Input } from "@shared/components";
-import { ArrowLeftIcon } from "@shared/assets/icons";
+import { IconButton, Input } from "@shared/components";
+import { ArrowLeftIcon, FilterIcon } from "@shared/assets/icons";
+import { colors } from "@shared/styles";
+import { View } from "react-native";
 
-const SearchInputComponent = () => {
+type SearchInputProps = {
+  value: string;
+  onChangeText: (value: string) => void;
+  onGoBack?: () => void;
+  onOpenFilters?: () => void;
+  /** Highlights the filter button while a filter is applied. */
+  isFilterActive?: boolean;
+};
+
+const SearchInputComponent = ({
+  value,
+  onChangeText,
+  onGoBack,
+  onOpenFilters,
+  isFilterActive = false,
+}: SearchInputProps) => {
   const { t } = useTranslation();
 
   return (
-    <Input
-      containerStyle={styles.container}
-      leftIcon={<ArrowLeftIcon />}
-      placeholder={t("search.placeholder")}
-    />
+    <View style={styles.container}>
+      <Input
+        autoFocus
+        leftIcon={<ArrowLeftIcon />}
+        leftIconOnPress={onGoBack}
+        value={value}
+        onChangeText={onChangeText}
+        returnKeyType="search"
+        autoCorrect={false}
+        containerStyle={styles.inputContainer}
+        inputWrapperStyle={styles.input}
+        placeholder={t("search.placeholder")}
+      />
+      <IconButton
+        rounded
+        onPress={onOpenFilters}
+        accessibilityLabel={t("search.filters")}
+        icon={
+          <FilterIcon
+            width={20}
+            height={20}
+            color={isFilterActive ? colors.primary : colors.iconPrimary}
+          />
+        }
+      />
+    </View>
   );
 };
 

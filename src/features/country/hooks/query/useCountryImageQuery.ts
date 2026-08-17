@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { unsplashConfig } from "@shared/services";
+import type { CountryNameType } from "@shared/types";
+import { resolveCountryName } from "@shared/utils/country";
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24;
 const IMAGE_COUNT = 3;
@@ -18,7 +20,9 @@ type UnsplashSearchResponse = {
   }[];
 };
 
-export function useCountryImageQuery(country: string) {
+export function useCountryImageQuery(name: CountryNameType | null | undefined) {
+  const country = resolveCountryName(name, "en", "");
+
   return useQuery({
     queryKey: countryImageKeys.byCountry(country),
     enabled: Boolean(country),

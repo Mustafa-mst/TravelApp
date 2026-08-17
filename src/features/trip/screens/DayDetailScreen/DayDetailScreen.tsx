@@ -116,7 +116,7 @@ function DayDetailScreenComponent() {
           <StateView
             isLoading={isLoading}
             isError={isError || !day}
-            errorLabel={t("template.detail.loadError")}
+            error={{ label: t("template.detail.loadError") }}
           >
             {day ? (
               <View style={styles.content}>

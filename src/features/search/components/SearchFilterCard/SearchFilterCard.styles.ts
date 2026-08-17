@@ -1,0 +1,63 @@
+import { StyleSheet } from "react-native";
+import { colors, radius, spacing } from "@shared/styles";
+
+export const REGION_ICON_SIZE = 28;
+
+export const styles = StyleSheet.create({
+  card: {
+    flexShrink: 0,
+    backgroundColor: colors.white,
+    borderRadius: radius.xl,
+    marginBottom: spacing.sm,
+    padding: spacing.md,
+  },
+  title: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingBottom: spacing.sm,
+  },
+  option: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm + spacing.xs,
+    paddingVertical: spacing.sm + spacing.xs,
+  },
+  optionDivider: {
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
+  optionLabel: {
+    flex: 1,
+  },
+  radio: {
+    width: 22,
+    height: 22,
+    borderRadius: radius.full,
+    borderWidth: 2,
+    borderColor: colors.border,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  radioSelected: {
+    borderColor: colors.primary,
+  },
+  radioDot: {
+    width: 10,
+    height: 10,
+    borderRadius: radius.full,
+    backgroundColor: colors.primary,
+  },
+  footer: {
+    flexDirection: "row",
+    gap: spacing.sm,
+    marginTop: spacing.sm,
+  },
+  footerButton: {
+    flex: 1,
+  },
+  clearButton: {
+    flex: 1,
+    borderColor: colors.border,
+  },
+});

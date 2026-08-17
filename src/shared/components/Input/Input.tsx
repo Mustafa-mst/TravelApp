@@ -16,35 +16,40 @@ type InputProps = {
   label?: string;
   error?: string;
   leftIcon?: ReactNode;
+  /** Makes the left icon pressable; without it the icon is decorative. */
+  leftIconOnPress?: () => void;
   rightIcon?: ReactNode;
   containerStyle?: StyleProp<ViewStyle>;
+  inputWrapperStyle?: StyleProp<ViewStyle>;
 } & TextInputProps;
 
 function InputComponent({
   label,
   error,
   leftIcon,
+  leftIconOnPress,
   rightIcon,
   value,
   onChangeText,
   style,
   containerStyle,
+  inputWrapperStyle,
   ...rest
 }: InputProps) {
   const showClear = !rightIcon && !!value;
 
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, containerStyle]}>
       {label ? <Text style={styles.label}>{label}</Text> : null}
       <View
         style={[
           styles.inputWrapper,
           !!error && styles.inputWrapperError,
-          containerStyle,
+          inputWrapperStyle,
         ]}
       >
         {leftIcon ? (
-          <IconButton icon={leftIcon} onPress={() => onChangeText?.("")} />
+          <IconButton icon={leftIcon} onPress={leftIconOnPress} />
         ) : null}
         <TextInput
           placeholderTextColor={colors.textTertiary}

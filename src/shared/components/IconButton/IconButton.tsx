@@ -7,11 +7,13 @@ type IconButtonVariant = 'plain' | 'filled';
 type IconButtonProps = {
   icon: ReactNode;
   variant?: IconButtonVariant;
+  rounded?: boolean;
 } & Omit<PressableProps, 'children'>;
 
 function IconButtonComponent({
   icon,
   variant = 'plain',
+  rounded = false,
   disabled,
   style,
   ...rest
@@ -23,6 +25,7 @@ function IconButtonComponent({
       style={({ pressed }) => [
         styles.base,
         variant === 'filled' && styles.filled,
+        rounded && styles.rounded,
         pressed && styles.pressed,
         disabled && styles.disabled,
         typeof style === 'object' ? style : null,

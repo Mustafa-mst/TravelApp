@@ -127,7 +127,7 @@ export function AddPlacesSheet({
           <StateView
             isLoading={isLoading}
             isEmpty={isEmpty}
-            emptyLabel={t("template.nearby.empty")}
+            empty={{ label: t("template.nearby.empty") }}
             style={styles.stateBlock}
           >
             <BottomSheetFlatList

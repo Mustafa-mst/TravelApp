@@ -30,6 +30,7 @@ import {
 } from "@shared/assets/icons";
 import { colors } from "@shared/styles";
 import type { RootStackParamList } from "@shared/navigation";
+import { resolveCountryName } from "@shared/utils/country";
 import {
   useCountryImageQuery,
   useGetCountryDetailQuery,
@@ -80,10 +81,13 @@ function CountryDetailScreenComponent() {
     params.countryCode,
   );
 
-  const countryName =
-    country?.name?.en?.common ?? country?.name?.[i18n.language]?.common ?? "";
+  const countryName = resolveCountryName(
+    country?.name,
+    i18n.language,
+    params.countryCode,
+  );
 
-  const { data: heroImages } = useCountryImageQuery(countryName);
+  const { data: heroImages } = useCountryImageQuery(country?.name);
 
   const renderHeroImage = useCallback(
     (uri: string) => (
