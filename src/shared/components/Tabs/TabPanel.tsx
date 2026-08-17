@@ -3,7 +3,7 @@ import { View, type StyleProp, type ViewStyle } from "react-native";
 
 import { styles } from "./Tabs.styles";
 
-export type TabPanelProps = {
+type TabPanelProps = {
   value: string;
   activeValue: string;
   children: ReactNode;

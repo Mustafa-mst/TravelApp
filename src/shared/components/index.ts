@@ -32,15 +32,8 @@ export {
   type SegmentedControlProps,
   type SegmentOption,
 } from "./SegmentedControl";
-export {
-  Tabs,
-  TabPanel,
-  type TabsProps,
-  type TabPanelProps,
-  type TabOption,
-  type TabsVariant,
-  type TabsScrollAlign,
-} from "./Tabs";
+export { Checkbox } from "./Checkbox";
+export { Tabs, TabPanel, type TabOption } from "./Tabs";
 export { Divider, type DividerProps } from "./Divider";
 export { TimelineRail, type TimelineRailProps } from "./TimelineRail";
 export { StaticList, type StaticListProps } from "./StaticList";

@@ -12,7 +12,7 @@ import { styles, tabsVariants } from "./Tabs.styles";
 import { useTabsIndicator } from "./useTabsIndicator";
 import type { TabOption, TabsScrollAlign, TabsVariant } from "./tabs.types";
 
-export type TabsProps<T extends string = string> = {
+type TabsProps<T extends string = string> = {
   options: TabOption<T>[];
   value: T;
   onChange: (key: T) => void;
