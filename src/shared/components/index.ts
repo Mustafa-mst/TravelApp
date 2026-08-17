@@ -33,6 +33,7 @@ export {
   type SegmentOption,
 } from "./SegmentedControl";
 export { Checkbox } from "./Checkbox";
+export { Radio, RadioGroup, type RadioOption } from "./Radio";
 export { Tabs, TabPanel, type TabOption } from "./Tabs";
 export { Divider, type DividerProps } from "./Divider";
 export { TimelineRail, type TimelineRailProps } from "./TimelineRail";

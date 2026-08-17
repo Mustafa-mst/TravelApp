@@ -30,24 +30,6 @@ export const styles = StyleSheet.create({
   optionLabel: {
     flex: 1,
   },
-  radio: {
-    width: 22,
-    height: 22,
-    borderRadius: radius.full,
-    borderWidth: 2,
-    borderColor: colors.border,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  radioSelected: {
-    borderColor: colors.primary,
-  },
-  radioDot: {
-    width: 10,
-    height: 10,
-    borderRadius: radius.full,
-    backgroundColor: colors.primary,
-  },
   footer: {
     flexDirection: "row",
     gap: spacing.sm,
