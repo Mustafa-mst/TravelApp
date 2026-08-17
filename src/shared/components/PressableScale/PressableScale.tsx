@@ -1,12 +1,23 @@
-import { memo, useRef } from "react";
+import { memo, useCallback } from "react";
 import {
-  Animated,
   Pressable,
   type GestureResponderEvent,
   type PressableProps,
   type StyleProp,
   type ViewStyle,
 } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
+
+// Matches the feel of the previous Animated.spring({ speed: 40, bounciness: 0 }).
+const PRESS_SPRING = {
+  stiffness: 900,
+  damping: 60,
+  mass: 1,
+} as const;
 
 type PressableScaleProps = {
   /** Scale applied while pressed. Set to 1 to disable the scale effect. */
@@ -29,33 +40,32 @@ function PressableScaleComponent({
   children,
   ...rest
 }: PressableScaleProps) {
-  const scale = useRef(new Animated.Value(1)).current;
+  const scale = useSharedValue(1);
 
-  const animateTo = (value: number) => {
-    Animated.spring(scale, {
-      toValue: value,
-      useNativeDriver: true,
-      speed: 40,
-      bounciness: 0,
-    }).start();
-  };
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: withSpring(scale.value, PRESS_SPRING) }],
+  }));
 
-  const handlePressIn = (event: GestureResponderEvent) => {
-    if (!disabled) {
-      animateTo(scaleTo);
-    }
-    onPressIn?.(event);
-  };
+  const handlePressIn = useCallback(
+    (event: GestureResponderEvent) => {
+      if (!disabled) {
+        scale.value = scaleTo;
+      }
+      onPressIn?.(event);
+    },
+    [disabled, onPressIn, scale, scaleTo],
+  );
 
-  const handlePressOut = (event: GestureResponderEvent) => {
-    animateTo(1);
-    onPressOut?.(event);
-  };
+  const handlePressOut = useCallback(
+    (event: GestureResponderEvent) => {
+      scale.value = 1;
+      onPressOut?.(event);
+    },
+    [onPressOut, scale],
+  );
 
   return (
-    <Animated.View
-      style={[containerStyle, { transform: [{ scale }] }]}
-    >
+    <Animated.View style={[containerStyle, animatedStyle]}>
       <Pressable
         disabled={disabled}
         onPressIn={handlePressIn}
