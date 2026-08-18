@@ -8,6 +8,7 @@ type TextFieldLabelProps = {
   label: string;
   isRequired: boolean;
   isInvalid: boolean;
+  isDisabled: boolean;
   style?: StyleProp<TextStyle>;
 };
 
@@ -15,19 +16,23 @@ function TextFieldLabelComponent({
   label,
   isRequired,
   isInvalid,
+  isDisabled,
   style,
 }: TextFieldLabelProps) {
   return (
-    <View style={styles.labelRow}>
+    <View style={[styles.labelRow, isDisabled && styles.disabled]}>
       <Text
-        variant="caption"
-        color={isInvalid ? "danger" : "textMuted"}
+        variant="bodyLargeMedium"
+        color={isInvalid ? "danger" : "text"}
         style={style}
       >
         {label}
       </Text>
       {isRequired ? (
-        <Text variant="caption" color="danger">
+        <Text
+          variant="bodyExtraLarge"
+          color={isDisabled ? "textMuted" : "danger"}
+        >
           {" *"}
         </Text>
       ) : null}

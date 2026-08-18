@@ -1,6 +1,18 @@
 /** HeroUI field min-height: spacing * 12. */
 export const FIELD_MIN_HEIGHT = 48;
 
+/** HeroUI --field-radius: radius (8) * 1.75. */
+export const FIELD_RADIUS = 14;
+
+/** HeroUI focus ring width; always reserved so the layout never shifts. */
+export const FIELD_BORDER_WIDTH = 2;
+
+/**
+ * withTiming interpolates rgba, not the "transparent" keyword — animating to
+ * the keyword drops the style entirely.
+ */
+export const CLEAR_BORDER = "rgba(0, 0, 0, 0)";
+
 /** HeroUI text-field root gap: spacing * 1.5. */
 export const FIELD_GAP = 6;
 

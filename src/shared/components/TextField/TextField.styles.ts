@@ -1,10 +1,13 @@
 import { StyleSheet } from "react-native";
-import { colors, radius, spacing, typography } from "@shared/styles";
+import { colors, shadows, spacing, typography } from "@shared/styles";
 
 import {
+  CLEAR_BORDER,
   DISABLED_OPACITY,
+  FIELD_BORDER_WIDTH,
   FIELD_GAP,
   FIELD_MIN_HEIGHT,
+  FIELD_RADIUS,
 } from "./textField.constants";
 import type { TextFieldVariant } from "./textField.types";
 
@@ -16,11 +19,12 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  /** Carries the border and background; the inner row owns the touch area. */
+  /** Carries the ring and background; the inner row owns the touch area. */
   fieldOuter: {
-    borderWidth: 1,
-    borderRadius: radius.lg - 2,
-    overflow: "hidden",
+    borderWidth: FIELD_BORDER_WIDTH,
+    borderColor: CLEAR_BORDER,
+    borderRadius: FIELD_RADIUS,
+    ...shadows.level1,
   },
   field: {
     flexDirection: "row",
@@ -63,19 +67,11 @@ export const styles = StyleSheet.create({
 
 type TextFieldPalette = {
   background: keyof typeof colors;
-  border: keyof typeof colors;
   borderFocused: keyof typeof colors;
 };
 
 export const textFieldVariants: Record<TextFieldVariant, TextFieldPalette> = {
-  primary: {
-    background: "white",
-    border: "borderMuted",
-    borderFocused: "primary",
-  },
-  secondary: {
-    background: "surface",
-    border: "borderMuted",
-    borderFocused: "primary",
-  },
+  primary: { background: "white", borderFocused: "primary" },
+  /** backgroundSecondary is the closest token to HeroUI's --default field. */
+  secondary: { background: "backgroundSecondary", borderFocused: "primary" },
 };

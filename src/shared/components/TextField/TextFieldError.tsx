@@ -15,7 +15,7 @@ function TextFieldErrorComponent({ message, animated }: TextFieldErrorProps) {
       entering={animated ? FadeIn.duration(ERROR_ENTER_MS) : undefined}
       exiting={animated ? FadeOut.duration(ERROR_EXIT_MS) : undefined}
     >
-      <Text variant="caption" color="danger">
+      <Text variant="body" color="danger">
         {message}
       </Text>
     </Animated.View>

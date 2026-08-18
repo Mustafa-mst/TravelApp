@@ -35,9 +35,9 @@ import { TextFieldError } from "./TextFieldError";
 import { TextFieldLabel } from "./TextFieldLabel";
 import {
   BORDER_TINT_MS,
+  CLEAR_BORDER,
   CLEAR_BUTTON_SIZE,
   CLEAR_ICON_SIZE,
-  FIELD_ICON_SIZE,
   ICON_HIT_SLOP,
 } from "./textField.constants";
 import type { TextFieldVariant } from "./textField.types";
@@ -134,16 +134,18 @@ function TextFieldComponent({
       ? colors.danger
       : isFocused
         ? colors[palette.borderFocused]
-        : colors[palette.border];
+        : CLEAR_BORDER;
 
     if (!animated) {
       return { borderColor: border };
     }
 
     return { borderColor: withTiming(border, { duration: BORDER_TINT_MS }) };
-  }, [hasError, isFocused, animated, palette.border, palette.borderFocused]);
+  }, [hasError, isFocused, animated, palette.borderFocused]);
 
   const showClear = clearable && !!value && !isDisabled;
+  /** The error message replaces the description; a bare isInvalid recolors it. */
+  const showDescription = !!description && !errorMessage;
   const start = startIcon ? <FieldIcon icon={startIcon} /> : startContent;
   const end = endIcon ? <FieldIcon icon={endIcon} /> : endContent;
 
@@ -154,14 +156,15 @@ function TextFieldComponent({
           label={label}
           isRequired={isRequired}
           isInvalid={hasError}
+          isDisabled={isDisabled}
           style={labelStyle}
         />
       ) : null}
 
       <Animated.View
         style={[
-          { backgroundColor: colors[palette.background] },
           styles.fieldOuter,
+          { backgroundColor: colors[palette.background] },
           isDisabled && styles.disabled,
           borderStyle,
           fieldStyle,
@@ -225,8 +228,12 @@ function TextFieldComponent({
         </Pressable>
       </Animated.View>
 
-      {description && !errorMessage ? (
-        <Text variant="caption" color="textMuted">
+      {showDescription ? (
+        <Text
+          variant="body"
+          color={hasError ? "danger" : "textMuted"}
+          style={isDisabled ? styles.disabled : undefined}
+        >
           {description}
         </Text>
       ) : null}
