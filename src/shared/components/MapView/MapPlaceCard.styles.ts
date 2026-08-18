@@ -1,17 +1,16 @@
-import { StyleSheet } from "react-native";
-
-import { colors, radius, shadows } from "@shared/styles";
+import { radius, themed } from "@shared/styles";
 
 const CARD_WIDTH = 132;
 const IMAGE_HEIGHT = 76;
 
-export const styles = StyleSheet.create({
+export const mapPlaceCardStyles = themed(({ colors, shadows, elevatedBorder }) => ({
   card: {
     width: CARD_WIDTH,
     padding: 6,
     borderRadius: radius.lg,
-    backgroundColor: colors.white,
+    backgroundColor: colors.overlay,
     ...shadows.level3,
+    ...elevatedBorder,
   },
   image: {
     height: IMAGE_HEIGHT,
@@ -26,4 +25,4 @@ export const styles = StyleSheet.create({
     marginTop: 6,
     marginHorizontal: 2,
   },
-});
+}));

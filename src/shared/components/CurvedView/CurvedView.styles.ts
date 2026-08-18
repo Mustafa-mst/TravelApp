@@ -1,12 +1,11 @@
-import { StyleSheet } from 'react-native';
-import { colors, radius } from '@shared/styles';
+import { radius, themed } from '@shared/styles';
 
-export const styles = StyleSheet.create({
+export const curvedViewStyles = themed(({ colors }) => ({
   curved: {
     flex: 1,
     borderWidth: 1,
     borderRadius: radius.xxl,
-    borderColor: colors.borderMuted,
+    borderColor: colors.border,
     overflow: 'hidden',
   },
-});
+}));

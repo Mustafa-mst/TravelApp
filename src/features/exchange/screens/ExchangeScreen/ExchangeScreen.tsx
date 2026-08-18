@@ -55,7 +55,7 @@ export function ExchangeScreen() {
           <Text variant="subtitle" textAlign="center">
             {fromCurrency?.label ?? "—"} to {toCurrency?.label ?? "—"}
           </Text>
-          <Text variant="caption" color="textMuted" textAlign="center">
+          <Text variant="caption" color="muted" textAlign="center">
             {t("exchange.liveRate")}
           </Text>
 
@@ -69,13 +69,13 @@ export function ExchangeScreen() {
                 {exchangeInfo.heroRate}
               </Text>
               <View style={styles.heroRateRow}>
-                <Text variant="bodyMedium" color="textMuted">
+                <Text variant="bodyMedium" color="muted">
                   {exchangeInfo.rateLabel}
                 </Text>
                 <RateChangeBadge percent={exchangeInfo.changePercent} />
               </View>
               {exchangeInfo.updatedLabel ? (
-                <Text variant="caption" color="textMuted" textAlign="center">
+                <Text variant="caption" color="muted" textAlign="center">
                   {exchangeInfo.updatedLabel}
                 </Text>
               ) : null}
@@ -118,7 +118,7 @@ export function ExchangeScreen() {
           />
         </View>
 
-        <Text variant="caption" color="textMuted" textAlign="center">
+        <Text variant="caption" color="muted" textAlign="center">
           {t("exchange.referenceOnly")}
         </Text>
       </ScrollView>

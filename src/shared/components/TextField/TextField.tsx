@@ -25,12 +25,12 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { EyeIcon, EyeOffIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { CloseButton } from "../CloseButton";
 import { IconButton } from "../IconButton";
 import { Text } from "../Text";
 import { FieldIcon } from "./FieldIcon";
-import { styles, textFieldVariants } from "./TextField.styles";
+import { textFieldStyles, textFieldVariants } from "./TextField.styles";
 import { TextFieldError } from "./TextFieldError";
 import { TextFieldLabel } from "./TextFieldLabel";
 import {
@@ -92,6 +92,8 @@ function TextFieldComponent({
   style,
   ...rest
 }: TextFieldProps) {
+  const styles = useStyles(textFieldStyles);
+  const colors = useThemeColors();
   const { t } = useTranslation();
   const inputRef = useRef<TextInput>(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -141,7 +143,7 @@ function TextFieldComponent({
     }
 
     return { borderColor: withTiming(border, { duration: BORDER_TINT_MS }) };
-  }, [hasError, isFocused, animated, palette.borderFocused]);
+  }, [colors, hasError, isFocused, animated, palette.borderFocused]);
 
   const showClear = clearable && !!value && !isDisabled;
   /** The error message replaces the description; a bare isInvalid recolors it. */
@@ -191,7 +193,7 @@ function TextFieldComponent({
           <TextInput
             ref={inputRef}
             editable={!isDisabled}
-            placeholderTextColor={colors.textTertiary}
+            placeholderTextColor={colors.fieldPlaceholder}
             secureTextEntry={secureTextEntry && !isSecureVisible}
             multiline={multiline}
             value={value}
@@ -231,7 +233,7 @@ function TextFieldComponent({
       {showDescription ? (
         <Text
           variant="body"
-          color={hasError ? "danger" : "textMuted"}
+          color={hasError ? "danger" : "muted"}
           style={isDisabled ? styles.disabled : undefined}
         >
           {description}

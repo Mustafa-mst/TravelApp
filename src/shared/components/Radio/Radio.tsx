@@ -11,9 +11,9 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { Text } from "../Text";
-import { radioVariants, styles } from "./Radio.styles";
+import { radioStyles, radioVariants } from "./Radio.styles";
 import { RadioThumb } from "./RadioThumb";
 import { CLEAR_FILL, RADIO_HIT_SLOP, RING_TINT_MS } from "./radio.constants";
 import type { RadioIndicatorPosition, RadioVariant } from "./radio.types";
@@ -51,6 +51,9 @@ function RadioComponent({
   style,
   labelStyle,
 }: RadioProps) {
+  const styles = useStyles(radioStyles);
+  const colors = useThemeColors();
+
   const palette = radioVariants[variant];
 
   const handlePress = useCallback(() => {
@@ -78,7 +81,7 @@ function RadioComponent({
       backgroundColor: withTiming(fill, timing),
       borderColor: withTiming(border, timing),
     };
-  }, [isSelected, isInvalid, animated, palette.fill, palette.border]);
+  }, [colors, isSelected, isInvalid, animated, palette.fill, palette.border]);
 
   const trailingIndicator = indicatorPosition === "end";
 
@@ -119,7 +122,7 @@ function RadioComponent({
                 {label}
               </Text>
               {description ? (
-                <Text variant="caption" color="textSecondary">
+                <Text variant="caption" color="muted">
                   {description}
                 </Text>
               ) : null}

@@ -8,8 +8,9 @@ import {
 } from "react-native";
 
 import { CloseIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
-import { closeButtonVariants, styles } from "./CloseButton.styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import type { ColorToken } from "@shared/styles";
+import { closeButtonStyles, closeButtonVariants } from "./CloseButton.styles";
 import {
   CLOSE_BUTTON_SIZE,
   CLOSE_HIT_SLOP,
@@ -21,7 +22,7 @@ export type CloseButtonProps = {
   variant?: CloseButtonVariant;
   size?: number;
   iconSize?: number;
-  iconColor?: keyof typeof colors;
+  iconColor?: ColorToken;
   isDisabled?: boolean;
   /** Replaces the default close icon. */
   children?: ReactNode;
@@ -41,6 +42,8 @@ function CloseButtonComponent({
   ...rest
 }: CloseButtonProps) {
   const { t } = useTranslation();
+  const styles = useStyles(closeButtonStyles);
+  const colors = useThemeColors();
   const palette = closeButtonVariants[variant];
 
   return (
@@ -52,7 +55,7 @@ function CloseButtonComponent({
       style={({ pressed }) => [
         styles.base,
         { width: size, height: size },
-        palette.container,
+        palette.isFilled && styles.solid,
         pressed && styles.pressed,
         isDisabled && styles.disabled,
         style,

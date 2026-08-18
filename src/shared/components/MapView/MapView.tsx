@@ -8,6 +8,7 @@ import {
   Marker,
 } from "@maplibre/maplibre-react-native";
 
+import { useTheme } from "@shared/hooks";
 import { MapPin } from "./MapPin";
 import { MapPlaceCard } from "./MapPlaceCard";
 import { MapZoomControl } from "./MapZoomControl";
@@ -20,7 +21,7 @@ import {
   MAP_MAX_ZOOM,
   MAP_MIN_ZOOM,
   MAP_POLYLINE_SOURCE_ID,
-  MAP_STYLE_URL,
+  MAP_STYLE_URLS,
 } from "./map.constants";
 import type { MapViewProps } from "./map.types";
 import { markerKey, toPolylineCollection, toPosition } from "./map.utils";
@@ -33,22 +34,26 @@ function MapViewComponent({
   polylines,
   style,
 }: MapViewProps) {
+  const { theme, themeName } = useTheme();
   const { mapRef, cameraRef, fitBounds, zoomIn, zoomOut } =
     useMapCamera(markers);
   const { selectedKey, selected, selectPin, keepSelection, dismiss } =
     useMapSelection(markers);
 
   const polylineCollection = useMemo(
-    () => toPolylineCollection(polylines),
-    [polylines],
+    () => toPolylineCollection(polylines, theme.colors.accent),
+    [polylines, theme.colors.accent],
   );
 
   return (
     <View style={style}>
+      {/* Remounting on theme change: MapLibre reloads the whole style in
+          place otherwise, which resets the camera mid-session. */}
       <Map
+        key={themeName}
         ref={mapRef}
         style={styles.map}
-        mapStyle={MAP_STYLE_URL}
+        mapStyle={MAP_STYLE_URLS[themeName]}
         logo={false}
         compass={false}
         attributionPosition={MAP_ATTRIBUTION_POSITION}

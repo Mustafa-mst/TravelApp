@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing, typography } from "@shared/styles";
+import { radius, spacing, themed, typography, type ColorToken } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const buttonStyles = themed(({ colors }) => ({
   base: {
     borderRadius: radius.full,
     paddingVertical: spacing.sm,
@@ -29,18 +28,18 @@ export const styles = StyleSheet.create({
     ...typography.body,
     fontWeight: "500",
   },
-});
+}));
 
 type ButtonType = "primary" | "secondary" | "warning" | "danger";
 
-type ButtonColors = {
-  background: keyof typeof colors;
-  foreground: keyof typeof colors;
+type ButtonPalette = {
+  background: ColorToken;
+  foreground: ColorToken;
 };
 
-export const buttonColors: Record<ButtonType, ButtonColors> = {
-  primary: { background: "primary", foreground: "white" },
-  secondary: { background: "white", foreground: "text" },
-  warning: { background: "warning", foreground: "white" },
-  danger: { background: "danger", foreground: "white" },
+export const buttonColors: Record<ButtonType, ButtonPalette> = {
+  primary: { background: "accent", foreground: "accentForeground" },
+  secondary: { background: "surface", foreground: "foreground" },
+  warning: { background: "warning", foreground: "warningForeground" },
+  danger: { background: "danger", foreground: "dangerForeground" },
 };

@@ -68,7 +68,7 @@ export function CitySearchSheet({
           </View>
           <Text
             variant="bodyMedium"
-            color="textPrimary"
+            color="foreground"
             numberOfLines={1}
             style={styles.rowLabel}
           >
@@ -131,7 +131,7 @@ function ItemSeparator() {
 
 function renderEmptyText(message: string) {
   return (
-    <Text variant="body" color="textTertiary" style={styles.emptyText}>
+    <Text variant="body" color="muted" style={styles.emptyText}>
       {message}
     </Text>
   );

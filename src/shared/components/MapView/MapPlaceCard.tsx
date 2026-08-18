@@ -2,10 +2,10 @@ import { memo } from "react";
 import { View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { RemoteImage } from "../RemoteImage";
 import { Text } from "../Text";
-import { styles } from "./MapPlaceCard.styles";
+import { mapPlaceCardStyles } from "./MapPlaceCard.styles";
 import type { MapMarkerBadge } from "./map.types";
 
 export type MapPlaceCardProps = {
@@ -15,6 +15,9 @@ export type MapPlaceCardProps = {
 };
 
 function MapPlaceCardComponent({ imageUrl, title, badge }: MapPlaceCardProps) {
+  const styles = useStyles(mapPlaceCardStyles);
+  const colors = useThemeColors();
+
   return (
     <View style={styles.card}>
       {imageUrl ? (
@@ -24,7 +27,7 @@ function MapPlaceCardComponent({ imageUrl, title, badge }: MapPlaceCardProps) {
           <MaterialIcons
             name={badge?.icon ?? "place"}
             size={20}
-            color={colors.iconTertiary}
+            color={colors.muted}
           />
         </View>
       )}

@@ -43,12 +43,12 @@ function DestinationCardComponent({
       />
 
       <View style={styles.body}>
-        <Text variant="h5" color="white" numberOfLines={2} style={styles.title}>
+        <Text variant="h5" color="staticWhite" numberOfLines={2} style={styles.title}>
           {location}
         </Text>
         <Text
           variant="caption"
-          color="white"
+          color="staticWhite"
           numberOfLines={2}
           style={styles.subtitle}
         >

@@ -3,9 +3,9 @@ import { memo } from "react";
 import { Pressable, View } from "react-native";
 
 import { ChevronRightIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { Text } from "../Text";
-import { styles } from "./ListItem.styles";
+import { listItemStyles } from "./ListItem.styles";
 
 export type ListItemProps = {
   title: string;
@@ -23,6 +23,9 @@ function ListItemComponent({
   imageRadius = 8,
   onPress,
 }: ListItemProps) {
+  const styles = useStyles(listItemStyles);
+  const colors = useThemeColors();
+
   return (
     <Pressable style={styles.container} onPress={onPress}>
       <Image
@@ -40,7 +43,7 @@ function ListItemComponent({
           </Text>
         ) : null}
       </View>
-      <ChevronRightIcon width={18} height={18} color={colors.iconTertiary} />
+      <ChevronRightIcon width={18} height={18} color={colors.muted} />
     </Pressable>
   );
 }

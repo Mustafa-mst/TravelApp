@@ -1,10 +1,9 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed, type ColorToken } from "@shared/styles";
 
 import { CHECKBOX_SIZE, CLEAR_FILL } from "./checkbox.constants";
 import type { CheckboxVariant } from "./checkbox.types";
 
-export const styles = StyleSheet.create({
+export const checkboxStyles = themed(({ colors }) => ({
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -35,16 +34,16 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-});
+}));
 
 type CheckboxPalette = {
   /** null keeps the box unfilled when checked, so the border carries the state. */
-  fill: keyof typeof colors | null;
-  border: keyof typeof colors;
-  icon: keyof typeof colors;
+  fill: ColorToken | null;
+  border: ColorToken;
+  icon: ColorToken;
 };
 
 export const checkboxVariants: Record<CheckboxVariant, CheckboxPalette> = {
-  primary: { fill: "primary", border: "primary", icon: "white" },
-  secondary: { fill: null, border: "primary", icon: "primary" },
+  primary: { fill: "accent", border: "accent", icon: "accentForeground" },
+  secondary: { fill: null, border: "accent", icon: "accent" },
 };

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { PressableProps, TextProps, ViewProps } from "react-native";
-import type { Color, TypographyVariant } from "@shared/styles";
+import type { ColorToken, TypographyVariant } from "@shared/styles";
 
 export type ListGroupVariant =
   | "default"
@@ -28,7 +28,7 @@ export type ListGroupItemContentProps = {
 type ListGroupTextProps = {
   children?: ReactNode;
   variant?: TypographyVariant;
-  color?: Color;
+  color?: ColorToken;
 } & TextProps;
 
 export type ListGroupItemTitleProps = ListGroupTextProps;

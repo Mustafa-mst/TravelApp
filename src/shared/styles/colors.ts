@@ -1,47 +1,58 @@
+import { lightColors } from "./light";
+
+/**
+ * @deprecated Light-theme snapshot of the old 35-token palette, kept so
+ * unmigrated feature styles keep compiling. It does NOT react to theme
+ * changes — anything still reading it renders light in dark mode.
+ * Migrate to `themed()` + `useStyles`.
+ */
 export const colors = {
-  primary: "#0E7C66",
-  primaryLight: "#16A085",
-  accent: "#FF3830",
+  primary: lightColors.accent,
+  primaryLight: lightColors.accentSoft,
+  // Was a red-orange highlight, unrelated to HeroUI's blue `accent`.
+  accent: lightColors.danger,
 
-  background: "#F3F3F3",
-  backgroundTertiary: "#F3F3F3",
-  backgroundSecondary: "#E8E8E8",
+  background: lightColors.background,
+  backgroundTertiary: lightColors.backgroundTertiary,
+  backgroundSecondary: lightColors.backgroundSecondary,
 
-  surface: "#F3F4F6",
-  grey200: "#F0F0F0",
-  grey600: "#798086",
-  text: "#111827",
-  textLight: "#0C0C0C99",
-  textMuted: "#6B7280",
+  // Was a grey fill, not white — `surface` would blow these out.
+  surface: lightColors.surfaceSecondary,
+  grey200: lightColors.surfaceTertiary,
+  grey600: lightColors.separator,
+  text: lightColors.foreground,
+  textLight: lightColors.muted,
+  textMuted: lightColors.muted,
 
-  textPrimary: "#0D0D0D",
-  textSecondary: "#5D5D5D",
-  textTertiary: "#8F8F8F",
-  textInverted: "#FFFFFF",
+  textPrimary: lightColors.foreground,
+  textSecondary: lightColors.muted,
+  textTertiary: lightColors.muted,
+  textInverted: lightColors.staticWhite,
 
-  iconPrimary: "#0D0D0D",
-  iconTertiary: "#8F8F8F",
-  iconSecondary: "#5D5D5D",
-  iconInverted: "#FFFFFF",
+  iconPrimary: lightColors.foreground,
+  iconTertiary: lightColors.muted,
+  iconSecondary: lightColors.muted,
+  iconInverted: lightColors.staticWhite,
 
-  border: "#E5E7EB",
-  borderMuted: "#E9E7E5",
-  warning: "#F59E0B",
-  danger: "#DC2626",
-  success: "#008635",
-  white: "#FFFFFF",
-  progressTrack: "#FCFAF666",
-  overlayScrim: "#00000040",
-  neutral: "#FCFCFC",
-  transparent: "transparent",
+  border: lightColors.border,
+  borderMuted: lightColors.border,
+  warning: lightColors.warning,
+  danger: lightColors.danger,
+  success: lightColors.success,
+  white: lightColors.surface,
+  progressTrack: lightColors.defaultSoft,
+  overlayScrim: lightColors.backdrop,
+  neutral: lightColors.surface,
+  transparent: lightColors.transparent,
 
-  folderBack: "rgba(255, 255, 255, 0.8)",
-  folderFront: "#FBFBFB",
+  folderBack: lightColors.folderBack,
+  folderFront: lightColors.folderFront,
 
-  tabBarBackground: "#171A22",
-  tabBarItemActive: "#FFFFFF14",
-  tabBarIconActive: "#FFFFFF",
-  tabBarIconInactive: "#FFFFFF99",
+  tabBarBackground: lightColors.tabBarBackground,
+  tabBarItemActive: lightColors.tabBarItemActive,
+  tabBarIconActive: lightColors.tabBarIconActive,
+  tabBarIconInactive: lightColors.tabBarIconInactive,
 } as const;
 
+/** @deprecated Use `ColorToken` from the theme instead. */
 export type Color = keyof typeof colors;

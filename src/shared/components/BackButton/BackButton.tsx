@@ -4,9 +4,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
 import { ArrowLeftIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { IconButton } from "../IconButton";
-import { styles } from "./BackButton.styles";
+import { backButtonStyles } from "./BackButton.styles";
 
 type BackButtonProps = {
   onPress?: () => void;
@@ -23,13 +23,17 @@ function BackButtonComponent({
 }: BackButtonProps) {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const styles = useStyles(backButtonStyles);
+  const colors = useThemeColors();
 
   return (
     <IconButton
       variant="filled"
       onPress={onPress ?? navigation.goBack}
       style={[styles.button, { top: insets.top + offset }, style]}
-      icon={<ArrowLeftIcon width={size} height={size} color={colors.text} />}
+      icon={
+        <ArrowLeftIcon width={size} height={size} color={colors.foreground} />
+      }
     />
   );
 }

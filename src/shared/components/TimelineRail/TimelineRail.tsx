@@ -1,9 +1,10 @@
 import { memo, type ReactNode } from "react";
 import { View, type StyleProp, type ViewStyle } from "react-native";
 
-import { colors, shadows, spacing } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { shadows, spacing } from "@shared/styles";
 import {
-  styles,
+  timelineRailStyles,
   TRACK_GAP,
   LINE_WIDTH,
   CAP_WIDTH,
@@ -41,7 +42,7 @@ function TimelineRailComponent({
   isLast = false,
   size = 24,
   nodeColor,
-  trackColor = colors.border,
+  trackColor,
   capColor,
   ring = false,
   elevated = false,
@@ -51,6 +52,10 @@ function TimelineRailComponent({
   railStyle,
   nodeStyle,
 }: TimelineRailProps) {
+  const styles = useStyles(timelineRailStyles);
+  const colors = useThemeColors();
+
+  const track = trackColor ?? colors.border;
   const connectorTop = nodeTop + size + TRACK_GAP;
   const connectorBottom = isLast ? 0 : -(rowGap + nodeTop - TRACK_GAP);
 
@@ -79,7 +84,7 @@ function TimelineRailComponent({
             styles.cap,
             {
               left: (size - CAP_WIDTH) / 2,
-              backgroundColor: capColor ?? trackColor,
+              backgroundColor: capColor ?? track,
             },
           ]}
         />
@@ -106,7 +111,7 @@ function TimelineRailComponent({
             top: connectorTop,
             bottom: connectorBottom,
             left: (size - LINE_WIDTH) / 2,
-            backgroundColor: trackColor,
+            backgroundColor: track,
           },
         ]}
       />

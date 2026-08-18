@@ -77,7 +77,7 @@ function TripActionsComponent({
         ) : (
           <>
             <View style={styles.statusBadge}>
-              <Text variant="captionMedium" color="textSecondary">
+              <Text variant="captionMedium" color="muted">
                 {t(`template.detail.status.${detail.status}`)}
               </Text>
             </View>

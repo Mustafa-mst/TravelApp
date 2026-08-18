@@ -7,10 +7,13 @@ import Animated, {
 } from "react-native-reanimated";
 import { scheduleOnRN } from "react-native-worklets";
 
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { CloseIcon, SearchIcon } from "@/shared/assets/icons";
 import { Text } from "../Text";
-import { COLLAPSED_SIZE, styles } from "./SheetSearchHeader.styles";
+import {
+  COLLAPSED_SIZE,
+  sheetSearchHeaderStyles,
+} from "./SheetSearchHeader.styles";
 
 export type SheetSearchHeaderProps = {
   title: string;
@@ -34,6 +37,8 @@ function SheetSearchHeaderComponent({
   placeholder,
   autoCapitalize = "none",
 }: SheetSearchHeaderProps) {
+  const styles = useStyles(sheetSearchHeaderStyles);
+  const colors = useThemeColors();
   const [rowWidth, setRowWidth] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<TextInput>(null);
@@ -109,7 +114,7 @@ function SheetSearchHeaderComponent({
             value={value}
             onChangeText={onChangeText}
             placeholder={placeholder}
-            placeholderTextColor={colors.textMuted}
+            placeholderTextColor={colors.fieldPlaceholder}
             autoCapitalize={autoCapitalize}
             autoCorrect={false}
             onBlur={() => {
@@ -121,9 +126,9 @@ function SheetSearchHeaderComponent({
         ) : null}
         <Pressable style={styles.iconButton} onPress={toggle} hitSlop={8}>
           {isOpen ? (
-            <CloseIcon width={18} height={18} color={colors.iconSecondary} />
+            <CloseIcon width={18} height={18} color={colors.muted} />
           ) : (
-            <SearchIcon width={18} height={18} color={colors.iconPrimary} />
+            <SearchIcon width={18} height={18} color={colors.foreground} />
           )}
         </Pressable>
       </Animated.View>

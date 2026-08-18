@@ -1,8 +1,7 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed, type ColorToken } from "@shared/styles";
 import type { ListGroupVariant } from "./listGroup.types";
 
-export const styles = StyleSheet.create({
+export const listGroupStyles = themed(() => ({
   root: {
     borderRadius: radius.xl,
     borderCurve: "continuous",
@@ -17,13 +16,11 @@ export const styles = StyleSheet.create({
   itemContent: {
     flex: 1,
   },
-});
+}));
 
-// `tertiary` shares its value with `background` until the palette gains a
-// dedicated surface ramp, so it currently reads close to `default`.
-export const listGroupVariants: Record<ListGroupVariant, string> = {
-  default: colors.surface,
-  secondary: colors.backgroundSecondary,
-  tertiary: colors.backgroundTertiary,
-  transparent: colors.transparent,
+export const listGroupVariants: Record<ListGroupVariant, ColorToken> = {
+  default: "surface",
+  secondary: "surfaceSecondary",
+  tertiary: "surfaceTertiary",
+  transparent: "transparent",
 };

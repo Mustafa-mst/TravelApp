@@ -44,7 +44,7 @@ function CoverPhotoSectionComponent({
   return (
     <View style={styles.container}>
       <View style={styles.headerRow}>
-        <Text variant="bodyLargeMedium" color="textPrimary">
+        <Text variant="bodyLargeMedium" color="foreground">
           {t("template.coverPhoto")}
         </Text>
         <Pressable
@@ -52,7 +52,7 @@ function CoverPhotoSectionComponent({
           hitSlop={8}
           onPress={onUploadPress}
         >
-          <Text variant="caption" color="primary">
+          <Text variant="caption" color="accent">
             {t("template.uploadPhoto")}
           </Text>
         </Pressable>

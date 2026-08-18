@@ -45,7 +45,7 @@ function FilterOptionComponent<T extends string>({
       ) : null}
       <Text
         variant="bodyMedium"
-        color={isSelected ? "primary" : "text"}
+        color={isSelected ? "accent" : "foreground"}
         style={styles.optionLabel}
       >
         {t(option.labelKey)}

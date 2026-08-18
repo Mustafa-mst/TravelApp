@@ -64,7 +64,7 @@ function TripDetailOverviewComponent({
               trackColor={colors.border}
               capColor={colors.text}
             >
-              <Text variant="captionBold" color="white">
+              <Text variant="captionBold" color="staticWhite">
                 {day.day_number}
               </Text>
             </TimelineRail>

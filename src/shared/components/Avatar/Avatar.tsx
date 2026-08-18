@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Image, Text, View } from 'react-native';
-import { styles } from './Avatar.styles';
+import { useStyles } from '@shared/hooks';
+import { avatarStyles } from './Avatar.styles';
 
 type AvatarSize = 'sm' | 'md' | 'lg';
 
@@ -11,6 +12,8 @@ type AvatarProps = {
 };
 
 function AvatarComponent({ uri, fallback, size = 'md' }: AvatarProps) {
+  const styles = useStyles(avatarStyles);
+
   if (uri) {
     return <Image source={{ uri }} style={styles[size]} />;
   }

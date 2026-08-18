@@ -4,8 +4,9 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { colors } from "@shared/styles";
-import { styles } from "./Radio.styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import type { ColorToken } from "@shared/styles";
+import { radioStyles } from "./Radio.styles";
 import {
   THUMB_MS,
   THUMB_SCALE_SELECTED,
@@ -14,11 +15,14 @@ import {
 
 type RadioThumbProps = {
   isSelected: boolean;
-  tint: keyof typeof colors;
+  tint: ColorToken;
   animated: boolean;
 };
 
 function RadioThumbComponent({ isSelected, tint, animated }: RadioThumbProps) {
+  const styles = useStyles(radioStyles);
+  const colors = useThemeColors();
+
   const thumbStyle = useAnimatedStyle(() => {
     const scale = isSelected ? THUMB_SCALE_SELECTED : THUMB_SCALE_UNSELECTED;
     const opacity = isSelected ? 1 : 0;

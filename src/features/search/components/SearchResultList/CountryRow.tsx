@@ -35,11 +35,11 @@ const CountryRowComponent = ({
           <Image source={{ uri: country.flags.png }} style={styles.flag} />
         ) : null}
         <View>
-          <Text variant="bodyMedium" color="text">
+          <Text variant="bodyMedium" color="foreground">
             {name}
           </Text>
           {area ? (
-            <Text variant="caption" color="textMuted">
+            <Text variant="caption" color="muted">
               {area}
             </Text>
           ) : null}

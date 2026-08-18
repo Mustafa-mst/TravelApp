@@ -1,24 +1,24 @@
-import { StyleSheet } from "react-native";
-import { colors, radius } from "@shared/styles";
+import { radius, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const bottomSheetStyles = themed(({ colors, elevatedBorder }) => ({
   background: {
-    backgroundColor: colors.grey200,
+    backgroundColor: colors.overlay,
     borderTopLeftRadius: radius.xl,
     borderTopRightRadius: radius.xl,
+    ...elevatedBorder,
   },
   header: {
-    backgroundColor: colors.grey200,
+    backgroundColor: colors.overlay,
     borderTopLeftRadius: radius.xl,
     borderTopRightRadius: radius.xl,
     padding: 24,
     paddingBottom: 12,
   },
   indicator: {
-    backgroundColor: colors.grey600,
+    backgroundColor: colors.separator,
     width: 36,
     height: 4,
-    borderRadius: 99,
+    borderRadius: radius.full,
     position: "absolute",
     alignSelf: "center",
     top: 10,
@@ -29,4 +29,4 @@ export const styles = StyleSheet.create({
   contentFill: {
     flex: 1,
   },
-});
+}));

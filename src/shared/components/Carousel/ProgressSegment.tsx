@@ -1,9 +1,10 @@
 import { memo, useEffect, useRef } from "react";
 import { Animated, View } from "react-native";
+import { useStyles } from "@shared/hooks";
 import {
   ACTIVE_SEGMENT_WIDTH,
+  carouselStyles,
   INACTIVE_SEGMENT_WIDTH,
-  styles,
 } from "./Carousel.styles";
 
 type ProgressSegmentProps = {
@@ -21,6 +22,8 @@ function ProgressSegmentComponent({
   isPaused,
   onComplete,
 }: ProgressSegmentProps) {
+  const styles = useStyles(carouselStyles);
+
   const progress = useRef(new Animated.Value(0)).current;
   const valueRef = useRef(0);
   const wasActiveRef = useRef(false);

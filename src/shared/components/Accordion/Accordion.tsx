@@ -1,7 +1,8 @@
 import { memo, useCallback, useState } from "react";
 import { View } from "react-native";
 
-import { styles } from "./Accordion.styles";
+import { useStyles } from "@shared/hooks";
+import { accordionStyles } from "./Accordion.styles";
 import { AccordionRow } from "./AccordionRow";
 import { type AccordionProps, type AccordionValue } from "./accordion.types";
 import { toKeySet } from "./accordion.utils";
@@ -18,6 +19,8 @@ function AccordionComponent({
   disabled = false,
   style,
 }: AccordionProps) {
+  const styles = useStyles(accordionStyles);
+
   const isControlled = valueProp !== undefined;
   const [internalValue, setInternalValue] = useState<AccordionValue>(
     defaultValue ?? (selectionMode === "multiple" ? [] : undefined),

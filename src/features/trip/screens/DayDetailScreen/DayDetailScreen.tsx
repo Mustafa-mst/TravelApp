@@ -75,10 +75,10 @@ function DayDetailScreenComponent() {
   const renderMetaItem = useCallback(
     ({ item }: { item: { title: string; subtitle: string } }) => (
       <View>
-        <Text variant="bodySemiBold" color="text">
+        <Text variant="bodySemiBold" color="foreground">
           {item.title}
         </Text>
-        <Text variant="captionMedium" color="textSecondary">
+        <Text variant="captionMedium" color="muted">
           {item.subtitle}
         </Text>
       </View>

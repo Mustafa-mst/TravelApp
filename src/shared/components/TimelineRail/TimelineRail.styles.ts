@@ -1,5 +1,4 @@
-import { StyleSheet } from "react-native";
-import { radius } from "@shared/styles";
+import { radius, themed } from "@shared/styles";
 
 export const TRACK_GAP = 3;
 export const LINE_WIDTH = 4;
@@ -10,7 +9,7 @@ export const RING_GAP = 3;
 /** Outer ring border thickness. */
 export const RING_WIDTH = 2;
 
-export const styles = StyleSheet.create({
+export const timelineRailStyles = themed(() => ({
   rail: {
     alignItems: "center",
   },
@@ -37,4 +36,4 @@ export const styles = StyleSheet.create({
     height: CAP_HEIGHT,
     borderRadius: radius.full,
   },
-});
+}));

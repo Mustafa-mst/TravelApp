@@ -1,8 +1,9 @@
 import { memo } from "react";
 import { View, type StyleProp, type TextStyle } from "react-native";
 
+import { useStyles } from "@shared/hooks";
 import { Text } from "../Text";
-import { styles } from "./TextField.styles";
+import { textFieldStyles } from "./TextField.styles";
 
 type TextFieldLabelProps = {
   label: string;
@@ -19,11 +20,13 @@ function TextFieldLabelComponent({
   isDisabled,
   style,
 }: TextFieldLabelProps) {
+  const styles = useStyles(textFieldStyles);
+
   return (
     <View style={[styles.labelRow, isDisabled && styles.disabled]}>
       <Text
         variant="bodyLargeMedium"
-        color={isInvalid ? "danger" : "text"}
+        color={isInvalid ? "danger" : "foreground"}
         style={style}
       >
         {label}
@@ -31,7 +34,7 @@ function TextFieldLabelComponent({
       {isRequired ? (
         <Text
           variant="bodyExtraLarge"
-          color={isDisabled ? "textMuted" : "danger"}
+          color={isDisabled ? "muted" : "danger"}
         >
           {" *"}
         </Text>

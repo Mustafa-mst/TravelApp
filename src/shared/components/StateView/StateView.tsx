@@ -7,10 +7,10 @@ import {
 } from "react-native";
 
 import { AlertIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import type { StateViewContent } from "@shared/types";
 import { StateViewBlock } from "./StateViewBlock";
-import { styles } from "./StateView.styles";
+import { stateViewStyles } from "./StateView.styles";
 
 type StateViewProps = {
   isLoading?: boolean;
@@ -31,10 +31,13 @@ function StateViewComponent({
   style,
   children,
 }: StateViewProps) {
+  const styles = useStyles(stateViewStyles);
+  const colors = useThemeColors();
+
   if (isLoading) {
     return (
       <View style={[styles.block, style]}>
-        <ActivityIndicator color={colors.primary} />
+        <ActivityIndicator color={colors.accent} />
       </View>
     );
   }
@@ -44,7 +47,7 @@ function StateViewComponent({
       <StateViewBlock
         {...error}
         Icon={error?.Icon ?? AlertIcon}
-        iconColor={colors.iconInverted}
+        iconColor={colors.dangerForeground}
         badgeColor={colors.danger}
         style={style}
       />
@@ -55,8 +58,8 @@ function StateViewComponent({
     return (
       <StateViewBlock
         {...empty}
-        iconColor={colors.iconPrimary}
-        badgeColor={colors.surface}
+        iconColor={colors.foreground}
+        badgeColor={colors.surfaceSecondary}
         style={style}
       />
     );

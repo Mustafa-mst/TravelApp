@@ -2,8 +2,8 @@ import { memo } from "react";
 import { View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { colors } from "@shared/styles";
-import { styles } from "./MapPin.styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { mapPinStyles } from "./MapPin.styles";
 import type { MapMarkerBadge } from "./map.types";
 
 export type MapPinProps = {
@@ -12,18 +12,21 @@ export type MapPinProps = {
 };
 
 function MapPinComponent({ badge, selected }: MapPinProps) {
+  const styles = useStyles(mapPinStyles);
+  const colors = useThemeColors();
+
   return (
     <View
       style={[
         styles.pin,
         selected && styles.pinSelected,
-        { backgroundColor: badge?.color ?? colors.primary },
+        { backgroundColor: badge?.color ?? colors.accent },
       ]}
     >
       <MaterialIcons
         name={badge?.icon ?? "place"}
         size={selected ? 18 : 14}
-        color={colors.white}
+        color={colors.staticWhite}
       />
     </View>
   );

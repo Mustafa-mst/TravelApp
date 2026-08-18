@@ -59,7 +59,7 @@ function TemplateCardComponent({
           <View style={styles.chips}>
             {visibleChips.map((chip) => (
               <View key={chip.type} style={styles.chip}>
-                <Text variant="captionMedium" color="textSecondary">
+                <Text variant="captionMedium" color="muted">
                   {`${chip.icon} ${chip.label}`}
                 </Text>
               </View>

@@ -19,7 +19,7 @@ function PosterCardComponent({ title, image, onPress }: PosterCardProps) {
         style={StyleSheet.absoluteFill}
         contentFit="cover"
       />
-      <Text variant="bodyMedium" color="white" style={styles.title}>
+      <Text variant="bodyMedium" color="staticWhite" style={styles.title}>
         {title}
       </Text>
     </Pressable>

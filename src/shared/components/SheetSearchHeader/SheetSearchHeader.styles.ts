@@ -1,10 +1,9 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
 /** Diameter of the collapsed circular search button; also the fixed height. */
 export const COLLAPSED_SIZE = 40;
 
-export const styles = StyleSheet.create({
+export const sheetSearchHeaderStyles = themed(({ colors }) => ({
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -16,7 +15,7 @@ export const styles = StyleSheet.create({
     right: 0,
     height: COLLAPSED_SIZE,
     borderRadius: radius.full,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
     flexDirection: "row",
     alignItems: "center",
     overflow: "hidden",
@@ -25,7 +24,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     height: COLLAPSED_SIZE,
     paddingLeft: spacing.md,
-    color: colors.textPrimary,
+    color: colors.foreground,
   },
   iconButton: {
     width: COLLAPSED_SIZE,
@@ -33,4 +32,4 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-});
+}));

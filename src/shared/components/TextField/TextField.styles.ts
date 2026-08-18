@@ -1,5 +1,4 @@
-import { StyleSheet } from "react-native";
-import { colors, shadows, spacing, typography } from "@shared/styles";
+import { radius, spacing, themed, typography, type ColorToken } from "@shared/styles";
 
 import {
   CLEAR_BORDER,
@@ -7,11 +6,10 @@ import {
   FIELD_BORDER_WIDTH,
   FIELD_GAP,
   FIELD_MIN_HEIGHT,
-  FIELD_RADIUS,
 } from "./textField.constants";
 import type { TextFieldVariant } from "./textField.types";
 
-export const styles = StyleSheet.create({
+export const textFieldStyles = themed(({ colors, shadows }) => ({
   container: {
     gap: FIELD_GAP,
   },
@@ -23,7 +21,7 @@ export const styles = StyleSheet.create({
   fieldOuter: {
     borderWidth: FIELD_BORDER_WIDTH,
     borderColor: CLEAR_BORDER,
-    borderRadius: FIELD_RADIUS,
+    borderRadius: radius.field,
     ...shadows.level1,
   },
   field: {
@@ -46,7 +44,7 @@ export const styles = StyleSheet.create({
     fontSize: typography.body.fontSize,
     fontWeight: typography.body.fontWeight,
     flex: 1,
-    color: colors.text,
+    color: colors.fieldForeground,
     paddingVertical: 0,
     textAlignVertical: "center",
     includeFontPadding: false,
@@ -63,15 +61,14 @@ export const styles = StyleSheet.create({
   disabled: {
     opacity: DISABLED_OPACITY,
   },
-});
+}));
 
 type TextFieldPalette = {
-  background: keyof typeof colors;
-  borderFocused: keyof typeof colors;
+  background: ColorToken;
+  borderFocused: ColorToken;
 };
 
 export const textFieldVariants: Record<TextFieldVariant, TextFieldPalette> = {
-  primary: { background: "white", borderFocused: "primary" },
-  /** backgroundSecondary is the closest token to HeroUI's --default field. */
-  secondary: { background: "backgroundSecondary", borderFocused: "primary" },
+  primary: { background: "fieldBackground", borderFocused: "focus" },
+  secondary: { background: "default", borderFocused: "focus" },
 };

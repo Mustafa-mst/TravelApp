@@ -1,10 +1,10 @@
 import { memo, useCallback } from "react";
 import { View, type LayoutChangeEvent } from "react-native";
 
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { PressableScale } from "../PressableScale";
 import { Text } from "../Text";
-import { styles, tabsVariants } from "./Tabs.styles";
+import { tabsStyles, tabsVariants } from "./Tabs.styles";
 import type { TabOption, TabsVariant } from "./tabs.types";
 
 type TabTriggerProps = {
@@ -24,8 +24,12 @@ function TabTriggerComponent({
   onPress,
   onMeasure,
 }: TabTriggerProps) {
+  const styles = useStyles(tabsStyles);
+  const variants = useStyles(tabsVariants);
+  const colors = useThemeColors();
+
   const { key, label, Icon, disabled } = option;
-  const palette = tabsVariants[variant];
+  const palette = variants[variant];
   const tone = isActive ? palette.labelActive : palette.label;
 
   const handleLayout = useCallback(

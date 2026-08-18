@@ -1,17 +1,16 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const iconButtonStyles = themed(({ colors }) => ({
   base: {
     alignItems: "center",
     justifyContent: "center",
   },
   filled: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceSecondary,
   },
   rounded: {
     borderRadius: radius.full,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
     padding: spacing.md - 6,
     borderColor: colors.border,
     borderWidth: 1,
@@ -22,4 +21,4 @@ export const styles = StyleSheet.create({
   disabled: {
     opacity: 0.4,
   },
-});
+}));

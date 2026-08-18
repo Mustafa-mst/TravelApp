@@ -1,9 +1,10 @@
 import { memo } from "react";
 import { ScrollView } from "react-native";
 
+import { useStyles } from "@shared/hooks";
 import { PressableScale } from "../PressableScale";
 import { Text } from "../Text";
-import { styles } from "./PillGroup.styles";
+import { pillGroupStyles } from "./PillGroup.styles";
 
 export type PillOption<T extends string = string> = {
   key: T;
@@ -25,6 +26,7 @@ function PillGroupComponent<T extends string = string>({
   onChange,
   variant = "outlined",
 }: PillGroupProps<T>) {
+  const styles = useStyles(pillGroupStyles);
   const borderless = variant === "borderless";
   return (
     <ScrollView

@@ -6,9 +6,10 @@ import {
   type ViewStyle,
 } from "react-native";
 
+import { useStyles } from "@shared/hooks";
 import { TabIndicator } from "./TabIndicator";
 import { TabTrigger } from "./TabTrigger";
-import { styles, tabsVariants } from "./Tabs.styles";
+import { tabsStyles, tabsVariants } from "./Tabs.styles";
 import { useTabsIndicator } from "./useTabsIndicator";
 import type { TabOption, TabsScrollAlign, TabsVariant } from "./tabs.types";
 
@@ -40,6 +41,8 @@ function TabsComponent<T extends string = string>({
   animated = true,
   style,
 }: TabsProps<T>) {
+  const styles = useStyles(tabsStyles);
+  const variants = useStyles(tabsVariants);
   const { scrollRef, activeLayout, measureTab, onViewportLayout } =
     useTabsIndicator(value, scrollable ? scrollAlign : "none");
 
@@ -55,7 +58,7 @@ function TabsComponent<T extends string = string>({
   const row = (
     <View
       accessibilityRole="tablist"
-      style={[styles.row, tabsVariants[variant].list, stretch && styles.rowStretch]}
+      style={[styles.row, variants[variant].list, stretch && styles.rowStretch]}
     >
       <TabIndicator layout={activeLayout} variant={variant} animated={animated} />
       {options.map((option, index) => (

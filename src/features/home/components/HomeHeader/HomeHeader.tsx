@@ -63,7 +63,7 @@ function HomeHeaderComponent({ style }: HomeHeaderProps) {
         >
           <SearchIcon />
           <Divider orientation="vertical" margin={12} />
-          <Text color="textSecondary">
+          <Text color="muted">
             {t("home.header.searchPlaceholder")}
           </Text>
         </Pressable>

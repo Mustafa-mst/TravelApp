@@ -1,9 +1,14 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import {
+  radius,
+  spacing,
+  themed,
+  themedValue,
+  type ColorToken,
+} from "@shared/styles";
 
 import type { TabsVariant } from "./tabs.types";
 
-export const styles = StyleSheet.create({
+export const tabsStyles = themed(({ colors }) => ({
   container: {
     alignSelf: "flex-start",
     maxWidth: "100%",
@@ -49,7 +54,7 @@ export const styles = StyleSheet.create({
     borderRadius: radius.full,
   },
   primaryIndicator: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
     borderRadius: radius.full,
     top: spacing.xs,
     bottom: spacing.xs,
@@ -65,7 +70,7 @@ export const styles = StyleSheet.create({
     height: 3,
     bottom: 0,
     borderRadius: 2,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.accent,
   },
 
   separator: {
@@ -74,29 +79,35 @@ export const styles = StyleSheet.create({
     marginVertical: spacing.sm,
     backgroundColor: colors.border,
   },
-});
+}));
 
 type TabsPalette = {
   list: object;
   trigger: object;
   indicator: object;
-  label: keyof typeof colors;
-  labelActive: keyof typeof colors;
+  label: ColorToken;
+  labelActive: ColorToken;
 };
 
-export const tabsVariants: Record<TabsVariant, TabsPalette> = {
-  primary: {
-    list: styles.primaryList,
-    trigger: styles.primaryTrigger,
-    indicator: styles.primaryIndicator,
-    label: "textSecondary",
-    labelActive: "textPrimary",
+export const tabsVariants = themedValue<Record<TabsVariant, TabsPalette>>(
+  ({ name }) => {
+    const styles = tabsStyles[name];
+
+    return {
+      primary: {
+        list: styles.primaryList,
+        trigger: styles.primaryTrigger,
+        indicator: styles.primaryIndicator,
+        label: "muted",
+        labelActive: "foreground",
+      },
+      secondary: {
+        list: styles.secondaryList,
+        trigger: styles.secondaryTrigger,
+        indicator: styles.secondaryIndicator,
+        label: "muted",
+        labelActive: "foreground",
+      },
+    };
   },
-  secondary: {
-    list: styles.secondaryList,
-    trigger: styles.secondaryTrigger,
-    indicator: styles.secondaryIndicator,
-    label: "textMuted",
-    labelActive: "textPrimary",
-  },
-};
+);

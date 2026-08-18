@@ -5,19 +5,23 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { CheckIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
-import { styles } from "./Checkbox.styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import type { ColorToken } from "@shared/styles";
+import { checkboxStyles } from "./Checkbox.styles";
 import { CHECKBOX_ICON_SIZE, INDICATOR_MS } from "./checkbox.constants";
 
 type CheckboxIndicatorProps = {
   isSelected: boolean;
-  tint: keyof typeof colors;
+  tint: ColorToken;
 };
 
 function CheckboxIndicatorComponent({
   isSelected,
   tint,
 }: CheckboxIndicatorProps) {
+  const styles = useStyles(checkboxStyles);
+  const colors = useThemeColors();
+
   const indicatorStyle = useAnimatedStyle(() => {
     const duration = { duration: INDICATOR_MS };
 

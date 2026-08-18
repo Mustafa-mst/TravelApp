@@ -1,7 +1,8 @@
 import { memo, ReactNode } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 
-import { colors, type Color } from "@shared/styles";
+import { useThemeColors } from "@shared/hooks";
+import { type ColorToken } from "@shared/styles";
 import { styles } from "./Divider.styles";
 
 type DividerOrientation = "horizontal" | "vertical";
@@ -11,7 +12,7 @@ export type DividerProps = {
   orientation?: DividerOrientation;
   variant?: DividerVariant;
   thickness?: number;
-  color?: Color;
+  color?: ColorToken;
   margin?: number;
   children?: ReactNode;
   style?: StyleProp<ViewStyle>;
@@ -27,6 +28,7 @@ function DividerComponent({
   style,
 }: DividerProps) {
   const horizontal = orientation === "horizontal";
+  const colors = useThemeColors();
 
   const tint = colors[color];
 

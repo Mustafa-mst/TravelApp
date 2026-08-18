@@ -87,18 +87,18 @@ export function AddPlacesSheet({
               {item.name}
             </Text>
             {Boolean(item.address) && (
-              <Text variant="caption" color="textMuted" numberOfLines={1}>
+              <Text variant="caption" color="muted" numberOfLines={1}>
                 {item.address}
               </Text>
             )}
           </View>
           {added ? (
-            <Text variant="captionMedium" color="textMuted">
+            <Text variant="captionMedium" color="muted">
               {t("template.nearby.alreadyAdded")}
             </Text>
           ) : (
             item.rating != null && (
-              <Text variant="captionMedium" color="textSecondary">
+              <Text variant="captionMedium" color="muted">
                 {`★ ${item.rating.toFixed(1)}`}
               </Text>
             )

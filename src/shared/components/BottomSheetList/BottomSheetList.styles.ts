@@ -1,12 +1,11 @@
-import { colors, radius, spacing } from "@/shared/styles";
-import { StyleSheet } from "react-native";
+import { radius, spacing, themed } from "@/shared/styles";
 
-export const styles = StyleSheet.create({
+export const bottomSheetListStyles = themed(({ colors }) => ({
   card: {
     marginHorizontal: spacing.md,
     marginTop: spacing.sm,
     borderRadius: radius.xl,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
     overflow: "hidden",
   },
   cardFill: {
@@ -18,4 +17,4 @@ export const styles = StyleSheet.create({
   content: {
     paddingHorizontal: spacing.md,
   },
-});
+}));

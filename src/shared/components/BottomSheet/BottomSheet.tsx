@@ -14,8 +14,9 @@ import {
   type BottomSheetBackdropProps,
 } from "@gorhom/bottom-sheet";
 
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { spacing } from "@shared/styles";
-import { styles } from "./BottomSheet.styles";
+import { bottomSheetStyles } from "./BottomSheet.styles";
 
 export type BottomSheet = {
   present: () => void;
@@ -39,6 +40,8 @@ export function BottomSheet({
   snapPoints,
   onChange,
 }: BottomSheetProps) {
+  const styles = useStyles(bottomSheetStyles);
+  const colors = useThemeColors();
   const insets = useSafeAreaInsets();
   const modalRef = useRef<BottomSheetModal>(null);
   const lastIndexRef = useRef(-1);
@@ -74,9 +77,10 @@ export function BottomSheet({
         appearsOnIndex={0}
         disappearsOnIndex={-1}
         pressBehavior="close"
+        style={[backdropProps.style, { backgroundColor: colors.backdrop }]}
       />
     ),
-    [],
+    [colors.backdrop],
   );
 
   const hasSnapPoints = Boolean(snapPoints?.length);

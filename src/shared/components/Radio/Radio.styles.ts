@@ -1,5 +1,4 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed, type ColorToken } from "@shared/styles";
 
 import {
   CLEAR_FILL,
@@ -9,7 +8,7 @@ import {
 } from "./radio.constants";
 import type { RadioVariant } from "./radio.types";
 
-export const styles = StyleSheet.create({
+export const radioStyles = themed(({ colors }) => ({
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -54,16 +53,16 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
-});
+}));
 
 type RadioPalette = {
   /** null keeps the ring unfilled when selected, so the thumb carries the state. */
-  fill: keyof typeof colors | null;
-  border: keyof typeof colors;
-  thumb: keyof typeof colors;
+  fill: ColorToken | null;
+  border: ColorToken;
+  thumb: ColorToken;
 };
 
 export const radioVariants: Record<RadioVariant, RadioPalette> = {
-  primary: { fill: "primary", border: "primary", thumb: "white" },
-  secondary: { fill: null, border: "primary", thumb: "primary" },
+  primary: { fill: "accent", border: "accent", thumb: "accentForeground" },
+  secondary: { fill: null, border: "accent", thumb: "accent" },
 };

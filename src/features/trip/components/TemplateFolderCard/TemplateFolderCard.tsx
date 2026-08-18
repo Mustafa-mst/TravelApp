@@ -169,7 +169,7 @@ function TemplateFolderCardComponent({
           {title}
         </Text>
         {subtitle ? (
-          <Text variant="body" color="textSecondary" style={styles.label}>
+          <Text variant="body" color="muted" style={styles.label}>
             {subtitle}
           </Text>
         ) : null}

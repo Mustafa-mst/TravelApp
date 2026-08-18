@@ -25,7 +25,7 @@ function DayBadge({
   const { t } = useTranslation();
   return (
     <View style={[styles.badge, isActive && styles.badgeActive]}>
-      <Text variant="captionMedium" color="textSecondary">
+      <Text variant="captionMedium" color="muted">
         {t("template.detail.dayLabel", { day: dayNumber })}
       </Text>
     </View>
@@ -55,7 +55,7 @@ function TripDayCardComponent({
             <Text variant="bodyMedium">
               {t("template.detail.dayEmptyTitle")}
             </Text>
-            <Text variant="caption" color="textMuted">
+            <Text variant="caption" color="muted">
               {t("template.detail.dayEmptyAction")}
             </Text>
           </View>
@@ -82,7 +82,7 @@ function TripDayCardComponent({
           {firstItem.name}
         </Text>
         {Boolean(firstItem.description) && (
-          <Text variant="caption" color="textMuted" numberOfLines={1}>
+          <Text variant="caption" color="muted" numberOfLines={1}>
             {firstItem.description}
           </Text>
         )}
@@ -91,7 +91,7 @@ function TripDayCardComponent({
           <View style={styles.chips}>
             {typeChips.map((chip) => (
               <View key={chip.type} style={styles.chip}>
-                <Text variant="captionMedium" color="textSecondary">
+                <Text variant="captionMedium" color="muted">
                   {`${chip.icon} ${chip.label}`}
                 </Text>
               </View>

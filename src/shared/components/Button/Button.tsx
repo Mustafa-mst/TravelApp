@@ -5,8 +5,8 @@ import {
   Text,
   type PressableProps,
 } from 'react-native';
-import { colors } from '@shared/styles';
-import { buttonColors, styles } from './Button.styles';
+import { useStyles, useThemeColors } from '@shared/hooks';
+import { buttonColors, buttonStyles } from './Button.styles';
 
 type ButtonType = 'primary' | 'secondary' | 'warning' | 'danger';
 type ButtonState = 'loading' | 'disabled';
@@ -28,6 +28,9 @@ function ButtonComponent({
   style,
   ...rest
 }: ButtonProps) {
+  const styles = useStyles(buttonStyles);
+  const colors = useThemeColors();
+
   const isDisabled = state === 'disabled';
   const isLoading = state === 'loading';
 

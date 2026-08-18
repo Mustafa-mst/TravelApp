@@ -27,12 +27,12 @@ function CollectionsCarouselComponent({
         <View style={styles.content}>
           <View style={styles.title}>
             {item.title ? (
-              <Text variant="display" color="white">
+              <Text variant="display" color="staticWhite">
                 {spacesToNewLines(item.title)}
               </Text>
             ) : null}
             {item.subtitle ? (
-              <Text variant="body" color="white">
+              <Text variant="body" color="staticWhite">
                 {item.subtitle}
               </Text>
             ) : null}

@@ -23,7 +23,7 @@ function StartActionButtonComponent({
       disabled={!onPress}
       style={[styles.container, style]}
     >
-      <Text color="textInverted" variant="bodyLargeSemiBold">
+      <Text color="staticWhite" variant="bodyLargeSemiBold">
         {label}
       </Text>
       <View style={styles.iconBadge}>

@@ -1,7 +1,8 @@
 import { memo, type ReactNode } from "react";
 import { View, type StyleProp, type ViewStyle } from "react-native";
 
-import { styles } from "./Tabs.styles";
+import { useStyles } from "@shared/hooks";
+import { tabsStyles } from "./Tabs.styles";
 
 type TabPanelProps = {
   value: string;
@@ -16,6 +17,8 @@ function TabPanelComponent({
   children,
   style,
 }: TabPanelProps) {
+  const styles = useStyles(tabsStyles);
+
   if (value !== activeValue) {
     return null;
   }

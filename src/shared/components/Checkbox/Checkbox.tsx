@@ -8,10 +8,10 @@ import {
 } from "react-native";
 import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
 
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { Text } from "../Text";
 import { CheckboxIndicator } from "./CheckboxIndicator";
-import { checkboxVariants, styles } from "./Checkbox.styles";
+import { checkboxStyles, checkboxVariants } from "./Checkbox.styles";
 import {
   BOX_TINT_MS,
   CHECKBOX_HIT_SLOP,
@@ -47,6 +47,9 @@ function CheckboxComponent({
   style,
   labelStyle,
 }: CheckboxProps) {
+  const styles = useStyles(checkboxStyles);
+  const colors = useThemeColors();
+
   const palette = checkboxVariants[variant];
 
   const handlePress = useCallback(() => {
@@ -65,7 +68,7 @@ function CheckboxComponent({
       backgroundColor: withTiming(fill, { duration: BOX_TINT_MS }),
       borderColor: withTiming(border, { duration: BOX_TINT_MS }),
     };
-  }, [isSelected, isInvalid, palette.fill, palette.border]);
+  }, [colors, isSelected, isInvalid, palette.fill, palette.border]);
 
   return (
     <Pressable disabled={isDisabled} hitSlop={hitSlop} onPress={handlePress}>

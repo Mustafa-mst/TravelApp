@@ -1,17 +1,16 @@
-import { StyleSheet } from "react-native";
-import { colors, radius } from "@shared/styles";
+import { radius, themed, type ColorToken } from "@shared/styles";
 
 import { DISABLED_OPACITY, PRESSED_OPACITY } from "./closeButton.constants";
 import type { CloseButtonVariant } from "./closeButton.types";
 
-export const styles = StyleSheet.create({
+export const closeButtonStyles = themed(({ colors }) => ({
   base: {
     borderRadius: radius.full,
     alignItems: "center",
     justifyContent: "center",
   },
   solid: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceSecondary,
   },
   pressed: {
     opacity: PRESSED_OPACITY,
@@ -19,17 +18,17 @@ export const styles = StyleSheet.create({
   disabled: {
     opacity: DISABLED_OPACITY,
   },
-});
+}));
 
 type CloseButtonPalette = {
-  container: object | null;
-  icon: keyof typeof colors;
+  isFilled: boolean;
+  icon: ColorToken;
 };
 
 export const closeButtonVariants: Record<
   CloseButtonVariant,
   CloseButtonPalette
 > = {
-  solid: { container: styles.solid, icon: "iconTertiary" },
-  plain: { container: null, icon: "iconTertiary" },
+  solid: { isFilled: true, icon: "muted" },
+  plain: { isFilled: false, icon: "muted" },
 };

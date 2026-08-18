@@ -1,9 +1,6 @@
 /** HeroUI field min-height: spacing * 12. */
 export const FIELD_MIN_HEIGHT = 48;
 
-/** HeroUI --field-radius: radius (8) * 1.75. */
-export const FIELD_RADIUS = 14;
-
 /** HeroUI focus ring width; always reserved so the layout never shifts. */
 export const FIELD_BORDER_WIDTH = 2;
 

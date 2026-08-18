@@ -1,8 +1,8 @@
 import { memo, type ReactNode } from "react";
 import { Pressable, Text, View } from "react-native";
 import { ChevronRightIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
-import { styles } from "./SelectField.styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { selectFieldStyles } from "./SelectField.styles";
 
 type SelectFieldProps = {
   label?: string;
@@ -19,12 +19,19 @@ function SelectFieldComponent({
   error,
   placeholder,
   value,
-  rightIcon = (
-    <ChevronRightIcon width={20} height={20} color={colors.iconTertiary} />
-  ),
+  rightIcon,
   onPress,
 }: SelectFieldProps) {
+  const styles = useStyles(selectFieldStyles);
+  const colors = useThemeColors();
+
   const hasValue = !!value;
+  const icon =
+    rightIcon === undefined ? (
+      <ChevronRightIcon width={20} height={20} color={colors.muted} />
+    ) : (
+      rightIcon
+    );
 
   return (
     <View style={styles.container}>
@@ -40,7 +47,7 @@ function SelectFieldComponent({
         >
           {hasValue ? value : placeholder}
         </Text>
-        {rightIcon}
+        {icon}
       </Pressable>
       {error ? <Text style={styles.error}>{error}</Text> : null}
     </View>

@@ -1,8 +1,9 @@
 import { memo, useCallback } from "react";
 import { View, type StyleProp, type ViewStyle } from "react-native";
 
+import { useStyles } from "@shared/hooks";
 import { Radio } from "./Radio";
-import { styles } from "./Radio.styles";
+import { radioStyles } from "./Radio.styles";
 import type {
   RadioGroupOrientation,
   RadioOption,
@@ -32,6 +33,8 @@ function RadioGroupComponent<T extends string = string>({
   animated = true,
   style,
 }: RadioGroupProps<T>) {
+  const styles = useStyles(radioStyles);
+
   return (
     <View
       accessibilityRole="radiogroup"

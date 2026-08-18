@@ -1,7 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { colors, radius, typography } from '@shared/styles';
+import { radius, themed, typography } from '@shared/styles';
 
-export const styles = StyleSheet.create({
+export const avatarStyles = themed(({ colors }) => ({
   sm: {
     width: 32,
     height: 32,
@@ -18,12 +17,12 @@ export const styles = StyleSheet.create({
     borderRadius: radius.full,
   },
   fallback: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceSecondary,
     alignItems: 'center',
     justifyContent: 'center',
   },
   fallbackText: {
     ...typography.subtitle,
-    color: colors.textMuted,
+    color: colors.muted,
   },
-});
+}));

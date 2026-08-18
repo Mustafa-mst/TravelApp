@@ -1,0 +1,82 @@
+import type { ThemeColors } from "./theme.types";
+
+export const darkColors: ThemeColors = {
+  background: "#060607",
+  backgroundSecondary: "#0C0C0E",
+  backgroundTertiary: "#131316",
+  backgroundInverse: "#FCFCFC",
+  foreground: "#FCFCFC",
+
+  surface: "#18181B",
+  surfaceSecondary: "#232325",
+  surfaceTertiary: "#262728",
+  surfaceHover: "#27272A",
+
+  overlay: "#18181B",
+  backdrop: "rgba(0, 0, 0, 0.2)",
+  muted: "#9F9FA9",
+
+  default: "#27272A",
+  defaultForeground: "#FCFCFC",
+  defaultHover: "#2E2E31",
+  defaultSoft: "rgba(39, 39, 42, 0.5)",
+  defaultSoftHover: "rgba(39, 39, 42, 0.6)",
+
+  accent: "#0485F7",
+  accentForeground: "#FCFCFC",
+  accentHover: "#3592F9",
+  accentSoft: "rgba(4, 133, 247, 0.15)",
+  accentSoftHover: "rgba(4, 133, 247, 0.2)",
+  accentSoftForeground: "#509FFA",
+
+  success: "#17C964",
+  successForeground: "#18181B",
+  successHover: "#21B55D",
+  successSoft: "rgba(23, 201, 100, 0.15)",
+  successSoftHover: "rgba(23, 201, 100, 0.2)",
+  successSoftForeground: "#7ADA93",
+
+  warning: "#F7B750",
+  warningForeground: "#18181B",
+  warningHover: "#DEA54C",
+  warningSoft: "rgba(247, 183, 80, 0.15)",
+  warningSoftHover: "rgba(247, 183, 80, 0.2)",
+  warningSoftForeground: "#FAD094",
+
+  danger: "#DB3B3E",
+  dangerForeground: "#FCFCFC",
+  dangerHover: "#E15451",
+  dangerSoft: "rgba(219, 59, 62, 0.15)",
+  dangerSoftHover: "rgba(219, 59, 62, 0.2)",
+  dangerSoftForeground: "#E76964",
+
+  fieldBackground: "#18181B",
+  fieldForeground: "#FCFCFC",
+  fieldPlaceholder: "#9F9FA9",
+  fieldBorder: "transparent",
+  fieldHover: "#1C1C1F",
+
+  segment: "#46464C",
+  segmentForeground: "#FCFCFC",
+
+  border: "#28282C",
+  borderSecondary: "#434345",
+  borderTertiary: "#5C5C5F",
+  separator: "#47474B",
+  separatorSecondary: "#343437",
+  separatorTertiary: "#3C3C3F",
+
+  focus: "#0485F7",
+  link: "#FCFCFC",
+  transparent: "transparent",
+
+  staticWhite: "#FFFFFF",
+  staticBlack: "#000000",
+  backdropStrong: "rgba(0, 0, 0, 0.5)",
+  folderBack: "rgba(255, 255, 255, 0.08)",
+  folderFront: "#1C1C1F",
+  tabBarBackground: "#18181B",
+  tabBarItemActive: "#27272A",
+  tabBarIconActive: "#FCFCFC",
+  tabBarIconInactive: "#9F9FA9",
+};

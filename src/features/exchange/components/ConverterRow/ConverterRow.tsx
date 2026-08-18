@@ -26,7 +26,7 @@ function ConverterRowComponent({
   return (
     <View style={styles.row}>
       <View style={styles.fields}>
-        <Text variant="caption" color="textMuted">
+        <Text variant="caption" color="muted">
           {label}
         </Text>
         <TextInput

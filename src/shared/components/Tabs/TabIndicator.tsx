@@ -6,7 +6,8 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { styles, tabsVariants } from "./Tabs.styles";
+import { useStyles } from "@shared/hooks";
+import { tabsStyles, tabsVariants } from "./Tabs.styles";
 import { INDICATOR_FADE_MS, INDICATOR_SPRING } from "./tabs.constants";
 import type { TabsVariant } from "./tabs.types";
 
@@ -21,6 +22,9 @@ function TabIndicatorComponent({
   variant,
   animated,
 }: TabIndicatorProps) {
+  const styles = useStyles(tabsStyles);
+  const variants = useStyles(tabsVariants);
+
   const indicatorStyle = useAnimatedStyle(() => {
     if (!layout) {
       return { opacity: 0 };
@@ -46,7 +50,7 @@ function TabIndicatorComponent({
       pointerEvents="none"
       style={[
         styles.indicator,
-        tabsVariants[variant].indicator,
+        variants[variant].indicator,
         indicatorStyle,
       ]}
     />

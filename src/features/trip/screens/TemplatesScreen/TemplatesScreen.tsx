@@ -80,7 +80,7 @@ export function TemplatesScreen() {
   return (
     <SafeAreaView edges={["top"]} style={styles.safe}>
       <View style={styles.headerRow}>
-        <Text color="textPrimary" variant="h1">
+        <Text color="foreground" variant="h1">
           {t("template.title")}
         </Text>
         <IconButton
@@ -107,7 +107,7 @@ export function TemplatesScreen() {
               {error.message}
             </Text>
           ) : (
-            <Text color="textSecondary" variant="body">
+            <Text color="muted" variant="body">
               {t("template.empty")}
             </Text>
           )

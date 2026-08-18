@@ -118,7 +118,7 @@ function TemplateListCardComponent({
 
         <View style={styles.content}>
           <View style={styles.topRow}>
-            <Text variant="caption" color="white" style={styles.meta}>
+            <Text variant="caption" color="staticWhite" style={styles.meta}>
               {`${location} · ${dateLabel}`}
             </Text>
             <IconButton
@@ -131,7 +131,7 @@ function TemplateListCardComponent({
 
           <Text
             variant="h3"
-            color="white"
+            color="staticWhite"
             numberOfLines={1}
             style={styles.title}
           >
@@ -159,7 +159,7 @@ function TemplateListCardComponent({
               </View>
               <Text
                 variant="bodyMedium"
-                color="white"
+                color="staticWhite"
                 numberOfLines={1}
                 style={styles.membersLabel}
               >

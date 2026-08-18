@@ -2,9 +2,9 @@ import { memo } from "react";
 import { Pressable, View } from "react-native";
 
 import { ChevronRightIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { Text } from "../Text";
-import { listGroupVariants, styles } from "./ListGroup.styles";
+import { listGroupStyles, listGroupVariants } from "./ListGroup.styles";
 import { DEFAULT_ICON_SIZE } from "./listGroup.constants";
 import type {
   ListGroupItemContentProps,
@@ -22,11 +22,14 @@ function ListGroupComponent({
   style,
   ...rest
 }: ListGroupProps) {
+  const styles = useStyles(listGroupStyles);
+  const colors = useThemeColors();
+
   return (
     <View
       style={[
         styles.root,
-        { backgroundColor: listGroupVariants[variant] },
+        { backgroundColor: colors[listGroupVariants[variant]] },
         style,
       ]}
       {...rest}
@@ -41,6 +44,8 @@ function ListGroupItemComponent({
   style,
   ...rest
 }: ListGroupItemProps) {
+  const styles = useStyles(listGroupStyles);
+
   return (
     <Pressable
       style={(state) => [
@@ -66,6 +71,8 @@ function ListGroupItemContentComponent({
   style,
   ...rest
 }: ListGroupItemContentProps) {
+  const styles = useStyles(listGroupStyles);
+
   return (
     <View style={[styles.itemContent, style]} {...rest}>
       {children}
@@ -76,7 +83,7 @@ function ListGroupItemContentComponent({
 function ListGroupItemTitleComponent({
   children,
   variant = "bodyLargeMedium",
-  color = "text",
+  color = "foreground",
   ...rest
 }: ListGroupItemTitleProps) {
   return (
@@ -89,7 +96,7 @@ function ListGroupItemTitleComponent({
 function ListGroupItemDescriptionComponent({
   children,
   variant = "body",
-  color = "textMuted",
+  color = "muted",
   ...rest
 }: ListGroupItemDescriptionProps) {
   return (
@@ -104,6 +111,7 @@ function ListGroupItemSuffixComponent({
   iconProps,
   ...rest
 }: ListGroupItemSuffixProps) {
+  const colors = useThemeColors();
   const size = iconProps?.size ?? DEFAULT_ICON_SIZE;
 
   return (
@@ -112,7 +120,7 @@ function ListGroupItemSuffixComponent({
         <ChevronRightIcon
           width={size}
           height={size}
-          color={iconProps?.color ?? colors.textMuted}
+          color={iconProps?.color ?? colors.muted}
         />
       )}
     </View>

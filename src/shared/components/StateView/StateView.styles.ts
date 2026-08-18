@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
-import { radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const stateViewStyles = themed(() => ({
   block: {
     paddingVertical: spacing.xxl,
     alignItems: "center",
@@ -29,4 +28,4 @@ export const styles = StyleSheet.create({
   action: {
     marginTop: spacing.lg,
   },
-});
+}));
