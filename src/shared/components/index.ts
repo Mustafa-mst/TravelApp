@@ -3,7 +3,16 @@ export { TextField, type TextFieldProps } from "./TextField";
 export { CloseButton, type CloseButtonProps } from "./CloseButton";
 export { SelectField } from "./SelectField";
 export { QuantityInput } from "./QuantityInput";
-export { Card } from "./Card";
+export {
+  Card,
+  type CardProps,
+  type CardVariant,
+  type CardHeaderProps,
+  type CardBodyProps,
+  type CardFooterProps,
+  type CardTitleProps,
+  type CardDescriptionProps,
+} from "./Card";
 export { CurvedView } from "./CurvedView";
 export { Carousel } from "./Carousel";
 export { Modal } from "./Modal";
