@@ -1,5 +1,6 @@
 export { Button } from "./Button";
-export { Input } from "./Input";
+export { TextField, type TextFieldProps } from "./TextField";
+export { CloseButton, type CloseButtonProps } from "./CloseButton";
 export { SelectField } from "./SelectField";
 export { QuantityInput } from "./QuantityInput";
 export { Card } from "./Card";

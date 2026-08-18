@@ -2,6 +2,10 @@ const tr = {
   common: {
     select: "Seç",
     retry: "Tekrar dene",
+    clear: "Temizle",
+    close: "Kapat",
+    showPassword: "Parolayı göster",
+    hidePassword: "Parolayı gizle",
   },
   tabs: {
     home: "Ana Sayfa",
@@ -20,6 +24,8 @@ const tr = {
     logout: "Çıkış Yap",
     email: "E-posta",
     password: "Şifre",
+    emailPlaceholder: "ornek@eposta.com",
+    passwordPlaceholder: "En az 8 karakter",
     errors: {
       email: "Geçerli bir e-posta girin",
       passwordMin: "Şifre en az 8 karakter olmalı",

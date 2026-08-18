@@ -2,6 +2,10 @@ const en = {
   common: {
     select: "Select",
     retry: "Try again",
+    clear: "Clear",
+    close: "Close",
+    showPassword: "Show password",
+    hidePassword: "Hide password",
   },
   tabs: {
     home: "Home",
@@ -20,6 +24,8 @@ const en = {
     logout: "Sign Out",
     email: "Email",
     password: "Password",
+    emailPlaceholder: "you@example.com",
+    passwordPlaceholder: "At least 8 characters",
     errors: {
       email: "Enter a valid email",
       passwordMin: "Password must be at least 8 characters",

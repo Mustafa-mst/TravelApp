@@ -5,10 +5,10 @@ import { useTranslation } from "react-i18next";
 
 import {
   Divider,
-  Input,
   QuantityInput,
   SelectField,
   Text,
+  TextField,
 } from "@shared/components";
 import {
   MAX_TEMPLATE_DAYS,
@@ -63,12 +63,12 @@ function TripDetailsSectionComponent({
         control={control}
         name="name"
         render={({ field: { onChange, onBlur, value } }) => (
-          <Input
+          <TextField
             placeholder={t("template.namePlaceholder")}
             value={value}
             onChangeText={onChange}
             onBlur={onBlur}
-            error={errors.name?.message}
+            errorMessage={errors.name?.message}
           />
         )}
       />

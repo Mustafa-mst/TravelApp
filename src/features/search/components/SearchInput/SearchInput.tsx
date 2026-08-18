@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { styles } from "./SearchInput.styles";
-import { IconButton, Input } from "@shared/components";
+import { IconButton, TextField } from "@shared/components";
 import { ArrowLeftIcon, FilterIcon } from "@shared/assets/icons";
 import { colors } from "@shared/styles";
 import { View } from "react-native";
@@ -26,16 +26,17 @@ const SearchInputComponent = ({
 
   return (
     <View style={styles.container}>
-      <Input
+      <TextField
         autoFocus
-        leftIcon={<ArrowLeftIcon />}
-        leftIconOnPress={onGoBack}
+        clearable
+        startIcon={ArrowLeftIcon}
+        onStartContentPress={onGoBack}
         value={value}
         onChangeText={onChangeText}
         returnKeyType="search"
         autoCorrect={false}
         containerStyle={styles.inputContainer}
-        inputWrapperStyle={styles.input}
+        fieldStyle={styles.input}
         placeholder={t("search.placeholder")}
       />
       <IconButton
