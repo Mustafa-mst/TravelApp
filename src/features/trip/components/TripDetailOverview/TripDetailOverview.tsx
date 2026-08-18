@@ -48,7 +48,7 @@ function TripDetailOverviewComponent({
 
   return (
     <View style={styles.content}>
-      <Text variant="bodyLargeSemiBold">{t("template.detail.planTitle")}</Text>
+      <Text variant="h3">{t("template.detail.planTitle")}</Text>
       {visibleDays.map((day, index) => {
         const isActive = day.day_number === activeDayNumber;
         const isLast = index === visibleDays.length - 1;

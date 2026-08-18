@@ -33,11 +33,6 @@ export const typography = {
     fontWeight: "700",
     lineHeight: 28,
   },
-  h4SemiBold: {
-    fontSize: 22,
-    fontWeight: "600",
-    lineHeight: 32,
-  },
   h5: {
     fontSize: 18,
     fontWeight: "700",

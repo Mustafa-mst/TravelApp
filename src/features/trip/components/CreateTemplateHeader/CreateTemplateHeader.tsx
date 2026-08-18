@@ -21,7 +21,7 @@ function CreateTemplateHeaderComponent({
 
   return (
     <View style={styles.container}>
-      <Text variant="subtitle" color="textPrimary">
+      <Text variant="h4" color="textPrimary">
         {t(isEditing ? "template.editTitle" : "template.new")}
       </Text>
       <PressableScale

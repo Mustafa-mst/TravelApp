@@ -61,7 +61,7 @@ function SegmentedControlComponent<T extends string = string>({
                 style={styles.segment}
               >
                 <Text
-                  variant="h6"
+                  variant="bodyLargeSemiBold"
                   style={active ? styles.labelActive : styles.label}
                 >
                   {option.label}

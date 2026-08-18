@@ -8,7 +8,7 @@ export function DashboardScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <Text variant="h4SemiBold">{t("dashboard.title")}</Text>
+      <Text variant="h1">{t("dashboard.title")}</Text>
     </SafeAreaView>
   );
 }

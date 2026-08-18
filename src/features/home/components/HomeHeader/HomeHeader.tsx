@@ -40,7 +40,7 @@ function HomeHeaderComponent({ style }: HomeHeaderProps) {
 
   return (
     <View style={style}>
-      <Text variant="h4SemiBold">{t("home.header.title")}</Text>
+      <Text variant="h1">{t("home.header.title")}</Text>
       <View style={styles.body}>
         <View style={styles.tombRow}>
           {HERO_IMAGES.map((image, index) => (

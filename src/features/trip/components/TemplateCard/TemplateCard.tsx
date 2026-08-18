@@ -40,7 +40,7 @@ function TemplateCardComponent({
   return (
     <PressableScale style={styles.card} onPress={onPress}>
       <View style={styles.info}>
-        <Text variant="subtitle" numberOfLines={2}>
+        <Text variant="h5" numberOfLines={2}>
           {title}
         </Text>
         <View style={styles.metaRow}>

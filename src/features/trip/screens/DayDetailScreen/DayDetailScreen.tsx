@@ -121,7 +121,7 @@ function DayDetailScreenComponent() {
             {day ? (
               <View style={styles.content}>
                 <View style={styles.titleBlock}>
-                  <Text variant="h2">
+                  <Text variant="h1">
                     {t("template.detail.dayLabel", { day: day.day_number })}
                   </Text>
                 </View>
@@ -134,7 +134,7 @@ function DayDetailScreenComponent() {
                 />
                 <Divider variant="dot" margin={0} />
                 <View style={styles.sectionHeader}>
-                  <Text variant="bodySemiBold" style={styles.sectionTitle}>
+                  <Text variant="h3" style={styles.sectionTitle}>
                     {t("template.detail.stopsTitle")}
                   </Text>
                   {canEdit ? (

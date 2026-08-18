@@ -92,7 +92,7 @@ function TripDetailScreenComponent() {
         <BackButton />
         <View style={styles.body}>
           <View style={styles.titleBlock}>
-            <Text variant="h2">{title}</Text>
+            <Text variant="h1">{title}</Text>
             <View style={styles.metaContainer}>
               {location ? (
                 <>

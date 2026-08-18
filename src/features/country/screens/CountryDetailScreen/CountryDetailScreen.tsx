@@ -130,7 +130,7 @@ function CountryDetailScreenComponent() {
         <BackButton size={20} />
 
         <View style={styles.titleBlock}>
-          <Text variant="h2" textAlign="center">
+          <Text variant="h1" textAlign="center">
             {countryName}
           </Text>
           {subtitle ? (

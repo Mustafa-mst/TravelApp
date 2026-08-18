@@ -98,7 +98,7 @@ function SheetSearchHeaderComponent({
       }}
     >
       <Animated.View style={titleStyle}>
-        <Text variant="h5">{title}</Text>
+        <Text variant="h4">{title}</Text>
       </Animated.View>
 
       <Animated.View style={[styles.pill, pillStyle]}>

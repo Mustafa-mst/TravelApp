@@ -165,7 +165,7 @@ function TemplateFolderCardComponent({
         ) : null}
       </View>
       <View style={{ paddingTop: 16 }}>
-        <Text variant="subtitle" numberOfLines={1} style={styles.label}>
+        <Text variant="h5" numberOfLines={1} style={styles.label}>
           {title}
         </Text>
         {subtitle ? (
