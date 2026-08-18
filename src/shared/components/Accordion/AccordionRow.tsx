@@ -72,10 +72,10 @@ export function AccordionRow({
         ) : null}
 
         <View style={styles.info}>
-          <Text variant="bodyMedium">{item.title}</Text>
+          <Text variant="bodyLargeMedium">{item.title}</Text>
           {item.subtitle ? (
             <Text
-              variant="captionMedium"
+              variant="body"
               color="textSecondary"
               style={styles.subtitle}
             >
