@@ -139,17 +139,17 @@ const SearchFilterCardComponent = ({
 
       <View style={styles.footer}>
         <Button
-          outlined
+          variant="outline"
           fullWidth
           label={t("search.filterClear")}
           onPress={handleClear}
-          style={styles.clearButton}
+          containerStyle={styles.clearButton}
         />
         <Button
           fullWidth
           label={t("search.filterApply")}
           onPress={handleApply}
-          style={styles.footerButton}
+          containerStyle={styles.footerButton}
         />
       </View>
     </View>

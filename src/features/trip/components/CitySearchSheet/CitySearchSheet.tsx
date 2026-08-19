@@ -1,11 +1,12 @@
 import { useCallback, useState, type RefObject } from "react";
-import { ActivityIndicator, Keyboard, Pressable, View } from "react-native";
+import { Keyboard, Pressable, View } from "react-native";
 import { useTranslation } from "react-i18next";
 
 import {
   BottomSheet,
   BottomSheetList,
   SheetSearchHeader,
+  Spinner,
   Text,
 } from "@shared/components";
 import { colors } from "@shared/styles";
@@ -90,7 +91,7 @@ export function CitySearchSheet({
 
     if (isLoading) {
       return (
-        <ActivityIndicator color={colors.primary} style={styles.emptyText} />
+        <Spinner color="accent" style={styles.empty} />
       );
     }
 

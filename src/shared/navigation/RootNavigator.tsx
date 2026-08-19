@@ -1,8 +1,9 @@
-import { ActivityIndicator, View } from "react-native";
+import { View } from "react-native";
 import { LayerStack } from "react-native-layer-stack";
 import { useSessionQuery } from "@/features/auth";
 import { ExchangeNavigator } from "@/features/exchange";
 import { TemplateNavigator } from "@/features/trip";
+import { Spinner } from "@shared/components";
 import { useStyles, useThemeColors } from "@shared/hooks";
 import { FrontNavigator } from "./FrontNavigator";
 import type { BackTarget } from "./types";
@@ -25,7 +26,7 @@ export function RootNavigator() {
   if (isLoading) {
     return (
       <View style={styles.splash}>
-        <ActivityIndicator color={colors.accent} />
+        <Spinner color="accent" />
       </View>
     );
   }

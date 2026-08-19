@@ -1,14 +1,10 @@
 import { memo, type ReactNode } from "react";
-import {
-  ActivityIndicator,
-  View,
-  type StyleProp,
-  type ViewStyle,
-} from "react-native";
+import { View, type StyleProp, type ViewStyle } from "react-native";
 
 import { AlertIcon } from "@shared/assets/icons";
 import { useStyles, useThemeColors } from "@shared/hooks";
 import type { StateViewContent } from "@shared/types";
+import { Spinner } from "../Spinner";
 import { StateViewBlock } from "./StateViewBlock";
 import { stateViewStyles } from "./StateView.styles";
 
@@ -37,7 +33,7 @@ function StateViewComponent({
   if (isLoading) {
     return (
       <View style={[styles.block, style]}>
-        <ActivityIndicator color={colors.accent} />
+        <Spinner color="accent" />
       </View>
     );
   }

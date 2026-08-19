@@ -1,4 +1,10 @@
-export { Button } from "./Button";
+export {
+  Button,
+  type ButtonProps,
+  type ButtonSize,
+  type ButtonVariant,
+} from "./Button";
+export { Spinner, type SpinnerProps, type SpinnerSize } from "./Spinner";
 export { TextField, type TextFieldProps } from "./TextField";
 export { CloseButton, type CloseButtonProps } from "./CloseButton";
 export { SelectField } from "./SelectField";

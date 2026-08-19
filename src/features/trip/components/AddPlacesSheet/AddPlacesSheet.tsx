@@ -143,9 +143,8 @@ export function AddPlacesSheet({
         <Button
           label={addLabel}
           fullWidth
-          state={
-            isCreating ? "loading" : selectedCount > 0 ? undefined : "disabled"
-          }
+          isLoading={isCreating}
+          isDisabled={selectedCount === 0}
           onPress={addPlaces}
         />
       </View>

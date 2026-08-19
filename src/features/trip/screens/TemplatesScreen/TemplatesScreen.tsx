@@ -1,5 +1,4 @@
 import {
-  ActivityIndicator,
   Alert,
   FlatList,
   useWindowDimensions,
@@ -11,7 +10,7 @@ import { useFrontLayer } from "react-native-layer-stack";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-import { IconButton, Text } from "@shared/components";
+import { IconButton, Spinner, Text } from "@shared/components";
 import { colors, spacing } from "@shared/styles";
 import { PlusIcon } from "@/shared/assets/icons";
 import type { BackTarget, RootStackParamList } from "@shared/navigation";
@@ -101,7 +100,7 @@ export function TemplatesScreen() {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           isLoading ? (
-            <ActivityIndicator color={colors.primary} />
+            <Spinner color="accent" />
           ) : error ? (
             <Text color="danger" variant="body">
               {error.message}

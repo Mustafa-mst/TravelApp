@@ -40,6 +40,5 @@ export const styles = StyleSheet.create({
   },
   clearButton: {
     flex: 1,
-    borderColor: colors.border,
   },
 });

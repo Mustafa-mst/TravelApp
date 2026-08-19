@@ -61,7 +61,7 @@ function LoginFormComponent({ form, onSubmit, isSubmitting }: LoginFormProps) {
 
       <Button
         label={t("auth.login")}
-        loading={isSubmitting}
+        isLoading={isSubmitting}
         onPress={onSubmit}
       />
     </View>

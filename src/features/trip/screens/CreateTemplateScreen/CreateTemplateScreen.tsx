@@ -44,7 +44,8 @@ export function CreateTemplateScreen() {
         <Button
           fullWidth
           label={t(isEditing ? "template.save" : "template.add")}
-          state={isSubmitting ? "loading" : !canSubmit ? "disabled" : undefined}
+          isLoading={isSubmitting}
+          isDisabled={!canSubmit}
           onPress={submit}
         />
       }

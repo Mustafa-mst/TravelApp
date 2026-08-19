@@ -38,7 +38,7 @@ function CollectionsCarouselComponent({
             ) : null}
           </View>
           {item.cta_text ? (
-            <Button type="secondary" label={item.cta_text} />
+            <Button variant="secondary" label={item.cta_text} />
           ) : null}
         </View>
       </ImageBackground>

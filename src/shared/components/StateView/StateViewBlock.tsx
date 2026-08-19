@@ -50,7 +50,7 @@ export function StateViewBlock({
         <View style={styles.action}>
           <Button
             label={retryLabel ?? t("common.retry")}
-            outlined
+            variant="outline"
             onPress={onRetry}
           />
         </View>

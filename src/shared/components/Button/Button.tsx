@@ -1,68 +1,81 @@
-import { memo } from 'react';
+import { memo } from "react";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { PressableScale } from "../PressableScale";
+import { Spinner } from "../Spinner";
+import { Text } from "../Text";
+import { buttonStyles, buttonVariants } from "./Button.styles";
 import {
-  ActivityIndicator,
-  Pressable,
-  Text,
-  type PressableProps,
-} from 'react-native';
-import { useStyles, useThemeColors } from '@shared/hooks';
-import { buttonColors, buttonStyles } from './Button.styles';
-
-type ButtonType = 'primary' | 'secondary' | 'warning' | 'danger';
-type ButtonState = 'loading' | 'disabled';
-
-type ButtonProps = {
-  label: string;
-  type?: ButtonType;
-  state?: ButtonState;
-  outlined?: boolean;
-  fullWidth?: boolean;
-} & Omit<PressableProps, 'children'>;
+  BUTTON_ICON_SIZE,
+  BUTTON_LABEL_VARIANT,
+  BUTTON_PRESS_SCALE,
+  BUTTON_SPINNER_SIZE,
+} from "./button.constants";
+import type { ButtonProps } from "./button.types";
 
 function ButtonComponent({
   label,
-  type = 'primary',
-  state,
-  outlined = false,
+  variant = "primary",
+  size = "md",
+  isDisabled = false,
+  isLoading = false,
+  isIconOnly = false,
   fullWidth = false,
+  startIcon: StartIcon,
+  endIcon: EndIcon,
+  containerStyle,
   style,
   ...rest
 }: ButtonProps) {
   const styles = useStyles(buttonStyles);
   const colors = useThemeColors();
 
-  const isDisabled = state === 'disabled';
-  const isLoading = state === 'loading';
-
-  const palette = buttonColors[type];
-  // Outlined: transparent background, the type color becomes border + content color.
-  const tone = outlined ? colors[palette.background] : colors[palette.foreground];
-  const backgroundColor = outlined
-    ? colors.transparent
-    : colors[palette.background];
+  const palette = buttonVariants[variant];
+  const tone = colors[palette.foreground];
+  const iconSize = BUTTON_ICON_SIZE[size];
+  const isInactive = isDisabled || isLoading;
 
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
-      disabled={isDisabled || isLoading}
-      style={({ pressed }) => [
-        styles.base,
+      accessibilityState={{ disabled: isInactive, busy: isLoading }}
+      disabled={isInactive}
+      scaleTo={BUTTON_PRESS_SCALE}
+      // The highlight is a color swap, not a fade — see docs/button.md.
+      activeOpacity={1}
+      containerStyle={[
         fullWidth ? styles.fullWidth : styles.wrapContent,
-        { backgroundColor },
-        outlined && styles.outlined,
-        outlined && { borderColor: colors[palette.background] },
-        pressed && !isDisabled && !isLoading && styles.pressed,
-        isDisabled && styles.disabled,
-        typeof style === 'object' ? style : null,
+        containerStyle,
       ]}
+      style={[
+        styles.base,
+        styles[size],
+        { backgroundColor: colors[palette.background] },
+        palette.border && [
+          styles.outlined,
+          { borderColor: colors[palette.border] },
+        ],
+        isIconOnly && styles.iconOnly,
+        isDisabled && styles.disabled,
+        style,
+      ]}
+      pressedStyle={{ backgroundColor: colors[palette.hover] }}
       {...rest}
     >
+      {/* The spinner takes over the start slot, so the label stays put. */}
       {isLoading ? (
-        <ActivityIndicator color={tone} />
+        <Spinner color={tone} size={BUTTON_SPINNER_SIZE[size]} />
       ) : (
-        <Text style={[styles.label, { color: tone }]}>{label}</Text>
+        StartIcon && (
+          <StartIcon width={iconSize} height={iconSize} color={tone} />
+        )
       )}
-    </Pressable>
+      {label && !isIconOnly && (
+        <Text variant={BUTTON_LABEL_VARIANT[size]} color={palette.foreground}>
+          {label}
+        </Text>
+      )}
+      {EndIcon && <EndIcon width={iconSize} height={iconSize} color={tone} />}
+    </PressableScale>
   );
 }
 

@@ -31,4 +31,8 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: spacing.lg,
   },
+  empty: {
+    alignSelf: "center",
+    marginVertical: spacing.lg,
+  },
 });

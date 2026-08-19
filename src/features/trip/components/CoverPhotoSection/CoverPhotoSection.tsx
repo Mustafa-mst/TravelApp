@@ -1,10 +1,9 @@
 import { memo, useEffect, useMemo } from "react";
-import { ActivityIndicator, Pressable, ScrollView, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { Image } from "expo-image";
 import { useTranslation } from "react-i18next";
 
-import { PressableScale, Text } from "@shared/components";
-import { colors } from "@shared/styles";
+import { PressableScale, Spinner, Text } from "@shared/components";
 import { DEFAULT_COVER_PHOTOS } from "../../constants";
 import { useCoverPhotosQuery } from "../../hooks/query";
 import { styles } from "./CoverPhotoSection.styles";
@@ -59,7 +58,7 @@ function CoverPhotoSectionComponent({
       </View>
 
       {isFetching ? (
-        <ActivityIndicator color={colors.primary} style={styles.loading} />
+        <Spinner color="accent" style={styles.loading} />
       ) : null}
 
       <ScrollView

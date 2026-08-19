@@ -40,7 +40,7 @@ import type { MenuItem } from "@shared/components";
 
 ```tsx
 <Menu
-  trigger={<Button label="Actions" type="secondary" />}
+  trigger={<Button label="Actions" variant="secondary" />}
   items={[
     { id: "edit", label: "Edit", Icon: PenIcon },
     { id: "share", label: "Share", Icon: ShareIcon },
@@ -66,7 +66,7 @@ A selected row shows a checkmark. Controlled via `selectedKeys`:
 const [theme, setTheme] = useState<string[]>(["system"]);
 
 <Menu
-  trigger={<Button label="Theme" type="secondary" />}
+  trigger={<Button label="Theme" variant="secondary" />}
   label="Appearance"
   selectionMode="single"
   selectedKeys={theme}
@@ -87,7 +87,7 @@ Uncontrolled works too — pass `defaultSelectedKeys` and omit `selectedKeys`.
 
 ```tsx
 <Menu
-  trigger={<Button label="Text Style" type="secondary" />}
+  trigger={<Button label="Text Style" variant="secondary" />}
   selectionMode="multiple"
   defaultSelectedKeys={["bold"]}
   closeOnSelect={false}
