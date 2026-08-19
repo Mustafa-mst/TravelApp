@@ -79,3 +79,14 @@ export {
   type AccordionProps,
   type AccordionItem,
 } from "./Accordion";
+export { Portal, PortalHost } from "./Portal";
+export {
+  Menu,
+  type MenuProps,
+  type MenuItem,
+  type MenuItemVariant,
+  type MenuSelectionMode,
+  type MenuPlacement,
+  type MenuAlign,
+  type MenuIndicator,
+} from "./Menu";

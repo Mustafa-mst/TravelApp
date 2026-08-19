@@ -1,6 +1,7 @@
 import { memo, useCallback } from "react";
 import {
   Pressable,
+  StyleSheet,
   type GestureResponderEvent,
   type PressableProps,
   type StyleProp,
@@ -9,15 +10,11 @@ import {
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
+  withTiming,
+  type WithTimingConfig,
 } from "react-native-reanimated";
 
-// Matches the feel of the previous Animated.spring({ speed: 40, bounciness: 0 }).
-const PRESS_SPRING = {
-  stiffness: 900,
-  damping: 60,
-  mass: 1,
-} as const;
+const PRESS_TIMING: WithTimingConfig = { duration: 150 };
 
 type PressableScaleProps = {
   /** Scale applied while pressed. Set to 1 to disable the scale effect. */
@@ -26,6 +23,8 @@ type PressableScaleProps = {
   activeOpacity?: number;
   /** Style for the outer wrapper (layout: width, flex, margin). */
   containerStyle?: StyleProp<ViewStyle>;
+  /** Merged on top of `style` while pressed, for a background/tint highlight. */
+  pressedStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
 } & Omit<PressableProps, "style">;
 
@@ -33,6 +32,7 @@ function PressableScaleComponent({
   scaleTo = 0.99,
   activeOpacity = 0.9,
   containerStyle,
+  pressedStyle,
   style,
   onPressIn,
   onPressOut,
@@ -40,28 +40,44 @@ function PressableScaleComponent({
   children,
   ...rest
 }: PressableScaleProps) {
-  const scale = useSharedValue(1);
+  const progress = useSharedValue(0);
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: withSpring(scale.value, PRESS_SPRING) }],
+  const pressedBackground =
+    StyleSheet.flatten(pressedStyle)?.backgroundColor ?? null;
+
+  const highlightRadius = StyleSheet.flatten(style)?.borderRadius;
+
+  const animatedStyle = useAnimatedStyle(() => {
+    const pressed = progress.value === 1;
+
+    return {
+      opacity: withTiming(pressed ? activeOpacity : 1, PRESS_TIMING),
+      transform: [
+        { scale: withTiming(pressed ? scaleTo : 1, PRESS_TIMING) },
+      ],
+    };
+  });
+
+  const animatedHighlightStyle = useAnimatedStyle(() => ({
+    opacity: withTiming(progress.value, PRESS_TIMING),
   }));
 
   const handlePressIn = useCallback(
     (event: GestureResponderEvent) => {
       if (!disabled) {
-        scale.value = scaleTo;
+        progress.value = 1;
       }
       onPressIn?.(event);
     },
-    [disabled, onPressIn, scale, scaleTo],
+    [disabled, onPressIn, progress],
   );
 
   const handlePressOut = useCallback(
     (event: GestureResponderEvent) => {
-      scale.value = 1;
+      progress.value = 0;
       onPressOut?.(event);
     },
-    [onPressOut, scale],
+    [onPressOut, progress],
   );
 
   return (
@@ -70,13 +86,27 @@ function PressableScaleComponent({
         disabled={disabled}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
-        style={({ pressed }) => [
-          style,
-          pressed && !disabled && { opacity: activeOpacity },
-        ]}
+        style={style}
         {...rest}
       >
-        {children}
+        {(state) => (
+          <>
+            {pressedBackground === null ? null : (
+              <Animated.View
+                pointerEvents="none"
+                style={[
+                  StyleSheet.absoluteFill,
+                  {
+                    backgroundColor: pressedBackground,
+                    borderRadius: highlightRadius,
+                  },
+                  animatedHighlightStyle,
+                ]}
+              />
+            )}
+            {typeof children === "function" ? children(state) : children}
+          </>
+        )}
       </Pressable>
     </Animated.View>
   );
