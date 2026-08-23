@@ -85,6 +85,11 @@ export type ThemeColors = {
   tabBarItemActive: string;
   tabBarIconActive: string;
   tabBarIconInactive: string;
+  // The segmented-control underline keeps its own green ramp — it predates the
+  // accent token and is deliberately not tied to the primary colour.
+  segmentUnderlineStart: string;
+  segmentUnderlineMid: string;
+  segmentUnderlineEnd: string;
 };
 
 export type ColorToken = keyof ThemeColors;

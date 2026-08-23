@@ -1,8 +1,12 @@
 import { spacing, themed, themedValue } from "@shared/styles";
 
-// Gradient underline beneath the active segment: pale → mid → deep accent.
+// Gradient underline beneath the active segment: light mint → green → deep green.
 export const underlineGradient = themedValue(({ colors }) => ({
-  colors: [colors.accentSoft, colors.accent, colors.accentSoftForeground] as const,
+  colors: [
+    colors.segmentUnderlineStart,
+    colors.segmentUnderlineMid,
+    colors.segmentUnderlineEnd,
+  ] as const,
   locations: [0, 0.5, 1] as const,
 }));
 
@@ -25,7 +29,6 @@ export const segmentedControlStyles = themed(({ colors }) => ({
   },
   underlineTrack: {
     height: 4,
-    borderRadius: 2,
     overflow: "hidden",
   },
   underlineFill: {

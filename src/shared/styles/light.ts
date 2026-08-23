@@ -22,12 +22,12 @@ export const lightColors: ThemeColors = {
   defaultSoft: "rgba(235, 235, 236, 0.5)",
   defaultSoftHover: "rgba(1, 1, 32, 0.6)",
 
-  accent: "#0485F7",
+  accent: "#0E7C66",
   accentForeground: "#FCFCFC",
-  accentHover: "#3592F9",
-  accentSoft: "rgba(4, 133, 247, 0.15)",
-  accentSoftHover: "rgba(4, 133, 247, 0.2)",
-  accentSoftForeground: "#1A6EC6",
+  accentHover: "#16A085",
+  accentSoft: "rgba(14, 124, 102, 0.15)",
+  accentSoftHover: "rgba(14, 124, 102, 0.2)",
+  accentSoftForeground: "#0B6352",
 
   success: "#17C964",
   successForeground: "#18181B",
@@ -66,7 +66,7 @@ export const lightColors: ThemeColors = {
   separatorSecondary: "#D8D8D8",
   separatorTertiary: "#CDCDCE",
 
-  focus: "#0485F7",
+  focus: "#0E7C66",
   link: "#18181B",
   transparent: "transparent",
 
@@ -81,4 +81,7 @@ export const lightColors: ThemeColors = {
   tabBarItemActive: "rgba(255, 255, 255, 0.08)",
   tabBarIconActive: "#FCFCFC",
   tabBarIconInactive: "rgba(252, 252, 252, 0.6)",
+  segmentUnderlineStart: "#ECF8EF",
+  segmentUnderlineMid: "#3CA856",
+  segmentUnderlineEnd: "#276D38",
 };
