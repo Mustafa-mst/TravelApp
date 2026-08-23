@@ -1,7 +1,8 @@
-import { StyleSheet } from "react-native";
-import { colors, spacing } from "@shared/styles";
+import { spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+const AMOUNT_FONT_SIZE = 24;
+
+export const converterRowStyles = themed(({ colors }) => ({
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -13,9 +14,9 @@ export const styles = StyleSheet.create({
     gap: spacing.xs / 2,
   },
   amountInput: {
-    fontSize: 24,
+    fontSize: AMOUNT_FONT_SIZE,
     fontWeight: "700",
-    color: colors.textPrimary,
+    color: colors.fieldForeground,
     padding: 0,
   },
-});
+}));

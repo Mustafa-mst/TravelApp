@@ -2,9 +2,9 @@ import { memo } from "react";
 import { TextInput, View } from "react-native";
 
 import { Text } from "@shared/components";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { CurrencySelector } from "../CurrencySelector";
-import { styles } from "./ConverterRow.styles";
+import { converterRowStyles } from "./ConverterRow.styles";
 
 type ConverterRowProps = {
   label: string;
@@ -23,6 +23,9 @@ function ConverterRowComponent({
   code,
   onPressCurrency,
 }: ConverterRowProps) {
+  const styles = useStyles(converterRowStyles);
+  const colors = useThemeColors();
+
   return (
     <View style={styles.row}>
       <View style={styles.fields}>
@@ -34,7 +37,7 @@ function ConverterRowComponent({
           value={value}
           onChangeText={onChangeText}
           placeholder="0"
-          placeholderTextColor={colors.textTertiary}
+          placeholderTextColor={colors.fieldPlaceholder}
           keyboardType="numeric"
         />
       </View>

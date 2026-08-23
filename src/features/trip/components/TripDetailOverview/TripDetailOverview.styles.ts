@@ -4,6 +4,8 @@ import { spacing } from "@shared/styles";
 
 const ROW_GAP = spacing.md;
 
+export const OVERVIEW_RAIL_SIZE = 28;
+
 export const styles = StyleSheet.create({
   content: {
     gap: ROW_GAP,

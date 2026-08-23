@@ -8,3 +8,5 @@ export const styles = StyleSheet.create({
     gap: spacing.xs / 2,
   },
 });
+
+export const ARROW_ICON_SIZE = 12;

@@ -9,8 +9,8 @@ import {
   SheetSearchHeader,
   Text,
 } from "@shared/components";
-import { colors } from "@shared/styles";
-import { styles } from "./ExchangeScreen.styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { SWAP_ICON_SIZE, exchangeScreenStyles } from "./ExchangeScreen.styles";
 import { ArrowDownIcon } from "@/shared/assets/icons";
 import { useExchange } from "../../hooks";
 import { ExchangeSheetList } from "../../components/ExchangeSheetList";
@@ -19,6 +19,8 @@ import { RateChangeBadge } from "../../components/RateChangeBadge";
 
 export function ExchangeScreen() {
   const { t } = useTranslation();
+  const styles = useStyles(exchangeScreenStyles);
+  const colors = useThemeColors();
 
   const {
     filteredRates,
@@ -110,9 +112,9 @@ export function ExchangeScreen() {
             onPress={onSwapCurrencies}
             icon={
               <ArrowDownIcon
-                width={18}
-                height={18}
-                color={colors.iconPrimary}
+                width={SWAP_ICON_SIZE}
+                height={SWAP_ICON_SIZE}
+                color={colors.foreground}
               />
             }
           />

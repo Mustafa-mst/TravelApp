@@ -2,9 +2,12 @@ import { memo } from "react";
 import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { PressableScale, Text } from "@shared/components";
-import { styles } from "./CreateTemplateHeader.styles";
-import { CloseIcon } from "@/shared/assets/icons";
-import { colors } from "@/shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { CloseIcon } from "@shared/assets/icons";
+import {
+  CLOSE_ICON_SIZE,
+  createTemplateHeaderStyles,
+} from "./CreateTemplateHeader.styles";
 
 export type CreateTemplateHeaderProps = {
   isEditing?: boolean;
@@ -18,6 +21,8 @@ function CreateTemplateHeaderComponent({
   onCancel,
 }: CreateTemplateHeaderProps) {
   const { t } = useTranslation();
+  const styles = useStyles(createTemplateHeaderStyles);
+  const colors = useThemeColors();
 
   return (
     <View style={styles.container}>
@@ -29,7 +34,11 @@ function CreateTemplateHeaderComponent({
         onPress={onCancel}
         disabled={isSubmitting}
       >
-        <CloseIcon width={24} height={24} color={colors.iconPrimary} />
+        <CloseIcon
+          width={CLOSE_ICON_SIZE}
+          height={CLOSE_ICON_SIZE}
+          color={colors.foreground}
+        />
       </PressableScale>
     </View>
   );

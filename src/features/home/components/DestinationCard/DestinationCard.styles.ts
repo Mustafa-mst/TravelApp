@@ -1,19 +1,32 @@
 import { StyleSheet } from "react-native";
-import { colors, radius, shadows, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+const CARD_ASPECT_RATIO = 1.5;
+const CARD_FRAME_WIDTH = 4;
+const FAVORITE_SIZE = 36;
+const SUBTITLE_OPACITY = 0.9;
+const BODY_GAP = 2;
+
+// A fixed scrim over the photo, not a themed surface — it must darken the
+// image identically in both themes so the overlaid text stays legible.
+export const DESTINATION_SCRIM_COLORS = [
+  "transparent",
+  "rgba(0, 0, 0, 0.75)",
+] as const;
+
+export const destinationCardStyles = themed(({ colors, shadows }) => ({
   shadow: {
     borderRadius: radius.lg,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
     ...shadows.level3,
   },
   card: {
-    aspectRatio: 1.5,
+    aspectRatio: CARD_ASPECT_RATIO,
     borderRadius: radius.lg,
     overflow: "hidden",
     justifyContent: "center",
-    borderWidth: 4,
-    borderColor: colors.white,
+    borderWidth: CARD_FRAME_WIDTH,
+    borderColor: colors.surface,
   },
   image: {
     ...StyleSheet.absoluteFill,
@@ -27,23 +40,23 @@ export const styles = StyleSheet.create({
     position: "absolute",
     top: spacing.sm,
     right: spacing.sm,
-    width: 36,
-    height: 36,
+    width: FAVORITE_SIZE,
+    height: FAVORITE_SIZE,
     borderRadius: radius.full,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
   },
   body: {
     padding: spacing.md,
     alignSelf: "flex-end",
     alignItems: "flex-end",
     maxWidth: "70%",
-    gap: 2,
+    gap: BODY_GAP,
   },
   title: {
     textAlign: "right",
   },
   subtitle: {
-    opacity: 0.9,
+    opacity: SUBTITLE_OPACITY,
     textAlign: "right",
   },
-});
+}));

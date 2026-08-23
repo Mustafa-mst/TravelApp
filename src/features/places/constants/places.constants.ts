@@ -1,8 +1,19 @@
 import type { MaterialIcons } from "@expo/vector-icons";
 
-import { colors } from "@shared/styles";
-
 type MaterialIconName = keyof typeof MaterialIcons.glyphMap;
+
+/**
+ * Category colours predate the HeroUI palette and are intentionally pinned to
+ * the original green/teal set — they identify a place type on the map rather
+ * than carrying theme meaning, so they stay fixed in both themes.
+ */
+const PLACE_COLORS = {
+  museum: "#16A085",
+  restaurant: "#FF3830",
+  cafe: "#F59E0B",
+  park: "#008635",
+  attraction: "#0E7C66",
+} as const;
 
 export enum PlaceTypes {
   Museum = "museum",
@@ -29,30 +40,30 @@ export const PLACE_TYPE_META: Record<
     label: "Museum",
     icon: "🏛️",
     materialIcon: "museum",
-    color: colors.primaryLight,
+    color: PLACE_COLORS.museum,
   },
   restaurant: {
     label: "Restaurant",
     icon: "🍽️",
     materialIcon: "restaurant",
-    color: colors.accent,
+    color: PLACE_COLORS.restaurant,
   },
   cafe: {
     label: "Cafe",
     icon: "☕",
     materialIcon: "local-cafe",
-    color: colors.warning,
+    color: PLACE_COLORS.cafe,
   },
   park: {
     label: "Park",
     icon: "🌳",
     materialIcon: "park",
-    color: colors.success,
+    color: PLACE_COLORS.park,
   },
   tourist_attraction: {
     label: "Attraction",
     icon: "📍",
     materialIcon: "place",
-    color: colors.primary,
+    color: PLACE_COLORS.attraction,
   },
 };

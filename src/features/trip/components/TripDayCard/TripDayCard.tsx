@@ -5,9 +5,10 @@ import { useTranslation } from "react-i18next";
 
 import { PressableScale, Text } from "@shared/components";
 import { BLUR_HASH } from "@shared/constants";
+import { useStyles } from "@shared/hooks";
 import { PLACE_TYPE_META } from "@/features/places/constants";
 import type { TripDetailDay } from "../../types";
-import { styles } from "./TripDayCard.styles";
+import { tripDayCardStyles } from "./TripDayCard.styles";
 
 export type TripDayCardProps = {
   day: TripDetailDay;
@@ -23,6 +24,8 @@ function DayBadge({
   isActive: boolean;
 }) {
   const { t } = useTranslation();
+  const styles = useStyles(tripDayCardStyles);
+
   return (
     <View style={[styles.badge, isActive && styles.badgeActive]}>
       <Text variant="captionMedium" color="muted">
@@ -38,6 +41,7 @@ function TripDayCardComponent({
   onPress,
 }: TripDayCardProps) {
   const { t } = useTranslation();
+  const styles = useStyles(tripDayCardStyles);
 
   const firstItem = day.items[0];
 
@@ -78,7 +82,7 @@ function TripDayCardComponent({
       <View style={styles.info}>
         <DayBadge dayNumber={day.day_number} isActive={isActive} />
 
-        <Text variant="bodyLargeSemiBold" numberOfLines={1}>
+        <Text variant="bodySemiBold" numberOfLines={1}>
           {firstItem.name}
         </Text>
         {Boolean(firstItem.description) && (

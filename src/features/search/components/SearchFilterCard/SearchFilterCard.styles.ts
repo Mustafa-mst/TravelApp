@@ -1,12 +1,11 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
 export const REGION_ICON_SIZE = 28;
 
-export const styles = StyleSheet.create({
+export const searchFilterCardStyles = themed(({ colors }) => ({
   card: {
     flexShrink: 0,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
     borderRadius: radius.xl,
     marginBottom: spacing.sm,
     padding: spacing.md,
@@ -41,4 +40,4 @@ export const styles = StyleSheet.create({
   clearButton: {
     flex: 1,
   },
-});
+}));

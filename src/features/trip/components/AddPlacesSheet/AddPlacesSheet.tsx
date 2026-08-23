@@ -11,10 +11,11 @@ import {
   StateView,
   Text,
 } from "@shared/components";
+import { useStyles } from "@shared/hooks";
 import { PLACE_CATEGORIES } from "@/features/places/constants";
 import type { PlaceType } from "@/features/places/types";
 import { useAddPlacesSheet } from "./useAddPlacesSheet";
-import { styles } from "./AddPlacesSheet.styles";
+import { addPlacesSheetStyles } from "./AddPlacesSheet.styles";
 
 export type AddPlacesSheetProps = {
   bottomSheetRef: RefObject<BottomSheet | null>;
@@ -46,6 +47,7 @@ export function AddPlacesSheet({
   onAdded,
 }: AddPlacesSheetProps) {
   const { t } = useTranslation();
+  const styles = useStyles(addPlacesSheetStyles);
 
   const {
     places,
@@ -106,7 +108,7 @@ export function AddPlacesSheet({
         </PressableScale>
       );
     },
-    [isAlreadyAdded, isPending, togglePlace, selectedType, t],
+    [isAlreadyAdded, isPending, togglePlace, selectedType, styles, t],
   );
 
   return (

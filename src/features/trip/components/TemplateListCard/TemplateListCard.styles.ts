@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 import { radius, shadows, spacing } from "@shared/styles";
 
+export const MORE_ICON_SIZE = 20;
+
+// Fixed rgba overlays: these sit on the cover photo, so they must darken the
+// same amount in either theme rather than following the palette.
 export const styles = StyleSheet.create({
   card: {
     borderRadius: radius.lg,

@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const citySearchSheetStyles = themed(({ colors }) => ({
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -35,4 +35,7 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
     marginVertical: spacing.lg,
   },
-});
+}));
+
+export const CITY_PIN_ICON_SIZE = 20;
+export const CITY_CHECK_ICON_SIZE = 18;

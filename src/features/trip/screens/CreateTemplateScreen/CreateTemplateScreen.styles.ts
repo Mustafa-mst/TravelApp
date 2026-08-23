@@ -1,14 +1,13 @@
-import { StyleSheet } from "react-native";
-import { colors, spacing } from "@shared/styles";
+import { themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const createTemplateScreenStyles = themed(({ colors }) => ({
   panelContent: {
     paddingHorizontal: 0,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
     overflow: "hidden",
     paddingBottom: 0,
   },
   flex: {
     flex: 1,
   },
-});
+}));

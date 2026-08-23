@@ -28,14 +28,18 @@ import {
   LocationIcon,
   RestaurantsIcon,
 } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import type { RootStackParamList } from "@shared/navigation";
 import { resolveCountryName } from "@shared/utils/country";
 import {
   useCountryImageQuery,
   useGetCountryDetailQuery,
 } from "../../hooks";
-import { styles } from "./CountryDetailScreen.styles";
+import {
+  COUNTRY_CHEVRON_SIZE,
+  COUNTRY_SECTION_ICON_SIZE,
+  countryDetailScreenStyles,
+} from "./CountryDetailScreen.styles";
 
 type CountryDetailRoute = RouteProp<RootStackParamList, "CountryDetail">;
 
@@ -76,6 +80,8 @@ const SECTIONS: CountrySection[] = [
 function CountryDetailScreenComponent() {
   const { t, i18n } = useTranslation();
   const { params } = useRoute<CountryDetailRoute>();
+  const styles = useStyles(countryDetailScreenStyles);
+  const colors = useThemeColors();
 
   const { data: country, isLoading } = useGetCountryDetailQuery(
     params.countryCode,
@@ -93,7 +99,7 @@ function CountryDetailScreenComponent() {
     (uri: string) => (
       <RemoteImage source={uri} style={styles.heroImage} />
     ),
-    [],
+    [styles.heroImage],
   );
 
   const subtitle = [country?.subregion, country?.capital?.[0]]
@@ -114,6 +120,7 @@ function CountryDetailScreenComponent() {
 
   return (
     <View style={styles.safe}>
+      {/* Fixed light: the status bar sits over the dark photo hero, not the themed background. */}
       <StatusBar style="light" />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -134,7 +141,7 @@ function CountryDetailScreenComponent() {
             {countryName}
           </Text>
           {subtitle ? (
-            <Text variant="body" textAlign="center" style={styles.subtitle}>
+            <Text variant="body" textAlign="center" color="muted">
               {subtitle}
             </Text>
           ) : null}
@@ -143,17 +150,17 @@ function CountryDetailScreenComponent() {
         <View style={styles.sectionDivider} />
         <PressableScale style={styles.section} onPress={() => {}}>
           <CalendarMonthIcon
-            width={22}
-            height={22}
-            color={colors.iconPrimary}
+            width={COUNTRY_SECTION_ICON_SIZE}
+            height={COUNTRY_SECTION_ICON_SIZE}
+            color={colors.foreground}
           />
           <View style={styles.sectionInfo}>
             <Text variant="bodyMedium">{t("country.createTemplate")}</Text>
           </View>
           <ChevronRightIcon
-            width={18}
-            height={18}
-            color={colors.iconPrimary}
+            width={COUNTRY_CHEVRON_SIZE}
+            height={COUNTRY_CHEVRON_SIZE}
+            color={colors.foreground}
           />
         </PressableScale>
 
@@ -161,20 +168,24 @@ function CountryDetailScreenComponent() {
           <Fragment key={id}>
             <View style={styles.sectionDivider} />
             <PressableScale style={styles.section} onPress={() => {}}>
-              <Icon width={22} height={22} color={colors.iconPrimary} />
+              <Icon
+                width={COUNTRY_SECTION_ICON_SIZE}
+                height={COUNTRY_SECTION_ICON_SIZE}
+                color={colors.foreground}
+              />
               <View style={styles.sectionInfo}>
                 <Text variant="bodyMedium">{t(titleKey)}</Text>
-                <Text variant="captionMedium" style={styles.sectionSubtitle}>
+                <Text variant="captionMedium" color="muted">
                   {t(subtitleKey)}
                 </Text>
-                <Text variant="caption" style={styles.seeMore}>
+                <Text variant="caption" color="accent" style={styles.seeMore}>
                   {t("country.seeMore")}
                 </Text>
               </View>
               <ChevronRightIcon
-                width={18}
-                height={18}
-                color={colors.iconPrimary}
+                width={COUNTRY_CHEVRON_SIZE}
+                height={COUNTRY_CHEVRON_SIZE}
+                color={colors.foreground}
               />
             </PressableScale>
           </Fragment>

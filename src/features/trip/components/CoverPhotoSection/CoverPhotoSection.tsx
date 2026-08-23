@@ -4,9 +4,10 @@ import { Image } from "expo-image";
 import { useTranslation } from "react-i18next";
 
 import { PressableScale, Spinner, Text } from "@shared/components";
+import { useStyles } from "@shared/hooks";
 import { DEFAULT_COVER_PHOTOS } from "../../constants";
 import { useCoverPhotosQuery } from "../../hooks/query";
-import { styles } from "./CoverPhotoSection.styles";
+import { coverPhotoSectionStyles } from "./CoverPhotoSection.styles";
 
 export type CoverPhotoSectionProps = {
   city: string;
@@ -24,6 +25,7 @@ function CoverPhotoSectionComponent({
   onUploadPress,
 }: CoverPhotoSectionProps) {
   const { t } = useTranslation();
+  const styles = useStyles(coverPhotoSectionStyles);
   const { data: suggestions, isFetching } = useCoverPhotosQuery(city);
 
   const photos = useMemo(() => {

@@ -12,6 +12,7 @@ import {
   MapView,
 } from "@shared/components";
 import { CalendarMonthIcon, LocationIcon, MapIcon } from "@shared/assets/icons";
+import { useStyles } from "@shared/hooks";
 import type { RootStackParamList } from "@shared/navigation";
 import {
   AddPlacesSheet,
@@ -25,7 +26,7 @@ import {
   useTripDetailActions,
 } from "../../hooks";
 import { resolveActiveDayNumber } from "../../utils";
-import { styles } from "./TripDetailScreen.styles";
+import { tripDetailStyles } from "./TripDetailScreen.styles";
 
 type TripDetailRoute = RouteProp<RootStackParamList, "TripDetail">;
 
@@ -33,6 +34,7 @@ function TripDetailScreenComponent() {
   const { t } = useTranslation();
   const { params } = useRoute<TripDetailRoute>();
   const { id, mode, preview } = params;
+  const styles = useStyles(tripDetailStyles);
 
   const {
     detail,
@@ -77,6 +79,7 @@ function TripDetailScreenComponent() {
 
   return (
     <View style={styles.safe}>
+      {/* Fixed light: the status bar sits over the scrimmed photo hero. */}
       <StatusBar style="light" />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -92,7 +95,7 @@ function TripDetailScreenComponent() {
         <BackButton />
         <View style={styles.body}>
           <View style={styles.titleBlock}>
-            <Text variant="h1">{title}</Text>
+            <Text variant="h2">{title}</Text>
             <View style={styles.metaContainer}>
               {location ? (
                 <>

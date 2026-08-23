@@ -1,11 +1,12 @@
-import { StyleSheet } from "react-native";
-import { colors, spacing } from "@shared/styles";
+import { spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+const SCREEN_INSET = spacing.md - 4;
+
+export const dashboardScreenStyles = themed(({ colors }) => ({
   safe: {
     flex: 1,
     backgroundColor: colors.background,
-    padding: spacing.md - 4,
-    gap: spacing.md - 4,
+    padding: SCREEN_INSET,
+    gap: SCREEN_INSET,
   },
-});
+}));

@@ -1,10 +1,10 @@
 import { lightColors } from "./light";
 
 /**
- * @deprecated Light-theme snapshot of the old 35-token palette, kept so
- * unmigrated feature styles keep compiling. It does NOT react to theme
- * changes — anything still reading it renders light in dark mode.
- * Migrate to `themed()` + `useStyles`.
+ * @deprecated Light-theme snapshot of the old 35-token palette. No longer has
+ * any consumers — kept only as a mapping reference to the new tokens, and safe
+ * to delete. Do not import it: it does NOT react to theme changes, so anything
+ * reading it renders light in dark mode. Use `themed()` + `useStyles` instead.
  */
 export const colors = {
   primary: lightColors.accent,

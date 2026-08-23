@@ -2,9 +2,12 @@ import { memo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Radio, Text } from "@shared/components";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import type { OptionItemType } from "@shared/types";
-import { REGION_ICON_SIZE, styles } from "./SearchFilterCard.styles";
+import {
+  REGION_ICON_SIZE,
+  searchFilterCardStyles,
+} from "./SearchFilterCard.styles";
 import type { SearchFilters } from "../../types";
 
 type FilterOptionProps<T extends string> = {
@@ -23,6 +26,8 @@ function FilterOptionComponent<T extends string>({
   onToggle,
 }: FilterOptionProps<T>) {
   const { t } = useTranslation();
+  const styles = useStyles(searchFilterCardStyles);
+  const colors = useThemeColors();
 
   const handleSelectedChange = useCallback(() => {
     onToggle(filterKey, option.value);
@@ -40,7 +45,7 @@ function FilterOptionComponent<T extends string>({
         <option.Icon
           width={REGION_ICON_SIZE}
           height={REGION_ICON_SIZE}
-          color={isSelected ? colors.primary : colors.iconSecondary}
+          color={isSelected ? colors.accent : colors.muted}
         />
       ) : null}
       <Text

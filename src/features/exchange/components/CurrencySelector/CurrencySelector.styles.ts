@@ -1,33 +1,36 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
 const FLAG_HEIGHT = 16;
-const FLAG_WIDHT = 22;
+const FLAG_WIDTH = 22;
+const SELECTOR_WIDTH = 108;
+const SELECTOR_PADDING = 10;
 
-export const styles = StyleSheet.create({
+export const currencySelectorStyles = themed(({ colors }) => ({
   selector: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
-    paddingVertical: spacing.md - 6,
-    paddingHorizontal: spacing.md - 6,
-    borderRadius: radius.md - 2,
-    backgroundColor: colors.surface,
-    width: 108,
+    paddingVertical: SELECTOR_PADDING,
+    paddingHorizontal: SELECTOR_PADDING,
+    borderRadius: radius.heroMd,
+    backgroundColor: colors.surfaceSecondary,
+    width: SELECTOR_WIDTH,
   },
   code: {
     flex: 1,
     textAlign: "center",
   },
   flag: {
-    width: FLAG_WIDHT,
+    width: FLAG_WIDTH,
     height: FLAG_HEIGHT,
-    borderRadius: radius.sm - 2,
+    borderRadius: radius.xs,
   },
   flagPlaceholder: {
-    width: FLAG_WIDHT,
+    width: FLAG_WIDTH,
     height: FLAG_HEIGHT,
     borderRadius: radius.sm,
     backgroundColor: colors.backgroundSecondary,
   },
-});
+}));
+
+export const CHEVRON_ICON_SIZE = 14;

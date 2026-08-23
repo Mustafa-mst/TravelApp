@@ -11,14 +11,19 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { IconButton, Spinner, Text } from "@shared/components";
-import { colors, spacing } from "@shared/styles";
-import { PlusIcon } from "@/shared/assets/icons";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { spacing } from "@shared/styles";
+import { PlusIcon } from "@shared/assets/icons";
 import type { BackTarget, RootStackParamList } from "@shared/navigation";
 import { TemplateFolderCard } from "../../components";
 import { TripDetailMode } from "../../constants";
 import { useDeleteTemplateMutation, useMyTemplateListQuery } from "../../hooks";
 import type { TripTemplate } from "../../types";
-import { styles } from "./TemplatesScreen.styles";
+import {
+  ADD_TEMPLATE_ICON_SIZE,
+  SCREEN_INSET,
+  templatesScreenStyles,
+} from "./TemplatesScreen.styles";
 
 export function TemplatesScreen() {
   const { t } = useTranslation();
@@ -28,9 +33,11 @@ export function TemplatesScreen() {
   const { data: templates, isLoading, error } = useMyTemplateListQuery();
   const { mutateAsync: deleteTemplate } = useDeleteTemplateMutation();
   const { width: screenWidth } = useWindowDimensions();
+  const styles = useStyles(templatesScreenStyles);
+  const colors = useThemeColors();
 
-  // Screen padding (12 each side) + the gap between the two columns.
-  const folderWidth = (screenWidth - (spacing.md - 4) * 2 - spacing.md) / 2;
+  // Screen padding on both sides + the gap between the two columns.
+  const folderWidth = (screenWidth - SCREEN_INSET * 2 - spacing.md) / 2;
 
   const confirmDelete = (item: TripTemplate) => {
     Alert.alert(
@@ -87,7 +94,13 @@ export function TemplatesScreen() {
           hitSlop={15}
           onPress={() => open({ target: "createTemplate" })}
           style={styles.addButton}
-          icon={<PlusIcon width={24} height={24} color={colors.textPrimary} />}
+          icon={
+            <PlusIcon
+              width={ADD_TEMPLATE_ICON_SIZE}
+              height={ADD_TEMPLATE_ICON_SIZE}
+              color={colors.foreground}
+            />
+          }
         />
       </View>
       <FlatList

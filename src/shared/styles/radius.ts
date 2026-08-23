@@ -1,6 +1,6 @@
-// `md`/`lg`/`xl`/`xxl` keep their pre-HeroUI values so the 37 unmigrated
-// feature styles stay pixel-identical. The HeroUI scale sits alongside under
-// `hero*` and the numeric names; the two merge in phase 2.
+// `md`/`lg`/`xl`/`xxl` keep their pre-HeroUI values so existing feature styles
+// stay pixel-identical. The HeroUI scale sits alongside under `hero*` and the
+// numeric names; the two merge in phase 2.
 export const radius = {
   xs: 2,
   sm: 4,

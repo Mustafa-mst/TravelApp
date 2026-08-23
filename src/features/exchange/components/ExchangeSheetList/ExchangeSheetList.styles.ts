@@ -1,7 +1,10 @@
-import { colors, spacing } from "@/shared/styles";
 import { StyleSheet } from "react-native";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+const FLAG_WIDTH = 26;
+const FLAG_HEIGHT = 18;
+
+export const exchangeSheetListStyles = themed(({ colors }) => ({
   option: {
     flexDirection: "row",
     alignItems: "center",
@@ -10,7 +13,7 @@ export const styles = StyleSheet.create({
   },
   optionDivider: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.border,
+    borderTopColor: colors.separatorSecondary,
   },
   optionText: {
     flexDirection: "row",
@@ -18,10 +21,12 @@ export const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   flag: {
-    width: 26,
-    height: 18,
-    borderRadius: 4,
+    width: FLAG_WIDTH,
+    height: FLAG_HEIGHT,
+    borderRadius: radius.sm,
     borderWidth: 1,
-    borderColor: colors.borderMuted,
+    borderColor: colors.border,
   },
-});
+}));
+
+export const CHECKBOX_ICON_SIZE = 18;

@@ -20,7 +20,7 @@ export const lightColors: ThemeColors = {
   defaultForeground: "#18181B",
   defaultHover: "#E1E1E2",
   defaultSoft: "rgba(235, 235, 236, 0.5)",
-  defaultSoftHover: "rgba(235, 235, 236, 0.6)",
+  defaultSoftHover: "rgba(1, 1, 32, 0.6)",
 
   accent: "#0485F7",
   accentForeground: "#FCFCFC",

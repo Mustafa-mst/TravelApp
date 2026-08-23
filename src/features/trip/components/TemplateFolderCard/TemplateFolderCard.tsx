@@ -10,9 +10,9 @@ import {
   SquareTombImage,
 } from "@shared/assets/images";
 import { PressableScale, Text } from "@shared/components";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { countryCodeToFlag } from "@shared/utils/country";
-import { styles } from "./TemplateFolderCard.styles";
+import { templateFolderCardStyles } from "./TemplateFolderCard.styles";
 
 /**
  * Ratios measured off the original Figma folder SVGs (296.57 x 249.99 artboard)
@@ -84,6 +84,8 @@ function TemplateFolderCardComponent({
   onPress,
   onLongPress,
 }: TemplateFolderCardProps) {
+  const styles = useStyles(templateFolderCardStyles);
+  const colors = useThemeColors();
   const height = width * ASPECT;
   const radius = width * RADIUS;
   const frontHeight = height * FRONT_HEIGHT;
@@ -127,8 +129,6 @@ function TemplateFolderCardComponent({
                     top: height * y,
                     width: photoWidth,
                     height: photoWidth * ratio,
-                    borderWidth: 2,
-                    borderRadius: 8,
                     transform: [{ rotate: `${angle}deg` }],
                   },
                 ]}

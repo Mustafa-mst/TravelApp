@@ -4,10 +4,11 @@ import { useTranslation } from "react-i18next";
 
 import { Divider, PressableScale, RemoteImage, Text } from "@shared/components";
 import { CalendarMonthIcon, MapIcon } from "@shared/assets/icons";
+import { useStyles } from "@shared/hooks";
 import { PLACE_TYPE_META } from "@/features/places/constants";
 import type { TemplateCard as TemplateCardType } from "../../types";
 import { MetaInfo } from "../MetaInfo";
-import { styles } from "./TemplateCard.styles";
+import { templateCardStyles } from "./TemplateCard.styles";
 
 const MAX_VISIBLE_CHIPS = 2;
 
@@ -29,6 +30,7 @@ function TemplateCardComponent({
   onPress,
 }: TemplateCardProps) {
   const { t } = useTranslation();
+  const styles = useStyles(templateCardStyles);
 
   const typeChips = Array.from(new Set(placeTypes ?? [])).map((type) => ({
     type,
@@ -40,7 +42,7 @@ function TemplateCardComponent({
   return (
     <PressableScale style={styles.card} onPress={onPress}>
       <View style={styles.info}>
-        <Text variant="h5" numberOfLines={2}>
+        <Text variant="bodyLargeSemiBold" numberOfLines={2}>
           {title}
         </Text>
         <View style={styles.metaRow}>

@@ -3,8 +3,8 @@ import { View } from "react-native";
 import { type SvgProps } from "react-native-svg";
 
 import { Text } from "@shared/components";
-import { colors } from "@shared/styles";
-import { styles } from "./MetaInfo.styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { META_INFO_ICON_SIZE, metaInfoStyles } from "./MetaInfo.styles";
 
 export type MetaInfoProps = {
   Icon: ComponentType<SvgProps>;
@@ -12,10 +12,22 @@ export type MetaInfoProps = {
 };
 
 function MetaInfoComponent({ Icon, label }: MetaInfoProps) {
+  const styles = useStyles(metaInfoStyles);
+  const colors = useThemeColors();
+
   return (
     <View style={styles.row}>
-      <Icon width={16} height={16} color={colors.textMuted} />
-      <Text variant="bodySemiBold" style={styles.text} numberOfLines={1}>
+      <Icon
+        width={META_INFO_ICON_SIZE}
+        height={META_INFO_ICON_SIZE}
+        color={colors.muted}
+      />
+      <Text
+        variant="bodySemiBold"
+        color="muted"
+        style={styles.text}
+        numberOfLines={1}
+      >
         {label}
       </Text>
     </View>

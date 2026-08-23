@@ -1,8 +1,6 @@
-import { StyleSheet } from "react-native";
+import { spacing, themed } from "@shared/styles";
 
-import { colors, spacing } from "@shared/styles";
-
-export const styles = StyleSheet.create({
+export const metaInfoStyles = themed(({ colors }) => ({
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -10,7 +8,8 @@ export const styles = StyleSheet.create({
     flexShrink: 1,
   },
   text: {
-    color: colors.textMuted,
     flexShrink: 1,
   },
-});
+}));
+
+export const META_INFO_ICON_SIZE = 16;

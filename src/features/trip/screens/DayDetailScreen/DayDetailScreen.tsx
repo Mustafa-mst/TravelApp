@@ -15,12 +15,13 @@ import {
   MapView,
 } from "@shared/components";
 import { PlusIcon } from "@shared/assets/icons";
+import { useStyles } from "@shared/hooks";
 import type { RootStackParamList } from "@shared/navigation";
 import { formatDistance, formatDuration } from "@/features/routes/utils";
 import { AddPlacesSheet, DayTimelineCard } from "../../components";
 import { useDayDetail } from "../../hooks";
 import { collectPlaceIds } from "../../utils";
-import { styles } from "./DayDetailScreen.styles";
+import { ADD_STOP_ICON_SIZE, dayDetailStyles } from "./DayDetailScreen.styles";
 
 type DayDetailRoute = RouteProp<RootStackParamList, "DayDetail">;
 
@@ -28,6 +29,7 @@ function DayDetailScreenComponent() {
   const { t } = useTranslation();
   const { params } = useRoute<DayDetailRoute>();
   const { id, mode, dayId } = params;
+  const styles = useStyles(dayDetailStyles);
 
   const {
     day,
@@ -94,11 +96,12 @@ function DayDetailScreenComponent() {
         style={styles.metaSeparator}
       />
     ),
-    [],
+    [styles],
   );
 
   return (
     <View style={styles.safe}>
+      {/* Fixed dark: the status bar sits over the map hero, which stays light. */}
       <StatusBar style="dark" />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -121,7 +124,7 @@ function DayDetailScreenComponent() {
             {day ? (
               <View style={styles.content}>
                 <View style={styles.titleBlock}>
-                  <Text variant="h1">
+                  <Text variant="h2">
                     {t("template.detail.dayLabel", { day: day.day_number })}
                   </Text>
                 </View>
@@ -134,7 +137,7 @@ function DayDetailScreenComponent() {
                 />
                 <Divider variant="dot" margin={0} />
                 <View style={styles.sectionHeader}>
-                  <Text variant="h3" style={styles.sectionTitle}>
+                  <Text variant="h6" style={styles.sectionTitle}>
                     {t("template.detail.stopsTitle")}
                   </Text>
                   {canEdit ? (
@@ -142,7 +145,10 @@ function DayDetailScreenComponent() {
                       style={styles.addButton}
                       onPress={openAddStop}
                     >
-                      <PlusIcon width={14} height={14} />
+                      <PlusIcon
+                        width={ADD_STOP_ICON_SIZE}
+                        height={ADD_STOP_ICON_SIZE}
+                      />
                       <Text>{t("template.detail.addStop")}</Text>
                     </PressableScale>
                   ) : null}

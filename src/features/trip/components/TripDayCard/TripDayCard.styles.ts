@@ -1,8 +1,8 @@
-import { StyleSheet } from "react-native";
+import { radius, spacing, themed } from "@shared/styles";
 
-import { colors, radius, shadows, spacing } from "@shared/styles";
+const PHOTO_SIZE = 96;
 
-export const styles = StyleSheet.create({
+export const tripDayCardStyles = themed((theme) => ({
   flex: {
     flex: 1,
   },
@@ -10,15 +10,15 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     gap: spacing.sm,
-    backgroundColor: colors.white,
+    backgroundColor: theme.colors.surface,
     borderRadius: radius.lg,
     padding: spacing.md,
-    ...shadows.level1,
+    ...theme.shadows.level1,
+    ...theme.elevatedBorder,
   },
   emptyCard: {
     flexDirection: "column",
     alignItems: "flex-start",
-    ...shadows.level1,
   },
   emptyBody: {
     flexDirection: "row",
@@ -40,15 +40,14 @@ export const styles = StyleSheet.create({
   badge: {
     alignSelf: "flex-start",
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: theme.colors.border,
     borderRadius: radius.full,
     paddingVertical: 2,
     paddingHorizontal: spacing.sm,
     marginBottom: spacing.xs,
   },
   badgeActive: {
-    borderColor: colors.primary,
-    backgroundColor: colors.surface,
+    borderColor: theme.colors.accent,
   },
   chips: {
     flexDirection: "row",
@@ -57,19 +56,19 @@ export const styles = StyleSheet.create({
     marginTop: spacing.xs,
   },
   chip: {
-    backgroundColor: colors.backgroundTertiary,
+    backgroundColor: theme.colors.background,
     borderRadius: radius.full,
     paddingVertical: spacing.xs,
     paddingHorizontal: spacing.sm,
   },
   photoColumn: {
-    width: 96,
+    width: PHOTO_SIZE,
     alignItems: "center",
     gap: spacing.xs,
   },
   photo: {
-    width: 96,
-    height: 96,
+    width: PHOTO_SIZE,
+    height: PHOTO_SIZE,
     borderRadius: radius.lg,
   },
-});
+}));

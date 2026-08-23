@@ -1,12 +1,11 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, shadows, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
 const HERO_HEIGHT = 280;
 
-export const styles = StyleSheet.create({
+export const dayDetailStyles = themed((theme) => ({
   safe: {
     flex: 1,
-    backgroundColor: colors.backgroundTertiary,
+    backgroundColor: theme.colors.background,
   },
   scrollContent: {
     paddingBottom: spacing.xxl,
@@ -49,11 +48,14 @@ export const styles = StyleSheet.create({
     paddingVertical: spacing.xs,
     paddingHorizontal: spacing.md - 4,
     borderRadius: radius.full,
-    backgroundColor: colors.white,
-    ...shadows.level1,
+    backgroundColor: theme.colors.surface,
+    ...theme.shadows.level1,
+    ...theme.elevatedBorder,
   },
   items: {
     paddingTop: spacing.xs,
     gap: spacing.md,
   },
-});
+}));
+
+export const ADD_STOP_ICON_SIZE = 14;

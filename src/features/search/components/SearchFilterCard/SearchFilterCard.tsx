@@ -13,13 +13,14 @@ import {
   LanguageOutline,
   PeopleOutline,
 } from "@shared/assets/icons";
+import { useStyles } from "@shared/hooks";
 import type { OptionsType } from "@shared/types";
 import {
   getOptionList,
   getSelectedOptionLabel,
 } from "@shared/utils/option";
 import { FilterOption } from "./FilterOption";
-import { styles } from "./SearchFilterCard.styles";
+import { searchFilterCardStyles } from "./SearchFilterCard.styles";
 import {
   CONTINENT_OPTIONS,
   LANGUAGE_OPTIONS,
@@ -37,6 +38,7 @@ const SearchFilterCardComponent = ({
   onApply,
 }: SearchFilterCardProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(searchFilterCardStyles);
   const [draft, setDraft] = useState<SearchFilters>(filters);
 
   useEffect(() => {

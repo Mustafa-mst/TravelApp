@@ -1,7 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { colors, spacing, typography } from '@shared/styles';
+import { spacing, themed, typography } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const loginScreenStyles = themed(({ colors }) => ({
   safe: {
     flex: 1,
     backgroundColor: colors.background,
@@ -10,10 +9,10 @@ export const styles = StyleSheet.create({
     flex: 1,
     padding: spacing.lg,
     gap: spacing.lg,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   title: {
     ...typography.h3,
-    color: colors.text,
+    color: colors.foreground,
   },
-});
+}));

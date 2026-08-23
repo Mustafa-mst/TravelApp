@@ -1,11 +1,12 @@
-import { StyleSheet } from "react-native";
-import { colors, spacing, typography } from "@shared/styles";
+import { spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+const SCREEN_GUTTER = spacing.md - 4;
+
+export const searchScreenStyles = themed(({ colors }) => ({
   safe: {
     flex: 1,
     backgroundColor: colors.background,
-    padding: spacing.md - 4,
-    gap: spacing.md - 4,
+    padding: SCREEN_GUTTER,
+    gap: SCREEN_GUTTER,
   },
-});
+}));

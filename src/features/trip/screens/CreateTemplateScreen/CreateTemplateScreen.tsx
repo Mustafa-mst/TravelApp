@@ -5,6 +5,7 @@ import { useRoute, type RouteProp } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 
 import { Button, type BottomSheet } from "@shared/components";
+import { useStyles } from "@shared/hooks";
 import type { TemplateStackParamList } from "@shared/navigation";
 import {
   CitySearchSheet,
@@ -12,12 +13,13 @@ import {
   TripDetailsSection,
 } from "../../components";
 import { useTemplateForm } from "../../hooks";
-import { styles } from "./CreateTemplateScreen.styles";
+import { createTemplateScreenStyles } from "./CreateTemplateScreen.styles";
 
 export function CreateTemplateScreen() {
   const { t } = useTranslation();
   const route = useRoute<RouteProp<TemplateStackParamList, "CreateTemplate">>();
   const citySheetRef = useRef<BottomSheet>(null);
+  const styles = useStyles(createTemplateScreenStyles);
   const {
     control,
     errors,

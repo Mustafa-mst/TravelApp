@@ -1,5 +1,11 @@
 import { useCallback, useState, type RefObject } from "react";
-import { Keyboard, Pressable, View } from "react-native";
+import {
+  Keyboard,
+  Pressable,
+  View,
+  type StyleProp,
+  type TextStyle,
+} from "react-native";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -9,12 +15,15 @@ import {
   Spinner,
   Text,
 } from "@shared/components";
-import { colors } from "@shared/styles";
 import { CheckboxCheckedIcon, LocationIcon } from "@/shared/assets/icons";
 import { useSearchCitiesQuery } from "../../hooks";
-import { MIN_QUERY_LENGTH } from "@shared/hooks";
+import { MIN_QUERY_LENGTH, useStyles, useThemeColors } from "@shared/hooks";
 import type { City, SelectedCity } from "../../types";
-import { styles } from "./CitySearchSheet.styles";
+import {
+  CITY_CHECK_ICON_SIZE,
+  CITY_PIN_ICON_SIZE,
+  citySearchSheetStyles,
+} from "./CitySearchSheet.styles";
 
 export type CitySearchSheetProps = {
   bottomSheetRef: RefObject<BottomSheet | null>;
@@ -28,6 +37,8 @@ export function CitySearchSheet({
   onSelectCity,
 }: CitySearchSheetProps) {
   const { t } = useTranslation();
+  const styles = useStyles(citySearchSheetStyles);
+  const colors = useThemeColors();
   const [searchQuery, setSearchQuery] = useState("");
 
   const { data: results, isLoading, isError } = useSearchCitiesQuery(searchQuery);
@@ -65,7 +76,11 @@ export function CitySearchSheet({
       >
         <View style={styles.info}>
           <View style={styles.pinContainer}>
-            <LocationIcon color={colors.primary} width={20} height={20} />
+            <LocationIcon
+              color={colors.accent}
+              width={CITY_PIN_ICON_SIZE}
+              height={CITY_PIN_ICON_SIZE}
+            />
           </View>
           <Text
             variant="bodyMedium"
@@ -78,7 +93,11 @@ export function CitySearchSheet({
         </View>
 
         {isSelected ? (
-          <CheckboxCheckedIcon width={18} height={18} color={colors.primary} />
+          <CheckboxCheckedIcon
+            width={CITY_CHECK_ICON_SIZE}
+            height={CITY_CHECK_ICON_SIZE}
+            color={colors.accent}
+          />
         ) : null}
       </Pressable>
     );
@@ -86,7 +105,7 @@ export function CitySearchSheet({
 
   const renderEmptyState = () => {
     if (searchQuery.trim().length < MIN_QUERY_LENGTH) {
-      return renderEmptyText(t("template.cityMinChars"));
+      return renderEmptyText(t("template.cityMinChars"), styles.emptyText);
     }
 
     if (isLoading) {
@@ -97,6 +116,7 @@ export function CitySearchSheet({
 
     return renderEmptyText(
       isError ? t("template.searchError") : t("template.noResults"),
+      styles.emptyText,
     );
   };
 
@@ -127,12 +147,14 @@ export function CitySearchSheet({
 }
 
 function ItemSeparator() {
+  const styles = useStyles(citySearchSheetStyles);
+
   return <View style={styles.rowDivider} />;
 }
 
-function renderEmptyText(message: string) {
+function renderEmptyText(message: string, style: StyleProp<TextStyle>) {
   return (
-    <Text variant="body" color="muted" style={styles.emptyText}>
+    <Text variant="body" color="muted" style={style}>
       {message}
     </Text>
   );
