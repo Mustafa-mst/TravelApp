@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { Alert } from "react-native";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useBackLayer } from "react-native-layer-stack";
+import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { useTranslation } from "react-i18next";
 
@@ -36,7 +36,7 @@ function toSelectedCity(template: TripTemplate): SelectedCity | null {
 
 export function useTemplateForm(initial?: TripTemplate) {
   const { t } = useTranslation();
-  const { close } = useBackLayer();
+  const navigation = useNavigation();
   const session = useAuthStore((state) => state.session);
   const isEditing = Boolean(initial);
 
@@ -148,7 +148,7 @@ export function useTemplateForm(initial?: TripTemplate) {
       } else {
         await createTemplate(payload);
       }
-      close();
+      navigation.goBack();
     } catch (error) {
       Alert.alert(
         t("template.saveError"),
@@ -160,8 +160,8 @@ export function useTemplateForm(initial?: TripTemplate) {
   });
 
   const cancel = useCallback(() => {
-    close();
-  }, [close]);
+    navigation.goBack();
+  }, [navigation]);
 
   return {
     control,

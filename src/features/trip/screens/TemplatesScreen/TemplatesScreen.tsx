@@ -7,14 +7,13 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
-import { useFrontLayer } from "react-native-layer-stack";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { IconButton, Text } from "@shared/components";
 import { colors, spacing } from "@shared/styles";
 import { PlusIcon } from "@/shared/assets/icons";
-import type { BackTarget, RootStackParamList } from "@shared/navigation";
+import type { RootStackParamList } from "@shared/navigation";
 import { TemplateFolderCard } from "../../components";
 import { TripDetailMode } from "../../constants";
 import { useDeleteTemplateMutation, useMyTemplateListQuery } from "../../hooks";
@@ -23,7 +22,6 @@ import { styles } from "./TemplatesScreen.styles";
 
 export function TemplatesScreen() {
   const { t } = useTranslation();
-  const { open } = useFrontLayer<BackTarget>();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { data: templates, isLoading, error } = useMyTemplateListQuery();
@@ -86,7 +84,7 @@ export function TemplatesScreen() {
         <IconButton
           variant="filled"
           hitSlop={15}
-          onPress={() => open({ target: "createTemplate" })}
+          onPress={() => navigation.navigate("CreateTemplate")}
           style={styles.addButton}
           icon={<PlusIcon width={24} height={24} color={colors.textPrimary} />}
         />
