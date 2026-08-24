@@ -1,21 +1,8 @@
-import { ActivityIndicator, View } from "react-native";
-import { LayerStack } from "react-native-layer-stack";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 import { useSessionQuery } from "@/features/auth";
-import { ExchangeNavigator } from "@/features/exchange";
-import { TemplateNavigator } from "@/features/trip";
 import { colors } from "@shared/styles";
 import { FrontNavigator } from "./FrontNavigator";
-import type { BackTarget } from "./types";
-import { styles } from "./RootNavigator.styles";
-
-function renderBack(target: BackTarget) {
-  switch (target.target) {
-    case "exchange":
-      return <ExchangeNavigator />;
-    case "createTemplate":
-      return <TemplateNavigator template={target.params?.template} />;
-  }
-}
 
 export function RootNavigator() {
   const { isLoading } = useSessionQuery();
@@ -29,9 +16,17 @@ export function RootNavigator() {
   }
 
   return (
-    <LayerStack<BackTarget>
-      front={<FrontNavigator />}
-      renderBack={renderBack}
-    />
+    <NavigationContainer>
+      <FrontNavigator />
+    </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  splash: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.background,
+  },
+});

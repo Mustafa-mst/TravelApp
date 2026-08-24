@@ -2,13 +2,19 @@ import { StyleSheet } from "react-native";
 import { colors, spacing } from "@shared/styles";
 
 export const styles = StyleSheet.create({
-  panelContent: {
-    paddingHorizontal: 0,
+  screen: {
+    flex: 1,
     backgroundColor: colors.white,
-    overflow: "hidden",
-    paddingBottom: 0,
+    gap: spacing.md,
   },
   flex: {
     flex: 1,
+  },
+  content: {
+    flex: 1,
+    overflow: "hidden",
+  },
+  footer: {
+    paddingHorizontal: spacing.md - 4,
   },
 });
