@@ -35,7 +35,6 @@ import { TextFieldError } from "./TextFieldError";
 import { TextFieldLabel } from "./TextFieldLabel";
 import {
   BORDER_TINT_MS,
-  CLEAR_BORDER,
   CLEAR_BUTTON_SIZE,
   CLEAR_ICON_SIZE,
   ICON_HIT_SLOP,
@@ -69,7 +68,7 @@ function TextFieldComponent({
   label,
   description,
   errorMessage,
-  variant = "primary",
+  variant = "primaryBorder",
   isRequired = false,
   isInvalid = false,
   isDisabled = false,
@@ -136,7 +135,7 @@ function TextFieldComponent({
       ? colors.danger
       : isFocused
         ? colors[palette.borderFocused]
-        : CLEAR_BORDER;
+        : colors[palette.border];
 
     if (!animated) {
       return { borderColor: border };
@@ -166,6 +165,7 @@ function TextFieldComponent({
       <Animated.View
         style={[
           styles.fieldOuter,
+          palette.bordered ? styles.fieldBordered : styles.fieldElevated,
           { backgroundColor: colors[palette.background] },
           isDisabled && styles.disabled,
           borderStyle,

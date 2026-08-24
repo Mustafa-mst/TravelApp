@@ -53,7 +53,7 @@ export const darkColors: ThemeColors = {
   fieldBackground: "#18181B",
   fieldForeground: "#FCFCFC",
   fieldPlaceholder: "#9F9FA9",
-  fieldBorder: "transparent",
+  fieldBorder: "rgba(0, 0, 0, 0)",
   fieldHover: "#1C1C1F",
 
   segment: "#46464C",

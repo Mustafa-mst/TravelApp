@@ -1,1 +1,1 @@
-export type TextFieldVariant = "primary" | "secondary";
+export type TextFieldVariant = "primary" | "primaryBorder" | "secondary";

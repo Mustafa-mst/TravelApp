@@ -1,12 +1,11 @@
 import { useRef } from "react";
-import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
-import { BackPanel } from "react-native-layer-stack";
+import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useRoute, type RouteProp } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 
 import { Button, type BottomSheet } from "@shared/components";
-import { useStyles } from "@shared/hooks";
-import type { TemplateStackParamList } from "@shared/navigation";
+import type { RootStackParamList } from "@shared/navigation";
 import {
   CitySearchSheet,
   CreateTemplateHeader,
@@ -14,10 +13,11 @@ import {
 } from "../../components";
 import { useTemplateForm } from "../../hooks";
 import { createTemplateScreenStyles } from "./CreateTemplateScreen.styles";
+import { useStyles } from "@/shared/hooks";
 
 export function CreateTemplateScreen() {
   const { t } = useTranslation();
-  const route = useRoute<RouteProp<TemplateStackParamList, "CreateTemplate">>();
+  const route = useRoute<RouteProp<RootStackParamList, "CreateTemplate">>();
   const citySheetRef = useRef<BottomSheet>(null);
   const styles = useStyles(createTemplateScreenStyles);
   const {
@@ -40,47 +40,48 @@ export function CreateTemplateScreen() {
   } = useTemplateForm(route.params?.template);
 
   return (
-    <BackPanel
-      contentStyle={styles.panelContent}
-      footer={
-        <Button
-          fullWidth
-          label={t(isEditing ? "template.save" : "template.add")}
-          isLoading={isSubmitting}
-          isDisabled={!canSubmit}
-          onPress={submit}
-        />
-      }
-    >
-      <CreateTemplateHeader
-        isEditing={isEditing}
-        isSubmitting={isSubmitting}
-        onCancel={cancel}
-      />
+    <SafeAreaView edges={["top", "bottom"]} style={styles.screen}>
       <KeyboardAvoidingView
         style={styles.flex}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
-        <ScrollView
-          style={styles.flex}
-          keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
-          showsVerticalScrollIndicator={false}
-        >
-          <TripDetailsSection
-            control={control}
-            errors={errors}
-            selectedCity={selectedCity}
-            onCityPress={() => citySheetRef.current?.present()}
-            daysCount={daysCount}
-            onDaysCountChange={handleDaysCountChange}
-            city={city}
-            coverPhoto={coverPhoto}
-            uploadedPhoto={uploadedPhoto}
-            onSelectCoverPhoto={selectCoverPhoto}
-            onUploadPhotoPress={pickFromGallery}
+        <View style={styles.content}>
+          <CreateTemplateHeader
+            isEditing={isEditing}
+            isSubmitting={isSubmitting}
+            onCancel={cancel}
           />
-        </ScrollView>
+          <ScrollView
+            style={styles.flex}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            showsVerticalScrollIndicator={false}
+          >
+            <TripDetailsSection
+              control={control}
+              errors={errors}
+              selectedCity={selectedCity}
+              onCityPress={() => citySheetRef.current?.present()}
+              daysCount={daysCount}
+              onDaysCountChange={handleDaysCountChange}
+              city={city}
+              coverPhoto={coverPhoto}
+              uploadedPhoto={uploadedPhoto}
+              onSelectCoverPhoto={selectCoverPhoto}
+              onUploadPhotoPress={pickFromGallery}
+            />
+          </ScrollView>
+        </View>
+
+        <View style={styles.footer}>
+          <Button
+            fullWidth
+            label={t(isEditing ? "template.save" : "template.add")}
+            isLoading={isSubmitting}
+            isDisabled={!canSubmit}
+            onPress={submit}
+          />
+        </View>
       </KeyboardAvoidingView>
 
       <CitySearchSheet
@@ -88,6 +89,6 @@ export function CreateTemplateScreen() {
         selectedCity={selectedCity}
         onSelectCity={selectCity}
       />
-    </BackPanel>
+    </SafeAreaView>
   );
 }

@@ -3,7 +3,11 @@ import { useThemeColors } from "@shared/hooks";
 import { LoginScreen } from "@/features/auth";
 import { CountryDetailScreen } from "@/features/country";
 import { SearchScreen } from "@/features/search";
-import { DayDetailScreen, TripDetailScreen } from "@/features/trip";
+import {
+  CreateTemplateScreen,
+  DayDetailScreen,
+  TripDetailScreen,
+} from "@/features/trip";
 import { TabNavigator } from "./TabNavigator";
 import type { RootStackParamList } from "./types";
 
@@ -43,6 +47,15 @@ export function FrontNavigator() {
       <Stack.Screen
         name="DayDetail"
         component={DayDetailScreen}
+      />
+      <Stack.Screen
+        name="CreateTemplate"
+        component={CreateTemplateScreen}
+        options={{
+          animationDuration: 350,
+          animation: "slide_from_bottom",
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );

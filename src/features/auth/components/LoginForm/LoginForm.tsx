@@ -46,6 +46,7 @@ function LoginFormComponent({ form, onSubmit, isSubmitting }: LoginFormProps) {
         render={({ field: { onChange, onBlur, value } }) => (
           <TextField
             label={t("auth.password")}
+            variant="primaryBorder"
             placeholder={t("auth.passwordPlaceholder")}
             secureTextEntry
             autoCapitalize="none"

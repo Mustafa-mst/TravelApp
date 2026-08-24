@@ -53,7 +53,7 @@ export const lightColors: ThemeColors = {
   fieldBackground: "#FFFFFF",
   fieldForeground: "#18181B",
   fieldPlaceholder: "#71717A",
-  fieldBorder: "transparent",
+  fieldBorder: "rgba(0, 0, 0, 0)",
   fieldHover: "#F9F9F9",
 
   segment: "#FFFFFF",

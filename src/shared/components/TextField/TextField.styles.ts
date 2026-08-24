@@ -1,7 +1,6 @@
 import { radius, spacing, themed, typography, type ColorToken } from "@shared/styles";
 
 import {
-  CLEAR_BORDER,
   DISABLED_OPACITY,
   FIELD_BORDER_WIDTH,
   FIELD_GAP,
@@ -17,12 +16,15 @@ export const textFieldStyles = themed(({ colors, shadows }) => ({
     flexDirection: "row",
     alignItems: "center",
   },
-  /** Carries the ring and background; the inner row owns the touch area. */
   fieldOuter: {
     borderWidth: FIELD_BORDER_WIDTH,
-    borderColor: CLEAR_BORDER,
     borderRadius: radius.field,
+  },
+  fieldElevated: {
     ...shadows.level1,
+  },
+  fieldBordered: {
+    ...shadows.field,
   },
   field: {
     flexDirection: "row",
@@ -65,10 +67,30 @@ export const textFieldStyles = themed(({ colors, shadows }) => ({
 
 type TextFieldPalette = {
   background: ColorToken;
+  /** Idle border. `fieldBorder` is transparent — only the ring shows on focus. */
+  border: ColorToken;
   borderFocused: ColorToken;
+  /** Tighter shadcn-style shadow under a visible border, level1 otherwise. */
+  bordered: boolean;
 };
 
 export const textFieldVariants: Record<TextFieldVariant, TextFieldPalette> = {
-  primary: { background: "fieldBackground", borderFocused: "focus" },
-  secondary: { background: "default", borderFocused: "focus" },
+  primary: {
+    background: "fieldBackground",
+    border: "fieldBorder",
+    borderFocused: "focus",
+    bordered: false,
+  },
+  primaryBorder: {
+    background: "fieldBackground",
+    border: "border",
+    borderFocused: "focus",
+    bordered: true,
+  },
+  secondary: {
+    background: "default",
+    border: "fieldBorder",
+    borderFocused: "focus",
+    bordered: false,
+  },
 };

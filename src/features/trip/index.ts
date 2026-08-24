@@ -1,5 +1,9 @@
-export { TemplatesScreen, TripDetailScreen, DayDetailScreen } from "./screens";
-export { TemplateNavigator } from "./navigation";
+export {
+  TemplatesScreen,
+  CreateTemplateScreen,
+  TripDetailScreen,
+  DayDetailScreen,
+} from "./screens";
 export { TemplateListCard, TemplateCard } from "./components";
 export {
   useFeaturedTemplatesQuery,

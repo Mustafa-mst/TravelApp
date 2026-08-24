@@ -34,16 +34,6 @@ export type RootStackParamList = {
     mode: TripDetailMode;
     dayId: string;
   };
-};
-
-export type BackTarget =
-  | { target: "exchange"; params?: undefined }
-  | { target: "createTemplate"; params?: { template: TripTemplate } };
-
-export type ExchangeStackParamList = {
-  ExchangeHome: undefined;
-};
-
-export type TemplateStackParamList = {
-  CreateTemplate: { template?: TripTemplate };
+  /** Presented modally. With `template` set it opens in edit mode. */
+  CreateTemplate: { template?: TripTemplate } | undefined;
 };
