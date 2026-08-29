@@ -53,6 +53,7 @@ export const lightColors: ThemeColors = {
   fieldBackground: "#FFFFFF",
   fieldForeground: "#18181B",
   fieldPlaceholder: "#71717A",
+  // Not "transparent": withTiming drops the style animating to the keyword.
   fieldBorder: "rgba(0, 0, 0, 0)",
   fieldHover: "#F9F9F9",
 

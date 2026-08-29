@@ -69,6 +69,7 @@ function MenuSubMenuComponent({
         accessibilityRole="button"
         accessibilityState={{ disabled: item.isDisabled }}
         disabled={item.isDisabled}
+        containerStyle={styles.rowContainer}
         style={styles.row}
         pressedStyle={styles.rowPressed}
         onPress={toggle}

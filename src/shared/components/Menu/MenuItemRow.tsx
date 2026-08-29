@@ -42,6 +42,7 @@ function MenuItemRowComponent({
       accessibilityRole="menuitem"
       accessibilityState={{ selected: isSelected, disabled: item.isDisabled }}
       disabled={item.isDisabled}
+      containerStyle={styles.rowContainer}
       style={[styles.row, item.isDisabled && styles.disabled]}
       pressedStyle={styles.rowPressed}
       onPress={() => onPress(item)}

@@ -48,6 +48,14 @@ export const menuStyles = themed(({ colors, shadows, elevatedBorder }) => ({
     paddingTop: spacing.xs / 2,
     paddingBottom: spacing.xs,
   },
+  /**
+   * The scale wrapper must span the full row: transform: scale works from the
+   * view's centre, so a wrapper narrower than the row shrinks off-centre and
+   * the row appears to pull to one side.
+   */
+  rowContainer: {
+    alignSelf: "stretch",
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",

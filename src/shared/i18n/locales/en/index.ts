@@ -1,6 +1,8 @@
 const en = {
   common: {
     select: "Select",
+    search: "Search",
+    noResults: "No results",
     retry: "Try again",
     clear: "Clear",
     close: "Close",

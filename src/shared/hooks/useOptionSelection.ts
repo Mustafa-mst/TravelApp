@@ -1,20 +1,20 @@
 import { useCallback, useState } from "react";
 
-import type { MenuSelectionMode } from "./menu.types";
+import type { SelectionMode } from "@shared/types";
 
-type UseMenuSelectionParams = {
-  selectionMode: MenuSelectionMode;
+type UseOptionSelectionParams = {
+  selectionMode: SelectionMode;
   selectedKeys?: string[];
   defaultSelectedKeys?: string[];
   onSelectionChange?: (keys: string[]) => void;
 };
 
-export function useMenuSelection({
+export function useOptionSelection({
   selectionMode,
   selectedKeys,
   defaultSelectedKeys,
   onSelectionChange,
-}: UseMenuSelectionParams) {
+}: UseOptionSelectionParams) {
   const isControlled = selectedKeys !== undefined;
   const [internalKeys, setInternalKeys] = useState<string[]>(
     defaultSelectedKeys ?? [],
@@ -52,5 +52,5 @@ export function useMenuSelection({
 
   const isSelected = useCallback((id: string) => keys.includes(id), [keys]);
 
-  return { isSelected, toggle };
+  return { keys, isSelected, toggle };
 }

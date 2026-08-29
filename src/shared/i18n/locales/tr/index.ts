@@ -1,6 +1,8 @@
 const tr = {
   common: {
     select: "Seç",
+    search: "Ara",
+    noResults: "Sonuç yok",
     retry: "Tekrar dene",
     clear: "Temizle",
     close: "Kapat",

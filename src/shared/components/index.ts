@@ -7,7 +7,6 @@ export {
 export { Spinner, type SpinnerProps, type SpinnerSize } from "./Spinner";
 export { TextField, type TextFieldProps } from "./TextField";
 export { CloseButton, type CloseButtonProps } from "./CloseButton";
-export { SelectField } from "./SelectField";
 export { QuantityInput } from "./QuantityInput";
 export {
   Card,
@@ -96,3 +95,14 @@ export {
   type MenuAlign,
   type MenuIndicator,
 } from "./Menu";
+export {
+  Select,
+  SelectTrigger,
+  type SelectProps,
+  type SelectTriggerProps,
+  type SelectOption,
+  type SelectVariant,
+  type SelectPresentation,
+  type SelectSelectionMode,
+  type SelectWidth,
+} from "./Select";

@@ -7,3 +7,5 @@ export {
   SEARCH_DEBOUNCE_MS,
   MIN_QUERY_LENGTH,
 } from './useDebouncedValue';
+export { useAnchorRect } from './useAnchorRect';
+export { useOptionSelection } from './useOptionSelection';

@@ -2,16 +2,20 @@ import { memo, useCallback, useState } from "react";
 import { Pressable, View } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
-import { useStyles } from "@shared/hooks";
+import { useAnchorRect, useOptionSelection, useStyles } from "@shared/hooks";
 import { Portal } from "../Portal";
 import { Text } from "../Text";
 import { menuStyles } from "./Menu.styles";
-import { MENU_ENTER_MS, MENU_EXIT_MS, MENU_OFFSET } from "./menu.constants";
+import {
+  MENU_ENTER_MS,
+  MENU_EXIT_MS,
+  MENU_MIN_WIDTH,
+  MENU_OFFSET,
+  MENU_SCREEN_PADDING,
+} from "./menu.constants";
 import { MenuItemRow } from "./MenuItemRow";
 import { MenuSubMenu } from "./MenuSubMenu";
 import type { MenuItem, MenuProps } from "./menu.types";
-import { useAnchorRect } from "./useAnchorRect";
-import { useMenuSelection } from "./useMenuSelection";
 
 function MenuComponent({
   items,
@@ -41,9 +45,11 @@ function MenuComponent({
     align,
     offset,
     alignOffset,
+    minWidth: MENU_MIN_WIDTH,
+    screenPadding: MENU_SCREEN_PADDING,
     width,
   });
-  const { isSelected, toggle } = useMenuSelection({
+  const { isSelected, toggle } = useOptionSelection({
     selectionMode,
     selectedKeys,
     defaultSelectedKeys,
@@ -103,16 +109,19 @@ function MenuComponent({
               {
                 top: position.top,
                 left: position.left,
-                maxHeight: position.maxHeight,
+                maxWidth: position.maxWidth,
                 opacity: position.isMeasured ? 1 : 0,
               },
               position.width ? { width: position.width } : null,
             ]}
           >
+            {/* maxHeight goes on the surface, which owns the overflow clip.
+                It is undefined during the measuring pass, so onLayout above
+                reports the natural height rather than the clipped one. */}
             <Animated.View
               entering={animated ? FadeIn.duration(MENU_ENTER_MS) : undefined}
               exiting={animated ? FadeOut.duration(MENU_EXIT_MS) : undefined}
-              style={[styles.surface, style]}
+              style={[styles.surface, { maxHeight: position.maxHeight }, style]}
             >
               {label ? (
                 <View style={styles.label}>

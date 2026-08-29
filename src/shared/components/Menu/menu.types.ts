@@ -2,13 +2,19 @@ import type { ComponentType, ReactNode } from "react";
 import type { StyleProp, ViewStyle } from "react-native";
 import type { SvgProps } from "react-native-svg";
 
+import type {
+  AnchorAlign,
+  AnchorPlacement,
+  SelectionMode,
+} from "@shared/types";
+
 export type MenuItemVariant = "default" | "danger";
 
-export type MenuSelectionMode = "none" | "single" | "multiple";
+export type MenuSelectionMode = SelectionMode;
 
-export type MenuPlacement = "top" | "bottom" | "left" | "right";
+export type MenuPlacement = AnchorPlacement;
 
-export type MenuAlign = "start" | "center" | "end";
+export type MenuAlign = AnchorAlign;
 
 export type MenuIndicator = "checkmark" | "dot";
 
