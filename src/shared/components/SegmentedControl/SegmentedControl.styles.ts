@@ -1,13 +1,16 @@
-import { StyleSheet } from "react-native";
-import { colors, spacing } from "@shared/styles";
+import { spacing, themed, themedValue } from "@shared/styles";
 
 // Gradient underline beneath the active segment: light mint → green → deep green.
-export const UNDERLINE_GRADIENT = {
-  colors: ["#ECF8EF", "#3CA856", "#276D38"] as const,
+export const underlineGradient = themedValue(({ colors }) => ({
+  colors: [
+    colors.segmentUnderlineStart,
+    colors.segmentUnderlineMid,
+    colors.segmentUnderlineEnd,
+  ] as const,
   locations: [0, 0.5, 1] as const,
-};
+}));
 
-export const styles = StyleSheet.create({
+export const segmentedControlStyles = themed(({ colors }) => ({
   container: {
     alignSelf: "flex-start",
   },
@@ -19,17 +22,16 @@ export const styles = StyleSheet.create({
     paddingBottom: spacing.sm,
   },
   label: {
-    color: colors.textMuted,
+    color: colors.muted,
   },
   labelActive: {
-    color: colors.textPrimary,
+    color: colors.foreground,
   },
   underlineTrack: {
     height: 4,
-    borderRadius: 2,
     overflow: "hidden",
   },
   underlineFill: {
     flex: 1,
   },
-});
+}));

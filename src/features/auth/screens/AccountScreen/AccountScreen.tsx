@@ -4,10 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@shared/components';
+import { useStyles } from '@shared/hooks';
 import { useAuthStore } from '../../store';
 import { useLogoutMutation } from '../../hooks';
 import type { RootStackParamList } from '@shared/navigation';
-import { styles } from './AccountScreen.styles';
+import { accountScreenStyles } from './AccountScreen.styles';
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
@@ -16,6 +17,7 @@ export function AccountScreen() {
   const navigation = useNavigation<Navigation>();
   const session = useAuthStore((state) => state.session);
   const { mutate: logout, isPending } = useLogoutMutation();
+  const styles = useStyles(accountScreenStyles);
 
   if (!session) {
     return (
@@ -41,8 +43,8 @@ export function AccountScreen() {
         <Text style={styles.email}>{session.user.email}</Text>
         <Button
           label={t('auth.logout')}
-          type="secondary"
-          state={isPending ? 'loading' : undefined}
+          variant="secondary"
+          isLoading={isPending}
           onPress={() => logout()}
         />
       </View>

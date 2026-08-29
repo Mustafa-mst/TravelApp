@@ -1,16 +1,10 @@
-import {
-  ActivityIndicator,
-  Alert,
-  FlatList,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { Alert, FlatList, useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-import { IconButton, Text } from "@shared/components";
+import { IconButton, Spinner, Text } from "@shared/components";
 import { colors, spacing } from "@shared/styles";
 import { PlusIcon } from "@/shared/assets/icons";
 import type { RootStackParamList } from "@shared/navigation";
@@ -18,7 +12,12 @@ import { TemplateFolderCard } from "../../components";
 import { TripDetailMode } from "../../constants";
 import { useDeleteTemplateMutation, useMyTemplateListQuery } from "../../hooks";
 import type { TripTemplate } from "../../types";
-import { styles } from "./TemplatesScreen.styles";
+import {
+  ADD_TEMPLATE_ICON_SIZE,
+  SCREEN_INSET,
+  templatesScreenStyles,
+} from "./TemplatesScreen.styles";
+import { useStyles, useThemeColors } from "@/shared/hooks";
 
 export function TemplatesScreen() {
   const { t } = useTranslation();
@@ -27,9 +26,11 @@ export function TemplatesScreen() {
   const { data: templates, isLoading, error } = useMyTemplateListQuery();
   const { mutateAsync: deleteTemplate } = useDeleteTemplateMutation();
   const { width: screenWidth } = useWindowDimensions();
+  const styles = useStyles(templatesScreenStyles);
+  const colors = useThemeColors();
 
-  // Screen padding (12 each side) + the gap between the two columns.
-  const folderWidth = (screenWidth - (spacing.md - 4) * 2 - spacing.md) / 2;
+  // Screen padding on both sides + the gap between the two columns.
+  const folderWidth = (screenWidth - SCREEN_INSET * 2 - spacing.md) / 2;
 
   const confirmDelete = (item: TripTemplate) => {
     Alert.alert(
@@ -78,7 +79,7 @@ export function TemplatesScreen() {
   return (
     <SafeAreaView edges={["top"]} style={styles.safe}>
       <View style={styles.headerRow}>
-        <Text color="textPrimary" variant="h4SemiBold">
+        <Text color="foreground" variant="h1">
           {t("template.title")}
         </Text>
         <IconButton
@@ -86,7 +87,13 @@ export function TemplatesScreen() {
           hitSlop={15}
           onPress={() => navigation.navigate("CreateTemplate")}
           style={styles.addButton}
-          icon={<PlusIcon width={24} height={24} color={colors.textPrimary} />}
+          icon={
+            <PlusIcon
+              width={ADD_TEMPLATE_ICON_SIZE}
+              height={ADD_TEMPLATE_ICON_SIZE}
+              color={colors.foreground}
+            />
+          }
         />
       </View>
       <FlatList
@@ -99,13 +106,13 @@ export function TemplatesScreen() {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           isLoading ? (
-            <ActivityIndicator color={colors.primary} />
+            <Spinner color="accent" />
           ) : error ? (
             <Text color="danger" variant="body">
               {error.message}
             </Text>
           ) : (
-            <Text color="textSecondary" variant="body">
+            <Text color="muted" variant="body">
               {t("template.empty")}
             </Text>
           )

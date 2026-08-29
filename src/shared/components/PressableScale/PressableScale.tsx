@@ -1,12 +1,20 @@
-import { memo, useRef } from "react";
+import { memo, useCallback } from "react";
 import {
-  Animated,
   Pressable,
+  StyleSheet,
   type GestureResponderEvent,
   type PressableProps,
   type StyleProp,
   type ViewStyle,
 } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+  type WithTimingConfig,
+} from "react-native-reanimated";
+
+const PRESS_TIMING: WithTimingConfig = { duration: 150 };
 
 type PressableScaleProps = {
   /** Scale applied while pressed. Set to 1 to disable the scale effect. */
@@ -15,6 +23,8 @@ type PressableScaleProps = {
   activeOpacity?: number;
   /** Style for the outer wrapper (layout: width, flex, margin). */
   containerStyle?: StyleProp<ViewStyle>;
+  /** Merged on top of `style` while pressed, for a background/tint highlight. */
+  pressedStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
 } & Omit<PressableProps, "style">;
 
@@ -22,6 +32,7 @@ function PressableScaleComponent({
   scaleTo = 0.99,
   activeOpacity = 0.9,
   containerStyle,
+  pressedStyle,
   style,
   onPressIn,
   onPressOut,
@@ -29,44 +40,73 @@ function PressableScaleComponent({
   children,
   ...rest
 }: PressableScaleProps) {
-  const scale = useRef(new Animated.Value(1)).current;
+  const progress = useSharedValue(0);
 
-  const animateTo = (value: number) => {
-    Animated.spring(scale, {
-      toValue: value,
-      useNativeDriver: true,
-      speed: 40,
-      bounciness: 0,
-    }).start();
-  };
+  const pressedBackground =
+    StyleSheet.flatten(pressedStyle)?.backgroundColor ?? null;
 
-  const handlePressIn = (event: GestureResponderEvent) => {
-    if (!disabled) {
-      animateTo(scaleTo);
-    }
-    onPressIn?.(event);
-  };
+  const highlightRadius = StyleSheet.flatten(style)?.borderRadius;
 
-  const handlePressOut = (event: GestureResponderEvent) => {
-    animateTo(1);
-    onPressOut?.(event);
-  };
+  const animatedStyle = useAnimatedStyle(() => {
+    const pressed = progress.value === 1;
+
+    return {
+      opacity: withTiming(pressed ? activeOpacity : 1, PRESS_TIMING),
+      transform: [
+        { scale: withTiming(pressed ? scaleTo : 1, PRESS_TIMING) },
+      ],
+    };
+  });
+
+  const animatedHighlightStyle = useAnimatedStyle(() => ({
+    opacity: withTiming(progress.value, PRESS_TIMING),
+  }));
+
+  const handlePressIn = useCallback(
+    (event: GestureResponderEvent) => {
+      if (!disabled) {
+        progress.value = 1;
+      }
+      onPressIn?.(event);
+    },
+    [disabled, onPressIn, progress],
+  );
+
+  const handlePressOut = useCallback(
+    (event: GestureResponderEvent) => {
+      progress.value = 0;
+      onPressOut?.(event);
+    },
+    [onPressOut, progress],
+  );
 
   return (
-    <Animated.View
-      style={[containerStyle, { transform: [{ scale }] }]}
-    >
+    <Animated.View style={[containerStyle, animatedStyle]}>
       <Pressable
         disabled={disabled}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
-        style={({ pressed }) => [
-          style,
-          pressed && !disabled && { opacity: activeOpacity },
-        ]}
+        style={style}
         {...rest}
       >
-        {children}
+        {(state) => (
+          <>
+            {pressedBackground === null ? null : (
+              <Animated.View
+                pointerEvents="none"
+                style={[
+                  StyleSheet.absoluteFill,
+                  {
+                    backgroundColor: pressedBackground,
+                    borderRadius: highlightRadius,
+                  },
+                  animatedHighlightStyle,
+                ]}
+              />
+            )}
+            {typeof children === "function" ? children(state) : children}
+          </>
+        )}
       </Pressable>
     </Animated.View>
   );

@@ -9,10 +9,14 @@ import {
   TimelineRail,
 } from "@shared/components";
 import { MoreVerticalIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
-import { PLACE_TYPE_META } from "@/features/places/constants";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { PLACE_TYPE_META, PlaceTypes } from "@/features/places/constants";
 import type { TripDetailItem } from "../../types";
-import { styles } from "./DayTimelineCard.styles";
+import {
+  dayTimelineCardStyles,
+  TIMELINE_MORE_ICON_SIZE,
+  TIMELINE_NODE_ICON_SIZE,
+} from "./DayTimelineCard.styles";
 
 export type DayTimelineCardProps = {
   item: TripDetailItem;
@@ -23,6 +27,8 @@ export type DayTimelineCardProps = {
   onPress?: () => void;
   onMore?: () => void;
 };
+
+const FALLBACK_PLACE = PLACE_TYPE_META[PlaceTypes.TouristAttraction];
 
 /** Formats a "HH:MM:SS" time column down to "HH:MM". */
 function formatTime(time: string | null): string | null {
@@ -39,6 +45,9 @@ function DayTimelineCardComponent({
   onPress,
   onMore,
 }: DayTimelineCardProps) {
+  const styles = useStyles(dayTimelineCardStyles);
+  const colors = useThemeColors();
+
   const startsAt = formatTime(item.starts_at);
   const meta = [startsAt, item.address].filter(Boolean).join("  ·  ");
   const category = PLACE_TYPE_META[item.place_type];
@@ -49,13 +58,13 @@ function DayTimelineCardComponent({
         isFirst={isFirst}
         isLast={isLast}
         ring
-        nodeColor={category?.color ?? colors.primary}
+        nodeColor={category?.color ?? FALLBACK_PLACE.color}
         elevated
       >
         <MaterialIcons
           name={category?.materialIcon ?? "place"}
-          size={14}
-          color={colors.white}
+          size={TIMELINE_NODE_ICON_SIZE}
+          color={colors.staticWhite}
         />
       </TimelineRail>
 
@@ -70,7 +79,7 @@ function DayTimelineCardComponent({
             {item.name}
           </Text>
           {meta ? (
-            <Text variant="caption" style={styles.meta} numberOfLines={1}>
+            <Text variant="caption" color="muted" numberOfLines={1}>
               {meta}
             </Text>
           ) : null}
@@ -82,9 +91,9 @@ function DayTimelineCardComponent({
             onPress={onMore}
             icon={
               <MoreVerticalIcon
-                width={18}
-                height={18}
-                color={colors.iconTertiary}
+                width={TIMELINE_MORE_ICON_SIZE}
+                height={TIMELINE_MORE_ICON_SIZE}
+                color={colors.muted}
               />
             }
           />

@@ -12,12 +12,14 @@ import {
   TripDetailsSection,
 } from "../../components";
 import { useTemplateForm } from "../../hooks";
-import { styles } from "./CreateTemplateScreen.styles";
+import { createTemplateScreenStyles } from "./CreateTemplateScreen.styles";
+import { useStyles } from "@/shared/hooks";
 
 export function CreateTemplateScreen() {
   const { t } = useTranslation();
   const route = useRoute<RouteProp<RootStackParamList, "CreateTemplate">>();
   const citySheetRef = useRef<BottomSheet>(null);
+  const styles = useStyles(createTemplateScreenStyles);
   const {
     control,
     errors,
@@ -75,9 +77,8 @@ export function CreateTemplateScreen() {
           <Button
             fullWidth
             label={t(isEditing ? "template.save" : "template.add")}
-            state={
-              isSubmitting ? "loading" : !canSubmit ? "disabled" : undefined
-            }
+            isLoading={isSubmitting}
+            isDisabled={!canSubmit}
             onPress={submit}
           />
         </View>

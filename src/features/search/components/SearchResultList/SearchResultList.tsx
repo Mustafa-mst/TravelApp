@@ -1,13 +1,12 @@
 import { FlatList, View } from "react-native";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { styles } from "./SearchResultList.styles";
+import { searchResultListStyles } from "./SearchResultList.styles";
 import { CountryRow } from "./CountryRow";
 import { StateView, Text } from "@shared/components";
 import { SearchIcon } from "@shared/assets/icons";
+import { useStyles } from "@shared/hooks";
 import type { CountrySearchResult } from "../../types";
-
-const ItemSeparator = () => <View style={styles.border} />;
 
 type SearchResultListProps = {
   query: string;
@@ -35,6 +34,12 @@ const SearchResultListComponent = ({
   onRemoveHistory,
 }: SearchResultListProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(searchResultListStyles);
+
+  const renderSeparator = useCallback(
+    () => <View style={styles.border} />,
+    [styles.border],
+  );
 
   const isListing = isSearching || isFiltering;
 
@@ -85,7 +90,7 @@ const SearchResultListComponent = ({
           style={styles.list}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.contentContainer}
-          ItemSeparatorComponent={ItemSeparator}
+          ItemSeparatorComponent={renderSeparator}
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
         />

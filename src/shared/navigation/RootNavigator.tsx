@@ -1,16 +1,19 @@
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { useSessionQuery } from "@/features/auth";
-import { colors } from "@shared/styles";
+import { Spinner } from "@shared/components";
+import { useStyles } from "@shared/hooks";
 import { FrontNavigator } from "./FrontNavigator";
+import { rootNavigatorStyles } from "./RootNavigator.styles";
 
 export function RootNavigator() {
   const { isLoading } = useSessionQuery();
+  const styles = useStyles(rootNavigatorStyles);
 
   if (isLoading) {
     return (
       <View style={styles.splash}>
-        <ActivityIndicator color={colors.primary} />
+        <Spinner color="accent" />
       </View>
     );
   }
@@ -21,12 +24,3 @@ export function RootNavigator() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  splash: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: colors.background,
-  },
-});

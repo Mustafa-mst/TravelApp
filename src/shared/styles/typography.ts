@@ -1,3 +1,7 @@
+/**
+ * Line heights follow the Tailwind scale HeroUI Native builds on:
+ * 12/16, 14/20, 16/24, 18/28, 20/28, 24/32, 30/36, 36/40, 48/48.
+ */
 export const typography = {
   display: {
     fontSize: 40,
@@ -12,7 +16,7 @@ export const typography = {
   h1: {
     fontSize: 32,
     fontWeight: "700",
-    lineHeight: 40,
+    lineHeight: 36,
   },
   h2: {
     fontSize: 28,
@@ -29,15 +33,10 @@ export const typography = {
     fontWeight: "700",
     lineHeight: 28,
   },
-  h4SemiBold: {
-    fontSize: 22,
-    fontWeight: "600",
-    lineHeight: 28,
-  },
   h5: {
     fontSize: 18,
     fontWeight: "700",
-    lineHeight: 26,
+    lineHeight: 28,
   },
   h6: {
     fontSize: 16,
@@ -47,32 +46,32 @@ export const typography = {
   subtitle: {
     fontSize: 18,
     fontWeight: "600",
-    lineHeight: 26,
+    lineHeight: 28,
   },
   bodyExtraLargeMedium: {
     fontSize: 18,
     fontWeight: "500",
-    lineHeight: 26,
+    lineHeight: 28,
   },
   bodyExtraLarge: {
     fontSize: 18,
     fontWeight: "400",
-    lineHeight: 20,
+    lineHeight: 28,
   },
   bodyLargeSemiBold: {
     fontSize: 16,
     fontWeight: "600",
-    lineHeight: 20,
+    lineHeight: 24,
   },
   bodyLargeMedium: {
     fontSize: 16,
     fontWeight: "500",
-    lineHeight: 20,
+    lineHeight: 24,
   },
   bodyLarge: {
     fontSize: 16,
     fontWeight: "400",
-    lineHeight: 20,
+    lineHeight: 24,
   },
   bodySemiBold: {
     fontSize: 14,
@@ -88,11 +87,6 @@ export const typography = {
     fontSize: 14,
     fontWeight: "400",
     lineHeight: 20,
-  },
-  bodySmall: {
-    fontSize: 10,
-    fontWeight: "400",
-    lineHeight: 18,
   },
   caption: {
     fontSize: 12,

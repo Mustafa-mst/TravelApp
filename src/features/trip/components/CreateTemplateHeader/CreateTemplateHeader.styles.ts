@@ -1,7 +1,8 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const CLOSE_ICON_SIZE = 24;
+
+export const createTemplateHeaderStyles = themed(({ colors }) => ({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -11,10 +12,9 @@ export const styles = StyleSheet.create({
   },
   iconButton: {
     borderRadius: radius.full,
-    padding: 8,
-
+    padding: spacing.sm,
     backgroundColor: colors.backgroundTertiary,
     justifyContent: "center",
     alignItems: "center",
   },
-});
+}));

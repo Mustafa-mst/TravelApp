@@ -1,6 +1,7 @@
 import { memo, type ReactNode } from 'react';
 import { Pressable, type PressableProps } from 'react-native';
-import { styles } from './IconButton.styles';
+import { useStyles } from '@shared/hooks';
+import { iconButtonStyles } from './IconButton.styles';
 
 type IconButtonVariant = 'plain' | 'filled';
 
@@ -18,6 +19,8 @@ function IconButtonComponent({
   style,
   ...rest
 }: IconButtonProps) {
+  const styles = useStyles(iconButtonStyles);
+
   return (
     <Pressable
       accessibilityRole="button"

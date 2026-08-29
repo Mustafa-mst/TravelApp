@@ -1,9 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { styles } from "./SearchInput.styles";
-import { IconButton, Input } from "@shared/components";
+import {
+  SEARCH_INPUT_ICON_SIZE,
+  searchInputStyles,
+} from "./SearchInput.styles";
+import { IconButton, TextField } from "@shared/components";
 import { ArrowLeftIcon, FilterIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { View } from "react-native";
 
 type SearchInputProps = {
@@ -23,19 +26,22 @@ const SearchInputComponent = ({
   isFilterActive = false,
 }: SearchInputProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(searchInputStyles);
+  const colors = useThemeColors();
 
   return (
     <View style={styles.container}>
-      <Input
+      <TextField
         autoFocus
-        leftIcon={<ArrowLeftIcon />}
-        leftIconOnPress={onGoBack}
+        clearable
+        startIcon={ArrowLeftIcon}
+        onStartContentPress={onGoBack}
         value={value}
         onChangeText={onChangeText}
         returnKeyType="search"
         autoCorrect={false}
         containerStyle={styles.inputContainer}
-        inputWrapperStyle={styles.input}
+        fieldStyle={styles.input}
         placeholder={t("search.placeholder")}
       />
       <IconButton
@@ -44,9 +50,9 @@ const SearchInputComponent = ({
         accessibilityLabel={t("search.filters")}
         icon={
           <FilterIcon
-            width={20}
-            height={20}
-            color={isFilterActive ? colors.primary : colors.iconPrimary}
+            width={SEARCH_INPUT_ICON_SIZE}
+            height={SEARCH_INPUT_ICON_SIZE}
+            color={isFilterActive ? colors.accent : colors.foreground}
           />
         }
       />

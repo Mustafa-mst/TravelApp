@@ -1,11 +1,13 @@
-import { colors, radius, shadows, spacing } from "@/shared/styles";
-import { StyleSheet } from "react-native";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+const HERO_IMAGE_FRAME_WIDTH = 4;
+const HERO_IMAGE_OVERLAP = -spacing.md - 6;
+
+export const homeHeaderStyles = themed(({ colors, shadows }) => ({
   container: {},
   searchBar: {
     padding: spacing.md,
-    backgroundColor: colors.white,
+    backgroundColor: colors.fieldBackground,
     borderRadius: radius.full,
     ...shadows.level1,
     flexDirection: "row",
@@ -24,11 +26,11 @@ export const styles = StyleSheet.create({
     flex: 1,
     aspectRatio: 1,
     borderRadius: radius.md,
-    borderWidth: 4,
-    borderColor: colors.white,
-    marginLeft: -spacing.md - 6,
+    borderWidth: HERO_IMAGE_FRAME_WIDTH,
+    borderColor: colors.surface,
+    marginLeft: HERO_IMAGE_OVERLAP,
   },
   tombImageFirst: {
     marginLeft: 0,
   },
-});
+}));

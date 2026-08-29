@@ -1,5 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "./SearchScreen.styles";
+import { useStyles } from "@shared/hooks";
+import { searchScreenStyles } from "./SearchScreen.styles";
 import {
   SearchFilterCard,
   SearchInput,
@@ -8,6 +9,7 @@ import {
 import { useCountrySearch } from "../../hooks";
 
 export function SearchScreen() {
+  const styles = useStyles(searchScreenStyles);
   const {
     query,
     filters,

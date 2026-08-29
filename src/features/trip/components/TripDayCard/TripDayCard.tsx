@@ -5,9 +5,10 @@ import { useTranslation } from "react-i18next";
 
 import { PressableScale, Text } from "@shared/components";
 import { BLUR_HASH } from "@shared/constants";
+import { useStyles } from "@shared/hooks";
 import { PLACE_TYPE_META } from "@/features/places/constants";
 import type { TripDetailDay } from "../../types";
-import { styles } from "./TripDayCard.styles";
+import { tripDayCardStyles } from "./TripDayCard.styles";
 
 export type TripDayCardProps = {
   day: TripDetailDay;
@@ -23,9 +24,11 @@ function DayBadge({
   isActive: boolean;
 }) {
   const { t } = useTranslation();
+  const styles = useStyles(tripDayCardStyles);
+
   return (
     <View style={[styles.badge, isActive && styles.badgeActive]}>
-      <Text variant="captionMedium" color="textSecondary">
+      <Text variant="captionMedium" color="muted">
         {t("template.detail.dayLabel", { day: dayNumber })}
       </Text>
     </View>
@@ -38,6 +41,7 @@ function TripDayCardComponent({
   onPress,
 }: TripDayCardProps) {
   const { t } = useTranslation();
+  const styles = useStyles(tripDayCardStyles);
 
   const firstItem = day.items[0];
 
@@ -55,7 +59,7 @@ function TripDayCardComponent({
             <Text variant="bodyMedium">
               {t("template.detail.dayEmptyTitle")}
             </Text>
-            <Text variant="caption" color="textMuted">
+            <Text variant="caption" color="muted">
               {t("template.detail.dayEmptyAction")}
             </Text>
           </View>
@@ -78,11 +82,11 @@ function TripDayCardComponent({
       <View style={styles.info}>
         <DayBadge dayNumber={day.day_number} isActive={isActive} />
 
-        <Text variant="bodyLargeSemiBold" numberOfLines={1}>
+        <Text variant="bodySemiBold" numberOfLines={1}>
           {firstItem.name}
         </Text>
         {Boolean(firstItem.description) && (
-          <Text variant="caption" color="textMuted" numberOfLines={1}>
+          <Text variant="caption" color="muted" numberOfLines={1}>
             {firstItem.description}
           </Text>
         )}
@@ -91,7 +95,7 @@ function TripDayCardComponent({
           <View style={styles.chips}>
             {typeChips.map((chip) => (
               <View key={chip.type} style={styles.chip}>
-                <Text variant="captionMedium" color="textSecondary">
+                <Text variant="captionMedium" color="muted">
                   {`${chip.icon} ${chip.label}`}
                 </Text>
               </View>

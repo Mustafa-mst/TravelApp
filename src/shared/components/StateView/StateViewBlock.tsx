@@ -1,10 +1,11 @@
 import { type StyleProp, View, type ViewStyle } from "react-native";
 import { useTranslation } from "react-i18next";
 
+import { useStyles } from "@shared/hooks";
 import type { StateViewContent } from "@shared/types";
 import { Button } from "../Button";
 import { Text } from "../Text";
-import { styles } from "./StateView.styles";
+import { stateViewStyles } from "./StateView.styles";
 
 type StateViewBlockProps = StateViewContent & {
   iconColor: string;
@@ -22,6 +23,7 @@ export function StateViewBlock({
   badgeColor,
   style,
 }: StateViewBlockProps) {
+  const styles = useStyles(stateViewStyles);
   const { t } = useTranslation();
 
   return (
@@ -37,7 +39,7 @@ export function StateViewBlock({
       {hint ? (
         <Text
           variant="body"
-          color="textMuted"
+          color="muted"
           textAlign="center"
           style={styles.hint}
         >
@@ -48,7 +50,7 @@ export function StateViewBlock({
         <View style={styles.action}>
           <Button
             label={retryLabel ?? t("common.retry")}
-            outlined
+            variant="outline"
             onPress={onRetry}
           />
         </View>

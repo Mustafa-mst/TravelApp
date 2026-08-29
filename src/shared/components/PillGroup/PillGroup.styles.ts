@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const pillGroupStyles = themed(({ colors }) => ({
   row: {
     flexDirection: "row",
     gap: spacing.sm,
@@ -15,7 +14,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   pillActive: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
   },
   pillBorderless: {
     borderColor: colors.transparent,
@@ -25,9 +24,9 @@ export const styles = StyleSheet.create({
     opacity: 0.7,
   },
   label: {
-    color: colors.text,
+    color: colors.foreground,
   },
   labelActive: {
-    color: colors.success,
+    color: colors.accent,
   },
-});
+}));

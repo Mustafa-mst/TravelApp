@@ -1,11 +1,15 @@
-import { StyleSheet } from "react-native";
-import { colors, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const SCREEN_INSET = spacing.md - 4;
+export const ADD_TEMPLATE_ICON_SIZE = 24;
+
+const LIST_BOTTOM_INSET = 120;
+
+export const templatesScreenStyles = themed(({ colors }) => ({
   safe: {
     flex: 1,
     backgroundColor: colors.background,
-    padding: spacing.md - 4,
+    padding: SCREEN_INSET,
     gap: spacing.xxl,
   },
   headerRow: {
@@ -15,16 +19,16 @@ export const styles = StyleSheet.create({
   },
   listContent: {
     gap: spacing.xl,
-    paddingBottom: 120,
+    paddingBottom: LIST_BOTTOM_INSET,
   },
   columnWrapper: {
     gap: spacing.md,
   },
   addButton: {
-    padding: 8,
-    borderRadius: 999,
+    padding: spacing.sm,
+    borderRadius: radius.full,
     borderColor: colors.border,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
     borderWidth: 1,
   },
-});
+}));

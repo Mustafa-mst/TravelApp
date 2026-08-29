@@ -5,10 +5,10 @@ import { useTranslation } from "react-i18next";
 
 import {
   Divider,
-  Input,
   QuantityInput,
-  SelectField,
+  SelectTrigger,
   Text,
+  TextField,
 } from "@shared/components";
 import {
   MAX_TEMPLATE_DAYS,
@@ -63,24 +63,28 @@ function TripDetailsSectionComponent({
         control={control}
         name="name"
         render={({ field: { onChange, onBlur, value } }) => (
-          <Input
+          <TextField
             placeholder={t("template.namePlaceholder")}
             value={value}
+            variant="secondary"
             onChangeText={onChange}
             onBlur={onBlur}
-            error={errors.name?.message}
+            errorMessage={errors.name?.message}
           />
         )}
       />
 
-      <SelectField
+      {/* Opens a separate search sheet rather than an inline list, so the
+          chevron that would promise one is left off. */}
+      <SelectTrigger
         placeholder={t("template.selectCity")}
         value={
           selectedCity
             ? `${selectedCity.name}, ${selectedCity.country_code}`
             : null
         }
-        error={errors.city?.message}
+        errorMessage={errors.city?.message}
+        showIndicator={false}
         onPress={onCityPress}
       />
 

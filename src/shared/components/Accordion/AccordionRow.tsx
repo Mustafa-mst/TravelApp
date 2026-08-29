@@ -8,15 +8,15 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { ChevronDownIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { PressableScale } from "../PressableScale";
 import { Text } from "../Text";
 import {
+  accordionStyles,
   CHEVRON_SIZE,
   CONTENT_SPRING,
   INDICATOR_ROTATION,
   LEADING_ICON_SIZE,
-  styles,
 } from "./Accordion.styles";
 import { type AccordionRowProps } from "./accordion.types";
 
@@ -27,6 +27,9 @@ export function AccordionRow({
   isDisabled,
   onPress,
 }: AccordionRowProps) {
+  const styles = useStyles(accordionStyles);
+  const colors = useThemeColors();
+
   const progress = useSharedValue(isOpen ? 1 : 0);
   const measured = useSharedValue(0);
 
@@ -67,16 +70,16 @@ export function AccordionRow({
           <Icon
             width={LEADING_ICON_SIZE}
             height={LEADING_ICON_SIZE}
-            color={colors.iconSecondary}
+            color={colors.muted}
           />
         ) : null}
 
         <View style={styles.info}>
-          <Text variant="bodyMedium">{item.title}</Text>
+          <Text variant="bodyLargeMedium">{item.title}</Text>
           {item.subtitle ? (
             <Text
-              variant="captionMedium"
-              color="textSecondary"
+              variant="body"
+              color="muted"
               style={styles.subtitle}
             >
               {item.subtitle}
@@ -88,7 +91,7 @@ export function AccordionRow({
           <ChevronDownIcon
             width={CHEVRON_SIZE}
             height={CHEVRON_SIZE}
-            color={colors.iconTertiary}
+            color={colors.muted}
           />
         </Animated.View>
       </PressableScale>
@@ -107,7 +110,7 @@ export function AccordionRow({
             ]}
           >
             {typeof item.content === "string" ? (
-              <Text variant="body" color="textSecondary">
+              <Text variant="body" color="muted">
                 {item.content}
               </Text>
             ) : (

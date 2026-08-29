@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useThemeColors } from "@shared/hooks";
 import { LoginScreen } from "@/features/auth";
 import { CountryDetailScreen } from "@/features/country";
 import { SearchScreen } from "@/features/search";
@@ -13,37 +14,39 @@ import type { RootStackParamList } from "./types";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function FrontNavigator() {
+  const colors = useThemeColors();
+
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: colors.background },
+      }}
+    >
       <Stack.Screen
         name="Tabs"
         component={TabNavigator}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        options={{ presentation: "modal", headerShown: false }}
+        options={{ presentation: "modal" }}
       />
       <Stack.Screen
         name="Search"
         component={SearchScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="CountryDetail"
         component={CountryDetailScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="TripDetail"
         component={TripDetailScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="DayDetail"
         component={DayDetailScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="CreateTemplate"

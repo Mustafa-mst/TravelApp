@@ -10,6 +10,7 @@ import {
   HomeIcon,
   ProfileIcon,
 } from "@shared/assets/icons";
+import { useThemeColors } from "@shared/hooks";
 import { BottomTabBar } from "./BottomTabBar";
 import type { TabParamList } from "./types";
 
@@ -17,12 +18,14 @@ const Tab = createBottomTabNavigator<TabParamList>();
 
 export function TabNavigator() {
   const { t } = useTranslation();
+  const colors = useThemeColors();
 
   return (
     <Tab.Navigator
       tabBar={(props) => <BottomTabBar {...props} />}
       screenOptions={{
         headerShown: false,
+        sceneStyle: { backgroundColor: colors.background },
       }}
     >
       <Tab.Screen

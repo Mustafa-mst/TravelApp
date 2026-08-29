@@ -1,14 +1,15 @@
 import type { ReactNode } from "react";
 import { PressableScale } from "@shared/components";
-import { styles } from "./BottomTabBar.styles";
+import { useStyles } from "@shared/hooks";
+import { bottomTabBarStyles } from "./BottomTabBar.styles";
 
-interface TabBarItemProps {
+type TabBarItemProps = {
   label: string;
   icon: ReactNode;
   isFocused: boolean;
   onPress: () => void;
   onLongPress: () => void;
-}
+};
 
 export function TabBarItem({
   label,
@@ -17,6 +18,8 @@ export function TabBarItem({
   onPress,
   onLongPress,
 }: TabBarItemProps) {
+  const styles = useStyles(bottomTabBarStyles);
+
   return (
     <PressableScale
       scaleTo={0.98}

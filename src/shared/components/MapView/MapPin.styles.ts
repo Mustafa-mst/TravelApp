@@ -1,11 +1,9 @@
-import { StyleSheet } from "react-native";
-
-import { colors, radius, shadows } from "@shared/styles";
+import { radius, themed } from "@shared/styles";
 
 const PIN_SIZE = 28;
 const PIN_SIZE_SELECTED = 36;
 
-export const styles = StyleSheet.create({
+export const mapPinStyles = themed(({ colors, shadows }) => ({
   pin: {
     width: PIN_SIZE,
     height: PIN_SIZE,
@@ -13,7 +11,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 2,
-    borderColor: colors.white,
+    // The ring sits on the basemap, not on app chrome, so it stays white
+    // against the dark style too.
+    borderColor: colors.staticWhite,
     ...shadows.level2,
   },
   pinSelected: {
@@ -21,4 +21,4 @@ export const styles = StyleSheet.create({
     height: PIN_SIZE_SELECTED,
     ...shadows.level3,
   },
-});
+}));

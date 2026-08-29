@@ -1,10 +1,11 @@
-import { StyleSheet } from "react-native";
-import { colors, spacing } from "@shared/styles";
+import { spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+const FOOTER_INSET = spacing.md - 4;
+
+export const createTemplateScreenStyles = themed(({ colors }) => ({
   screen: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
     gap: spacing.md,
   },
   flex: {
@@ -15,6 +16,6 @@ export const styles = StyleSheet.create({
     overflow: "hidden",
   },
   footer: {
-    paddingHorizontal: spacing.md - 4,
+    paddingHorizontal: FOOTER_INSET,
   },
-});
+}));

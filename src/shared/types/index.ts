@@ -1,3 +1,9 @@
+export type {
+  AnchorPlacement,
+  AnchorAlign,
+  AnchorRect,
+  SelectionMode,
+} from "./anchor";
 export type { DropdownItem } from "./dropdown";
 export type { OptionItemType, OptionsType } from "./option";
 export type { StateViewContent } from "./stateView";

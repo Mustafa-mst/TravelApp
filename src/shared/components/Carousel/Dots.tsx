@@ -4,7 +4,8 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
-import { DOT_GAP, DOT_SIZE, styles } from "./Carousel.styles";
+import { useStyles } from "@shared/hooks";
+import { carouselStyles, DOT_GAP, DOT_SIZE } from "./Carousel.styles";
 
 type DotsProps = {
   count: number;
@@ -12,6 +13,8 @@ type DotsProps = {
 };
 
 function DotsComponent({ count, activeIndex }: DotsProps) {
+  const styles = useStyles(carouselStyles);
+
   const highlightStyle = useAnimatedStyle(() => ({
     transform: [
       {

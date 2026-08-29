@@ -1,3 +1,4 @@
+import type { ThemeName } from "@shared/styles";
 import type { MapCoordinates } from "./map.types";
 
 /**
@@ -11,6 +12,11 @@ import type { MapCoordinates } from "./map.types";
  * `pmtiles://https://…`, which MapLibre Native reads natively.
  */
 export const MAP_STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
+
+export const MAP_STYLE_URLS: Record<ThemeName, string> = {
+  light: MAP_STYLE_URL,
+  dark: "https://tiles.openfreemap.org/styles/dark",
+};
 
 /** Deepest zoom the tiles are built to; nothing is fetched beyond this. */
 export const MAP_TILE_MAX_ZOOM = 14;

@@ -2,9 +2,10 @@ import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useStyles } from '@shared/hooks';
 import { LoginForm } from '../../components';
 import { useLoginMutation } from '../../hooks';
-import { styles } from './LoginScreen.styles';
+import { loginScreenStyles } from './LoginScreen.styles';
 
 export function LoginScreen() {
   const { t } = useTranslation();
@@ -12,6 +13,7 @@ export function LoginScreen() {
   const { form, onSubmit, isSubmitting } = useLoginMutation({
     onSuccess: () => navigation.goBack(),
   });
+  const styles = useStyles(loginScreenStyles);
 
   return (
     <SafeAreaView style={styles.safe}>

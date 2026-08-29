@@ -1,19 +1,21 @@
-import { StyleSheet } from 'react-native';
-import { colors, radius, spacing } from '@shared/styles';
+import { radius, spacing, themed } from '@shared/styles';
 
-export const styles = StyleSheet.create({
+export const modalStyles = themed(({ colors, shadows, elevatedBorder }) => ({
   backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    // A centred dialog needs more separation than the sheet-weight `backdrop`.
+    backgroundColor: colors.backdropStrong,
     alignItems: 'center',
     justifyContent: 'center',
     padding: spacing.lg,
   },
   content: {
     width: '100%',
-    backgroundColor: colors.background,
+    backgroundColor: colors.overlay,
     borderRadius: radius.lg,
     padding: spacing.lg,
     gap: spacing.md,
+    ...shadows.overlay,
+    ...elevatedBorder,
   },
-});
+}));

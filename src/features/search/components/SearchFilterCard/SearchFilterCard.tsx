@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import {
   Accordion,
   Button,
-  PressableScale,
   Text,
   type AccordionItem,
 } from "@shared/components";
@@ -14,13 +13,14 @@ import {
   LanguageOutline,
   PeopleOutline,
 } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
+import { useStyles } from "@shared/hooks";
 import type { OptionsType } from "@shared/types";
 import {
   getOptionList,
   getSelectedOptionLabel,
 } from "@shared/utils/option";
-import { REGION_ICON_SIZE, styles } from "./SearchFilterCard.styles";
+import { FilterOption } from "./FilterOption";
+import { searchFilterCardStyles } from "./SearchFilterCard.styles";
 import {
   CONTINENT_OPTIONS,
   LANGUAGE_OPTIONS,
@@ -38,6 +38,7 @@ const SearchFilterCardComponent = ({
   onApply,
 }: SearchFilterCardProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(searchFilterCardStyles);
   const [draft, setDraft] = useState<SearchFilters>(filters);
 
   useEffect(() => {
@@ -62,33 +63,14 @@ const SearchFilterCardComponent = ({
           const isSelected = option.value === selected;
 
           return (
-            <PressableScale
+            <FilterOption
               key={option.value}
-              scaleTo={1}
-              activeOpacity={0.6}
-              style={[styles.option, index > 0 && styles.optionDivider]}
-              onPress={() => toggle(key, option.value)}
-              accessibilityRole="radio"
-              accessibilityState={{ selected: isSelected }}
-            >
-              {option.Icon ? (
-                <option.Icon
-                  width={REGION_ICON_SIZE}
-                  height={REGION_ICON_SIZE}
-                  color={isSelected ? colors.primary : colors.iconSecondary}
-                />
-              ) : null}
-              <Text
-                variant="bodyMedium"
-                color={isSelected ? "primary" : "text"}
-                style={styles.optionLabel}
-              >
-                {t(option.labelKey)}
-              </Text>
-              <View style={[styles.radio, isSelected && styles.radioSelected]}>
-                {isSelected ? <View style={styles.radioDot} /> : null}
-              </View>
-            </PressableScale>
+              option={option}
+              filterKey={key}
+              isSelected={isSelected}
+              isFirst={index === 0}
+              onToggle={toggle}
+            />
           );
         })}
       </View>
@@ -159,17 +141,17 @@ const SearchFilterCardComponent = ({
 
       <View style={styles.footer}>
         <Button
-          outlined
+          variant="outline"
           fullWidth
           label={t("search.filterClear")}
           onPress={handleClear}
-          style={styles.clearButton}
+          containerStyle={styles.clearButton}
         />
         <Button
           fullWidth
           label={t("search.filterApply")}
           onPress={handleApply}
-          style={styles.footerButton}
+          containerStyle={styles.footerButton}
         />
       </View>
     </View>

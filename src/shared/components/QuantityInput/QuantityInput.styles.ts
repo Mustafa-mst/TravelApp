@@ -1,25 +1,24 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing, typography } from "@shared/styles";
+import { radius, spacing, themed, typography } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const quantityInputStyles = themed(({ colors }) => ({
   container: {
     gap: spacing.md - 4,
   },
   label: {
     ...typography.bodyLargeMedium,
-    color: colors.textPrimary,
+    color: colors.foreground,
   },
   fieldWrapper: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     borderWidth: 1,
-    borderColor: colors.borderMuted,
+    borderColor: colors.border,
     borderRadius: radius.lg - 2,
     height: 47.3,
     paddingHorizontal: spacing.md,
     gap: spacing.sm,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
   },
   button: {
     justifyContent: "center",
@@ -32,7 +31,7 @@ export const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: radius.full,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.accent,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -40,7 +39,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     includeFontPadding: false,
-    color: colors.white,
+    color: colors.accentForeground,
     textAlign: "center",
   },
-});
+}));

@@ -1,4 +1,3 @@
-import { colors } from "@shared/styles";
 import { EMPTY_FEATURE_COLLECTION } from "./map.constants";
 import type {
   MapBounds,
@@ -52,6 +51,7 @@ export function boundsOf(
 /** Route lines as the GeoJSON the map's line layer renders. */
 export function toPolylineCollection(
   polylines: MapPolyline[] | undefined,
+  fallbackColor: string,
 ): GeoJSON.FeatureCollection {
   if (!polylines?.length) {
     return EMPTY_FEATURE_COLLECTION;
@@ -66,7 +66,7 @@ export function toPolylineCollection(
         type: "Feature",
         id: line.id ?? String(index),
         properties: {
-          color: line.color ?? colors.primary,
+          color: line.color ?? fallbackColor,
           width: line.width ?? DEFAULT_LINE_WIDTH,
         },
         geometry: {

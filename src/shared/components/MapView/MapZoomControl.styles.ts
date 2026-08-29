@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, shadows } from "@shared/styles";
+import { radius, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const mapZoomControlStyles = themed(({ colors, shadows }) => ({
   container: {
     position: "absolute",
     left: 16,
@@ -10,7 +9,7 @@ export const styles = StyleSheet.create({
     borderRadius: radius.full,
     justifyContent: "center",
     borderColor: colors.border,
-    backgroundColor: colors.white,
+    backgroundColor: colors.overlay,
     ...shadows.level1,
   },
   button: {
@@ -19,4 +18,4 @@ export const styles = StyleSheet.create({
   divider: {
     paddingHorizontal: 6,
   },
-});
+}));

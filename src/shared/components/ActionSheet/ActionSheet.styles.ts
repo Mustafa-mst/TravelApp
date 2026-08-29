@@ -1,13 +1,14 @@
 import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const actionSheetStyles = themed(({ colors, elevatedBorder }) => ({
   card: {
     marginHorizontal: spacing.md,
     borderRadius: radius.xl,
-    backgroundColor: colors.white,
+    backgroundColor: colors.overlay,
     paddingHorizontal: spacing.md,
     overflow: "hidden",
+    ...elevatedBorder,
   },
   row: {
     flexDirection: "row",
@@ -26,4 +27,4 @@ export const styles = StyleSheet.create({
     flex: 1,
     gap: 2,
   },
-});
+}));

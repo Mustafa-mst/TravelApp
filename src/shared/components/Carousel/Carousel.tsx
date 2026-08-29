@@ -1,9 +1,9 @@
 import { useCallback, type ReactElement } from "react";
 import { FlatList, View, type ListRenderItem } from "react-native";
-import { useCarousel } from "@shared/hooks";
+import { useCarousel, useStyles } from "@shared/hooks";
 import { ProgressSegment } from "./ProgressSegment";
 import { Dots } from "./Dots";
-import { styles } from "./Carousel.styles";
+import { carouselStyles } from "./Carousel.styles";
 
 type CarouselIndicator = "progress" | "dots";
 
@@ -23,6 +23,8 @@ export function Carousel<T>({
   interval = 3000,
   indicator = "progress",
 }: CarouselProps<T>) {
+  const styles = useStyles(carouselStyles);
+
   const {
     activeIndex,
     width,
@@ -47,7 +49,7 @@ export function Carousel<T>({
         {renderItem(item, index)}
       </View>
     ),
-    [renderItem, width],
+    [renderItem, styles.slide, width],
   );
 
   return (

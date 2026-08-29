@@ -1,13 +1,14 @@
-import { colors, radius, spacing } from "@shared/styles";
-import { StyleSheet } from "react-native";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const SEARCH_INPUT_ICON_SIZE = 20;
+
+export const searchInputStyles = themed(({ colors }) => ({
   container: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
   inputContainer: {
     flex: 1,
   },
   input: {
     borderRadius: radius.full,
-    backgroundColor: colors.white,
+    backgroundColor: colors.fieldBackground,
   },
-});
+}));

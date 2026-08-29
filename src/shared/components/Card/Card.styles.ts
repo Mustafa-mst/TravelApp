@@ -1,13 +1,22 @@
-import { StyleSheet } from 'react-native';
-import { colors, radius, spacing } from '@shared/styles';
+import { radius, spacing, themed, type ColorToken } from "@shared/styles";
+import type { CardVariant } from "./card.types";
 
-export const styles = StyleSheet.create({
-  card: {
-    backgroundColor: colors.background,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
+export const cardStyles = themed(() => ({
+  root: {
+    borderRadius: radius.xl,
+    borderCurve: "continuous",
     padding: spacing.md,
     gap: spacing.sm,
   },
-});
+  // Body expands to fill whatever Header and Footer leave behind.
+  body: {
+    flex: 1,
+  },
+}));
+
+export const cardVariants: Record<CardVariant, ColorToken> = {
+  default: "surface",
+  secondary: "surfaceSecondary",
+  tertiary: "surfaceTertiary",
+  transparent: "transparent",
+};

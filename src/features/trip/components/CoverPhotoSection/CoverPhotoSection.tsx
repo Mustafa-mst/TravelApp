@@ -1,13 +1,13 @@
 import { memo, useEffect, useMemo } from "react";
-import { ActivityIndicator, Pressable, ScrollView, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { Image } from "expo-image";
 import { useTranslation } from "react-i18next";
 
-import { PressableScale, Text } from "@shared/components";
-import { colors } from "@shared/styles";
+import { PressableScale, Spinner, Text } from "@shared/components";
+import { useStyles } from "@shared/hooks";
 import { DEFAULT_COVER_PHOTOS } from "../../constants";
 import { useCoverPhotosQuery } from "../../hooks/query";
-import { styles } from "./CoverPhotoSection.styles";
+import { coverPhotoSectionStyles } from "./CoverPhotoSection.styles";
 
 export type CoverPhotoSectionProps = {
   city: string;
@@ -25,6 +25,7 @@ function CoverPhotoSectionComponent({
   onUploadPress,
 }: CoverPhotoSectionProps) {
   const { t } = useTranslation();
+  const styles = useStyles(coverPhotoSectionStyles);
   const { data: suggestions, isFetching } = useCoverPhotosQuery(city);
 
   const photos = useMemo(() => {
@@ -44,7 +45,7 @@ function CoverPhotoSectionComponent({
   return (
     <View style={styles.container}>
       <View style={styles.headerRow}>
-        <Text variant="bodyLargeMedium" color="textPrimary">
+        <Text variant="bodyLargeMedium" color="foreground">
           {t("template.coverPhoto")}
         </Text>
         <Pressable
@@ -52,14 +53,14 @@ function CoverPhotoSectionComponent({
           hitSlop={8}
           onPress={onUploadPress}
         >
-          <Text variant="caption" color="primary">
+          <Text variant="caption" color="accent">
             {t("template.uploadPhoto")}
           </Text>
         </Pressable>
       </View>
 
       {isFetching ? (
-        <ActivityIndicator color={colors.primary} style={styles.loading} />
+        <Spinner color="accent" style={styles.loading} />
       ) : null}
 
       <ScrollView

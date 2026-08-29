@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { Pressable, Text, View } from "react-native";
 import { MinusIcon, PlusIcon } from "@shared/assets/icons";
-import { colors } from "@shared/styles";
-import { styles } from "./QuantityInput.styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { quantityInputStyles } from "./QuantityInput.styles";
 
 type QuantityInputProps = {
   value: number;
@@ -19,6 +19,9 @@ function QuantityInputComponent({
   max = Number.MAX_SAFE_INTEGER,
   onChange,
 }: QuantityInputProps) {
+  const styles = useStyles(quantityInputStyles);
+  const colors = useThemeColors();
+
   const canDecrement = value > min;
   const canIncrement = value < max;
 
@@ -33,7 +36,7 @@ function QuantityInputComponent({
           style={[styles.button, !canDecrement && styles.buttonDisabled]}
           onPress={() => onChange(value - 1)}
         >
-          <MinusIcon width={20} height={20} color={colors.iconPrimary} />
+          <MinusIcon width={20} height={20} color={colors.foreground} />
         </Pressable>
 
         <View style={styles.countBadge}>
@@ -47,7 +50,7 @@ function QuantityInputComponent({
           style={[styles.button, !canIncrement && styles.buttonDisabled]}
           onPress={() => onChange(value + 1)}
         >
-          <PlusIcon width={20} height={20} color={colors.iconPrimary} />
+          <PlusIcon width={20} height={20} color={colors.foreground} />
         </Pressable>
       </View>
     </View>

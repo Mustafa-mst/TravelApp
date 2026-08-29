@@ -1,7 +1,8 @@
-import { StyleSheet } from "react-native";
-import { colors, shadows, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const PHOTO_BORDER_WIDTH = 2;
+
+export const templateFolderCardStyles = themed(({ colors, shadows }) => ({
   wrapper: {
     alignItems: "center",
     gap: spacing.xs,
@@ -12,6 +13,9 @@ export const styles = StyleSheet.create({
   },
   label: {
     textAlign: "center",
+  },
+  labelBlock: {
+    paddingTop: spacing.md,
   },
   flag: {
     position: "absolute",
@@ -29,8 +33,10 @@ export const styles = StyleSheet.create({
    */
   photo: {
     position: "absolute",
-    borderColor: colors.white,
+    borderColor: colors.surface,
     backgroundColor: colors.backgroundSecondary,
+    borderWidth: PHOTO_BORDER_WIDTH,
+    borderRadius: radius.md,
     overflow: "hidden",
     ...shadows.level1,
   },
@@ -44,7 +50,7 @@ export const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     borderWidth: 1,
-    borderColor: colors.white,
+    borderColor: colors.surface,
     backgroundColor: colors.folderFront,
   },
-});
+}));

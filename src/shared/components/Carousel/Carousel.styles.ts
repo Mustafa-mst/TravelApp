@@ -1,5 +1,4 @@
-import { StyleSheet } from "react-native";
-import { colors } from "@shared/styles";
+import { themed } from "@shared/styles";
 
 export const ACTIVE_SEGMENT_WIDTH = 50;
 export const INACTIVE_SEGMENT_WIDTH = 20;
@@ -8,7 +7,7 @@ export const SEGMENT_RADIUS = 20;
 export const DOT_SIZE = 7;
 export const DOT_GAP = 6;
 
-export const styles = StyleSheet.create({
+export const carouselStyles = themed(({ colors }) => ({
   container: {
     width: "100%",
     height: "100%",
@@ -30,13 +29,13 @@ export const styles = StyleSheet.create({
   segment: {
     height: SEGMENT_HEIGHT,
     borderRadius: SEGMENT_RADIUS,
-    backgroundColor: colors.progressTrack,
+    backgroundColor: colors.defaultSoft,
     overflow: "hidden",
   },
   fill: {
     height: "100%",
     borderRadius: SEGMENT_RADIUS,
-    backgroundColor: colors.white,
+    backgroundColor: colors.staticWhite,
   },
   dots: {
     position: "absolute",
@@ -48,13 +47,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: SEGMENT_RADIUS,
-    backgroundColor: colors.overlayScrim,
+    backgroundColor: colors.backdrop,
   },
   dot: {
     width: DOT_SIZE,
     height: DOT_SIZE,
     borderRadius: DOT_SIZE / 2,
-    backgroundColor: colors.white,
+    backgroundColor: colors.staticWhite,
     opacity: 0.5,
   },
   activeDot: {
@@ -63,6 +62,6 @@ export const styles = StyleSheet.create({
     width: DOT_SIZE,
     height: DOT_SIZE,
     borderRadius: DOT_SIZE / 2,
-    backgroundColor: colors.white,
+    backgroundColor: colors.staticWhite,
   },
-});
+}));

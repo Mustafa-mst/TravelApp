@@ -1,17 +1,89 @@
-import { memo, type ReactNode } from 'react';
-import { View, type ViewProps } from 'react-native';
-import { styles } from './Card.styles';
+import { memo } from "react";
+import { View } from "react-native";
 
-type CardProps = {
-  children: ReactNode;
-} & ViewProps;
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { Text } from "../Text";
+import { cardStyles, cardVariants } from "./Card.styles";
+import type {
+  CardBodyProps,
+  CardDescriptionProps,
+  CardFooterProps,
+  CardHeaderProps,
+  CardProps,
+  CardTitleProps,
+} from "./card.types";
 
-function CardComponent({ children, style, ...rest }: CardProps) {
+function CardComponent({
+  children,
+  variant = "default",
+  style,
+  ...rest
+}: CardProps) {
+  const styles = useStyles(cardStyles);
+  const colors = useThemeColors();
+
   return (
-    <View style={[styles.card, style]} {...rest}>
+    <View
+      style={[
+        styles.root,
+        { backgroundColor: colors[cardVariants[variant]] },
+        style,
+      ]}
+      {...rest}
+    >
       {children}
     </View>
   );
 }
 
-export const Card = memo(CardComponent);
+function CardHeaderComponent({ children, ...rest }: CardHeaderProps) {
+  return <View {...rest}>{children}</View>;
+}
+
+function CardBodyComponent({ children, style, ...rest }: CardBodyProps) {
+  const styles = useStyles(cardStyles);
+
+  return (
+    <View style={[styles.body, style]} {...rest}>
+      {children}
+    </View>
+  );
+}
+
+function CardFooterComponent({ children, ...rest }: CardFooterProps) {
+  return <View {...rest}>{children}</View>;
+}
+
+function CardTitleComponent({
+  children,
+  variant = "bodyLargeMedium",
+  color = "foreground",
+  ...rest
+}: CardTitleProps) {
+  return (
+    <Text variant={variant} color={color} {...rest}>
+      {children}
+    </Text>
+  );
+}
+
+function CardDescriptionComponent({
+  children,
+  variant = "body",
+  color = "muted",
+  ...rest
+}: CardDescriptionProps) {
+  return (
+    <Text variant={variant} color={color} {...rest}>
+      {children}
+    </Text>
+  );
+}
+
+export const Card = Object.assign(memo(CardComponent), {
+  Header: memo(CardHeaderComponent),
+  Body: memo(CardBodyComponent),
+  Title: memo(CardTitleComponent),
+  Description: memo(CardDescriptionComponent),
+  Footer: memo(CardFooterComponent),
+});

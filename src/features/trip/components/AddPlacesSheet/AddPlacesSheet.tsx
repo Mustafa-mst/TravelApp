@@ -11,10 +11,11 @@ import {
   StateView,
   Text,
 } from "@shared/components";
+import { useStyles } from "@shared/hooks";
 import { PLACE_CATEGORIES } from "@/features/places/constants";
 import type { PlaceType } from "@/features/places/types";
 import { useAddPlacesSheet } from "./useAddPlacesSheet";
-import { styles } from "./AddPlacesSheet.styles";
+import { addPlacesSheetStyles } from "./AddPlacesSheet.styles";
 
 export type AddPlacesSheetProps = {
   bottomSheetRef: RefObject<BottomSheet | null>;
@@ -46,6 +47,7 @@ export function AddPlacesSheet({
   onAdded,
 }: AddPlacesSheetProps) {
   const { t } = useTranslation();
+  const styles = useStyles(addPlacesSheetStyles);
 
   const {
     places,
@@ -87,18 +89,18 @@ export function AddPlacesSheet({
               {item.name}
             </Text>
             {Boolean(item.address) && (
-              <Text variant="caption" color="textMuted" numberOfLines={1}>
+              <Text variant="caption" color="muted" numberOfLines={1}>
                 {item.address}
               </Text>
             )}
           </View>
           {added ? (
-            <Text variant="captionMedium" color="textMuted">
+            <Text variant="captionMedium" color="muted">
               {t("template.nearby.alreadyAdded")}
             </Text>
           ) : (
             item.rating != null && (
-              <Text variant="captionMedium" color="textSecondary">
+              <Text variant="captionMedium" color="muted">
                 {`★ ${item.rating.toFixed(1)}`}
               </Text>
             )
@@ -106,7 +108,7 @@ export function AddPlacesSheet({
         </PressableScale>
       );
     },
-    [isAlreadyAdded, isPending, togglePlace, selectedType, t],
+    [isAlreadyAdded, isPending, togglePlace, selectedType, styles, t],
   );
 
   return (
@@ -143,9 +145,8 @@ export function AddPlacesSheet({
         <Button
           label={addLabel}
           fullWidth
-          state={
-            isCreating ? "loading" : selectedCount > 0 ? undefined : "disabled"
-          }
+          isLoading={isCreating}
+          isDisabled={selectedCount === 0}
           onPress={addPlaces}
         />
       </View>

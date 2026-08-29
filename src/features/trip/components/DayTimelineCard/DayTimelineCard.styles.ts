@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, shadows, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const dayTimelineCardStyles = themed(({ colors, shadows }) => ({
   row: {
     flexDirection: "row",
     gap: spacing.md,
@@ -13,7 +12,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
     borderRadius: radius.lg,
     padding: spacing.md,
     ...shadows.level1,
@@ -22,10 +21,10 @@ export const styles = StyleSheet.create({
     flex: 1,
     gap: spacing.xs,
   },
-  meta: {
-    color: colors.textMuted,
-  },
   moreButton: {
     padding: spacing.xs,
   },
-});
+}));
+
+export const TIMELINE_NODE_ICON_SIZE = 14;
+export const TIMELINE_MORE_ICON_SIZE = 18;

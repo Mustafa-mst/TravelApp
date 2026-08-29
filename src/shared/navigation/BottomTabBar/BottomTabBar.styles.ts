@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, shadows, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const bottomTabBarStyles = themed(({ colors, shadows }) => ({
   wrapper: {
     position: "absolute",
     left: 0,
@@ -41,4 +40,4 @@ export const styles = StyleSheet.create({
   pressed: {
     transform: [{ scale: 0.98 }],
   },
-});
+}));

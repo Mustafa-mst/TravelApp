@@ -9,13 +9,16 @@ import type { RootStackParamList } from "@shared/navigation";
 import { TripDetailMode } from "@/features/trip";
 import type { TemplateCardType } from "@/features/trip";
 import { CategorySection, ExploreTemplates } from "../../components";
-import { styles } from "./HomeScreen.styles";
+import { homeScreenStyles } from "./HomeScreen.styles";
 import { useGetCategoriesQuery } from "@/features/country";
 import { HomeHeader } from "../../components/HomeHeader";
-import { Divider } from "@/shared/components";
+import { Divider } from "@shared/components";
+import { useStyles, useTheme } from "@shared/hooks";
 
 export function HomeScreen() {
   const { t } = useTranslation();
+  const styles = useStyles(homeScreenStyles);
+  const { themeName } = useTheme();
   const { data: categories } = useGetCategoriesQuery();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -41,7 +44,7 @@ export function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <StatusBar style="dark" />
+      <StatusBar style={themeName === "dark" ? "light" : "dark"} />
       <ScrollView
         style={styles.scrollArea}
         contentContainerStyle={styles.scrollContent}

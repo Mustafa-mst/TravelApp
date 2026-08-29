@@ -25,7 +25,7 @@ function CategorySectionComponent({ items }: CategorySectionProps) {
 
   return (
     <View style={styles.section}>
-      <Text variant="bodyLargeMedium" style={styles.title}>
+      <Text variant="h5" style={styles.title}>
         {t("home.exploreCountries")}
       </Text>
       <FlatList

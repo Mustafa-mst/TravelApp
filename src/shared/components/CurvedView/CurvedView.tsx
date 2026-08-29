@@ -6,7 +6,8 @@ import {
   type ViewProps,
   type ViewStyle,
 } from 'react-native';
-import { styles } from './CurvedView.styles';
+import { useStyles } from '@shared/hooks';
+import { curvedViewStyles } from './CurvedView.styles';
 
 type CurvedViewProps = {
   children: ReactNode;
@@ -21,6 +22,8 @@ function CurvedViewComponent({
   style,
   ...rest
 }: CurvedViewProps) {
+  const styles = useStyles(curvedViewStyles);
+
   if (scrollable) {
     return (
       <View style={[styles.curved, style]} {...rest}>

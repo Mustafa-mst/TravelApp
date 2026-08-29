@@ -3,10 +3,10 @@ import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 
 import { StateView, Text, TimelineRail } from "@shared/components";
-import { colors } from "@shared/styles";
+import { useThemeColors } from "@shared/hooks";
 import type { TripDetailDay } from "../../types";
 import { TripDayCard } from "../TripDayCard";
-import { styles } from "./TripDetailOverview.styles";
+import { OVERVIEW_RAIL_SIZE, styles } from "./TripDetailOverview.styles";
 
 export type TripDetailOverviewProps = {
   days: TripDetailDay[];
@@ -30,6 +30,7 @@ function TripDetailOverviewComponent({
   onOpenDay,
 }: TripDetailOverviewProps) {
   const { t } = useTranslation();
+  const colors = useThemeColors();
 
   const visibleDays = useMemo(
     () => (canEdit ? days : days.filter((day) => day.items.length > 0)),
@@ -48,7 +49,7 @@ function TripDetailOverviewComponent({
 
   return (
     <View style={styles.content}>
-      <Text variant="bodyLargeSemiBold">{t("template.detail.planTitle")}</Text>
+      <Text variant="h6">{t("template.detail.planTitle")}</Text>
       {visibleDays.map((day, index) => {
         const isActive = day.day_number === activeDayNumber;
         const isLast = index === visibleDays.length - 1;
@@ -59,12 +60,12 @@ function TripDetailOverviewComponent({
             <TimelineRail
               isFirst={index === 0}
               isLast={isLast}
-              size={28}
-              nodeColor={isActive ? colors.primary : colors.text}
+              size={OVERVIEW_RAIL_SIZE}
+              nodeColor={isActive ? colors.accent : colors.foreground}
               trackColor={colors.border}
-              capColor={colors.text}
+              capColor={colors.foreground}
             >
-              <Text variant="captionBold" color="white">
+              <Text variant="captionBold" color="staticWhite">
                 {day.day_number}
               </Text>
             </TimelineRail>

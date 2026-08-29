@@ -18,8 +18,9 @@ import {
   PenIcon,
   ShareIcon,
   TrashBin,
-} from "@/shared/assets/icons";
-import { styles } from "./TemplateListCard.styles";
+} from "@shared/assets/icons";
+import { useThemeColors } from "@shared/hooks";
+import { MORE_ICON_SIZE, styles } from "./TemplateListCard.styles";
 
 export type TemplateListCardMember = {
   id: string | number;
@@ -75,6 +76,7 @@ function TemplateListCardComponent({
   onDelete,
 }: TemplateListCardProps) {
   const { t } = useTranslation();
+  const colors = useThemeColors();
   const sheetRef = useRef<BottomSheet>(null);
   const visibleMembers = members.slice(0, MAX_VISIBLE_AVATARS);
 
@@ -118,20 +120,26 @@ function TemplateListCardComponent({
 
         <View style={styles.content}>
           <View style={styles.topRow}>
-            <Text variant="caption" color="white" style={styles.meta}>
+            <Text variant="caption" color="staticWhite" style={styles.meta}>
               {`${location} · ${dateLabel}`}
             </Text>
             <IconButton
               hitSlop={8}
               style={styles.moreButton}
               onPress={() => sheetRef.current?.present()}
-              icon={<MoreVerticalIcon width={20} height={20} color="#FFFFFF" />}
+              icon={
+                <MoreVerticalIcon
+                  width={MORE_ICON_SIZE}
+                  height={MORE_ICON_SIZE}
+                  color={colors.staticWhite}
+                />
+              }
             />
           </View>
 
           <Text
             variant="h3"
-            color="white"
+            color="staticWhite"
             numberOfLines={1}
             style={styles.title}
           >
@@ -159,7 +167,7 @@ function TemplateListCardComponent({
               </View>
               <Text
                 variant="bodyMedium"
-                color="white"
+                color="staticWhite"
                 numberOfLines={1}
                 style={styles.membersLabel}
               >

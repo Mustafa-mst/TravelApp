@@ -6,9 +6,13 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { useStyles } from "@shared/hooks";
 import { PressableScale } from "../PressableScale";
 import { Text } from "../Text";
-import { UNDERLINE_GRADIENT, styles } from "./SegmentedControl.styles";
+import {
+  segmentedControlStyles,
+  underlineGradient,
+} from "./SegmentedControl.styles";
 
 export type SegmentOption<T extends string = string> = {
   key: T;
@@ -26,6 +30,8 @@ function SegmentedControlComponent<T extends string = string>({
   value,
   onChange,
 }: SegmentedControlProps<T>) {
+  const styles = useStyles(segmentedControlStyles);
+  const gradient = useStyles(underlineGradient);
   const [layouts, setLayouts] = useState<Record<string, LayoutRectangle>>({});
 
   const activeLayout = layouts[value];
@@ -61,7 +67,7 @@ function SegmentedControlComponent<T extends string = string>({
                 style={styles.segment}
               >
                 <Text
-                  variant="h6"
+                  variant="bodyLargeSemiBold"
                   style={active ? styles.labelActive : styles.label}
                 >
                   {option.label}
@@ -74,8 +80,8 @@ function SegmentedControlComponent<T extends string = string>({
 
       <Animated.View style={[styles.underlineTrack, underlineStyle]}>
         <LinearGradient
-          colors={UNDERLINE_GRADIENT.colors}
-          locations={UNDERLINE_GRADIENT.locations}
+          colors={gradient.colors}
+          locations={gradient.locations}
           start={{ x: 1, y: 0 }}
           end={{ x: 0, y: 0 }}
           style={styles.underlineFill}

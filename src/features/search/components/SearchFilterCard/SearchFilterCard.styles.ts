@@ -1,12 +1,11 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
 export const REGION_ICON_SIZE = 28;
 
-export const styles = StyleSheet.create({
+export const searchFilterCardStyles = themed(({ colors }) => ({
   card: {
     flexShrink: 0,
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
     borderRadius: radius.xl,
     marginBottom: spacing.sm,
     padding: spacing.md,
@@ -30,24 +29,6 @@ export const styles = StyleSheet.create({
   optionLabel: {
     flex: 1,
   },
-  radio: {
-    width: 22,
-    height: 22,
-    borderRadius: radius.full,
-    borderWidth: 2,
-    borderColor: colors.border,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  radioSelected: {
-    borderColor: colors.primary,
-  },
-  radioDot: {
-    width: 10,
-    height: 10,
-    borderRadius: radius.full,
-    backgroundColor: colors.primary,
-  },
   footer: {
     flexDirection: "row",
     gap: spacing.sm,
@@ -58,6 +39,5 @@ export const styles = StyleSheet.create({
   },
   clearButton: {
     flex: 1,
-    borderColor: colors.border,
   },
-});
+}));

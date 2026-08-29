@@ -3,9 +3,12 @@ import { Image, Pressable, View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { ChevronRightIcon, CloseIcon } from "@shared/assets/icons";
 import { IconButton, Text } from "@shared/components";
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { resolveCountryName } from "@shared/utils/country";
-import { styles } from "./SearchResultList.styles";
+import {
+  RESULT_ROW_ICON_SIZE,
+  searchResultListStyles,
+} from "./SearchResultList.styles";
 import type { CountrySearchResult } from "../../types";
 
 type CountryRowProps = {
@@ -20,6 +23,8 @@ const CountryRowComponent = ({
   onRemove,
 }: CountryRowProps) => {
   const { i18n } = useTranslation();
+  const styles = useStyles(searchResultListStyles);
+  const colors = useThemeColors();
 
   const name = resolveCountryName(country.name, i18n.language, country.cca2);
   const area = country.subregion ?? country.region;
@@ -35,11 +40,11 @@ const CountryRowComponent = ({
           <Image source={{ uri: country.flags.png }} style={styles.flag} />
         ) : null}
         <View>
-          <Text variant="bodyMedium" color="text">
+          <Text variant="bodyMedium" color="foreground">
             {name}
           </Text>
           {area ? (
-            <Text variant="caption" color="textMuted">
+            <Text variant="caption" color="muted">
               {area}
             </Text>
           ) : null}
@@ -48,12 +53,20 @@ const CountryRowComponent = ({
       {onRemove ? (
         <IconButton
           icon={
-            <CloseIcon width={18} height={18} color={colors.iconSecondary} />
+            <CloseIcon
+              width={RESULT_ROW_ICON_SIZE}
+              height={RESULT_ROW_ICON_SIZE}
+              color={colors.muted}
+            />
           }
           onPress={onRemove}
         />
       ) : (
-        <ChevronRightIcon width={18} height={18} color={colors.iconSecondary} />
+        <ChevronRightIcon
+          width={RESULT_ROW_ICON_SIZE}
+          height={RESULT_ROW_ICON_SIZE}
+          color={colors.muted}
+        />
       )}
     </Pressable>
   );

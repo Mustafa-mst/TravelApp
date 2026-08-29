@@ -1,7 +1,8 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+const ROW_INFO_GAP = 2;
+
+export const addPlacesSheetStyles = themed(({ colors }) => ({
   content: {
     flex: 1,
     padding: spacing.md,
@@ -27,16 +28,16 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.backgroundTertiary,
     borderRadius: radius.lg,
     borderWidth: 1,
-    borderColor: "transparent",
+    borderColor: colors.transparent,
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.md,
   },
   rowSelected: {
-    borderColor: colors.primary,
-    backgroundColor: colors.surface,
+    borderColor: colors.accent,
+    backgroundColor: colors.surfaceSecondary,
   },
   rowInfo: {
     flex: 1,
-    gap: 2,
+    gap: ROW_INFO_GAP,
   },
-});
+}));

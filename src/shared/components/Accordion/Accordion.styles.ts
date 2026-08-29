@@ -1,5 +1,4 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
 export const CONTENT_SPRING = {
   damping: 20,
@@ -12,12 +11,12 @@ export const INDICATOR_ROTATION: [number, number] = [0, -180];
 export const CHEVRON_SIZE = 18;
 export const LEADING_ICON_SIZE = 18;
 
-export const styles = StyleSheet.create({
+export const accordionStyles = themed(({ colors }) => ({
   container: {
     overflow: "hidden",
   },
   containerSurface: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceSecondary,
     borderRadius: radius.lg,
   },
   trigger: {
@@ -60,4 +59,4 @@ export const styles = StyleSheet.create({
   disabled: {
     opacity: 0.5,
   },
-});
+}));

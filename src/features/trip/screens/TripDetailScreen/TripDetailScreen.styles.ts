@@ -1,12 +1,14 @@
 import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
 const HERO_HEIGHT = 280;
+const MAP_CARD_ASPECT = 325 / 167;
+const MAP_CARD_BORDER_WIDTH = 5;
 
-export const styles = StyleSheet.create({
+export const tripDetailStyles = themed(({ colors }) => ({
   safe: {
     flex: 1,
-    backgroundColor: colors.backgroundTertiary,
+    backgroundColor: colors.background,
   },
   scrollContent: {
     // Room for the pinned TripActions bar that overlays the scroll view.
@@ -22,7 +24,7 @@ export const styles = StyleSheet.create({
   },
   heroScrim: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: colors.overlayScrim,
+    backgroundColor: colors.backdrop,
   },
   titleBlock: {
     paddingTop: spacing.md,
@@ -39,10 +41,10 @@ export const styles = StyleSheet.create({
   mapCard: {
     marginBottom: spacing.md,
     width: "100%",
-    aspectRatio: 325 / 167,
+    aspectRatio: MAP_CARD_ASPECT,
     borderRadius: radius.lg,
     overflow: "hidden",
-    borderWidth: 5,
-    borderColor: colors.white,
+    borderWidth: MAP_CARD_BORDER_WIDTH,
+    borderColor: colors.surface,
   },
-});
+}));

@@ -1,18 +1,18 @@
-import { StyleSheet } from "react-native";
-import { colors, radius, shadows, spacing } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
 
 const IMAGE_WIDTH = 135;
 const IMAGE_HEIGHT = 110;
 
-export const styles = StyleSheet.create({
+export const templateCardStyles = themed((theme) => ({
   card: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.md,
     padding: spacing.md,
     borderRadius: radius.lg,
-    backgroundColor: colors.white,
-    ...shadows.level1,
+    backgroundColor: theme.colors.surface,
+    ...theme.shadows.level1,
+    ...theme.elevatedBorder,
   },
   info: {
     flex: 1,
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     gap: spacing.xs,
   },
   chip: {
-    backgroundColor: colors.backgroundTertiary,
+    backgroundColor: theme.colors.background,
     borderRadius: radius.full,
     paddingVertical: spacing.xs,
     paddingHorizontal: spacing.sm,
@@ -38,4 +38,4 @@ export const styles = StyleSheet.create({
     aspectRatio: IMAGE_WIDTH / IMAGE_HEIGHT,
     borderRadius: radius.md,
   },
-});
+}));

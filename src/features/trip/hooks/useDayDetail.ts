@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from "react";
 
 import { MAP_DEFAULT_CENTER, type MapPolyline } from "@shared/components";
-import { colors } from "@shared/styles";
 import { buildMarkers, toCoordinates } from "@shared/utils/map";
 import { useDirections } from "@/features/routes/hooks/mutation/useDirections";
 import { decodePolyline } from "@/features/routes/utils";
@@ -9,6 +8,9 @@ import type { DirectionsCoordinates } from "@/features/routes/types/routes.types
 import type { TripDetailMode } from "../constants";
 import { placeBadge } from "../utils/placeBadge";
 import { useTripDetail } from "./useTripDetail";
+
+const ROUTE_LINE_COLOR = "#0E7C66";
+const ROUTE_LINE_WIDTH = 4;
 
 /**
  * DayDetail screen data: the day, its map markers and the driving route between
@@ -59,8 +61,8 @@ export function useDayDetail(id: string, mode: TripDetailMode, dayId: string) {
       {
         id: "route",
         coordinates: decodePolyline(route.polyline),
-        color: colors.primary,
-        width: 4,
+        color: ROUTE_LINE_COLOR,
+        width: ROUTE_LINE_WIDTH,
       },
     ];
   }, [route?.polyline]);

@@ -4,7 +4,8 @@ import {
   Pressable,
   type ModalProps as RNModalProps,
 } from 'react-native';
-import { styles } from './Modal.styles';
+import { useStyles } from '@shared/hooks';
+import { modalStyles } from './Modal.styles';
 
 type ModalProps = {
   visible: boolean;
@@ -13,6 +14,8 @@ type ModalProps = {
 } & Omit<RNModalProps, 'visible' | 'onRequestClose'>;
 
 function ModalComponent({ visible, onClose, children, ...rest }: ModalProps) {
+  const styles = useStyles(modalStyles);
+
   return (
     <RNModal
       visible={visible}

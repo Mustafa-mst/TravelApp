@@ -1,9 +1,11 @@
+import { useMemo } from "react";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors } from "@shared/styles";
-import { styles } from "./BottomTabBar.styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
+import { withOpacity } from "@shared/utils/color";
+import { bottomTabBarStyles } from "./BottomTabBar.styles";
 import { TabBarItem } from "./TabBarItem";
 
 export function BottomTabBar({
@@ -12,12 +14,19 @@ export function BottomTabBar({
   navigation,
 }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
+  const colors = useThemeColors();
+  const styles = useStyles(bottomTabBarStyles);
+
+  const fadeColors = useMemo(
+    () => [colors.background, withOpacity(colors.background, 0)] as const,
+    [colors.background],
+  );
 
   return (
     <View style={[styles.wrapper, { paddingBottom: insets.bottom }]}>
       <LinearGradient
         pointerEvents="none"
-        colors={["rgba(243, 243, 243, 1)", "rgba(243, 243, 243, 0)"]}
+        colors={fadeColors}
         locations={[0.27, 1]}
         start={{ x: 0, y: 1 }}
         end={{ x: 0, y: 0 }}

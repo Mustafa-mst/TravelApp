@@ -2,7 +2,8 @@ import { Keyboard, View } from "react-native";
 import type { FlatListProps } from "react-native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 
-import { styles } from "./BottomSheetList.styles";
+import { useStyles } from "@shared/hooks";
+import { bottomSheetListStyles } from "./BottomSheetList.styles";
 
 export type BottomSheetListProps<ItemT> = FlatListProps<ItemT>;
 
@@ -12,6 +13,8 @@ export function BottomSheetList<ItemT>({
   onScrollBeginDrag,
   ...listProps
 }: BottomSheetListProps<ItemT>) {
+  const styles = useStyles(bottomSheetListStyles);
+
   return (
     <View style={[styles.card, styles.cardFill]}>
       <BottomSheetFlatList

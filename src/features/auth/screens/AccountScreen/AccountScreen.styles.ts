@@ -1,7 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { colors, spacing, typography } from '@shared/styles';
+import { spacing, themed, typography } from "@shared/styles";
 
-export const styles = StyleSheet.create({
+export const accountScreenStyles = themed(({ colors }) => ({
   safe: {
     flex: 1,
     backgroundColor: colors.background,
@@ -13,14 +12,14 @@ export const styles = StyleSheet.create({
   },
   title: {
     ...typography.h3,
-    color: colors.text,
+    color: colors.foreground,
   },
   email: {
     ...typography.body,
-    color: colors.textMuted,
+    color: colors.muted,
   },
   prompt: {
     ...typography.body,
-    color: colors.textMuted,
+    color: colors.muted,
   },
-});
+}));

@@ -2,11 +2,11 @@ import { type ComponentType, type ReactNode, type Ref } from "react";
 import { View } from "react-native";
 import { type SvgProps } from "react-native-svg";
 
-import { colors } from "@shared/styles";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import { BottomSheet, type BottomSheet as BottomSheetRef } from "../BottomSheet";
 import { PressableScale } from "../PressableScale";
 import { Text } from "../Text";
-import { styles } from "./ActionSheet.styles";
+import { actionSheetStyles } from "./ActionSheet.styles";
 
 export type SheetAction = {
   id: string;
@@ -33,6 +33,9 @@ export function ActionSheet({
   snapPoints,
   onSelect,
 }: ActionSheetProps) {
+  const styles = useStyles(actionSheetStyles);
+  const colors = useThemeColors();
+
   return (
     <BottomSheet ref={ref} snapPoints={snapPoints} header={header}>
       <View style={styles.card}>
@@ -50,17 +53,17 @@ export function ActionSheet({
             <action.Icon
               width={22}
               height={22}
-              color={action.destructive ? colors.danger : colors.text}
+              color={action.destructive ? colors.danger : colors.foreground}
             />
             <View style={styles.text}>
               <Text
                 variant="bodyLargeMedium"
-                color={action.destructive ? "danger" : "text"}
+                color={action.destructive ? "danger" : "foreground"}
               >
                 {action.label}
               </Text>
               {action.description ? (
-                <Text variant="body" color="textTertiary" numberOfLines={2}>
+                <Text variant="body" color="muted" numberOfLines={2}>
                   {action.description}
                 </Text>
               ) : null}
