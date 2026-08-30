@@ -12,6 +12,31 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "12.2.12 (cd3cf9e)"
   }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       categories: {
@@ -258,23 +283,53 @@ export type Database = {
         }
         Relationships: []
       }
+      exchange_rate_sync_log: {
+        Row: {
+          error: string | null
+          id: number
+          ran_at: string
+          rows_written: number | null
+          status: string
+        }
+        Insert: {
+          error?: string | null
+          id?: never
+          ran_at?: string
+          rows_written?: number | null
+          status: string
+        }
+        Update: {
+          error?: string | null
+          id?: never
+          ran_at?: string
+          rows_written?: number | null
+          status?: string
+        }
+        Relationships: []
+      }
       exchange_rates: {
         Row: {
           currency_code: string
           flag: string | null
+          name: string | null
           rate: number
+          symbol: string | null
           updated_at: string
         }
         Insert: {
           currency_code: string
           flag?: string | null
+          name?: string | null
           rate: number
+          symbol?: string | null
           updated_at?: string
         }
         Update: {
           currency_code?: string
           flag?: string | null
+          name?: string | null
           rate?: number
+          symbol?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -732,92 +787,49 @@ export type Database = {
         Args: { p_start_date: string; p_template_id: string }
         Returns: string
       }
-      get_countries:
-        | {
-            Args: {
-              continent_filter?: string[]
-              language_filter?: string[]
-              page_number?: number
-              page_size?: number
-              population_filter?: string
-              search_query?: string
-            }
-            Returns: {
-              area: number | null
-              borders: string[] | null
-              capital: string[] | null
-              capital_info: Json | null
-              car: Json | null
-              cca2: string
-              continents: string[] | null
-              currencies: Json | null
-              description: string | null
-              flags: Json | null
-              id: string
-              idd: string | null
-              landlocked: boolean | null
-              languages: string[] | null
-              latlng: number[] | null
-              maps: Json | null
-              name: Json | null
-              plug_data: Json | null
-              population_data: Json | null
-              region: string | null
-              start_of_week: string | null
-              subregion: string | null
-              timezones: string[] | null
-              un_member: boolean | null
-            }[]
-            SetofOptions: {
-              from: "*"
-              to: "countries"
-              isOneToOne: false
-              isSetofReturn: true
-            }
-          }
-        | {
-            Args: {
-              continent_filter?: string[]
-              language_filter?: string[]
-              locale?: string
-              page_number?: number
-              page_size?: number
-              population_filter?: string
-              search_query?: string
-            }
-            Returns: {
-              area: number | null
-              borders: string[] | null
-              capital: string[] | null
-              capital_info: Json | null
-              car: Json | null
-              cca2: string
-              continents: string[] | null
-              currencies: Json | null
-              description: string | null
-              flags: Json | null
-              id: string
-              idd: string | null
-              landlocked: boolean | null
-              languages: string[] | null
-              latlng: number[] | null
-              maps: Json | null
-              name: Json | null
-              plug_data: Json | null
-              population_data: Json | null
-              region: string | null
-              start_of_week: string | null
-              subregion: string | null
-              timezones: string[] | null
-              un_member: boolean | null
-            }[]
-            SetofOptions: {
-              from: "*"
-              to: "countries"
-              isOneToOne: false
-              isSetofReturn: true
-            }
-          }
+      get_countries: {
+        Args: {
+          continent_filter?: string[]
+          language_filter?: string[]
+          locale?: string
+          page_number?: number
+          page_size?: number
+          population_filter?: string
+          search_query?: string
+        }
+        Returns: {
+          area: number | null
+          borders: string[] | null
+          capital: string[] | null
+          capital_info: Json | null
+          car: Json | null
+          cca2: string
+          continents: string[] | null
+          currencies: Json | null
+          description: string | null
+          flags: Json | null
+          id: string
+          idd: string | null
+          landlocked: boolean | null
+          languages: string[] | null
+          latlng: number[] | null
+          maps: Json | null
+          name: Json | null
+          plug_data: Json | null
+          population_data: Json | null
+          region: string | null
+          start_of_week: string | null
+          subregion: string | null
+          timezones: string[] | null
+          un_member: boolean | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "countries"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       get_countries_small_size: {
         Args: never
         Returns: {
@@ -986,6 +998,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       place_category: [

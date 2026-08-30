@@ -73,7 +73,7 @@ export const lightColors: ThemeColors = {
 
   staticWhite: "#FFFFFF",
   staticBlack: "#000000",
-  backdropStrong: "rgba(0, 0, 0, 0.5)",
+  backdropStrong: "rgba(0, 0, 0, 0.8)",
   folderBack: "rgba(255, 255, 255, 0.8)",
   folderFront: "#FBFBFB",
   // The tab bar is a deliberately dark pill in light mode — an inversion,

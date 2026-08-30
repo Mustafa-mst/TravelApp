@@ -4,48 +4,35 @@ import { useTranslation } from "react-i18next";
 import type { BottomSheet } from "@shared/components";
 import type { DropdownItem } from "@shared/types";
 import { useGetExchangeRatesQuery } from "./query";
-import type { ExchangeRate } from "../types";
+import type { CurrencyField, ExchangeInfo, ExchangeRate } from "../types";
 import {
   applyExchangeConversion,
+  findFlagUri,
+  formatAmountForDisplay,
   formatExchangeAmount,
   formatRateUpdatedAt,
   getLatestRateUpdate,
   getUnitExchangeRate,
+  sanitizeAmountInput,
 } from "../utils";
 
-type CurrencyField = "from" | "to";
-
-type ExchangeInfo = {
-  heroRate: string;
-  rateLabel: string;
-  updatedLabel: string | null;
-  /** How much more/less the target currency is worth vs. the source, as a
-   * signed percentage: (unitRate - 1) * 100. e.g. 1 AOA = 1.6113 ARS -> +61.13. */
-  changePercent: number;
+export type UseExchangeParams = {
+  /** Seeds the pair on first load; falls back to the first two rates. */
+  fromCode?: string;
+  toCode?: string;
 };
 
 const toDropdownItem = (rate: ExchangeRate): DropdownItem => ({
   label: rate.currency_code,
 });
 
-function findFlagUri(
-  code?: string,
-  rates?: ExchangeRate[],
-): string | undefined {
-  if (!code || !rates?.length) {
-    return undefined;
-  }
-  return rates.find((rate) => rate.currency_code === code)?.flag ?? undefined;
-}
-
-export function useExchange() {
+export function useExchange({ fromCode, toCode }: UseExchangeParams = {}) {
   const { t } = useTranslation();
   const sheetRef = useRef<BottomSheet>(null);
 
-  const { data: rates } = useGetExchangeRatesQuery();
+  const { data: rates, isLoading, isError } = useGetExchangeRatesQuery();
 
   const [activeField, setActiveField] = useState<CurrencyField>("from");
-  const [lastEditedField, setLastEditedField] = useState<CurrencyField>("from");
   const [fromCurrency, setFromCurrency] = useState<DropdownItem | undefined>(
     undefined,
   );
@@ -60,14 +47,26 @@ export function useExchange() {
     if (!rates?.length) {
       return;
     }
-    setFromCurrency((current) => current ?? toDropdownItem(rates[0]));
-    setToCurrency((current) => current ?? toDropdownItem(rates[1] ?? rates[0]));
-  }, [rates]);
+
+    const find = (code: string | undefined) =>
+      rates.find((rate) => rate.currency_code === code);
+
+    // The seed codes resolve after the rates do, so a matched code always
+    // replaces the placeholder pair rather than deferring to it.
+    const from = find(fromCode);
+    const to = find(toCode);
+
+    setFromCurrency((current) =>
+      from ? toDropdownItem(from) : (current ?? toDropdownItem(rates[0])),
+    );
+    setToCurrency((current) =>
+      to ? toDropdownItem(to) : (current ?? toDropdownItem(rates[1] ?? rates[0])),
+    );
+  }, [rates, fromCode, toCode]);
 
   const applyConversion = useCallback(
-    (sourceField: CurrencyField, sourceAmount: string) => {
+    (sourceAmount: string) => {
       const result = applyExchangeConversion({
-        sourceField,
         sourceAmount,
         fromCurrencyCode: fromCurrency?.label,
         toCurrencyCode: toCurrency?.label,
@@ -81,10 +80,9 @@ export function useExchange() {
   );
 
   useEffect(() => {
-    const sourceAmount = lastEditedField === "from" ? fromAmount : toAmount;
-    applyConversion(lastEditedField, sourceAmount);
+    applyConversion(fromAmount);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applyConversion, lastEditedField]);
+  }, [applyConversion]);
 
   const openCurrencySheet = useCallback((field: CurrencyField) => {
     setActiveField(field);
@@ -119,16 +117,7 @@ export function useExchange() {
 
   const onChangeFromAmount = useCallback(
     (text: string) => {
-      setLastEditedField("from");
-      applyConversion("from", text);
-    },
-    [applyConversion],
-  );
-
-  const onChangeToAmount = useCallback(
-    (text: string) => {
-      setLastEditedField("to");
-      applyConversion("to", text);
+      applyConversion(sanitizeAmountInput(text));
     },
     [applyConversion],
   );
@@ -145,8 +134,10 @@ export function useExchange() {
     if (!query) {
       return rates;
     }
-    return rates?.filter((rate) =>
-      rate.currency_code.toLowerCase().includes(query),
+    return rates?.filter(
+      (rate) =>
+        rate.currency_code.toLowerCase().includes(query) ||
+        rate.name?.toLowerCase().includes(query),
     );
   }, [rates, searchQuery]);
 
@@ -179,21 +170,22 @@ export function useExchange() {
     const formattedRate = formatExchangeAmount(unitRate);
 
     return {
-      heroRate: formattedRate,
       rateLabel: `1 ${fromCurrency.label} = ${formattedRate} ${toCurrency.label}`,
       updatedLabel: latestUpdate
         ? t("exchange.lastUpdated", { time: formatRateUpdatedAt(latestUpdate) })
         : null,
-      changePercent: (unitRate - 1) * 100,
     };
   }, [fromCurrency, toCurrency, rates, t]);
 
   return {
     filteredRates,
+    isLoading,
+    isError,
     sheetRef,
     fromCurrency,
     toCurrency,
-    fromAmount,
+    // State stays raw so it parses; the field shows it grouped.
+    fromAmount: formatAmountForDisplay(fromAmount),
     toAmount,
     fromFlag,
     toFlag,
@@ -206,7 +198,6 @@ export function useExchange() {
     onSelectCurrency,
     onSwapCurrencies,
     onChangeFromAmount,
-    onChangeToAmount,
     onSheetChange,
   };
 }

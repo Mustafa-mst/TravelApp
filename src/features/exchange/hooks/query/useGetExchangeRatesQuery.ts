@@ -13,7 +13,7 @@ export function useGetExchangeRatesQuery() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("exchange_rates")
-        .select("currency_code,rate,updated_at,flag");
+        .select("currency_code,rate,updated_at,flag,name");
 
       if (error) {
         throw error;

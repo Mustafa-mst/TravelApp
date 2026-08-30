@@ -245,6 +245,11 @@ const tr = {
     amount: "Tutar",
     converted: "Karşılığı",
     referenceOnly: "Kurlar yalnızca referans amaçlıdır",
+    searchPlaceholder: "Para birimi ara",
+    noResults: "Para birimi bulunamadı",
+    loadError: "Döviz kurları yüklenemedi",
+    loadErrorHint: "Lütfen birazdan tekrar deneyin.",
+    swap: "Para birimlerini değiştir",
   },
   country: {
     seeMore: "Daha fazla",

@@ -2,11 +2,5 @@ export { ListGroup } from "./ListGroup";
 export type {
   ListGroupProps,
   ListGroupVariant,
-  ListGroupItemProps,
-  ListGroupItemPrefixProps,
-  ListGroupItemContentProps,
-  ListGroupItemTitleProps,
-  ListGroupItemDescriptionProps,
-  ListGroupItemSuffixProps,
-  ListGroupIconProps,
+  ListGroupItem,
 } from "./listGroup.types";

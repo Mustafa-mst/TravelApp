@@ -1,13 +1,5 @@
 import { radius, spacing, themed } from "@shared/styles";
 
-export const CONTENT_SPRING = {
-  damping: 20,
-  stiffness: 180,
-  mass: 0.6,
-};
-
-export const INDICATOR_ROTATION: [number, number] = [0, -180];
-
 export const CHEVRON_SIZE = 18;
 export const LEADING_ICON_SIZE = 18;
 

@@ -1,11 +1,5 @@
-import { useEffect } from "react";
 import { View } from "react-native";
-import Animated, {
-  interpolate,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 
 import { ChevronDownIcon } from "@shared/assets/icons";
 import { useStyles, useThemeColors } from "@shared/hooks";
@@ -14,11 +8,10 @@ import { Text } from "../Text";
 import {
   accordionStyles,
   CHEVRON_SIZE,
-  CONTENT_SPRING,
-  INDICATOR_ROTATION,
   LEADING_ICON_SIZE,
 } from "./Accordion.styles";
 import { type AccordionRowProps } from "./accordion.types";
+import { useCollapsibleContent } from "./useCollapsibleContent";
 
 export function AccordionRow({
   item,
@@ -30,28 +23,8 @@ export function AccordionRow({
   const styles = useStyles(accordionStyles);
   const colors = useThemeColors();
 
-  const progress = useSharedValue(isOpen ? 1 : 0);
-  const measured = useSharedValue(0);
-
-  useEffect(() => {
-    progress.value = withSpring(isOpen ? 1 : 0, CONTENT_SPRING);
-  }, [isOpen, progress]);
-
-  const contentStyle = useAnimatedStyle(() => ({
-    height: progress.value * measured.value,
-  }));
-
-  const chevronStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        rotate: `${interpolate(
-          progress.value,
-          [0, 1],
-          INDICATOR_ROTATION,
-        )}deg`,
-      },
-    ],
-  }));
+  const { contentStyle, indicatorStyle, onMeasure } =
+    useCollapsibleContent(isOpen);
 
   const { Icon } = item;
 
@@ -87,7 +60,7 @@ export function AccordionRow({
           ) : null}
         </View>
 
-        <Animated.View style={chevronStyle}>
+        <Animated.View style={indicatorStyle}>
           <ChevronDownIcon
             width={CHEVRON_SIZE}
             height={CHEVRON_SIZE}
@@ -99,9 +72,7 @@ export function AccordionRow({
       <Animated.View style={[styles.contentWrapper, contentStyle]}>
         <View
           style={styles.contentMeasure}
-          onLayout={(event) => {
-            measured.value = event.nativeEvent.layout.height;
-          }}
+          onLayout={onMeasure}
         >
           <View
             style={[

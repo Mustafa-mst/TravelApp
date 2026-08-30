@@ -1,5 +1,5 @@
 /** HeroUI close-button box: spacing * 8. */
-export const CLOSE_BUTTON_SIZE = 32;
+export const CLOSE_BUTTON_SIZE = 36;
 
 /** HeroUI close-button.tsx passes 18 to its icon. */
 export const CLOSE_ICON_SIZE = 18;

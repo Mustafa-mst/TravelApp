@@ -245,6 +245,11 @@ const en = {
     amount: "Amount",
     converted: "Converted",
     referenceOnly: "Rates are for reference only",
+    searchPlaceholder: "Search currency",
+    noResults: "No currency found",
+    loadError: "Couldn't load exchange rates",
+    loadErrorHint: "Please try again in a moment.",
+    swap: "Swap currencies",
   },
   country: {
     seeMore: "See more",
