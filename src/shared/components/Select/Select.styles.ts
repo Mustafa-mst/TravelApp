@@ -136,6 +136,17 @@ export const selectStyles = themed(({ colors, shadows, elevatedBorder }) => ({
   sheetContent: {
     gap: SELECT_ITEM_GAP / 2,
   },
+  sheetCard: {
+    flex: 1,
+    marginHorizontal: spacing.md,
+    marginTop: spacing.sm,
+    borderRadius: radius.xl,
+    backgroundColor: colors.surface,
+    overflow: "hidden",
+  },
+  sheetCardContent: {
+    paddingHorizontal: spacing.md,
+  },
   disabled: {
     opacity: DISABLED_OPACITY,
   },

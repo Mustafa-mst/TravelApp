@@ -11,13 +11,23 @@ import {
   Text,
 } from "@shared/components";
 import { useStyles } from "@shared/hooks";
+import { AttractionsSheet } from "../../components";
 import { useCountryDetail } from "../../hooks";
 import { countryDetailScreenStyles } from "./CountryDetailScreen.styles";
 
 function CountryDetailScreenComponent() {
   const styles = useStyles(countryDetailScreenStyles);
-  const { countryName, subtitle, heroImages, rows, isLoading } =
-    useCountryDetail();
+  const {
+    countryName,
+    countryCode,
+    subtitle,
+    heroImages,
+    rows,
+    isLoading,
+    attractionsSheetRef,
+    isAttractionsOpen,
+    handleAttractionsChange,
+  } = useCountryDetail();
 
   const renderHeroImage = useCallback(
     (uri: string) => <RemoteImage source={uri} style={styles.heroImage} />,
@@ -60,6 +70,14 @@ function CountryDetailScreenComponent() {
 
         <ListGroup items={rows} variant="default"/>
       </ScrollView>
+
+      <AttractionsSheet
+        sheetRef={attractionsSheetRef}
+        countryName={countryName}
+        countryCode={countryCode}
+        isOpen={isAttractionsOpen}
+        onSheetChange={handleAttractionsChange}
+      />
     </View>
   );
 }

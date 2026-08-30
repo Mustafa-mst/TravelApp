@@ -137,6 +137,8 @@ export function CitySearchSheet({
     >
       <BottomSheetList
         data={results ?? []}
+        style={styles.card}
+        contentContainerStyle={styles.cardContent}
         ItemSeparatorComponent={ItemSeparator}
         keyExtractor={(item: City) => String(item.geoname_id)}
         renderItem={renderCity}

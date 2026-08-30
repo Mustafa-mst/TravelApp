@@ -1,20 +1,7 @@
-import { radius, spacing, themed } from "@/shared/styles";
+import { themed } from "@/shared/styles";
 
-export const bottomSheetListStyles = themed(({ colors }) => ({
-  card: {
-    marginHorizontal: spacing.md,
-    marginTop: spacing.sm,
-    borderRadius: radius.xl,
-    backgroundColor: colors.surface,
-    overflow: "hidden",
-  },
-  cardFill: {
-    flex: 1,
-  },
+export const bottomSheetListStyles = themed(() => ({
   list: {
     flex: 1,
-  },
-  content: {
-    paddingHorizontal: spacing.md,
   },
 }));

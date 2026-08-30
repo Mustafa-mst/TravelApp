@@ -100,6 +100,8 @@ function SelectSheetComponent({
       {snapPoints?.length ? (
         <BottomSheetList
           data={options}
+          style={styles.sheetCard}
+          contentContainerStyle={styles.sheetCardContent}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
           ListHeaderComponent={label}

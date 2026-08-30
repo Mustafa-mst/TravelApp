@@ -1,0 +1,2 @@
+-- Applied directly on the remote before migrations were tracked locally.
+-- Placeholder so the CLI history matches; the real change is already live.
