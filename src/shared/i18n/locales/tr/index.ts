@@ -254,6 +254,11 @@ const tr = {
   country: {
     seeMore: "Daha fazla",
     createTemplate: "Gezi Planı Oluştur",
+    attractions: {
+      title: "{{country}} içinde yapılacaklar",
+      empty: "Gezilecek yer bulunamadı.",
+      error: "Gezilecek yerler yüklenemedi.",
+    },
     sections: {
       thingsToDo: {
         title: "Yapılacaklar",

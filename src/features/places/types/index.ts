@@ -1,1 +1,1 @@
-export { PlaceType } from "./places.types";
+export type { PlaceType } from "./places.types";

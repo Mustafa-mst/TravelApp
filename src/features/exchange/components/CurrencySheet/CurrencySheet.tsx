@@ -102,6 +102,8 @@ function CurrencySheetComponent({
     >
       <BottomSheetList
         data={rates ?? []}
+        style={styles.card}
+        contentContainerStyle={styles.cardContent}
         keyExtractor={keyExtractor}
         renderItem={renderRow}
         ItemSeparatorComponent={renderSeparator}

@@ -21,6 +21,11 @@ const config: ExpoConfig = {
   ios: {
     supportsTablet: true,
     bundleIdentifier: 'com.anonymous.myApp',
+    infoPlist: {
+      // Without this allowlist `canOpenURL` reports false and map links fall
+      // back to the browser instead of opening a map app.
+      LSApplicationQueriesSchemes: ['maps', 'comgooglemaps'],
+    },
   },
   android: {
     package: 'com.anonymous.myApp',

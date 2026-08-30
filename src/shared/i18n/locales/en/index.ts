@@ -254,6 +254,11 @@ const en = {
   country: {
     seeMore: "See more",
     createTemplate: "Create Itinerary",
+    attractions: {
+      title: "Things to do in {{country}}",
+      empty: "No attractions found.",
+      error: "Could not load attractions.",
+    },
     sections: {
       thingsToDo: {
         title: "Things to do",

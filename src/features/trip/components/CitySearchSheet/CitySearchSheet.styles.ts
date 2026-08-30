@@ -2,6 +2,17 @@ import { StyleSheet } from "react-native";
 import { radius, spacing, themed } from "@shared/styles";
 
 export const citySearchSheetStyles = themed(({ colors }) => ({
+  card: {
+    flex: 1,
+    marginHorizontal: spacing.md,
+    marginTop: spacing.sm,
+    borderRadius: radius.xl,
+    backgroundColor: colors.surface,
+    overflow: "hidden",
+  },
+  cardContent: {
+    paddingHorizontal: spacing.md,
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
