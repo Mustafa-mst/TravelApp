@@ -1,5 +1,9 @@
 export { Select } from "./Select";
 export { SelectTrigger, type SelectTriggerProps } from "./SelectTrigger";
+export {
+  SelectSearchField as SearchField,
+  type SelectSearchFieldProps as SearchFieldProps,
+} from "./SelectSearchField";
 export type {
   SelectProps,
   SelectOption,

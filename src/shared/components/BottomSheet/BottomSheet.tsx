@@ -16,7 +16,8 @@ import {
 
 import { useStyles, useThemeColors } from "@shared/hooks";
 import { spacing } from "@shared/styles";
-import { bottomSheetStyles } from "./BottomSheet.styles";
+import { bottomSheetStyles, bottomSheetVariants } from "./BottomSheet.styles";
+import type { BottomSheetVariant } from "./bottomSheet.types";
 
 export type BottomSheet = {
   present: () => void;
@@ -30,6 +31,9 @@ export type BottomSheetProps = {
   children: ReactNode;
   /** Omit for content-hugging dynamic sizing. Pass points for fixed heights. */
   snapPoints?: (string | number)[];
+  variant?: BottomSheetVariant;
+  /** Raises the header above the content that scrolls under it. */
+  elevatedHeader?: boolean;
   onChange?: (index: number) => void;
 };
 
@@ -38,6 +42,8 @@ export function BottomSheet({
   header,
   children,
   snapPoints,
+  variant = "sheet",
+  elevatedHeader = false,
   onChange,
 }: BottomSheetProps) {
   const styles = useStyles(bottomSheetStyles);
@@ -77,18 +83,27 @@ export function BottomSheet({
         appearsOnIndex={0}
         disappearsOnIndex={-1}
         pressBehavior="close"
-        style={[backdropProps.style, { backgroundColor: colors.backdrop }]}
+        style={[backdropProps.style, { backgroundColor: colors.backdropStrong }]}
       />
     ),
-    [colors.backdrop],
+    [colors.backdropStrong],
   );
 
   const hasSnapPoints = Boolean(snapPoints?.length);
+  const { squareTop, showIndicator } = bottomSheetVariants[variant];
+  const topInset = showIndicator ? insets.top : 0;
 
   const content = (
     <>
-      <View style={styles.header}>
-        <View style={styles.indicator} />
+      <View
+        style={[
+          styles.header,
+          squareTop && styles.squareTop,
+          elevatedHeader && styles.headerElevated,
+          { paddingTop: showIndicator ? undefined : insets.top },
+        ]}
+      >
+        {showIndicator ? <View style={styles.indicator} /> : null}
         {header}
       </View>
       <View
@@ -113,11 +128,11 @@ export function BottomSheet({
       onDismiss={handleDismiss}
       handleComponent={null}
       backdropComponent={renderBackdrop}
-      backgroundStyle={styles.background}
+      backgroundStyle={[styles.background, squareTop && styles.squareTop]}
       keyboardBehavior="interactive"
       keyboardBlurBehavior="restore"
       android_keyboardInputMode="adjustResize"
-      topInset={insets.top}
+      topInset={topInset}
     >
       {hasSnapPoints ? (
         <View style={styles.contentFill}>{content}</View>

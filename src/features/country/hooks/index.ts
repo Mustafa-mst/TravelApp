@@ -5,3 +5,5 @@ export {
   countryKeys,
   useCountryImageQuery,
 } from "./query";
+
+export { useCountryDetail } from "./useCountryDetail";

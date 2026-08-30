@@ -4,4 +4,7 @@ export {
   formatRateUpdatedAt,
   getLatestRateUpdate,
   getUnitExchangeRate,
+  sanitizeAmountInput,
+  formatAmountForDisplay,
 } from "./exchangeAmount";
+export { findFlagUri } from "./currencyFlag";

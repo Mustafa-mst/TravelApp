@@ -13,5 +13,8 @@
       ]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "declarations.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "declarations.d.ts"],
+  // Edge Functions run on Deno, not React Native — they have their own globals
+  // and jsr: imports that this compiler cannot resolve.
+  "exclude": ["supabase/functions"]
 }

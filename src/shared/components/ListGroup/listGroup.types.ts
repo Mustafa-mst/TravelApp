@@ -1,6 +1,7 @@
-import type { ReactNode } from "react";
-import type { PressableProps, TextProps, ViewProps } from "react-native";
-import type { ColorToken, TypographyVariant } from "@shared/styles";
+import type { ComponentType, ReactNode } from "react";
+import type { StyleProp, ViewStyle } from "react-native";
+import type { SvgProps } from "react-native-svg";
+import type { Radius } from "@shared/styles";
 
 export type ListGroupVariant =
   | "default"
@@ -8,40 +9,27 @@ export type ListGroupVariant =
   | "tertiary"
   | "transparent";
 
-export type ListGroupProps = {
-  children?: ReactNode;
-  variant?: ListGroupVariant;
-} & ViewProps;
-
-export type ListGroupItemProps = {
-  children?: ReactNode;
-} & PressableProps;
-
-export type ListGroupItemPrefixProps = {
-  children?: ReactNode;
-} & ViewProps;
-
-export type ListGroupItemContentProps = {
-  children?: ReactNode;
-} & ViewProps;
-
-type ListGroupTextProps = {
-  children?: ReactNode;
-  variant?: TypographyVariant;
-  color?: ColorToken;
-} & TextProps;
-
-export type ListGroupItemTitleProps = ListGroupTextProps;
-
-export type ListGroupItemDescriptionProps = ListGroupTextProps;
-
-export type ListGroupIconProps = {
-  size?: number;
-  color?: string;
+export type ListGroupItem = {
+  key: string;
+  title: string;
+  description?: string;
+  Icon?: ComponentType<SvgProps>;
+  suffix?: ReactNode;
+  content?: ReactNode;
+  onPress?: () => void;
+  disabled?: boolean;
 };
 
-export type ListGroupItemSuffixProps = {
-  children?: ReactNode;
-  /** Customises the default chevron. Ignored when children are provided. */
-  iconProps?: ListGroupIconProps;
-} & ViewProps;
+export type ListGroupProps = {
+  items: ListGroupItem[];
+  variant?: ListGroupVariant;
+  radius?: Radius;
+  hideSeparator?: boolean;
+  style?: StyleProp<ViewStyle>;
+};
+
+export type ListGroupRowProps = {
+  item: ListGroupItem;
+  isOpen: boolean;
+  onToggle: (key: string) => void;
+};

@@ -98,9 +98,6 @@ export const selectStyles = themed(({ colors, shadows, elevatedBorder }) => ({
     paddingHorizontal: SELECT_LIST_LABEL_PADDING_H,
     paddingVertical: SELECT_LIST_LABEL_PADDING_V,
   },
-  searchField: {
-    paddingBottom: SELECT_ITEM_GAP,
-  },
   empty: {
     flexGrow: 1,
     alignItems: "center",

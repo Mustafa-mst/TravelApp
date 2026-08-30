@@ -29,6 +29,6 @@ export const closeButtonVariants: Record<
   CloseButtonVariant,
   CloseButtonPalette
 > = {
-  solid: { isFilled: true, icon: "muted" },
+  solid: { isFilled: true, icon: "staticBlack" },
   plain: { isFilled: false, icon: "muted" },
 };

@@ -1,1 +1,5 @@
-export type { ExchangeRate } from "./exchangeRates.types";
+export type {
+  ExchangeRate,
+  ExchangeInfo,
+  CurrencyField,
+} from "./exchangeRates.types";
