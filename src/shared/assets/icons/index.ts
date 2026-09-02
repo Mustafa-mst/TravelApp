@@ -45,3 +45,7 @@ export { default as GlobeIcon } from "./globe.svg";
 export { default as AlertIcon } from "./alert.svg";
 export { default as PeopleOutline } from "./people_outline.svg";
 export { default as LanguageOutline } from "./language_outline.svg";
+export { default as CloudAndSunIcon } from "./cloud_sun.svg";
+export { default as CalendarSearchIcon } from "./calendar_search.svg";
+export { default as BinnocularsIcon } from "./binnoculars.svg";
+export { default as ExternalLinkIcon } from "./external_link.svg";

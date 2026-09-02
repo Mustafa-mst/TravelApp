@@ -3813,6 +3813,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-web-browser@npm:~56.0.6":
+  version: 56.0.6
+  resolution: "expo-web-browser@npm:56.0.6"
+  peerDependencies:
+    expo: "*"
+    react-native: "*"
+  checksum: 10c0/251b625d9b14a44d0caa7b66a3d9f55b979f9e8c832856748f291385ae15a4c38b6cb95b9295638d21e7259bad8c0b7b6b35f085313772e658eb32fa089f5285
+  languageName: node
+  linkType: hard
+
 "expo@npm:~56.0.12":
   version: 56.0.16
   resolution: "expo@npm:56.0.16"
@@ -5160,6 +5170,7 @@ __metadata:
     expo-linear-gradient: "npm:~56.0.4"
     expo-localization: "npm:^57.0.0"
     expo-status-bar: "npm:~56.0.4"
+    expo-web-browser: "npm:~56.0.6"
     i18next: "npm:^26.3.4"
     react: "npm:19.2.3"
     react-hook-form: "npm:^7.80.0"

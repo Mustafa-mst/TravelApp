@@ -17,6 +17,7 @@ const config: ExpoConfig = {
       },
     ],
     '@maplibre/maplibre-react-native',
+    'expo-web-browser',
   ],
   ios: {
     supportsTablet: true,
