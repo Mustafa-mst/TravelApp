@@ -253,16 +253,15 @@ const en = {
   },
   country: {
     seeMore: "See more",
-    createTemplate: "Create Itinerary",
     attractions: {
       title: "Things to do in {{country}}",
       empty: "No attractions found.",
       error: "Could not load attractions.",
     },
     sections: {
-      thingsToDo: {
-        title: "Things to do",
-        subtitle: "Nature, Adventures, Culture, Shopping",
+      exploreItinerary: {
+        title: "Explore Itineraries",
+        subtitle: "Ready-made routes",
       },
       destinations: {
         title: "Main travel destinations",
@@ -274,7 +273,7 @@ const en = {
       },
       food: {
         title: "Food",
-        subtitle: "Must try food items",
+        subtitle: "Explore dishes on TasteAtlas",
       },
       exchange: {
         title: "Exchange",

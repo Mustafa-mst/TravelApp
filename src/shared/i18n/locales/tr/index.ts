@@ -253,16 +253,15 @@ const tr = {
   },
   country: {
     seeMore: "Daha fazla",
-    createTemplate: "Gezi Planı Oluştur",
     attractions: {
       title: "{{country}} içinde yapılacaklar",
       empty: "Gezilecek yer bulunamadı.",
       error: "Gezilecek yerler yüklenemedi.",
     },
     sections: {
-      thingsToDo: {
-        title: "Yapılacaklar",
-        subtitle: "Doğa, Maceralar, Kültür, Alışveriş",
+      exploreItinerary: {
+        title: "Gezi Planlarını Keşfet",
+        subtitle: "Hazır rotalar",
       },
       destinations: {
         title: "Başlıca gezi noktaları",
@@ -274,7 +273,7 @@ const tr = {
       },
       food: {
         title: "Yemek",
-        subtitle: "Mutlaka denenmesi gereken lezzetler",
+        subtitle: "TasteAtlas'ta yerel lezzetler",
       },
       exchange: {
         title: "Döviz",

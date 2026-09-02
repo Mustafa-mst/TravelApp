@@ -1,0 +1,1 @@
+export { tasteAtlasCountryUrl } from "./tasteAtlasUrl";

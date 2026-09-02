@@ -4,18 +4,24 @@ import { useRoute, type RouteProp } from "@react-navigation/native";
 import { getLocales } from "expo-localization";
 
 import type { BottomSheet, ListGroupItem } from "@shared/components";
-import { CalendarMonthIcon } from "@shared/assets/icons";
+import { ExternalLinkIcon } from "@shared/assets/icons";
+import { useThemeColors } from "@shared/hooks";
 import type { RootStackParamList } from "@shared/navigation";
 import { resolveCountryName } from "@shared/utils/country";
+import { openLink } from "@shared/utils/openLink";
 import { ExchangeConverter } from "@/features/exchange";
 import { COUNTRY_SECTIONS } from "../constants";
+import { tasteAtlasCountryUrl } from "../utils";
 import { useCountryImageQuery, useGetCountryDetailQuery } from "./query";
+
+const EXTERNAL_ICON_SIZE = 18;
 
 type CountryDetailRoute = RouteProp<RootStackParamList, "CountryDetail">;
 
 export function useCountryDetail() {
   const { t, i18n } = useTranslation();
   const { params } = useRoute<CountryDetailRoute>();
+  const colors = useThemeColors();
 
   const { data: country, isLoading } = useGetCountryDetailQuery(
     params.countryCode,
@@ -45,15 +51,38 @@ export function useCountryDetail() {
     setIsAttractionsOpen(index !== -1);
   }, []);
 
+  const foodUrl = useMemo(
+    () => tasteAtlasCountryUrl(params.countryCode, country?.name?.en?.common),
+    [params.countryCode, country?.name?.en?.common],
+  );
+
+  const openFood = useCallback(() => {
+    if (foodUrl) {
+      openLink(foodUrl, { controlsColor: colors.accent });
+    }
+  }, [foodUrl, colors.accent]);
+
   const rows = useMemo<ListGroupItem[]>(() => {
-    const sections = [...COUNTRY_SECTIONS]
+    const pressHandlers: Record<string, (() => void) | undefined> = {
+      destinations: openAttractions,
+      food: openFood,
+    };
+
+    return [...COUNTRY_SECTIONS]
       .sort((a, b) => t(a.titleKey).localeCompare(t(b.titleKey), i18n.language))
-      .map(({ id, titleKey, subtitleKey, Icon, expandable }) => ({
+      .map(({ id, titleKey, subtitleKey, Icon, expandable, external }) => ({
         key: id,
         title: t(titleKey),
         description: t(subtitleKey),
         Icon,
-        onPress: id === "destinations" ? openAttractions : undefined,
+        onPress: pressHandlers[id],
+        suffix: external ? (
+          <ExternalLinkIcon
+            width={EXTERNAL_ICON_SIZE}
+            height={EXTERNAL_ICON_SIZE}
+            color={colors.muted}
+          />
+        ) : undefined,
         content: expandable ? (
           // The country's own currency against the one the device reports.
           <ExchangeConverter
@@ -62,16 +91,14 @@ export function useCountryDetail() {
           />
         ) : undefined,
       }));
-
-    return [
-      {
-        key: "createTemplate",
-        title: t("country.createTemplate"),
-        Icon: CalendarMonthIcon,
-      },
-      ...sections,
-    ];
-  }, [t, i18n.language, countryCurrency, openAttractions]);
+  }, [
+    t,
+    i18n.language,
+    countryCurrency,
+    colors.muted,
+    openAttractions,
+    openFood,
+  ]);
 
   return {
     countryName,

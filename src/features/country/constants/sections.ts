@@ -3,9 +3,10 @@ import type { SvgProps } from "react-native-svg";
 import type { ParseKeys } from "i18next";
 
 import {
+  BinnocularsIcon,
+  CalendarSearchIcon,
+  CloudAndSunIcon,
   CurrencyIcon,
-  LeafIcon,
-  LocationIcon,
   RestaurantsIcon,
 } from "@shared/assets/icons";
 
@@ -15,26 +16,34 @@ export type CountrySection = {
   subtitleKey: ParseKeys;
   Icon: ComponentType<SvgProps>;
   expandable?: boolean;
+  external?: boolean;
 };
 
 export const COUNTRY_SECTIONS: CountrySection[] = [
   {
+    id: "exploreItinerary",
+    titleKey: "country.sections.exploreItinerary.title",
+    subtitleKey: "country.sections.exploreItinerary.subtitle",
+    Icon: CalendarSearchIcon,
+  },
+  {
     id: "destinations",
     titleKey: "country.sections.destinations.title",
     subtitleKey: "country.sections.destinations.subtitle",
-    Icon: LocationIcon,
+    Icon: BinnocularsIcon,
   },
   {
     id: "bestTime",
     titleKey: "country.sections.bestTime.title",
     subtitleKey: "country.sections.bestTime.subtitle",
-    Icon: LeafIcon,
+    Icon: CloudAndSunIcon,
   },
   {
     id: "food",
     titleKey: "country.sections.food.title",
     subtitleKey: "country.sections.food.subtitle",
     Icon: RestaurantsIcon,
+    external: true,
   },
   {
     id: "exchange",
