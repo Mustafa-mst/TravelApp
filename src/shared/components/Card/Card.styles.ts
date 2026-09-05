@@ -1,9 +1,8 @@
-import { radius, spacing, themed, type ColorToken } from "@shared/styles";
+import { spacing, themed, themedValue, type ColorToken } from "@shared/styles";
 import type { CardVariant } from "./card.types";
 
 export const cardStyles = themed(() => ({
   root: {
-    borderRadius: radius.xl,
     borderCurve: "continuous",
     padding: spacing.md,
     gap: spacing.sm,
@@ -13,6 +12,8 @@ export const cardStyles = themed(() => ({
     flex: 1,
   },
 }));
+
+export const cardShadows = themedValue(({ shadows }) => shadows);
 
 export const cardVariants: Record<CardVariant, ColorToken> = {
   default: "surface",

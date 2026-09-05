@@ -253,6 +253,15 @@ const en = {
   },
   country: {
     seeMore: "See more",
+    quickFacts: {
+      localTime: "Local Time",
+      currency: "Currency",
+      plugTypes: "Plug Types",
+      startOfWeek: "Week Starts",
+      monday: "Monday",
+      sunday: "Sunday",
+      saturday: "Saturday",
+    },
     attractions: {
       title: "Things to do in {{country}}",
       empty: "No attractions found.",

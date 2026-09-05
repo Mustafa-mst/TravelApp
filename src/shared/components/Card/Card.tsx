@@ -2,8 +2,9 @@ import { memo } from "react";
 import { View } from "react-native";
 
 import { useStyles, useThemeColors } from "@shared/hooks";
+import { radius as radiusTokens } from "@shared/styles";
 import { Text } from "../Text";
-import { cardStyles, cardVariants } from "./Card.styles";
+import { cardShadows, cardStyles, cardVariants } from "./Card.styles";
 import type {
   CardBodyProps,
   CardDescriptionProps,
@@ -16,17 +17,24 @@ import type {
 function CardComponent({
   children,
   variant = "default",
+  shadow = "none",
+  radius = "xl",
   style,
   ...rest
 }: CardProps) {
   const styles = useStyles(cardStyles);
+  const shadows = useStyles(cardShadows);
   const colors = useThemeColors();
 
   return (
     <View
       style={[
         styles.root,
-        { backgroundColor: colors[cardVariants[variant]] },
+        {
+          backgroundColor: colors[cardVariants[variant]],
+          borderRadius: radiusTokens[radius],
+        },
+        shadows[shadow],
         style,
       ]}
       {...rest}

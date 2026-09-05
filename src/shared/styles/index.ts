@@ -21,6 +21,7 @@ export type { ThemedStyles } from "./themed";
 export type {
   ColorToken,
   ElevatedBorder,
+  ShadowToken,
   Theme,
   ThemeColors,
   ThemeMode,
