@@ -13,6 +13,7 @@ import { ExchangeConverter } from "@/features/exchange";
 import { COUNTRY_SECTIONS } from "../constants";
 import { tasteAtlasCountryUrl } from "../utils";
 import { useCountryImageQuery, useGetCountryDetailQuery } from "./query";
+import { useCountryQuickFacts } from "./useCountryQuickFacts";
 
 const EXTERNAL_ICON_SIZE = 18;
 
@@ -39,6 +40,8 @@ export function useCountryDetail() {
     .join(" | ");
 
   const countryCurrency = country?.currencies?.[0]?.code;
+
+  const { localTime, facts: quickFacts } = useCountryQuickFacts(country);
 
   const attractionsSheetRef = useRef<BottomSheet>(null);
   const [isAttractionsOpen, setIsAttractionsOpen] = useState(false);
@@ -105,6 +108,8 @@ export function useCountryDetail() {
     countryCode: params.countryCode,
     subtitle,
     heroImages: heroImages ?? [],
+    localTime,
+    quickFacts,
     rows,
     isLoading,
     attractionsSheetRef,

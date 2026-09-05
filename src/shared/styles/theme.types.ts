@@ -111,6 +111,8 @@ export type ThemeShadows = Record<
   Shadow
 >;
 
+export type ShadowToken = keyof ThemeShadows;
+
 /** Stands in for HeroUI's inset ring, which React Native cannot express. */
 export type ElevatedBorder = Pick<ViewStyle, "borderWidth" | "borderColor">;
 

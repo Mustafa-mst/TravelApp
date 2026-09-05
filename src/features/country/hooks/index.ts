@@ -7,3 +7,4 @@ export {
 } from "./query";
 
 export { useCountryDetail } from "./useCountryDetail";
+export { useCountryQuickFacts } from "./useCountryQuickFacts";

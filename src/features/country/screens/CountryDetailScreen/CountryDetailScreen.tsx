@@ -11,7 +11,11 @@ import {
   Text,
 } from "@shared/components";
 import { useStyles } from "@shared/hooks";
-import { AttractionsSheet } from "../../components";
+import {
+  AttractionsSheet,
+  CountryLocalTime,
+  CountryQuickFacts,
+} from "../../components";
 import { useCountryDetail } from "../../hooks";
 import { countryDetailScreenStyles } from "./CountryDetailScreen.styles";
 
@@ -22,6 +26,8 @@ function CountryDetailScreenComponent() {
     countryCode,
     subtitle,
     heroImages,
+    localTime,
+    quickFacts,
     rows,
     isLoading,
     attractionsSheetRef,
@@ -56,19 +62,22 @@ function CountryDetailScreenComponent() {
           />
         </View>
         <BackButton size={20} />
+        <View style={styles.body}>
+          <View style={styles.titleRow}>
+            <View style={styles.titleBlock}>
+              <Text variant="h3">{countryName}</Text>
+              {subtitle ? (
+                <Text variant="body" color="muted">
+                  {subtitle}
+                </Text>
+              ) : null}
+            </View>
+            {localTime ? <CountryLocalTime {...localTime} /> : null}
+          </View>
+          <CountryQuickFacts facts={quickFacts} />
 
-        <View style={styles.titleBlock}>
-          <Text variant="h1" textAlign="center">
-            {countryName}
-          </Text>
-          {subtitle ? (
-            <Text variant="body" textAlign="center" color="muted">
-              {subtitle}
-            </Text>
-          ) : null}
+          <ListGroup items={rows} variant="default" />
         </View>
-
-        <ListGroup items={rows} variant="default"/>
       </ScrollView>
 
       <AttractionsSheet

@@ -253,6 +253,15 @@ const tr = {
   },
   country: {
     seeMore: "Daha fazla",
+    quickFacts: {
+      localTime: "Yerel Saat",
+      currency: "Para Birimi",
+      plugTypes: "Priz Tipleri",
+      startOfWeek: "Hafta Başlangıcı",
+      monday: "Pazartesi",
+      sunday: "Pazar",
+      saturday: "Cumartesi",
+    },
     attractions: {
       title: "{{country}} içinde yapılacaklar",
       empty: "Gezilecek yer bulunamadı.",

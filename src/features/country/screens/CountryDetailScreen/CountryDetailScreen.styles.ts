@@ -24,11 +24,18 @@ export const countryDetailScreenStyles = themed(({ colors }) => ({
     width: "100%",
     height: "100%",
   },
-  titleBlock: {
+  titleRow: {
+    flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.lg,
-    paddingBottom: spacing.md,
+    justifyContent: "space-between",
+    gap: spacing.md,
+  },
+  titleBlock: {
+    flex: 1,
     gap: spacing.xs,
+  },
+  body: {
+    padding: spacing.md,
+    gap: spacing.lg,
   },
 }));

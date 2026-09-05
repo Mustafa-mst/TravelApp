@@ -49,3 +49,8 @@ export { default as CloudAndSunIcon } from "./cloud_sun.svg";
 export { default as CalendarSearchIcon } from "./calendar_search.svg";
 export { default as BinnocularsIcon } from "./binnoculars.svg";
 export { default as ExternalLinkIcon } from "./external_link.svg";
+export { default as CoinIcon } from "./coin.svg";
+export { default as PlugIcon } from "./plug.svg";
+export { default as CalendarColorIcon } from "./calendar_color.svg";
+export { default as SunIcon } from "./sun.svg";
+export { default as MoonIcon } from "./moon.svg";

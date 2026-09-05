@@ -1,6 +1,11 @@
 import type { ReactNode } from "react";
 import type { TextProps, ViewProps } from "react-native";
-import type { ColorToken, TypographyVariant } from "@shared/styles";
+import type {
+  ColorToken,
+  Radius,
+  ShadowToken,
+  TypographyVariant,
+} from "@shared/styles";
 
 export type CardVariant =
   | "default"
@@ -11,6 +16,8 @@ export type CardVariant =
 export type CardProps = {
   children?: ReactNode;
   variant?: CardVariant;
+  shadow?: ShadowToken;
+  radius?: Radius;
 } & ViewProps;
 
 export type CardHeaderProps = {
