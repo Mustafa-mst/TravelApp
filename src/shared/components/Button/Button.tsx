@@ -16,6 +16,7 @@ function ButtonComponent({
   label,
   variant = "primary",
   size = "md",
+  labelVariant,
   isDisabled = false,
   isLoading = false,
   isIconOnly = false,
@@ -70,7 +71,10 @@ function ButtonComponent({
         )
       )}
       {label && !isIconOnly && (
-        <Text variant={BUTTON_LABEL_VARIANT[size]} color={palette.foreground}>
+        <Text
+          variant={labelVariant ?? BUTTON_LABEL_VARIANT[size]}
+          color={palette.foreground}
+        >
           {label}
         </Text>
       )}

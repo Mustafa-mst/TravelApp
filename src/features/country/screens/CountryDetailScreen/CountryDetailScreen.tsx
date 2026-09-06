@@ -1,5 +1,8 @@
 import { memo, useCallback } from "react";
 import { ScrollView, View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 
 import {
@@ -9,17 +12,24 @@ import {
   RemoteImage,
   StateView,
   Text,
+  TripButton,
 } from "@shared/components";
-import { useStyles } from "@shared/hooks";
+import { useStyles, useThemeColors } from "@shared/hooks";
 import {
   AttractionsSheet,
   CountryLocalTime,
-  CountryQuickFacts,
+  EssentialsSheet,
 } from "../../components";
 import { useCountryDetail } from "../../hooks";
 import { countryDetailScreenStyles } from "./CountryDetailScreen.styles";
 
+const MIN_FOOTER_BOTTOM_INSET = 24;
+const FOOTER_HEIGHT = 96;
+
 function CountryDetailScreenComponent() {
+  const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
+  const colors = useThemeColors();
   const styles = useStyles(countryDetailScreenStyles);
   const {
     countryName,
@@ -27,13 +37,16 @@ function CountryDetailScreenComponent() {
     subtitle,
     heroImages,
     localTime,
-    quickFacts,
+    essentialGroups,
+    essentialsSheetRef,
     rows,
     isLoading,
     attractionsSheetRef,
     isAttractionsOpen,
     handleAttractionsChange,
   } = useCountryDetail();
+
+  const bottomInset = Math.max(insets.bottom, MIN_FOOTER_BOTTOM_INSET);
 
   const renderHeroImage = useCallback(
     (uri: string) => <RemoteImage source={uri} style={styles.heroImage} />,
@@ -46,10 +59,9 @@ function CountryDetailScreenComponent() {
 
   return (
     <View style={styles.safe}>
-      {/* Fixed light: the status bar sits over the dark photo hero, not the themed background. */}
       <StatusBar style="light" />
       <ScrollView
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={{ paddingBottom: FOOTER_HEIGHT + bottomInset }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
@@ -61,7 +73,7 @@ function CountryDetailScreenComponent() {
             renderItem={renderHeroImage}
           />
         </View>
-        <BackButton size={20} />
+        <BackButton />
         <View style={styles.body}>
           <View style={styles.titleRow}>
             <View style={styles.titleBlock}>
@@ -74,11 +86,23 @@ function CountryDetailScreenComponent() {
             </View>
             {localTime ? <CountryLocalTime {...localTime} /> : null}
           </View>
-          <CountryQuickFacts facts={quickFacts} />
-
-          <ListGroup items={rows} variant="default" />
+          <View style={styles.listCard}>
+            <ListGroup items={rows} />
+          </View>
         </View>
       </ScrollView>
+      <View
+        style={[styles.footer, { paddingBottom: bottomInset }]}
+      >
+        <LinearGradient
+          pointerEvents="none"
+          colors={["transparent", colors.surface]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 1 }}
+          style={styles.footerFade}
+        />
+        <TripButton label={t("country.startTrip")} />
+      </View>
 
       <AttractionsSheet
         sheetRef={attractionsSheetRef}
@@ -87,6 +111,8 @@ function CountryDetailScreenComponent() {
         isOpen={isAttractionsOpen}
         onSheetChange={handleAttractionsChange}
       />
+
+      <EssentialsSheet sheetRef={essentialsSheetRef} groups={essentialGroups} />
     </View>
   );
 }

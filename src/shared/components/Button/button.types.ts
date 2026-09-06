@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import type { StyleProp, ViewStyle } from "react-native";
 import type { SvgProps } from "react-native-svg";
+import type { TypographyVariant } from "@shared/styles";
 import type { PressableScaleProps } from "../PressableScale";
 
 export type ButtonVariant =
@@ -18,6 +19,8 @@ export type ButtonProps = {
   label?: string;
   variant?: ButtonVariant;
   size?: ButtonSize;
+  /** Overrides the label typography the size would otherwise pick. */
+  labelVariant?: TypographyVariant;
   isDisabled?: boolean;
   isLoading?: boolean;
   isIconOnly?: boolean;

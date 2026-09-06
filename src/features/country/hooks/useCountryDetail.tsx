@@ -13,9 +13,8 @@ import { ExchangeConverter } from "@/features/exchange";
 import { COUNTRY_SECTIONS } from "../constants";
 import { tasteAtlasCountryUrl } from "../utils";
 import { useCountryImageQuery, useGetCountryDetailQuery } from "./query";
-import { useCountryQuickFacts } from "./useCountryQuickFacts";
-
-const EXTERNAL_ICON_SIZE = 18;
+import { useCountryEssentials } from "./useCountryEssentials";
+import { useCountryLocalTime } from "./useCountryLocalTime";
 
 type CountryDetailRoute = RouteProp<RootStackParamList, "CountryDetail">;
 
@@ -41,13 +40,19 @@ export function useCountryDetail() {
 
   const countryCurrency = country?.currencies?.[0]?.code;
 
-  const { localTime, facts: quickFacts } = useCountryQuickFacts(country);
+  const localTime = useCountryLocalTime(country);
+  const essentialGroups = useCountryEssentials(country);
 
   const attractionsSheetRef = useRef<BottomSheet>(null);
+  const essentialsSheetRef = useRef<BottomSheet>(null);
   const [isAttractionsOpen, setIsAttractionsOpen] = useState(false);
 
   const openAttractions = useCallback(() => {
     attractionsSheetRef.current?.present();
+  }, []);
+
+  const openEssentials = useCallback(() => {
+    essentialsSheetRef.current?.present();
   }, []);
 
   const handleAttractionsChange = useCallback((index: number) => {
@@ -68,40 +73,30 @@ export function useCountryDetail() {
   const rows = useMemo<ListGroupItem[]>(() => {
     const pressHandlers: Record<string, (() => void) | undefined> = {
       destinations: openAttractions,
+      essentials: openEssentials,
       food: openFood,
     };
 
-    return [...COUNTRY_SECTIONS]
-      .sort((a, b) => t(a.titleKey).localeCompare(t(b.titleKey), i18n.language))
-      .map(({ id, titleKey, subtitleKey, Icon, expandable, external }) => ({
+    return COUNTRY_SECTIONS.map(
+      ({ id, titleKey, subtitleKey, Icon, expandable, external }) => ({
         key: id,
         title: t(titleKey),
         description: t(subtitleKey),
         Icon,
+        iconColor: colors.accent,
         onPress: pressHandlers[id],
         suffix: external ? (
-          <ExternalLinkIcon
-            width={EXTERNAL_ICON_SIZE}
-            height={EXTERNAL_ICON_SIZE}
-            color={colors.muted}
-          />
+          <ExternalLinkIcon color={colors.muted} />
         ) : undefined,
         content: expandable ? (
-          // The country's own currency against the one the device reports.
           <ExchangeConverter
             fromCode={countryCurrency}
             toCode={getLocales()[0]?.currencyCode ?? undefined}
           />
         ) : undefined,
-      }));
-  }, [
-    t,
-    i18n.language,
-    countryCurrency,
-    colors.muted,
-    openAttractions,
-    openFood,
-  ]);
+      }),
+    );
+  }, [t, countryCurrency, openAttractions, openEssentials, openFood]);
 
   return {
     countryName,
@@ -109,7 +104,8 @@ export function useCountryDetail() {
     subtitle,
     heroImages: heroImages ?? [],
     localTime,
-    quickFacts,
+    essentialGroups,
+    essentialsSheetRef,
     rows,
     isLoading,
     attractionsSheetRef,

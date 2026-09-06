@@ -19,8 +19,17 @@ const CHEVRON_SIZE = 20;
 const PREFIX_ICON_SIZE = 20;
 
 function ListGroupRowComponent({ item, isOpen, onToggle }: ListGroupRowProps) {
-  const { key, title, description, Icon, suffix, content, onPress, disabled } =
-    item;
+  const {
+    key,
+    title,
+    description,
+    Icon,
+    iconColor,
+    suffix,
+    content,
+    onPress,
+    disabled,
+  } = item;
   const styles = useStyles(listGroupStyles);
   const colors = useThemeColors();
   const { contentStyle, indicatorStyle, onMeasure } = useCollapsibleContent(
@@ -49,7 +58,7 @@ function ListGroupRowComponent({ item, isOpen, onToggle }: ListGroupRowProps) {
           <Icon
             width={PREFIX_ICON_SIZE}
             height={PREFIX_ICON_SIZE}
-            color={colors.foreground}
+            color={iconColor ?? colors.foreground}
           />
         ) : null}
         <View style={styles.info}>

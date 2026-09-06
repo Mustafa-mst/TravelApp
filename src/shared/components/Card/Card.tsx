@@ -19,6 +19,7 @@ function CardComponent({
   variant = "default",
   shadow = "none",
   radius = "xl",
+  bordered = false,
   style,
   ...rest
 }: CardProps) {
@@ -34,6 +35,7 @@ function CardComponent({
           backgroundColor: colors[cardVariants[variant]],
           borderRadius: radiusTokens[radius],
         },
+        bordered && styles.bordered,
         shadows[shadow],
         style,
       ]}

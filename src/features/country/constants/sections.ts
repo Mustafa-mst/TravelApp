@@ -4,8 +4,8 @@ import type { ParseKeys } from "i18next";
 
 import {
   BinnocularsIcon,
+  BrainIcon,
   CalendarSearchIcon,
-  CloudAndSunIcon,
   CurrencyIcon,
   RestaurantsIcon,
 } from "@shared/assets/icons";
@@ -33,10 +33,10 @@ export const COUNTRY_SECTIONS: CountrySection[] = [
     Icon: BinnocularsIcon,
   },
   {
-    id: "bestTime",
-    titleKey: "country.sections.bestTime.title",
-    subtitleKey: "country.sections.bestTime.subtitle",
-    Icon: CloudAndSunIcon,
+    id: "essentials",
+    titleKey: "country.sections.essentials.title",
+    subtitleKey: "country.sections.essentials.subtitle",
+    Icon: BrainIcon,
   },
   {
     id: "food",

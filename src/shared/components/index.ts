@@ -6,6 +6,7 @@ export {
 } from "./Button";
 export { Spinner, type SpinnerProps, type SpinnerSize } from "./Spinner";
 export { TextField, type TextFieldProps } from "./TextField";
+export { TripButton, type TripButtonProps } from "./TripButton";
 export { CloseButton, type CloseButtonProps } from "./CloseButton";
 export { QuantityInput } from "./QuantityInput";
 export {
@@ -57,7 +58,6 @@ export { ListItem, type ListItemProps } from "./ListItem";
 export {
   ListGroup,
   type ListGroupProps,
-  type ListGroupVariant,
   type ListGroupItem,
 } from "./ListGroup";
 export {
