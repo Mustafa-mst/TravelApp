@@ -7,4 +7,9 @@ export {
 } from "./query";
 
 export { useCountryDetail } from "./useCountryDetail";
-export { useCountryQuickFacts } from "./useCountryQuickFacts";
+export { useCountryLocalTime } from "./useCountryLocalTime";
+export { useCountryEssentials } from "./useCountryEssentials";
+export type {
+  CountryEssentialGroup,
+  CountryEssentialRow,
+} from "./useCountryEssentials";

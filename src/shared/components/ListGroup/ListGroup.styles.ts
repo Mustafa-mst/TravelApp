@@ -1,22 +1,17 @@
 import { StyleSheet } from "react-native";
-import { spacing, themed, type ColorToken } from "@shared/styles";
-import type { ListGroupVariant } from "./listGroup.types";
+import { spacing, themed } from "@shared/styles";
 
 const DISABLED_OPACITY = 0.5;
 
-export const listGroupStyles = themed(({ colors, shadows, elevatedBorder }) => ({
+export const listGroupStyles = themed(({ colors }) => ({
   root: {
     borderCurve: "continuous",
     overflow: "hidden",
   },
-  elevated: {
-    ...shadows.surface,
-    ...elevatedBorder,
-  },
   row: {
     flexDirection: "row",
     alignItems: "center",
-    padding: spacing.md,
+    paddingVertical: spacing.md,
     gap: spacing.sm + spacing.xs,
   },
   info: {
@@ -45,10 +40,3 @@ export const listGroupStyles = themed(({ colors, shadows, elevatedBorder }) => (
     opacity: DISABLED_OPACITY,
   },
 }));
-
-export const listGroupVariants: Record<ListGroupVariant, ColorToken> = {
-  default: "surface",
-  secondary: "surfaceSecondary",
-  tertiary: "surfaceTertiary",
-  transparent: "transparent",
-};

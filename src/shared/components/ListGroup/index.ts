@@ -1,6 +1,2 @@
 export { ListGroup } from "./ListGroup";
-export type {
-  ListGroupProps,
-  ListGroupVariant,
-  ListGroupItem,
-} from "./listGroup.types";
+export type { ListGroupProps, ListGroupItem } from "./listGroup.types";

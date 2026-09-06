@@ -1,19 +1,14 @@
 import type { ComponentType, ReactNode } from "react";
 import type { StyleProp, ViewStyle } from "react-native";
 import type { SvgProps } from "react-native-svg";
-import type { Radius } from "@shared/styles";
-
-export type ListGroupVariant =
-  | "default"
-  | "secondary"
-  | "tertiary"
-  | "transparent";
 
 export type ListGroupItem = {
   key: string;
   title: string;
   description?: string;
   Icon?: ComponentType<SvgProps>;
+  /** Tints the prefix icon; falls back to the row's foreground. */
+  iconColor?: string;
   suffix?: ReactNode;
   content?: ReactNode;
   onPress?: () => void;
@@ -22,8 +17,6 @@ export type ListGroupItem = {
 
 export type ListGroupProps = {
   items: ListGroupItem[];
-  variant?: ListGroupVariant;
-  radius?: Radius;
   hideSeparator?: boolean;
   style?: StyleProp<ViewStyle>;
 };

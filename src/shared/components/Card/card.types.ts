@@ -18,6 +18,7 @@ export type CardProps = {
   variant?: CardVariant;
   shadow?: ShadowToken;
   radius?: Radius;
+  bordered?: boolean;
 } & ViewProps;
 
 export type CardHeaderProps = {
