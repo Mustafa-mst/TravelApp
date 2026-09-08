@@ -1,44 +1,36 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { View } from "react-native";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { View } from "react-native";
 
-import {
-  Accordion,
-  Button,
-  Text,
-  type AccordionItem,
-} from "@shared/components";
+import type { AccordionItem } from "@shared/components";
 import {
   GlobeIcon,
   LanguageOutline,
   PeopleOutline,
 } from "@shared/assets/icons";
-import { useStyles } from "@shared/hooks";
 import type { OptionsType } from "@shared/types";
-import {
-  getOptionList,
-  getSelectedOptionLabel,
-} from "@shared/utils/option";
-import { FilterOption } from "./FilterOption";
-import { searchFilterCardStyles } from "./SearchFilterCard.styles";
+import { getOptionList, getSelectedOptionLabel } from "@shared/utils/option";
+import { FilterOption } from "../components/SearchFilterSheet/FilterOption";
 import {
   CONTINENT_OPTIONS,
   LANGUAGE_OPTIONS,
   POPULATION_OPTIONS,
-} from "../../constants";
-import type { SearchFilters } from "../../types";
+} from "../constants";
+import type { SearchFilters } from "../types";
 
-type SearchFilterCardProps = {
+const NO_FILTERS: SearchFilters = {};
+
+type UseSearchFilterDraftParams = {
   filters: SearchFilters;
   onApply: (filters: SearchFilters) => void;
 };
 
-const SearchFilterCardComponent = ({
+/** Holds the pending selection so the list only refetches once Apply is pressed. */
+export function useSearchFilterDraft({
   filters,
   onApply,
-}: SearchFilterCardProps) => {
+}: UseSearchFilterDraftParams) {
   const { t } = useTranslation();
-  const styles = useStyles(searchFilterCardStyles);
   const [draft, setDraft] = useState<SearchFilters>(filters);
 
   useEffect(() => {
@@ -59,23 +51,19 @@ const SearchFilterCardComponent = ({
       key: keyof SearchFilters,
     ) => (
       <View>
-        {getOptionList(options).map((option, index) => {
-          const isSelected = option.value === selected;
-
-          return (
-            <FilterOption
-              key={option.value}
-              option={option}
-              filterKey={key}
-              isSelected={isSelected}
-              isFirst={index === 0}
-              onToggle={toggle}
-            />
-          );
-        })}
+        {getOptionList(options).map((option, index) => (
+          <FilterOption
+            key={option.value}
+            option={option}
+            filterKey={key}
+            isSelected={option.value === selected}
+            isFirst={index === 0}
+            onToggle={toggle}
+          />
+        ))}
       </View>
     ),
-    [t, toggle],
+    [toggle],
   );
 
   const items: AccordionItem[] = useMemo(
@@ -122,40 +110,13 @@ const SearchFilterCardComponent = ({
   );
 
   const handleClear = useCallback(() => {
-    const cleared: SearchFilters = {};
-    setDraft(cleared);
-    onApply(cleared);
+    setDraft(NO_FILTERS);
+    onApply(NO_FILTERS);
   }, [onApply]);
 
   const handleApply = useCallback(() => {
     onApply(draft);
   }, [draft, onApply]);
 
-  return (
-    <View style={styles.card}>
-      <View style={styles.title}>
-        <Text variant="bodyLargeMedium">{t("search.filters")}</Text>
-      </View>
-
-      <Accordion items={items} hideSeparator />
-
-      <View style={styles.footer}>
-        <Button
-          variant="outline"
-          fullWidth
-          label={t("search.filterClear")}
-          onPress={handleClear}
-          containerStyle={styles.clearButton}
-        />
-        <Button
-          fullWidth
-          label={t("search.filterApply")}
-          onPress={handleApply}
-          containerStyle={styles.footerButton}
-        />
-      </View>
-    </View>
-  );
-};
-
-export const SearchFilterCard = React.memo(SearchFilterCardComponent);
+  return { items, onClear: handleClear, onApply: handleApply };
+}

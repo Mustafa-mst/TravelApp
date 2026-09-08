@@ -1,8 +1,9 @@
+import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useStyles } from "@shared/hooks";
 import { searchScreenStyles } from "./SearchScreen.styles";
 import {
-  SearchFilterCard,
+  SearchFilterSheet,
   SearchInput,
   SearchResultList,
 } from "../../components";
@@ -13,7 +14,7 @@ export function SearchScreen() {
   const {
     query,
     filters,
-    isFilterOpen,
+    filterSheetRef,
     isSearching,
     isFiltering,
     results,
@@ -22,36 +23,41 @@ export function SearchScreen() {
     history,
     onRetry,
     onChangeText,
-    onGoBack,
-    onToggleFilters,
+    onOpenFilters,
     onApplyFilters,
     onSelectCountry,
     onRemoveHistory,
   } = useCountrySearch();
 
   return (
-    <SafeAreaView style={styles.safe}>
-      <SearchInput
-        value={query}
-        onChangeText={onChangeText}
-        onGoBack={onGoBack}
-        onOpenFilters={onToggleFilters}
-        isFilterActive={isFiltering}
-      />
-      {isFilterOpen ? (
-        <SearchFilterCard filters={filters} onApply={onApplyFilters} />
-      ) : null}
-      <SearchResultList
-        query={query}
-        isSearching={isSearching}
-        isFiltering={!isSearching && isFiltering}
-        results={results}
-        isFetching={isFetching}
-        isError={isError}
-        onRetry={onRetry}
-        history={history}
-        onSelectCountry={onSelectCountry}
-        onRemoveHistory={onRemoveHistory}
+    <SafeAreaView edges={["top"]} style={styles.safe}>
+      <View style={styles.header}>
+        <SearchInput
+          value={query}
+          onChangeText={onChangeText}
+          onOpenFilters={onOpenFilters}
+          isFilterActive={isFiltering}
+        />
+      </View>
+      <View style={styles.body}>
+        <SearchResultList
+          query={query}
+          isSearching={isSearching}
+          isFiltering={!isSearching && isFiltering}
+          results={results}
+          isFetching={isFetching}
+          isError={isError}
+          onRetry={onRetry}
+          history={history}
+          onSelectCountry={onSelectCountry}
+          onRemoveHistory={onRemoveHistory}
+        />
+      </View>
+
+      <SearchFilterSheet
+        sheetRef={filterSheetRef}
+        filters={filters}
+        onApply={onApplyFilters}
       />
     </SafeAreaView>
   );

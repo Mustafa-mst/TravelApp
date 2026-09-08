@@ -4,7 +4,7 @@ import type { TripDetailMode, TripTemplate } from "@/features/trip";
 
 export type TabParamList = {
   Home: undefined;
-  Dashboard: undefined;
+  Search: undefined;
   Templates: undefined;
   Account: undefined;
 };
@@ -12,7 +12,6 @@ export type TabParamList = {
 export type RootStackParamList = {
   Tabs: NavigatorScreenParams<TabParamList>;
   Login: undefined;
-  Search: undefined;
   CountryDetail: {
     countryCode: string;
   };

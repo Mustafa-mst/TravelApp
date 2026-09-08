@@ -33,6 +33,10 @@ export { CategoryCard } from "./CategoryCard";
 export { BottomSheet, type BottomSheetProps } from "./BottomSheet";
 export { BottomSheetList, type BottomSheetListProps } from "./BottomSheetList";
 export {
+  BottomSheetScroll,
+  type BottomSheetScrollProps,
+} from "./BottomSheetScroll";
+export {
   ActionSheet,
   type ActionSheetProps,
   type SheetAction,

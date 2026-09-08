@@ -5,10 +5,7 @@ import { ChevronRightIcon, CloseIcon } from "@shared/assets/icons";
 import { IconButton, Text } from "@shared/components";
 import { useStyles, useThemeColors } from "@shared/hooks";
 import { resolveCountryName } from "@shared/utils/country";
-import {
-  RESULT_ROW_ICON_SIZE,
-  searchResultListStyles,
-} from "./SearchResultList.styles";
+import { searchResultListStyles } from "./SearchResultList.styles";
 import type { CountrySearchResult } from "../../types";
 
 type CountryRowProps = {
@@ -40,11 +37,11 @@ const CountryRowComponent = ({
           <Image source={{ uri: country.flags.png }} style={styles.flag} />
         ) : null}
         <View>
-          <Text variant="bodyMedium" color="foreground">
+          <Text variant="bodyLargeMedium" color="foreground">
             {name}
           </Text>
           {area ? (
-            <Text variant="caption" color="muted">
+            <Text variant="body" color="muted">
               {area}
             </Text>
           ) : null}
@@ -52,21 +49,11 @@ const CountryRowComponent = ({
       </View>
       {onRemove ? (
         <IconButton
-          icon={
-            <CloseIcon
-              width={RESULT_ROW_ICON_SIZE}
-              height={RESULT_ROW_ICON_SIZE}
-              color={colors.muted}
-            />
-          }
+          icon={<CloseIcon width={20} height={20} color={colors.muted} />}
           onPress={onRemove}
         />
       ) : (
-        <ChevronRightIcon
-          width={RESULT_ROW_ICON_SIZE}
-          height={RESULT_ROW_ICON_SIZE}
-          color={colors.muted}
-        />
+        <ChevronRightIcon width={20} height={20} color={colors.muted} />
       )}
     </Pressable>
   );

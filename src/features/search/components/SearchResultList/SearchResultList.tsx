@@ -66,7 +66,7 @@ const SearchResultListComponent = ({
   return (
     <View style={styles.container}>
       <View style={styles.title}>
-        <Text variant="bodyLargeMedium">{title}</Text>
+        <Text variant="bodyExtraLargeMedium">{title}</Text>
       </View>
       <StateView
         isLoading={isListing && isFetching && !results}

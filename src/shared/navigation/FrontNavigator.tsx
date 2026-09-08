@@ -2,7 +2,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useThemeColors } from "@shared/hooks";
 import { LoginScreen } from "@/features/auth";
 import { CountryDetailScreen } from "@/features/country";
-import { SearchScreen } from "@/features/search";
 import {
   CreateTemplateScreen,
   DayDetailScreen,
@@ -31,10 +30,6 @@ export function FrontNavigator() {
         name="Login"
         component={LoginScreen}
         options={{ presentation: "modal" }}
-      />
-      <Stack.Screen
-        name="Search"
-        component={SearchScreen}
       />
       <Stack.Screen
         name="CountryDetail"
