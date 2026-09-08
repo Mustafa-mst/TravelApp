@@ -1,14 +1,14 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTranslation } from "react-i18next";
 import { AccountScreen } from "@/features/auth";
-import { DashboardScreen } from "@/features/dashboard";
 import { HomeScreen } from "@/features/home";
+import { SearchScreen } from "@/features/search";
 import { TemplatesScreen } from "@/features/trip";
 import {
   CalendarIcon,
-  DashboardIcon,
   HomeIcon,
   ProfileIcon,
+  SearchFilledIcon,
 } from "@shared/assets/icons";
 import { useThemeColors } from "@shared/hooks";
 import { BottomTabBar } from "./BottomTabBar";
@@ -39,12 +39,12 @@ export function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Dashboard"
-        component={DashboardScreen}
+        name="Search"
+        component={SearchScreen}
         options={{
-          title: t("tabs.dashboard"),
+          title: t("tabs.search"),
           tabBarIcon: ({ color, size }) => (
-            <DashboardIcon width={size} height={size} color={color} />
+            <SearchFilledIcon width={size} height={size} color={color} />
           ),
         }}
       />

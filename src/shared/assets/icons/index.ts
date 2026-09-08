@@ -1,5 +1,6 @@
 export { default as HomeIcon } from "./home.svg";
 export { default as SearchIcon } from "./search.svg";
+export { default as SearchFilledIcon } from "./search_filled.svg";
 export { default as ProfileIcon } from "./profile.svg";
 export { default as TrashBin } from "./trash_bin.svg";
 export { default as CloseIcon } from "./close.svg";

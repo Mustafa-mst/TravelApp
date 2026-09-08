@@ -1,8 +1,8 @@
 import { Divider, Text } from "@shared/components";
 import { memo } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+// import { useNavigation } from "@react-navigation/native";
+// import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   Image,
   Pressable,
@@ -10,7 +10,7 @@ import {
   type StyleProp,
   type ViewStyle,
 } from "react-native";
-import type { RootStackParamList } from "@shared/navigation";
+// import type { RootStackParamList } from "@shared/navigation";
 import { useStyles } from "@shared/hooks";
 import { homeHeaderStyles } from "./HomeHeader.styles";
 import { SearchIcon } from "@shared/assets/icons";
@@ -37,8 +37,8 @@ export type HomeHeaderProps = {
 function HomeHeaderComponent({ style }: HomeHeaderProps) {
   const { t } = useTranslation();
   const styles = useStyles(homeHeaderStyles);
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  // const navigation =
+  //   useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <View style={style}>
@@ -61,7 +61,8 @@ function HomeHeaderComponent({ style }: HomeHeaderProps) {
 
         <Pressable
           style={styles.searchBar}
-          onPress={() => navigation.navigate("Search")}
+          // Search moved to the tab bar; kept until this bar gets its own target.
+          // onPress={() => navigation.navigate("Search")}
         >
           <SearchIcon />
           <Divider orientation="vertical" margin={12} />

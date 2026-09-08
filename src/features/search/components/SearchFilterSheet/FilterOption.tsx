@@ -6,8 +6,8 @@ import { useStyles, useThemeColors } from "@shared/hooks";
 import type { OptionItemType } from "@shared/types";
 import {
   REGION_ICON_SIZE,
-  searchFilterCardStyles,
-} from "./SearchFilterCard.styles";
+  searchFilterSheetStyles,
+} from "./SearchFilterSheet.styles";
 import type { SearchFilters } from "../../types";
 
 type FilterOptionProps<T extends string> = {
@@ -26,7 +26,7 @@ function FilterOptionComponent<T extends string>({
   onToggle,
 }: FilterOptionProps<T>) {
   const { t } = useTranslation();
-  const styles = useStyles(searchFilterCardStyles);
+  const styles = useStyles(searchFilterSheetStyles);
   const colors = useThemeColors();
 
   const handleSelectedChange = useCallback(() => {

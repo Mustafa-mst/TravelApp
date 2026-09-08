@@ -1,7 +1,8 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { BottomSheet } from "@shared/components";
 import { MIN_QUERY_LENGTH } from "@shared/hooks";
 import type { RootStackParamList } from "@shared/navigation";
 import { resolveCountryName } from "@shared/utils/country";
@@ -15,9 +16,9 @@ export function useCountrySearch() {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { i18n } = useTranslation();
+  const filterSheetRef = useRef<BottomSheet>(null);
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState<SearchFilters>(NO_FILTERS);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const isSearching = query.trim().length >= MIN_QUERY_LENGTH;
   const isFiltering = hasActiveFilters(filters);
@@ -44,17 +45,13 @@ export function useCountrySearch() {
     );
   }, [countries.data, i18n.language, isSearching]);
 
-  const handleGoBack = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
-
   const handleApplyFilters = useCallback((next: SearchFilters) => {
     setFilters(next);
-    setIsFilterOpen(false);
+    filterSheetRef.current?.dismiss();
   }, []);
 
-  const handleToggleFilters = useCallback(() => {
-    setIsFilterOpen((current) => !current);
+  const handleOpenFilters = useCallback(() => {
+    filterSheetRef.current?.present();
   }, []);
 
   const handleChangeText = useCallback((value: string) => {
@@ -73,7 +70,7 @@ export function useCountrySearch() {
   return {
     query,
     filters,
-    isFilterOpen,
+    filterSheetRef,
     isSearching,
     isFiltering,
     results: isListing ? results : undefined,
@@ -82,8 +79,7 @@ export function useCountrySearch() {
     history,
     onRetry: countries.refetch,
     onChangeText: handleChangeText,
-    onGoBack: handleGoBack,
-    onToggleFilters: handleToggleFilters,
+    onOpenFilters: handleOpenFilters,
     onApplyFilters: handleApplyFilters,
     onSelectCountry: handleSelectCountry,
     onRemoveHistory: removeEntry,

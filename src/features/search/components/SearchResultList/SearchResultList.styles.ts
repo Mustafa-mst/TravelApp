@@ -1,20 +1,10 @@
 import { radius, spacing, themed } from "@shared/styles";
 
-export const RESULT_ROW_ICON_SIZE = 18;
-
-const FLAG_WIDTH = 24;
-const FLAG_HEIGHT = 18;
-const ROW_VERTICAL_PADDING = spacing.md - 4;
-
 export const searchResultListStyles = themed(({ colors }) => ({
   container: {
     flex: 1,
     paddingTop: spacing.md,
     paddingHorizontal: spacing.md,
-    borderWidth: 1,
-    backgroundColor: colors.surface,
-    borderColor: colors.border,
-    borderRadius: radius.xl,
     overflow: "hidden",
   },
   title: {
@@ -27,10 +17,11 @@ export const searchResultListStyles = themed(({ colors }) => ({
     flex: 1,
   },
   contentContainer: {
-    paddingVertical: ROW_VERTICAL_PADDING,
+    paddingTop: spacing.md - 4,
+    paddingBottom: 120,
   },
   itemContainer: {
-    paddingVertical: ROW_VERTICAL_PADDING,
+    paddingVertical: spacing.md - 4,
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
@@ -43,8 +34,8 @@ export const searchResultListStyles = themed(({ colors }) => ({
     flexShrink: 1,
   },
   flag: {
-    width: FLAG_WIDTH,
-    height: FLAG_HEIGHT,
+    width: 28,
+    height: 20,
     borderRadius: radius.sm - 2,
     borderWidth: 1,
     borderColor: colors.border,

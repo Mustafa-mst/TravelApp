@@ -11,12 +11,9 @@ const en = {
   },
   tabs: {
     home: "Home",
-    dashboard: "Dashboard",
+    search: "Search",
     templates: "Itineraries",
     account: "Account",
-  },
-  dashboard: {
-    title: "Dashboard",
   },
   auth: {
     accountTitle: "Account",
