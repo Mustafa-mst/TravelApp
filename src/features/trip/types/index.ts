@@ -10,7 +10,7 @@ export type {
   SelectedCity,
   UpdateTripTemplateItemInput,
 } from "./tripTemplate.types";
-export type { TemplateCard } from "./template.types";
+export type { TemplateCard, TemplateCardStop } from "./template.types";
 export type {
   TemplateDetail,
   TripDetail,

@@ -4,6 +4,9 @@ export type { Spacing } from "./spacing";
 export { colors } from "./colors";
 export type { Color } from "./colors";
 
+export { brand, circleOfTravelGradient } from "./brand";
+export type { BrandColor } from "./brand";
+
 export { typography } from "./typography";
 export type { TypographyVariant } from "./typography";
 

@@ -5,6 +5,7 @@ export {
   getPopularTemplates,
   getRecentTemplates,
 } from "./templateDiscovery.service";
+export { mapTemplateCard } from "./templateCard.mapper";
 export {
   createTemplateItem,
   initializeTemplateDays,

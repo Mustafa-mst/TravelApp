@@ -2,15 +2,17 @@ import { memo } from "react";
 import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 
-import { Divider, PressableScale, RemoteImage, Text } from "@shared/components";
-import { CalendarMonthIcon, MapIcon } from "@shared/assets/icons";
+import { Divider, PressableScale, Text } from "@shared/components";
+import { ArrowRightIcon, CalendarMonthIcon, MapIcon } from "@shared/assets/icons";
 import { useStyles } from "@shared/hooks";
 import { PLACE_TYPE_META } from "@/features/places/constants";
 import type { TemplateCard as TemplateCardType } from "../../types";
 import { MetaInfo } from "../MetaInfo";
 import { templateCardStyles } from "./TemplateCard.styles";
+import { brand } from "@/shared/styles";
 
 const MAX_VISIBLE_CHIPS = 2;
+const ACTION_ICON_SIZE = 20;
 
 export type TemplateCardProps = {
   title: string;
@@ -18,6 +20,8 @@ export type TemplateCardProps = {
   daysCount: number;
   placeTypes?: TemplateCardType["place_types"];
   coverPhoto?: string | null;
+  /** The card the map is following. */
+  isActive?: boolean;
   onPress?: () => void;
 };
 
@@ -27,6 +31,7 @@ function TemplateCardComponent({
   daysCount,
   placeTypes,
   coverPhoto,
+  isActive = false,
   onPress,
 }: TemplateCardProps) {
   const { t } = useTranslation();
@@ -40,9 +45,12 @@ function TemplateCardComponent({
   const visibleChips = typeChips.slice(0, MAX_VISIBLE_CHIPS);
 
   return (
-    <PressableScale style={styles.card} onPress={onPress}>
+    <PressableScale
+      style={[styles.card, isActive && styles.cardActive]}
+      onPress={onPress}
+    >
       <View style={styles.info}>
-        <Text variant="bodyLargeSemiBold" numberOfLines={2}>
+        <Text variant="h5" color={brand.text.main} numberOfLines={2}>
           {title}
         </Text>
         <View style={styles.metaRow}>
@@ -70,10 +78,13 @@ function TemplateCardComponent({
         )}
       </View>
 
-      <RemoteImage
-        source={{ uri: coverPhoto ?? undefined }}
-        style={styles.image}
-      />
+      <View style={styles.action}>
+        <ArrowRightIcon
+          width={ACTION_ICON_SIZE}
+          height={ACTION_ICON_SIZE}
+          color={brand.text.inverse}
+        />
+      </View>
     </PressableScale>
   );
 }

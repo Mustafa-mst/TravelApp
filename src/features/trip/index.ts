@@ -16,4 +16,5 @@ export type {
   City,
   TripTemplate,
   TemplateCard as TemplateCardType,
+  TemplateCardStop,
 } from "./types";

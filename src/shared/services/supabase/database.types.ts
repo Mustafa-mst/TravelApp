@@ -12,31 +12,6 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "12.2.12 (cd3cf9e)"
   }
-  graphql_public: {
-    Tables: {
-      [_ in never]: never
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      graphql: {
-        Args: {
-          extensions?: Json
-          operationName?: string
-          query?: string
-          variables?: Json
-        }
-        Returns: Json
-      }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
   public: {
     Tables: {
       categories: {
@@ -268,6 +243,54 @@ export type Database = {
           },
         ]
       }
+      country_attractions: {
+        Row: {
+          address: string | null
+          country_code: string
+          fetched_at: string
+          language_code: string
+          latitude: number | null
+          longitude: number | null
+          name: string
+          photo_name: string | null
+          place_id: string
+          primary_type: string | null
+          rank: number
+          rating: number | null
+          user_rating_count: number | null
+        }
+        Insert: {
+          address?: string | null
+          country_code: string
+          fetched_at?: string
+          language_code: string
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+          photo_name?: string | null
+          place_id: string
+          primary_type?: string | null
+          rank: number
+          rating?: number | null
+          user_rating_count?: number | null
+        }
+        Update: {
+          address?: string | null
+          country_code?: string
+          fetched_at?: string
+          language_code?: string
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
+          photo_name?: string | null
+          place_id?: string
+          primary_type?: string | null
+          rank?: number
+          rating?: number | null
+          user_rating_count?: number | null
+        }
+        Relationships: []
+      }
       country_descriptions: {
         Row: {
           country_code: string
@@ -398,59 +421,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      snippets: {
-        Row: {
-          created_at: string
-          id: number
-          image_url: string
-          snippets_description_id: number | null
-          subtitle: string
-          tag: string[]
-          title: string
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          image_url: string
-          snippets_description_id?: number | null
-          subtitle: string
-          tag: string[]
-          title: string
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          image_url?: string
-          snippets_description_id?: number | null
-          subtitle?: string
-          tag?: string[]
-          title?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "snippets_snippets_description_id_fkey"
-            columns: ["snippets_description_id"]
-            isOneToOne: false
-            referencedRelation: "snippets_description"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      snippets_description: {
-        Row: {
-          description: string | null
-          id: number
-        }
-        Insert: {
-          description?: string | null
-          id?: number
-        }
-        Update: {
-          description?: string | null
-          id?: number
-        }
-        Relationships: []
       }
       trip_days: {
         Row: {
@@ -768,6 +738,7 @@ export type Database = {
           places_count: number | null
           saves_count: number | null
           source: string | null
+          stops: Json | null
           title: string | null
           visibility: string | null
         }
@@ -888,12 +859,12 @@ export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -917,11 +888,11 @@ export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -942,11 +913,11 @@ export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -967,11 +938,11 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -984,11 +955,11 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never) = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -998,9 +969,6 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {
       place_category: [

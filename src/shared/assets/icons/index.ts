@@ -11,6 +11,7 @@ export { default as FavoriteIcon } from "./favorite.svg";
 export { default as ArrowUpMiniIcon } from "./arrow_up_mini.svg";
 export { default as ArrowDownMiniIcon } from "./arrow_down_mini.svg";
 export { default as ChevronRightIcon } from "./chevron_right.svg";
+export { default as ArrowRightIcon } from "./arrow_right.svg";
 export { default as ShareIcon } from "./share.svg";
 export { default as PenIcon } from "./pen.svg";
 export { default as PlusIcon } from "./plus.svg";

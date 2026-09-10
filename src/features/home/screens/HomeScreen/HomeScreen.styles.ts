@@ -1,4 +1,6 @@
-import { spacing, themed } from "@shared/styles";
+import { radius, spacing, themed } from "@shared/styles";
+
+const MAP_ASPECT = 430 / 186;
 
 // Clears the floating tab bar pill so the last card stays scrollable into view.
 const TAB_BAR_CLEARANCE = 120;
@@ -10,7 +12,7 @@ const HERO_SUBTITLE_OPACITY = 0.9;
 export const homeScreenStyles = themed(({ colors }) => ({
   safe: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.surface,
   },
   scrollArea: {
     flex: 1,
@@ -21,7 +23,11 @@ export const homeScreenStyles = themed(({ colors }) => ({
     gap: spacing.lg,
   },
   sectionPadding: {
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.lg,
+  },
+  map: {
+    aspectRatio: MAP_ASPECT,
+    overflow: "hidden",
   },
   header: {
     flex: 1,

@@ -8,9 +8,12 @@ import { useThemeColors } from '@shared/hooks';
 import { type ColorToken, type TypographyVariant } from '@shared/styles';
 import { styles } from './Text.styles';
 
+/** A theme token, or any raw colour string — brand hexes until the tokens catch up. */
+type TextColor = ColorToken | (string & {});
+
 type TextComponentProps = {
   variant?: TypographyVariant;
-  color?: ColorToken;
+  color?: TextColor;
   textAlign?: TextStyle['textAlign'];
 } & TextProps;
 
@@ -22,10 +25,11 @@ function TextComponent({
   ...rest
 }: TextComponentProps) {
   const colors = useThemeColors();
+  const resolvedColor = color in colors ? colors[color as ColorToken] : color;
 
   return (
     <RNText
-      style={[styles[variant], { color: colors[color], textAlign }, style]}
+      style={[styles[variant], { color: resolvedColor, textAlign }, style]}
       {...rest}
     />
   );

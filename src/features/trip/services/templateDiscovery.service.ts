@@ -1,5 +1,6 @@
 import { supabase } from "@shared/services";
 import type { TemplateCard } from "../types";
+import { mapTemplateCard } from "./templateCard.mapper";
 
 /**
  * Template browse lists. All read `v_template_cards`, the view with counts,
@@ -21,7 +22,7 @@ async function fetchCards(query: TemplateCardsQuery): Promise<TemplateCard[]> {
     throw error;
   }
 
-  return data ?? [];
+  return (data ?? []).map(mapTemplateCard);
 }
 
 export function getFeaturedTemplates(): Promise<TemplateCard[]> {
