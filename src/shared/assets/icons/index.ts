@@ -63,3 +63,6 @@ export { default as BanknoteIcon } from "./banknote.svg";
 export { default as DollarSignIcon } from "./dollar_sign.svg";
 export { default as PhoneIcon } from "./phone.svg";
 export { default as CarIcon } from "./car.svg";
+export { default as CafeIcon } from "./cafe.svg";
+export { default as MuseumIcon } from "./museum.svg";
+export { default as ParkIcon } from "./park.svg";

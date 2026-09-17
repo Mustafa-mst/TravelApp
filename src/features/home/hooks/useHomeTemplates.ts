@@ -12,28 +12,22 @@ import { buildMarkers } from "@shared/utils/map";
 import {
   TripDetailMode,
   useFeaturedTemplatesQuery,
-  useMyTemplatesQuery,
   type TemplateCardType,
 } from "@/features/trip";
+import { templateCardWidth } from "../constants";
 import { stopBadge } from "../utils";
-import { TemplateTab } from "../constants";
 
-/** One card fills the row, so the page index is the scrolled card. */
-function pageIndex(offsetX: number, pageWidth: number) {
-  return pageWidth > 0 ? Math.round(offsetX / pageWidth) : 0;
+/** The row snaps by one card, so the index is the scrolled card. */
+function pageIndex(offsetX: number, step: number) {
+  return step > 0 ? Math.round(offsetX / step) : 0;
 }
 
-export function useHomeTemplates(pageWidth: number) {
+export function useHomeTemplates(rowWidth: number) {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [activeTab, setActiveTab] = useState(TemplateTab.Explorer);
 
-  const myTemplates = useMyTemplatesQuery();
-  const featured = useFeaturedTemplatesQuery();
-
-  const { data, isLoading, isError, refetch } =
-    activeTab === TemplateTab.MyTemplates ? myTemplates : featured;
+  const { data, isLoading, isError, refetch } = useFeaturedTemplatesQuery();
   const templates = data ?? [];
 
   const active = templates[activeIndex];
@@ -50,17 +44,14 @@ export function useHomeTemplates(pageWidth: number) {
   const onCardsScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
       setActiveIndex(
-        pageIndex(event.nativeEvent.contentOffset.x, pageWidth),
+        pageIndex(
+          event.nativeEvent.contentOffset.x,
+          templateCardWidth(rowWidth),
+        ),
       );
     },
-    [pageWidth],
+    [rowWidth],
   );
-
-  /** The new list starts at its own first card, so the map follows it too. */
-  const onTabChange = useCallback((tab: TemplateTab) => {
-    setActiveTab(tab);
-    setActiveIndex(0);
-  }, []);
 
   const openTemplate = useCallback(
     (template: TemplateCardType) => {
@@ -83,8 +74,6 @@ export function useHomeTemplates(pageWidth: number) {
   return {
     templates,
     activeIndex,
-    activeTab,
-    onTabChange,
     isLoading,
     isError,
     refetch,

@@ -16,8 +16,6 @@ export function HomeScreen() {
   const {
     templates,
     activeIndex,
-    activeTab,
-    onTabChange,
     isLoading,
     isError,
     refetch,
@@ -47,8 +45,6 @@ export function HomeScreen() {
           isError={isError}
           cardWidth={width}
           activeIndex={activeIndex}
-          activeTab={activeTab}
-          onTabChange={onTabChange}
           onRetry={refetch}
           onScroll={onCardsScroll}
           onSelect={openTemplate}

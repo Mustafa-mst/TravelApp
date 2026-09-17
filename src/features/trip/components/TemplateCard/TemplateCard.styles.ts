@@ -1,25 +1,21 @@
-import { StyleSheet } from "react-native";
 
 import { brand, radius, spacing, themed } from "@shared/styles";
 
-const IMAGE_WIDTH = 135;
-const IMAGE_HEIGHT = 110;
+const IMAGE_ASPECT_RATIO = 16 / 6;
 
 export const templateCardStyles = themed((theme) => ({
   card: {
-    flexDirection: "row",
-    alignItems: "center",
     gap: spacing.md,
     padding: spacing.md,
-    borderRadius: radius.lg,
+    borderRadius: radius["3xl"],
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: brand.border.default,
     backgroundColor: theme.colors.surface,
-    ...theme.shadows.level2,
-    ...theme.elevatedBorder,
   },
   // Composed after `elevatedBorder`, which already sets both properties.
   cardActive: {
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: brand.nightPurple,
+    borderColor: brand.crayolaYellow,
   },
   info: {
     flex: 1,
@@ -29,27 +25,32 @@ export const templateCardStyles = themed((theme) => ({
     flexDirection: "row",
     alignItems: "center",
   },
+  chipsRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: spacing.sm,
+  },
   chips: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: spacing.xs,
   },
   chip: {
-    backgroundColor: theme.colors.background,
-    borderRadius: radius.full,
-    paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.sm,
+    backgroundColor: brand.background.light,
+    borderRadius: radius.lg - 4,
+    padding: spacing.xs,
   },
   image: {
-    width: IMAGE_WIDTH,
-    aspectRatio: IMAGE_WIDTH / IMAGE_HEIGHT,
-    borderRadius: radius.md,
+    marginTop: -spacing.md,
+    marginHorizontal: -spacing.md,
+    aspectRatio: IMAGE_ASPECT_RATIO,
+    borderTopLeftRadius: radius.lg,
+    borderTopRightRadius: radius.lg,
   },
   action: {
-    alignSelf: "stretch",
-    justifyContent: "center",
     padding: spacing.sm,
     borderRadius: radius.lg,
-    backgroundColor: brand.nightPurple,
+    backgroundColor: brand.crayolaYellow,
   },
 }));

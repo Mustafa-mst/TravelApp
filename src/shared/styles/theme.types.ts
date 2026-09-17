@@ -82,7 +82,6 @@ export type ThemeColors = {
   folderBack: string;
   folderFront: string;
   tabBarBackground: string;
-  tabBarItemActive: string;
   tabBarIconActive: string;
   tabBarIconInactive: string;
   // The segmented-control underline keeps its own green ramp — it predates the

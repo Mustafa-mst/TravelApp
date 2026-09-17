@@ -52,13 +52,9 @@ const en = {
       featured: "Featured Itineraries",
       popular: "Popular Itineraries",
       recent: "Recently Added",
+      routes: "Routes",
       empty: "No itineraries yet",
       error: "Couldn't load itineraries",
-      tabs: {
-        myTemplates: "My Templates",
-        explorer: "Explorer",
-      },
-      myTemplatesEmpty: "You haven't created any templates yet",
     },
     hero: {
       title: "Discover your next luxury escape",

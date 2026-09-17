@@ -76,8 +76,9 @@ export const darkColors: ThemeColors = {
   folderBack: "rgba(255, 255, 255, 0.08)",
   folderFront: "#1C1C1F",
   tabBarBackground: "#18181B",
-  tabBarItemActive: "#27272A",
-  tabBarIconActive: "#FCFCFC",
+  // brand.nightPurple is nearly the dark tab bar's own background, so the
+  // active state uses a lightened tint of it instead.
+  tabBarIconActive: "#B6A9DC",
   tabBarIconInactive: "#9F9FA9",
   segmentUnderlineStart: "#1B3B24",
   segmentUnderlineMid: "#3CA856",

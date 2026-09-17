@@ -8,16 +8,11 @@ import {
 } from "react-native";
 import { useTranslation } from "react-i18next";
 
-import { StateView, Tabs } from "@shared/components";
+import { StateView, Text } from "@shared/components";
+import { brand } from "@shared/styles";
 import type { TemplateCardType } from "@/features/trip";
-import { TemplateTab } from "../../constants";
 import { TemplateSection } from "../TemplateSection";
 import { styles } from "./ExploreTemplates.styles";
-
-const EMPTY_LABEL_KEY = {
-  [TemplateTab.MyTemplates]: "home.explore.myTemplatesEmpty",
-  [TemplateTab.Explorer]: "home.explore.empty",
-} as const satisfies Record<TemplateTab, string>;
 
 export type ExploreTemplatesProps = {
   templates: TemplateCardType[];
@@ -26,12 +21,10 @@ export type ExploreTemplatesProps = {
   cardWidth: number;
   /** Index of the card the map is following. */
   activeIndex: number;
-  activeTab: TemplateTab;
-  onTabChange: (tab: TemplateTab) => void;
   onRetry: () => void;
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onSelect?: (template: TemplateCardType) => void;
-  /** Horizontal inset for the tabs only — the card row pages edge to edge. */
+  /** Horizontal inset for the title only — the card row pages edge to edge. */
   headingStyle?: StyleProp<ViewStyle>;
 };
 
@@ -41,8 +34,6 @@ function ExploreTemplatesComponent({
   isError,
   cardWidth,
   activeIndex,
-  activeTab,
-  onTabChange,
   onRetry,
   onScroll,
   onSelect,
@@ -50,20 +41,12 @@ function ExploreTemplatesComponent({
 }: ExploreTemplatesProps) {
   const { t } = useTranslation();
 
-  const tabs = [
-    { key: TemplateTab.Explorer, label: t("home.explore.tabs.explorer") },
-    { key: TemplateTab.MyTemplates, label: t("home.explore.tabs.myTemplates") },
-  ];
-
   return (
     <View style={styles.container}>
       <View style={headingStyle}>
-        <Tabs
-          options={tabs}
-          value={activeTab}
-          onChange={onTabChange}
-          variant="primary"
-        />
+        <Text variant="h4" color={brand.text.main}>
+          {t("home.explore.routes")}
+        </Text>
       </View>
 
       <StateView
@@ -71,7 +54,7 @@ function ExploreTemplatesComponent({
         isError={isError}
         isEmpty={templates.length === 0}
         error={{ label: t("home.explore.error"), onRetry }}
-        empty={{ label: t(EMPTY_LABEL_KEY[activeTab]) }}
+        empty={{ label: t("home.explore.empty") }}
         style={styles.center}
       >
         <TemplateSection

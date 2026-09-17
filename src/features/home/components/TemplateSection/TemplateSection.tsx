@@ -7,11 +7,12 @@ import {
 } from "react-native";
 
 import { TemplateCard, type TemplateCardType } from "@/features/trip";
+import { templateCardWidth } from "../../constants";
 import { styles } from "./TemplateSection.styles";
 
 export type TemplateSectionProps = {
   templates: TemplateCardType[];
-  /** One card per page, so the row snaps and the map follows the active one. */
+  /** Full row width; the card is this minus the peek of the next one. */
   cardWidth: number;
   /** Index of the card the map is following. */
   activeIndex: number;
@@ -28,7 +29,7 @@ function TemplateSectionComponent({
 }: TemplateSectionProps) {
   const renderItem = useCallback(
     ({ item: template, index }: { item: TemplateCardType; index: number }) => (
-      <View style={[styles.page, { width: cardWidth }]}>
+      <View style={[styles.page, { width: templateCardWidth(cardWidth) }]}>
         <TemplateCard
           title={template.title ?? ""}
           placesCount={template.places_count ?? 0}
@@ -51,9 +52,10 @@ function TemplateSectionComponent({
   return (
     <FlatList
       horizontal
-      pagingEnabled
       data={templates}
-      snapToInterval={cardWidth}
+      snapToInterval={templateCardWidth(cardWidth)}
+      snapToAlignment="start"
+      contentContainerStyle={styles.content}
       decelerationRate="fast"
       showsHorizontalScrollIndicator={false}
       keyExtractor={keyExtractor}

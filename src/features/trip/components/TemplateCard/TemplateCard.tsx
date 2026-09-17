@@ -2,16 +2,21 @@ import { memo } from "react";
 import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 
-import { Divider, PressableScale, Text } from "@shared/components";
-import { ArrowRightIcon, CalendarMonthIcon, MapIcon } from "@shared/assets/icons";
+import {
+  Divider,
+  PressableScale,
+  RemoteImage,
+  Text,
+} from "@shared/components";
+import { ArrowRightIcon } from "@shared/assets/icons";
 import { useStyles } from "@shared/hooks";
 import { PLACE_TYPE_META } from "@/features/places/constants";
 import type { TemplateCard as TemplateCardType } from "../../types";
-import { MetaInfo } from "../MetaInfo";
 import { templateCardStyles } from "./TemplateCard.styles";
 import { brand } from "@/shared/styles";
 
 const MAX_VISIBLE_CHIPS = 2;
+const CHIP_ICON_SIZE = 18;
 const ACTION_ICON_SIZE = 20;
 
 export type TemplateCardProps = {
@@ -49,41 +54,45 @@ function TemplateCardComponent({
       style={[styles.card, isActive && styles.cardActive]}
       onPress={onPress}
     >
+      {Boolean(coverPhoto) && (
+        <RemoteImage source={{ uri: coverPhoto! }} style={styles.image} />
+      )}
+
       <View style={styles.info}>
         <Text variant="h5" color={brand.text.main} numberOfLines={2}>
           {title}
         </Text>
         <View style={styles.metaRow}>
-          <MetaInfo
-            Icon={MapIcon}
-            label={t("template.place.placesCount", { count: placesCount })}
-          />
+          <Text variant="body" color={brand.text.lighter}>
+            {t("template.place.placesCount", { count: placesCount })}
+          </Text>
           <Divider orientation="vertical" margin={12} />
-          <MetaInfo
-            Icon={CalendarMonthIcon}
-            label={t("template.overview.dayCount", { count: daysCount })}
-          />
+          <Text variant="body" color={brand.text.lighter}>
+            {t("template.overview.dayCount", { count: daysCount })}
+          </Text>
         </View>
 
-        {typeChips.length > 0 && (
+        <View style={styles.chipsRow}>
           <View style={styles.chips}>
-            {visibleChips.map((chip) => (
-              <View key={chip.type} style={styles.chip}>
-                <Text variant="captionMedium" color="muted">
-                  {`${chip.icon} ${chip.label}`}
-                </Text>
+            {visibleChips.map(({ type, Icon }) => (
+              <View key={type} style={styles.chip}>
+                <Icon
+                  width={CHIP_ICON_SIZE}
+                  height={CHIP_ICON_SIZE}
+                  color={brand.text.main}
+                />
               </View>
             ))}
           </View>
-        )}
-      </View>
 
-      <View style={styles.action}>
-        <ArrowRightIcon
-          width={ACTION_ICON_SIZE}
-          height={ACTION_ICON_SIZE}
-          color={brand.text.inverse}
-        />
+          <View style={styles.action}>
+            <ArrowRightIcon
+              width={ACTION_ICON_SIZE}
+              height={ACTION_ICON_SIZE}
+              color={brand.nightPurple}
+            />
+          </View>
+        </View>
       </View>
     </PressableScale>
   );

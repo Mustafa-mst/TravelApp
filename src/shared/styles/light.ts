@@ -76,12 +76,10 @@ export const lightColors: ThemeColors = {
   backdropStrong: "rgba(0, 0, 0, 0.8)",
   folderBack: "rgba(255, 255, 255, 0.8)",
   folderFront: "#FBFBFB",
-  // The tab bar is a deliberately dark pill in light mode — an inversion,
-  // not a surface, so it does not follow the surface ramp.
-  tabBarBackground: "#18181B",
-  tabBarItemActive: "rgba(255, 255, 255, 0.08)",
-  tabBarIconActive: "#FCFCFC",
-  tabBarIconInactive: "rgba(252, 252, 252, 0.6)",
+  tabBarBackground: "#FFFFFF",
+  // brand.nightPurple
+  tabBarIconActive: "#1A1528",
+  tabBarIconInactive: "#71717A",
   segmentUnderlineStart: "#ECF8EF",
   segmentUnderlineMid: "#3CA856",
   segmentUnderlineEnd: "#276D38",

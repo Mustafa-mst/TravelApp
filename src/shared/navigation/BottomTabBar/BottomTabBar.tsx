@@ -1,12 +1,11 @@
-import { useMemo } from "react";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { View } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useStyles, useThemeColors } from "@shared/hooks";
-import { withOpacity } from "@shared/utils/color";
 import { bottomTabBarStyles } from "./BottomTabBar.styles";
 import { TabBarItem } from "./TabBarItem";
+
+const TAB_ICON_SIZE = 24;
 
 export function BottomTabBar({
   state,
@@ -17,66 +16,52 @@ export function BottomTabBar({
   const colors = useThemeColors();
   const styles = useStyles(bottomTabBarStyles);
 
-  const fadeColors = useMemo(
-    () => [colors.background, withOpacity(colors.background, 0)] as const,
-    [colors.background],
-  );
-
   return (
-    <View style={[styles.wrapper, { paddingBottom: insets.bottom }]}>
-      <LinearGradient
-        pointerEvents="none"
-        colors={fadeColors}
-        locations={[0.27, 1]}
-        start={{ x: 0, y: 1 }}
-        end={{ x: 0, y: 0 }}
-        style={styles.fade}
-      />
-      <View style={styles.container}>
-        {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key];
-          const isFocused = state.index === index;
-          const label =
-            typeof options.title === "string" ? options.title : route.name;
-          const color = isFocused
-            ? colors.tabBarIconActive
-            : colors.tabBarIconInactive;
+    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
+      {state.routes.map((route, index) => {
+        const { options } = descriptors[route.key];
+        const isFocused = state.index === index;
+        const label =
+          typeof options.title === "string" ? options.title : route.name;
+        const color = isFocused
+          ? colors.tabBarIconActive
+          : colors.tabBarIconInactive;
 
-          const onPress = () => {
-            const event = navigation.emit({
-              type: "tabPress",
-              target: route.key,
-              canPreventDefault: true,
-            });
+        const onPress = () => {
+          const event = navigation.emit({
+            type: "tabPress",
+            target: route.key,
+            canPreventDefault: true,
+          });
 
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name, route.params);
-            }
-          };
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate(route.name, route.params);
+          }
+        };
 
-          const onLongPress = () => {
-            navigation.emit({
-              type: "tabLongPress",
-              target: route.key,
-            });
-          };
+        const onLongPress = () => {
+          navigation.emit({
+            type: "tabLongPress",
+            target: route.key,
+          });
+        };
 
-          return (
-            <TabBarItem
-              key={route.key}
-              label={label}
-              isFocused={isFocused}
-              onPress={onPress}
-              onLongPress={onLongPress}
-              icon={options.tabBarIcon?.({
-                focused: isFocused,
-                color,
-                size: 20,
-              })}
-            />
-          );
-        })}
-      </View>
+        return (
+          <TabBarItem
+            key={route.key}
+            label={label}
+            color={color}
+            isFocused={isFocused}
+            onPress={onPress}
+            onLongPress={onLongPress}
+            icon={options.tabBarIcon?.({
+              focused: isFocused,
+              color,
+              size: TAB_ICON_SIZE,
+            })}
+          />
+        );
+      })}
     </View>
   );
 }

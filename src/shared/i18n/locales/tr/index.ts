@@ -52,13 +52,9 @@ const tr = {
       featured: "Öne Çıkan Rotalar",
       popular: "Popüler Rotalar",
       recent: "Yeni Eklenenler",
+      routes: "Rotalar",
       empty: "Henüz rota yok",
       error: "Rotalar yüklenemedi",
-      tabs: {
-        myTemplates: "Şablonlarım",
-        explorer: "Keşfet",
-      },
-      myTemplatesEmpty: "Henüz şablon oluşturmadın",
     },
     hero: {
       title: "Bir sonraki lüks kaçamağını keşfet",

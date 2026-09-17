@@ -1,11 +1,13 @@
 import type { ReactNode } from "react";
-import { PressableScale } from "@shared/components";
+import { Pressable } from "react-native";
+import { Text } from "@shared/components";
 import { useStyles } from "@shared/hooks";
 import { bottomTabBarStyles } from "./BottomTabBar.styles";
 
 type TabBarItemProps = {
   label: string;
   icon: ReactNode;
+  color: string;
   isFocused: boolean;
   onPress: () => void;
   onLongPress: () => void;
@@ -14,6 +16,7 @@ type TabBarItemProps = {
 export function TabBarItem({
   label,
   icon,
+  color,
   isFocused,
   onPress,
   onLongPress,
@@ -21,17 +24,18 @@ export function TabBarItem({
   const styles = useStyles(bottomTabBarStyles);
 
   return (
-    <PressableScale
-      scaleTo={0.98}
-      activeOpacity={1}
+    <Pressable
       onPress={onPress}
       onLongPress={onLongPress}
       accessibilityRole="tab"
       accessibilityLabel={label}
       accessibilityState={{ selected: isFocused }}
-      style={[styles.item, isFocused && styles.itemActive]}
+      style={({ pressed }) => [styles.item, pressed && styles.pressed]}
     >
       {icon}
-    </PressableScale>
+      <Text variant={isFocused ? "captionMedium" : "caption"} color={color}>
+        {label}
+      </Text>
+    </Pressable>
   );
 }

@@ -49,7 +49,6 @@ export const colors = {
   folderFront: lightColors.folderFront,
 
   tabBarBackground: lightColors.tabBarBackground,
-  tabBarItemActive: lightColors.tabBarItemActive,
   tabBarIconActive: lightColors.tabBarIconActive,
   tabBarIconInactive: lightColors.tabBarIconInactive,
 } as const;

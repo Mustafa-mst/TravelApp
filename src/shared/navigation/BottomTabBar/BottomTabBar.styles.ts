@@ -1,43 +1,22 @@
-import { radius, spacing, themed } from "@shared/styles";
+import { spacing, themed } from "@shared/styles";
 
-export const bottomTabBarStyles = themed(({ colors, shadows }) => ({
-  wrapper: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    alignItems: "center",
-  },
-  fade: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    top: -spacing.xxl,
-  },
+export const bottomTabBarStyles = themed(({ colors }) => ({
   container: {
     flexDirection: "row",
-    alignItems: "center",
-    padding: 6,
-    borderRadius: radius.full,
+    alignItems: "stretch",
     backgroundColor: colors.tabBarBackground,
-    marginBottom: spacing.sm,
-    ...shadows.level3,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
   },
   item: {
-    width: 50,
-    height: 50,
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    gap: 2,
-    paddingHorizontal: spacing.md - 4,
-    paddingVertical: spacing.xs,
-    borderRadius: radius.full,
-  },
-  itemActive: {
-    backgroundColor: colors.tabBarItemActive,
+    gap: spacing.xs / 2,
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.xs,
   },
   pressed: {
-    transform: [{ scale: 0.98 }],
+    opacity: 0.6,
   },
 }));

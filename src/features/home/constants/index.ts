@@ -1,1 +1,1 @@
-export { TemplateTab } from "./home.constants";
+export { TEMPLATE_CARD_PEEK, templateCardWidth } from "./home.constants";
